@@ -1,0 +1,36 @@
+0000000000000000000000000000000000000000 35d92a2054d7b5a1e9de0192d29cbdefb3a11f75 corusdev <corusdev@SPH-PDC-VM-3020.mapfreinsular.com> 1600134388 +0800	clone: from gitlab.com:morphsys/digitalinno.git
+35d92a2054d7b5a1e9de0192d29cbdefb3a11f75 78f5ee3399a8a15fb310147c88f61ef4b1e81892 corusdev <corusdev@SPH-PDC-VM-3020.mapfreinsular.com> 1600134449 +0800	checkout: moving from master to marsh
+78f5ee3399a8a15fb310147c88f61ef4b1e81892 416e89cd5633a581d2bf1a812479719e97065057 corusdev <corusdev@SPH-PDC-VM-3020.mapfreinsular.com> 1600667563 +0800	pull: Fast-forward
+416e89cd5633a581d2bf1a812479719e97065057 0099bffe442cd72dbd8cd8adbec574d0d7de8148 corusdev <corusdev@SPH-PDC-VM-3020.mapfreinsular.com> 1600837237 +0800	commit: push latest from remote
+0099bffe442cd72dbd8cd8adbec574d0d7de8148 4b09f928ea39d1b6774d8de67a5c2f697afaa8a5 corusdev <corusdev@SPH-PDC-VM-3020.mapfreinsular.com> 1601365054 +0800	commit: added latest changes in motor issuance, can issu quote and policy
+4b09f928ea39d1b6774d8de67a5c2f697afaa8a5 4b09f928ea39d1b6774d8de67a5c2f697afaa8a5 git stash <git@stash> 1601879564 +0800	reset: moving to HEAD
+4b09f928ea39d1b6774d8de67a5c2f697afaa8a5 422338da6e0625fe7a9bac026de8c7ee1de059bf corusdev <corusdev@SPH-PDC-VM-3020.mapfreinsular.com> 1601879571 +0800	pull: Fast-forward
+422338da6e0625fe7a9bac026de8c7ee1de059bf 2f573f0c3017246a83a4239aa54d995ed1e171de corusdev <corusdev@SPH-PDC-VM-3020.mapfreinsular.com> 1601879653 +0800	commit: async with remote
+2f573f0c3017246a83a4239aa54d995ed1e171de 01e1460e003eb2f0eefc2912ccf343b5654a380e corusdev <corusdev@SPH-PDC-VM-3020.mapfreinsular.com> 1602203726 +0800	commit: added latest changes in motor issuance
+01e1460e003eb2f0eefc2912ccf343b5654a380e 7aa92b739d8a893c1b1278e2f4539a0d6e4783dc corusdev <corusdev@SPH-PDC-VM-3020.mapfreinsular.com> 1602726483 +0800	commit: latest changes
+7aa92b739d8a893c1b1278e2f4539a0d6e4783dc 9fd5d8e09864923765f21a0503d9162cc6a540f5 corusdev <corusdev@SPH-PDC-VM-3020.mapfreinsular.com> 1603270860 +0800	commit: added latest changes for marsh
+9fd5d8e09864923765f21a0503d9162cc6a540f5 af8ee96c5d95297f2835199b178e76b7c7051ee4 corusdev <corusdev@SPH-PDC-VM-3020.mapfreinsular.com> 1603354905 +0800	commit: added latest changes on marsh
+af8ee96c5d95297f2835199b178e76b7c7051ee4 b0143b01887c756b5bdc155051664fd3a5662f3a corusdev <corusdev@SPH-PDC-VM-3020.mapfreinsular.com> 1603359137 +0800	commit: added fopm link landing page
+b0143b01887c756b5bdc155051664fd3a5662f3a 1ec41e63e0b82e2c7428ee2651866b3dad49d841 corusdev <corusdev@SPH-PDC-VM-3020.mapfreinsular.com> 1603415929 +0800	commit: added latest changes in FO
+1ec41e63e0b82e2c7428ee2651866b3dad49d841 1ed6f635cb29df3e42a3cff83ff98e9f58ef6d9c corusdev <corusdev@SPH-PDC-VM-3020.mapfreinsular.com> 1603688813 +0800	commit: added latest changes in marsh FO
+1ed6f635cb29df3e42a3cff83ff98e9f58ef6d9c 03d49558aaf9ef7b4d7127bdd4b6bcf3cfaaa7e8 corusdev <corusdev@SPH-PDC-VM-3020.mapfreinsular.com> 1603961969 +0800	commit: added latest changes
+03d49558aaf9ef7b4d7127bdd4b6bcf3cfaaa7e8 de0a556eddd90e9ea5b1343421fea6287f140516 corusdev <corusdev@SPH-PDC-VM-3020.mapfreinsular.com> 1604368434 +0800	commit: latest changes in fo
+de0a556eddd90e9ea5b1343421fea6287f140516 e3dab608e41d2c373ddea78d45022e90417e5da2 corusdev <corusdev@SPH-PDC-VM-3020.mapfreinsular.com> 1604677834 +0800	commit: added pa issuance
+e3dab608e41d2c373ddea78d45022e90417e5da2 c44bc355c4991ec2d43b71c9059302aec668e60b corusdev <corusdev@SPH-PDC-VM-3020.mapfreinsular.com> 1604891215 +0800	commit: added latest changes for motor
+c44bc355c4991ec2d43b71c9059302aec668e60b b783f1c21362ed1ea40f628293633f8f54a9daeb corusdev <corusdev@SPH-PDC-VM-3020.mapfreinsular.com> 1604892817 +0800	commit: added latest latest changes in motor
+b783f1c21362ed1ea40f628293633f8f54a9daeb b783f1c21362ed1ea40f628293633f8f54a9daeb git stash <git@stash> 1604972876 +0800	reset: moving to HEAD
+b783f1c21362ed1ea40f628293633f8f54a9daeb df212d47d7d7d03057631531dd932276991023d8 corusdev <corusdev@SPH-PDC-VM-3020.mapfreinsular.com> 1604972882 +0800	pull: Fast-forward
+df212d47d7d7d03057631531dd932276991023d8 b54f9bb51a68c7ddd6ca70d012cf269987182018 corusdev <corusdev@SPH-PDC-VM-3020.mapfreinsular.com> 1604973440 +0800	commit: added latest changes on PA, fix errors
+b54f9bb51a68c7ddd6ca70d012cf269987182018 f79141511f37d7446e0bd08ab6afb2a44bc7013a corusdev <corusdev@SPH-PDC-VM-3020.mapfreinsular.com> 1605342237 +0800	commit: added latest changes in FO
+f79141511f37d7446e0bd08ab6afb2a44bc7013a 52cd5341845a11e0235af550fc55ce2cb802fc8a corusdev <corusdev@SPH-PDC-VM-3020.mapfreinsular.com> 1605932537 +0800	commit: added latest changes in PA
+52cd5341845a11e0235af550fc55ce2cb802fc8a 0d5ba76af7f3bd575c552586e8236de61041268c corusdev <corusdev@SPH-PDC-VM-3020.mapfreinsular.com> 1606990284 +0800	commit: added latest FOPM changes
+0d5ba76af7f3bd575c552586e8236de61041268c c35f9179c7914d4dce29e64fe2ef5190d07450e9 corusdev <corusdev@SPH-PDC-VM-3020.mapfreinsular.com> 1607689549 +0800	commit: added latest changes in fopm
+c35f9179c7914d4dce29e64fe2ef5190d07450e9 c35f9179c7914d4dce29e64fe2ef5190d07450e9 git stash <git@stash> 1607922130 +0800	reset: moving to HEAD
+c35f9179c7914d4dce29e64fe2ef5190d07450e9 38652d12178b274d0450ae6407d5c70184a71060 corusdev <corusdev@SPH-PDC-VM-3020.mapfreinsular.com> 1607922136 +0800	pull: Fast-forward
+38652d12178b274d0450ae6407d5c70184a71060 85d2d9a1a0f839316a38247e6a2ff669aa56e987 corusdev <corusdev@SPH-PDC-VM-3020.mapfreinsular.com> 1609810986 +0800	commit: added latest changes
+85d2d9a1a0f839316a38247e6a2ff669aa56e987 8097f691c6e17585672b320621b9add35a0c204a corusdev <corusdev@SPH-PDC-VM-3020.mapfreinsular.com> 1609831782 +0800	pull: Fast-forward
+8097f691c6e17585672b320621b9add35a0c204a 8097f691c6e17585672b320621b9add35a0c204a git stash <git@stash> 1609832664 +0800	reset: moving to HEAD
+8097f691c6e17585672b320621b9add35a0c204a 4657f8be49131256e8da57ad2df97ab9ba9061ab corusdev <corusdev@SPH-PDC-VM-3020.mapfreinsular.com> 1609832670 +0800	pull: Fast-forward
+4657f8be49131256e8da57ad2df97ab9ba9061ab 885d99deea9b23e950da10dce410f8376cbc5353 corusdev <corusdev@SPH-PDC-VM-3020.mapfreinsular.com> 1614147442 +0800	commit: Added latest changes
+885d99deea9b23e950da10dce410f8376cbc5353 4f4e08b3df97cd0962514aa38c91fe7217a7f7c0 corusdev <corusdev@SPH-PDC-VM-3020.mapfreinsular.com> 1614147458 +0800	pull: Merge made by the 'recursive' strategy.
+4f4e08b3df97cd0962514aa38c91fe7217a7f7c0 642695cd904eb7a8f1e83ea23c81f8ad9f4062e1 corusdev <corusdev@SPH-PDC-VM-3020.mapfreinsular.com> 1614663642 +0800	commit: added changes after MPH

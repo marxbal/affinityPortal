@@ -1,0 +1,166 @@
+import { Component, OnInit, HostListener, AfterViewInit, Input, Output, EventEmitter } from '@angular/core';
+import * as $ from 'jquery/dist/jquery.min';
+import {AuthenticationService} from '../../../../services/authentication.service';
+import {Router} from '@angular/router';
+import {ComponentCanDeactivate} from '../../../../guard/component-can-deactivate';
+import {IsRequired} from '../../../../guard/is-required';
+import {Marsh} from '../../../../objects/marsh';
+import {Risk} from '../../../../objects/risk';
+import {AuthService} from '../../../../services/auth.service';
+import {AddressDetails} from '../../../../objects/address-details';
+import * as m from 'moment';
+import {LOV} from '../../../../objects/lov';
+import {CommonService} from '../../../../services/common.service';
+import { NgxSpinnerService } from 'ngx-spinner';
+import Swal from 'sweetalert2';
+
+@Component({
+  selector: 'app-alternative-holder',
+  templateUrl: './alternative-holder.component.html',
+  styleUrls: ['./alternative-holder.component.css']
+})
+export class AlternativeHolderComponent implements OnInit {
+
+  constructor(private caller : AuthService, private common : CommonService, private spinner : NgxSpinnerService, private checker : IsRequired) { }
+
+  @Output() nextStep = new EventEmitter();
+  @Output() marshOutputt = new EventEmitter();
+
+  director: Risk;
+  stockholder: Risk;
+  beneficiary: Risk;
+  permanentAddressTitle: String = "Permanent Address";
+  presentAddressTitle: String = "Present Address";
+  pbAddressTitle: String = "Principal Business Address";
+  tempAddresses: AddressDetails[] = [];
+
+  addAddress: String = "";
+  addressTypeLov: any[] = [];
+
+  marshAlternative: Marsh;
+
+  
+
+  ngOnInit() {
+
+  	this.director = new Risk();
+    this.stockholder = new Risk();
+    this.beneficiary = new Risk();
+    this.marshAlternative = new Marsh();
+
+    this.caller.getOptionList('EN', 'TIP_ETIQUETA', '999').subscribe(
+      result => {
+      	console.log(result);
+        result.splice(2, 1);
+        // result.splice(1, 1);
+        this.addressTypeLov = result;
+        this.marshAlternative.lov.addressLOV = result;
+    });
+
+    this.caller.getOptionList('EN', 'TIP_ASEG_PREF', '999').subscribe(
+      result => {
+        console.log(result);
+        this.marshAlternative.lov.prefixLOV = result;
+    });
+
+    this.caller.getOptionList('EN', 'TIP_ASEG_SEP_LOV', '999').subscribe(
+      result => {
+      	console.log(result);
+        this.marshAlternative.lov.separatorLOV = result;
+    });
+
+    this.caller.getLOV('A1002300', '3', 'COD_CIA~1').subscribe(
+      result => {
+        console.log(result);
+        this.marshAlternative.lov.documentLOV = result;
+        
+    });
+
+    this.caller.getOptionList('EN', 'COD_EST_CIVIL', '999').subscribe(
+      result => {
+        this.marshAlternative.lov.civilStatusLOV = result;
+    });
+
+    this.caller.getOptionList('EN', 'TIPO_SUFIJO_NOMBRE', '999').subscribe(
+      result => {
+        this.marshAlternative.lov.suffixLOV = result;
+    });
+
+    this.caller.getLOV("A1000101","1","").subscribe(
+      result => {
+        this.marshAlternative.lov.nationalityLOV = result;
+    });
+
+    console.log(this.marshAlternative);
+  }
+
+  addHolder(){
+
+  	if(this.checker.checkIfRequired('motor-add-alternative') == "0"){
+      return null;
+    }
+
+    let hold = this.marshAlternative.riskDetails.separator;
+    this.marshAlternative.riskDetails.separator = hold.split("-")[0];
+    this.marshAlternative.riskDetails.separatorText = hold.split("-")[1];
+
+  	this.marshOutputt.emit(this.marshAlternative);
+  	this.nextStep.emit(this.marshAlternative);
+  }
+
+  backButtonAction(){
+  	this.nextStep.emit(this.marshAlternative);
+  }
+
+  openAddress(){
+    this.addAddress = "add";
+  }
+
+  removeAddressList(address){
+    const index: number = this.tempAddresses.indexOf(address);
+
+    if (index !== -1) {
+      this.tempAddresses.splice(index, 1);
+    }
+    let temp = null;
+    if(address.addressTypeId == "1"){
+      temp = {"NOM_VALOR":"HOME","TIP_ETIQUETA":"1"};
+    }else{
+      temp = {"NOM_VALOR":"OFFICE","TIP_ETIQUETA":"2"};
+    }
+
+    this.marshAlternative.lov.addressLOV.push(temp);
+    console.log(this.marshAlternative.lov.addressLOV);
+
+  }
+
+  catchAddress(permAddress){
+    this.removeAddressType(permAddress.addressTypeId);
+    this.addAddress = "";
+    this.tempAddresses.push(permAddress);
+    if(permAddress.addressTypeId == "1"){
+      this.marshAlternative.riskDetails.homeAddress = permAddress;
+      console.log(this.marshAlternative);
+      return null;
+    }
+
+    this.marshAlternative.riskDetails.officeAddress = permAddress;
+    console.log(this.marshAlternative);
+
+  }
+
+  removeAddressType(addressTypeId){
+    let index = 0;
+    for(let i = 0; i < this.marshAlternative.lov.addressLOV.length; i++){
+      console.log(this.marshAlternative.lov.addressLOV[i].TIP_ETIQUETA);
+      console.log(addressTypeId);
+      if(addressTypeId == this.marshAlternative.lov.addressLOV[i].TIP_ETIQUETA){
+        index = i;
+        break;
+      }
+    }
+    this.marshAlternative.lov.addressLOV.splice(index, 1);
+    
+  }
+
+}

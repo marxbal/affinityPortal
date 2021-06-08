@@ -1,0 +1,8 @@
+.table tbody tr td {
+	padding: 2px !important;
+	font-family: roboto,sans-serif !important;
+	font-size: 13px;
+	vertical-align: middle;
+	margin-left: 2px;
+}
+

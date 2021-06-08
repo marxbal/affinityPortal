@@ -1,0 +1,299 @@
+<div id="content">
+    <h3 class="page-title">
+
+        <i class="fa fa-cogs"></i> Configurations
+    </h3>
+    <div class="alert alert-success hidden fade" id="addExchangeRateSuccess" role="alert">
+      <i class="fa fa-check"></i> {{this.addExchangeRateSuccess}}
+          <button type="button" class="close" aria-label="Close" (click)="closeAlert('addExchangeRateSuccess')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+    </div>
+
+    <div class="card card-digi mt-3">
+        <div class="card-header accordion-header" id="heading-customer-one-view" data-toggle="collapse" data-target="#collapse-customer-one-view" aria-expanded="false" aria-controls="collapse-customer-one-view" (click)="openAccordion('heading-customer-one-view')">
+            <h6 class="mb-0">
+                <i class="fa fa-calendar"></i> Date Format <span class="pull-right"><i class="fa fa-chevron-down"></i></span>
+            </h6>
+        </div>
+        <div class="card-body collapse show show" id="collapse-customer-one-view">
+        	<div class="row">
+        		<div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="date_format_val" class="col-form-label digi-label">Global Date Format</label>
+                            <select id="aod" class="form-control" [(ngModel)]="this.newDateFormat.configValue">
+                                <option *ngFor="let format of this.dateFormatList" value="{{format.detail}}">
+                                        {{format.detail}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="date_format_val" class="col-form-label digi-label">&nbsp;</label>
+                        </div>
+                        <div class="col-md-12">
+                            <button class="btn btn-digi" (click)="updateDate()"><i class="fa fa-save"></i> Update</button>
+                        </div>
+                    </div>
+                </div>
+        	</div>
+        </div>
+    </div>
+
+    <div class="card card-digi mt-3">
+        <div class="card-header accordion-header" id="heading-customer-two-view" data-toggle="collapse" data-target="#collapse-customer-two-view" aria-expanded="false" aria-controls="collapse-customer-two-view" (click)="openAccordion('heading-customer-two-view')">
+            <h6 class="mb-0">
+                <i class="fa fa-user"></i> Philippine British Signatory<span class="pull-right"><i class="fa fa-chevron-down"></i></span>
+            </h6>
+        </div>
+        <div class="card-body collapse show show" id="collapse-customer-two-view">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="date_format_val" class="col-form-label digi-label">Name</label>
+                            <input type="text" id="date_format_val" class="form-control" [(ngModel)]="this.signatory1.configValue">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="date_format_val" class="col-form-label digi-label">&nbsp;</label>
+                        </div>
+                        <div class="col-md-12">
+                            <button class="btn btn-digi" (click)="updateSignatoryOne()"><i class="fa fa-save"></i> Update</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="date_format_val" class="col-form-label digi-label">Title</label>
+                            <input type="text" id="date_format_val" class="form-control" [(ngModel)]="this.signatory1title.configValue">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="date_format_val" class="col-form-label digi-label">&nbsp;</label>
+                        </div>
+                        <div class="col-md-12">
+                            <button class="btn btn-digi" (click)="updateSignatoryOneTitle()"><i class="fa fa-save"></i> Update</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="date_format_val" class="col-form-label digi-label">Signature</label>
+                            <input type="file" name="file" ng2FileSelect [uploader]="uploaderFirst" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="date_format_val" class="col-form-label digi-label">&nbsp;</label>
+                        </div>
+                        <div class="col-md-12">
+                            <button class="btn btn-digi" (click)="uploaderFirst.uploadAll()"
+        [disabled]="!uploaderFirst.getNotUploadedItems().length" ><i class="fa fa-save"></i> Upload</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card card-digi mt-3">
+        <div class="card-header accordion-header" id="heading-customer-three-view" data-toggle="collapse" data-target="#collapse-customer-three-view" aria-expanded="false" aria-controls="collapse-customer-three-view" (click)="openAccordion('heading-customer-three-view')">
+            <h6 class="mb-0">
+                <i class="fa fa-user"></i> Coco Life Signatory <span class="pull-right"><i class="fa fa-chevron-down"></i></span>
+            </h6>
+        </div>
+        <div class="card-body collapse show show" id="collapse-customer-three-view">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="date_format_val" class="col-form-label digi-label">Name</label>
+                            <input type="text" id="date_format_val" class="form-control" [(ngModel)]="this.signatory2.configValue">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="date_format_val" class="col-form-label digi-label">&nbsp;</label>
+                        </div>
+                        <div class="col-md-12">
+                            <button class="btn btn-digi" (click)="updateSignatoryTwo()"><i class="fa fa-save"></i> Update</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="date_format_val" class="col-form-label digi-label">Title</label>
+                            <input type="text" id="date_format_val" class="form-control" [(ngModel)]="this.signatory2title.configValue">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="date_format_val" class="col-form-label digi-label">&nbsp;</label>
+                        </div>
+                        <div class="col-md-12">
+                            <button class="btn btn-digi" (click)="updateSignatoryTwoTitle()"><i class="fa fa-save"></i> Update</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="date_format_val" class="col-form-label digi-label">Signature</label>
+                            <input type="file" name="file" ng2FileSelect [uploader]="uploaderSecond" class="form-control" >
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="date_format_val" class="col-form-label digi-label">&nbsp;</label>
+                        </div>
+                        <div class="col-md-12">
+                            <button class="btn btn-digi" (click)="uploaderSecond.uploadAll()"
+        [disabled]="!uploaderSecond.getNotUploadedItems().length"><i class="fa fa-save"></i> Upload</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card card-digi mt-3">
+        <div class="card-header accordion-header" id="heading-customer-four-view" data-toggle="collapse" data-target="#collapse-customer-four-view" aria-expanded="false" aria-controls="collapse-customer-four-view" (click)="openAccordion('heading-customer-four-view')">
+            <h6 class="mb-0">
+                <i class="fa fa-user"></i> Underwriting Age Restriction <span class="pull-right"><i class="fa fa-chevron-down"></i></span>
+            </h6>
+        </div>
+        <div class="card-body collapse show show" id="collapse-customer-four-view">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="date_format_val" class="col-form-label digi-label">Minimum Age</label>
+                            <input type="number" id="date_format_val" class="form-control" [(ngModel)]="this.minimumAge.configValue">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="date_format_val" class="col-form-label digi-label">&nbsp;</label>
+                        </div>
+                        <div class="col-md-12">
+                            <button class="btn btn-digi" (click)="updateMinimumAge()"><i class="fa fa-save"></i> Update</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="date_format_val" class="col-form-label digi-label">Maximum Age</label>
+                            <input type="number" id="date_format_val" class="form-control" [(ngModel)]="this.maximumAge.configValue">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="date_format_val" class="col-form-label digi-label">&nbsp;</label>
+                        </div>
+                        <div class="col-md-12">
+                            <button class="btn btn-digi" (click)="updateMaximumAge()"><i class="fa fa-save"></i> Update</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card card-digi mt-3">
+        <div class="card-header accordion-header" id="heading-customer-five-view" data-toggle="collapse" data-target="#collapse-customer-five-view" aria-expanded="false" aria-controls="collapse-customer-five-view" (click)="openAccordion('heading-customer-five-view')">
+            <h6 class="mb-0">
+                <i class="fa fa-user"></i> Underwriting Restricted Country <span class="pull-right"><i class="fa fa-chevron-down"></i></span>
+            </h6>
+        </div>
+        <div class="card-body collapse show show" id="collapse-customer-five-view">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="date_format_val" class="col-form-label digi-label">List of Countries</label>
+                            <select id="aod" class="form-control" [(ngModel)]="this.countryId">
+                                <option value="0" selected="selected" disabled="disabled">Choose Country to Restrict</option>
+                                <option *ngFor="let country of this.countryList" value="{{country.countryId}}">
+                                        {{country.name}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="date_format_val" class="col-form-label digi-label">&nbsp;</label>
+                        </div>
+                        <div class="col-md-12">
+                            <button class="btn btn-digi" (click)="addNewCountry()"><i class="fa fa-plus"></i> Add</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-md-12">
+                    <label for="date_format_val" class="col-form-label digi-label">List of Restricted Countries</label>
+                    <div class="table-responsive" *ngIf="this.restrictedCountries.length > 0">
+                        <table class="table table-condensed table-hover table-small">
+                            <thead>
+                                <td>Country Id</td>
+                                <td>Name</td>
+                                <td></td>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let country of this.restrictedCountries">
+                                    <td>{{country.countryId}}</td>
+                                    <td>{{country.name}}</td>
+                                    <td><button class="btn btn-digi" (click)="removeCountry(country)"><i class="fa fa-times"></i></button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>

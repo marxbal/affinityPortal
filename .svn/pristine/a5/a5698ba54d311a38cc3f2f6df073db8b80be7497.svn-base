@@ -1,0 +1,240 @@
+<div id="content">
+    <h3 class="page-title">
+        <i class="fa fa-users"></i> User Management
+    </h3>
+    
+    <div class="alert alert-success hidden alert-dismissible fade" id="addUserSuccess" role="alert">
+      <i class="fa fa-check"></i> {{this.addUserNotice}}
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+    </div>
+
+    <button class="btn btn-digi" data-toggle="modal" data-target="#modalRegister" (click)="openNewUser()"><i class="fa fa-user-plus"></i> Add User</button>
+    <!-- <button class="btn btn-danger btn-sm ml-1"><i class="fa fa-minus"></i> Deactivate</button> -->
+    <table class="table table-condensed table-hover mt-3 table-small">
+    	<thead>
+    		<td>Username</td>
+    		<td>Fullname</td>
+    		<td>Date Added</td>
+            <td>Status</td>
+    		<td>Change Password</td>
+    	</thead>
+    	<tbody>
+    		<tr *ngFor="let user of usersList">
+    			<td>{{user.username}}</td>
+    			<td>{{user.firstName}} {{user.middleName}} {{user.lastName}}</td>
+    			<td>{{user.dateAdded}}</td>
+    			<td *ngIf="user.status == '0'"><button type="button" class="btn btn-digi btn-block" data-toggle="modal" data-target="#exampleModalLong" (click)="openUserActivate(user)"><i class="fa fa-check"></i> Activate</button></td>
+    			<td *ngIf="user.status == '1'"><button type="button" class="btn btn-digi btn-block" data-toggle="modal" data-target="#exampleModalLong" (click)="openUserDeactivate(user)"><i class="fa fa-times"></i> Deactivate</button></td>   
+                <td>
+                    <button class="btn btn-digi" (click)="forgotPassword(user)"><i class="fa fa-lock"></i> Request Change Password</button>
+                </td> 			
+    		</tr>
+    	</tbody>
+    </table>
+
+    <!-- Modal -->
+	<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true" *ngIf="this.usersViewInfo.length > 0 && this.usersViewInfoRoles.length > 0">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLongTitle">Activate / Deactivate User</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+
+			<div class="form-group">
+				<div class="row">
+					<div class="col-md-3">
+						<label for="fullname">Fullname</label>
+					</div>
+					<div class="col-md-9">
+						<input type="text" class="form-control" id="fullname" value="{{this.usersViewInfo[0].firstName}} {{this.usersViewInfo[0].middleName}} {{this.usersViewInfo[0].lastName}}" disabled>
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="row">
+					<div class="col-md-3">
+						<label for="usernameDis">Username</label>
+					</div>
+					<div class="col-md-9">
+						<input type="text" class="form-control" id="usernameDis" value="{{this.usersViewInfo[0].username}}" disabled>
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="row">
+					<div class="col-md-3">
+						<label for="dateadded">Date Added</label>
+					</div>
+					<div class="col-md-9">
+						<input type="text" class="form-control" id="dateadded" value="{{this.usersViewInfo[0].dateAdded}}" disabled>
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="row">
+					<div class="col-md-3">
+						<label for="roles">Roles</label>
+					</div>
+					<div class="col-md-9">
+						<div class="form-check" *ngFor="let userRoles of usersViewInfoRoles">
+					      <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required (click)="addRole(userRoles)"  *ngIf="this.finalStatus == '1'">
+					      <label class="form-check-label" for="invalidCheck">
+					        {{userRoles.description}}
+					      </label>
+					    </div>
+					</div>
+				</div>
+			</div>
+
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" id="closeUpdateUserModalBtn" data-dismiss="modal">Close</button>
+	        <button type="button" class="btn btn-primary" (click)="updateUser()">Save Changes</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+
+	<div class="modal fade" id="modalRegister" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLongTitle">Create User</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+
+			<form (ngSubmit)="registerSubmit($event)" ngNativeValidate>
+                    
+                    <div class="input-group form-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-user"></i></span>
+                        </div>
+
+                        <input type="text" class="form-control" id="firstname" name="firstname" 
+                        [(ngModel)]="register.firstName" (change)="isDirty = true" placeholder="Firstname" required />
+                        
+                    </div>
+                    <div class="input-group form-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-user"></i></span>
+                        </div>
+
+                        <input type="text" class="form-control" id="middlename" name="middlename" 
+                        [(ngModel)]="register.middleName" (change)="isDirty = true" placeholder="Middlename" />
+                        
+                    </div>
+                    <div class="input-group form-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-user"></i></span>
+                        </div>
+
+                        <input type="text" class="form-control" id="lastname" name="lastname" 
+                        [(ngModel)]="register.lastName" (change)="isDirty = true" placeholder="Lastname" required />
+                        
+                    </div>
+                    <!-- <div class="input-group form-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-envelope"></i></span>
+                        </div>
+
+                        <input type="text" class="form-control" id="email" name="email" 
+                        [(ngModel)]="register.email" (change)="isDirty = true" placeholder="Email" required />
+                        
+                    </div> -->
+                    <div class="input-group form-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-phone"></i></span>
+                        </div>
+
+                        <input type="text" class="form-control" id="contact" name="contact" 
+                        [(ngModel)]="register.contactNumber" (change)="isDirty = true" placeholder="Contact" required />
+                        
+                    </div>
+                    <div class="input-group form-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-user"></i></span>
+                        </div>
+
+                        <select class="form-control" id="roleId" name="roleId"  [(ngModel)]="register.roleId" (change)="addRoleNewUser()" >
+                          <option value="" disabled="disabled">Choose Role</option>
+                            <option *ngFor="let role of rolesList" value="{{role.roleId}}">
+                                {{role.description}}
+                            </option>
+                          
+                        </select>
+                        
+                    </div>
+                    <div class="input-group form-group hidden" id="manningAgencyField">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-user"></i></span>
+                        </div>
+
+                        <select class="form-control" id="manningAgencyId" name="manningAgencyId" [(ngModel)]="register.manningAgencyId">
+                          <option value="0" disabled="disabled">Choose Agency</option>
+                            <option *ngFor="let cust of customerList" value="{{cust.customerDetails.customerId}}">
+                                {{cust.customerDetails.fullName}}
+                            </option>
+                        </select>
+                        
+                    </div>
+                    <div class="input-group form-group hidden" id="agentField">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-user"></i></span>
+                        </div>
+
+                        <select class="form-control" id="customerId" name="customerId" [(ngModel)]="register.customerId">
+                          <option value="0" disabled="disabled">Choose Agent</option>
+                            <option *ngFor="let cust of customerAgentList" value="{{cust.customerDetails.customerId}}">
+                                {{cust.customerDetails.fullName}}
+                            </option>
+                        </select>
+                        
+                    </div>
+                    <div class="input-group form-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-user"></i></span>
+                        </div>
+
+                        <input type="email" class="form-control" id="username" name="username" 
+                        [(ngModel)]="register.username" [(ngModel)]="register.email" (change)="isDirty = true" placeholder="Username / Email" required />
+                        
+                    </div>
+                    <small class="text-danger" *ngIf="this.passwordError != ''">*{{this.passwordError}}</small>
+                    <div class="input-group form-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-key"></i></span>
+                        </div>
+                        <input type="password"  (change)="checkPassword()" class="form-control" id="password" placeholder="Password" 
+                        [(ngModel)]="register.password" (change)="isDirty = true" name="password" required minlength="8" maxlength="14" >
+                    </div>
+
+                    <div class="input-group form-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-key"></i></span>
+                        </div>
+                        <input type="password" class="form-control" id="cpassword" placeholder="Confirm Password" [(ngModel)]="cpassword" (change)="isDirty = true" name="cpassword" required minlength="8" maxlength="14" >
+                    </div>
+                    <div class="form-group pull-right">
+	        <button type="button" id="closeAddUserBtn" class="btn btn-secondary mr-1" data-dismiss="modal">Close</button>
+
+                        <input type="submit" value="Submit" class="btn btn-digi login_btn">
+                    </div>
+                </form>
+
+	      </div>
+
+	    </div>
+	  </div>
+	</div>
+
+</div>

@@ -1,0 +1,63 @@
+{
+	"/oauth/*": {
+		"target": "http://localhost:8080",
+		"secure": false,
+		"logLevel": "debug",
+		"changeOrigin": true
+	},
+	"/api-auth/*": {
+		"target": "http://104.248.156.42:8082",
+		"secure": false,
+		"logLevel": "debug",
+		"changeOrigin": true
+	},
+	"/client/*": {
+		"target": "http://104.248.156.42:8083",
+		"secure": false,
+		"logLevel": "debug",
+		"changeOrigin": true
+	},
+	"/payment/*": {
+		"target": "http://104.248.156.42:8088",
+		"secure": false,
+		"logLevel": "debug",
+		"changeOrigin": true
+	},
+	"/api-non-auth/*": {
+		"target": "http://104.248.156.42:8082",
+		"secure": false
+	},
+	"/digitalinnopolicyservice/*": {
+		"target": "http://104.248.156.42:8086",
+		"secure": false
+	},
+	"/digitalinnoproductservice/*": {
+		"target": "http://104.248.156.42:8084",
+		"secure": false
+	},
+	"/microsite/marsh/*": {
+		"target": "http://localhost:8080",
+		"secure": false,
+		"timeout" : 360000
+	},
+	"/api/": {
+		"target":  {
+	       "host": "ifae.com.ph",
+	       "protocol": "https:",
+	       "port": 2083
+	     },
+		"secure": false,
+		"timeout" : 360000,
+		"changeOrigin": true,
+     	"logLevel": "info"
+	},
+	"/microsite/api/*": {
+		"target": "http://localhost:8080",
+		"secure": false,
+		"timeout" : 360000
+	},
+	"/api/util/*": {
+	    "target": "http://104.248.156.42:8087",
+	    "secure": false
+	}
+}

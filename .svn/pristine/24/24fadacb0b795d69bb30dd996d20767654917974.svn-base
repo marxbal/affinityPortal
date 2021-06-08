@@ -1,0 +1,220 @@
+<div id="content">
+    <h5 class="page-title">
+        <i class="fa fa-cogs"></i> Premium Amount Setup
+    </h5>
+    
+    <div class="row mt-2 mb-2">
+        <div class="col-md-5">
+            <label for="inputPassword" class="digi-label col-form-label">Product List</label>
+            <select class="form-control" (change)="chooseProduct()" [(ngModel)]="this.productHolder.product_detail_id">
+                <option value="0" selected disabled>Choose Product</option>
+                <option *ngFor="let product of latestProductList" value="{{product.product_detail_id}}-{{product.description}}">
+                    {{product.description}}
+                </option>
+            </select>
+
+        </div>
+        <div class="col-md-7">
+            <div class="row">
+                <div class="col-md-12">
+                    <label for="inputPassword" class="digi-label col-form-label">&nbsp;</label>
+                </div>
+                <div class="col-md-12">
+                    <button class="btn btn-digi" data-toggle="modal" data-target="#modalNewProduct" (click)="clearModalContents()" *ngIf="this.productHolder.product_detail_id != '0'"><i class="fa fa-plus"></i> Add New Setup</button>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <div class="alert alert-success hidden fade" id="addPremiumSetupSuccess" role="alert">
+      <i class="fa fa-check"></i> {{this.addPremiumSetupSuccess}}
+          <button type="button" class="close" aria-label="Close" (click)="closeAlert('addPremiumSetupSuccess')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+    </div>
+
+    <div class="table-responsive" *ngIf="premiumAmountList.length > 0">
+        <table class="table table-condensed table-small">
+
+            <thead>
+                <td>ID</td>
+                <td>Effective Date</td>
+                <td>Expiry Date</td>
+                <td>Term in Months</td>
+                <td>Premium Amount</td>
+                <td></td>
+            </thead>
+            <tbody>
+                <tr *ngFor="let pal of premiumAmountList">
+                    <td>{{pal.premiumDetails.premiumAmountId}}</td>
+                    <td>{{pal.premiumDetails.effectiveDate}}</td>
+                    <td *ngIf="pal.premiumDetails.ineffectiveDate">{{pal.premiumDetails.ineffectiveDate}}</td>
+                    <td *ngIf="!pal.premiumDetails.ineffectiveDate"></td>
+                    <td>{{pal.premiumDetails.termInMonth}}</td>
+                    <td>{{pal.premiumDetails.premiumAmount}}</td>
+                    <td>
+                        <button class="btn btn-digi btn-sm"  data-toggle="modal" data-target="#modalNewProduct" (click)="updateProductCoverage(pal)"><i class="fa fa-pencil"></i> </button>&nbsp;
+                        <button class="btn btn-digi-red btn-sm" (click)="deleteProductCoverage(pal)"><i class="fa fa-times"></i> </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<div class="modal fade" id="modalNewProduct" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header modal-header-digi">
+            <h5 class="modal-title" id="exampleModalLongTitle"><i class="fa fa-plus"></i> New Premium Setup</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+          	<div class="alert alert-danger hidden fade" id="addPremiumSetupError" role="alert">
+		      <i class="fa fa-times"></i> {{this.addPremiumSetupError}}
+		          <button type="button" class="close" aria-label="Close" (click)="closeAlert('addPremiumSetupError')">
+		            <span aria-hidden="true">&times;</span>
+		          </button>
+		    </div>
+          	<div class="row">
+                <div class="col-md-6">
+                    <div class="row">
+
+                        <div class="col-md-12">
+                            <label for="product-name" class="col-form-label digi-label font-weight-bold">Product Name</label>
+                            <div id="product-name">{{this.productHolder.description}}</div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="row">
+
+                            <div class="col-md-12">
+                                <label for="effectivity-date" class="col-form-label digi-label">Variant</label>
+                                 <select class="form-control" [(ngModel)]="newPremiumAmount.variant">
+                                    <option selected disabled>Choose Variant</option>
+                                    <option value="Land" selected>Land</option>
+                                    <option value="Sea" selected>Sea</option>
+                                </select>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="row">
+
+                            <div class="col-md-12">
+                                <label for="effectivity-date" class="col-form-label digi-label">Manning Agency</label>
+                                 <select class="form-control" [(ngModel)]="newPremiumAmount.manningAgencyId">
+                                    <option selected disabled>Choose Manning Agency</option>
+                                    <option value="0" selected>General</option>
+                                    <option *ngFor="let a of manningAgencyList" value="{{a.customerDetails.customerId}}">
+                                        {{a.customerDetails.fullName}}
+                                    </option>
+                                </select>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="row">
+
+                            <div class="col-md-12">
+                                <label for="ineffectivity-date" class="col-form-label digi-label">Agent</label>
+                                 <select class="form-control" [(ngModel)]="newPremiumAmount.agentId">
+                                    <option selected disabled>Choose Agent</option>
+                                    <option value="0" selected>General</option>
+                                    <option *ngFor="let ma of agentList" value="{{ma.customerDetails.customerId}}">
+                                        {{ma.customerDetails.fullName}}
+                                    </option>
+                                </select>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="form-group">
+	                <div class="row">
+	                    <div class="col-md-4">
+	                        <div class="row">
+
+	                            <div class="col-md-12">
+	                                <label for="effectivity-date" class="col-form-label digi-label">Effectivity Date</label>
+	                                 <input type="date" (change)="isDirty = true" class="form-control" placeholder="Date" aria-label="date" aria-describedby="basic-addon1" id="effectivity-date" [(ngModel)]="newPremiumAmount.effectiveDate">
+	                            </div>
+
+	                        </div>
+	                    </div>
+	                    <div class="col-md-4">
+	                        <div class="row">
+
+	                            <div class="col-md-12">
+	                                <label for="ineffectivity-date" class="col-form-label digi-label">Expiry Date</label>
+	                                 <input type="date" (change)="isDirty = true" class="form-control" placeholder="Date" aria-label="date" aria-describedby="basic-addon1" id="ineffectivity-date" [(ngModel)]="newPremiumAmount.ineffectiveDate">
+	                            </div>
+
+	                        </div>
+	                	</div>
+                        <div class="col-md-4">
+                            <div class="row">
+
+                                <div class="col-md-12">
+                                    <label for="term-in-month" class="col-form-label digi-label">Term in Month(s)</label>
+                                     <input type="number" (change)="isDirty = true" class="form-control" placeholder="Term in Month" aria-label="date" aria-describedby="basic-addon1" id="term-in-month" [(ngModel)]="newPremiumAmount.termInMonth">
+                                </div>
+
+                            </div>
+                        </div>
+	                </div>
+	                <div class="row">
+	                	<div class="col-md-4">
+	                        <div class="row">
+
+	                            <div class="col-md-12">
+	                                <label for="premium-amount" class="col-form-label digi-label">Premium Amount</label>
+	                                 <input type="number" (change)="computeCommission()" class="form-control" placeholder="Premium Amount" aria-label="date" aria-describedby="basic-addon1" id="premium-amount" [(ngModel)]="newPremiumAmount.premiumAmount">
+	                            </div>
+
+	                        </div>
+	                	</div>
+                        <div class="col-md-4" *ngFor="let pbtl of premiumBreakdownTypeList">
+                            <div class="row">
+
+                                <div class="col-md-12">
+                                    <label for="term-in-month" class="col-form-label digi-label">{{pbtl.description}}</label>
+                                    <input *ngIf="pbtl.premiumBreakdownTypeId == '1'"  (change)="computeCommission()" type="{{pbtl.type}}" (change)="isDirty = true" class="form-control" placeholder="{{pbtl.description}}" id="breakdown-{{pbtl.premiumBreakdownTypeId}}">
+                                     <input *ngIf="pbtl.premiumBreakdownTypeId == '3'" type="{{pbtl.type}}" (change)="isDirty = true" class="form-control" placeholder="{{pbtl.description}}" id="breakdown-{{pbtl.premiumBreakdownTypeId}}">
+                                     <input *ngIf="pbtl.premiumBreakdownTypeId == '2'" type="{{pbtl.type}}" (change)="isDirty = true" class="form-control" placeholder="{{pbtl.description}}" readonly="readonly" id="breakdown-{{pbtl.premiumBreakdownTypeId}}">
+                                </div>
+
+                            </div>
+                        </div>
+
+	            	</div>
+	          	</div>
+
+            
+
+          <div class="modal-footer">
+            <button type="button" id="closeModalSetup" class="btn btn-digi" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-digi" (click)="addNewPremiumAmountSetup()">Save Changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>

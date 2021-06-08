@@ -1,0 +1,150 @@
+worker_processes 1;
+
+events { worker_connections 1024; }
+
+http {
+
+	## use mime types
+	include /etc/nginx/mime.types;
+	#include /etc/nginx/sites-enabled/*.*
+	
+	upstream auth_server {
+        server 188.166.236.49:8079;
+    }
+	
+	upstream client_service {
+        server 104.248.156.42:8083;
+    }
+	
+	upstream user_service {
+		server 104.248.156.42:8082;
+	}
+	
+	upstream product_service {
+		server 104.248.156.42:8084;
+	}
+	
+	upstream corus_util {
+		server 104.248.156.42:8087;
+	}
+	
+	upstream payment_service {
+		server 104.248.156.42:8088;
+	}
+
+	upstream email_service {
+		server 104.248.156.42:8069;
+	}
+
+	upstream policy_service {
+        server 104.248.156.42:8086;
+    }
+
+	
+	server {
+        listen 80;
+
+        location / {
+            root /usr/share/nginx/html;
+            index  index.html;
+            ## without this our .css are not loaded
+            try_files $uri $uri/ /index.html?$query_string;
+        }
+		
+		location ~ (/oauth/*){
+			proxy_pass         http://auth_server;
+			proxy_redirect     off;
+			proxy_set_header   Host $host;
+			proxy_set_header   X-Real-IP $remote_addr;
+			proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+			proxy_set_header   X-Forwarded-Host $server_name;
+		}
+		
+		location ~ (/api-auth/*|/api-non-auth/*){
+			proxy_pass         http://user_service;
+			proxy_redirect     off;
+			proxy_set_header   Host $host;
+			proxy_set_header   X-Real-IP $remote_addr;
+			proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+			proxy_set_header   X-Forwarded-Host $server_name;
+		}
+		
+		location ~ (/client/*) {
+			proxy_pass         http://client_service;
+			proxy_redirect     off;
+			proxy_set_header   Host $host;
+			proxy_set_header   X-Real-IP $remote_addr;
+			proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+			proxy_set_header   X-Forwarded-Host $server_name;
+		}
+		
+		location ~ (/digitalinnoproductservice/*) {
+			proxy_pass         http://product_service;
+			proxy_redirect     off;
+			proxy_set_header   Host $host;
+			proxy_set_header   X-Real-IP $remote_addr;
+			proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+			proxy_set_header   X-Forwarded-Host $server_name;
+		}
+		
+		location ~ (/digitalinnopolicyservice/*) {
+			proxy_pass         http://policy_service;
+			proxy_redirect     off;
+			proxy_set_header   Host $host;
+			proxy_set_header   X-Real-IP $remote_addr;
+			proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+			proxy_set_header   X-Forwarded-Host $server_name;
+		}
+		
+		location ~ (/api/util/*) {
+			proxy_pass         http://corus_util;
+			proxy_redirect     off;
+			proxy_set_header   Host $host;
+			proxy_set_header   X-Real-IP $remote_addr;
+			proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+			proxy_set_header   X-Forwarded-Host $server_name;
+		}
+		
+		location ~ (/payment/*) {
+			proxy_pass         http://payment_service;
+			proxy_redirect     off;
+			proxy_set_header   Host $host;
+			proxy_set_header   X-Real-IP $remote_addr;
+			proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+			proxy_set_header   X-Forwarded-Host $server_name;
+		}
+
+		location ~ (/digitalinnomailer/*) {
+			proxy_pass         http://email_service;
+			proxy_redirect     off;
+			proxy_set_header   Host $host;
+			proxy_set_header   X-Real-IP $remote_addr;
+			proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+			proxy_set_header   X-Forwarded-Host $server_name;
+		}
+
+    }
+
+    ## enable gzip compression
+    gzip              on;
+    gzip_http_version 1.0;
+    gzip_proxied      any;
+    gzip_min_length   500;
+    gzip_disable      "MSIE [1-6]\.";
+    gzip_types        text/plain text/xml text/css
+                      text/comma-separated-values
+                      text/javascript
+                      application/x-javascript
+                      application/atom+xml;
+
+    gzip_types
+      text/plain
+      text/css
+      text/html
+      text/javascript
+      application/javascript
+      application/x-javascript
+      application/xml
+      application/json
+      application/ld+json;
+}

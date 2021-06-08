@@ -1,0 +1,212 @@
+<div id="content" (contextmenu)="__elementSelectionService.select('1027485696',$event)" [ngStyle]="__elementSelectionService.getStyles('1027485696')"(click)='__elementSelectionService.clear()'>
+    <h5 class="page-title" (contextmenu)="__elementSelectionService.select('480376363',$event)" [ngStyle]="__elementSelectionService.getStyles('480376363')">
+        <i class="fa fa-list" (contextmenu)="__elementSelectionService.select('140943418',$event)" [ngStyle]="__elementSelectionService.getStyles('140943418')"></i> Report Management
+    </h5>
+    
+    <div class="alert alert-danger hidden fade" id="reportError" role="alert" (contextmenu)="__elementSelectionService.select('1150562054',$event)" [ngStyle]="__elementSelectionService.getStyles('1150562054')">
+      <i class="fa fa-times" (contextmenu)="__elementSelectionService.select('25106833',$event)" [ngStyle]="__elementSelectionService.getStyles('25106833')"></i> {{this.reportError}}
+          <button type="button" class="close" aria-label="Close" click="closeAlert('reportError')" (contextmenu)="__elementSelectionService.select('310163259',$event)" [ngStyle]="__elementSelectionService.getStyles('310163259')">
+            <span aria-hidden="true" (contextmenu)="__elementSelectionService.select('791065150',$event)" [ngStyle]="__elementSelectionService.getStyles('791065150')">&#215;</span>
+          </button>
+    </div>
+
+    <div class="alert alert-success hidden fade" id="reportSuccess" role="alert" (contextmenu)="__elementSelectionService.select('1244615875',$event)" [ngStyle]="__elementSelectionService.getStyles('1244615875')">
+      <i class="fa fa-check" (contextmenu)="__elementSelectionService.select('870678406',$event)" [ngStyle]="__elementSelectionService.getStyles('870678406')"></i> {{this.reportSuccess}}
+          <button type="button" class="close" aria-label="Close" click="closeAlert('reportSuccess')" (contextmenu)="__elementSelectionService.select('1146606510',$event)" [ngStyle]="__elementSelectionService.getStyles('1146606510')">
+            <span aria-hidden="true" (contextmenu)="__elementSelectionService.select('1585065560',$event)" [ngStyle]="__elementSelectionService.getStyles('1585065560')">&#215;</span>
+          </button>
+    </div>
+
+        <div class="row mt-2 mb-2" (contextmenu)="__elementSelectionService.select('1858334744',$event)" [ngStyle]="__elementSelectionService.getStyles('1858334744')">
+            <div class="col-md-4" (contextmenu)="__elementSelectionService.select('1992473353',$event)" [ngStyle]="__elementSelectionService.getStyles('1992473353')">
+
+                <div class="form-group row" (contextmenu)="__elementSelectionService.select('217238748',$event)" [ngStyle]="__elementSelectionService.getStyles('217238748')">
+                    <div class="col-md-12" (contextmenu)="__elementSelectionService.select('66399220',$event)" [ngStyle]="__elementSelectionService.getStyles('66399220')">
+                        <label for="inputPassword" class="col-form-label digi-label" (contextmenu)="__elementSelectionService.select('1917278370',$event)" [ngStyle]="__elementSelectionService.getStyles('1917278370')">Report Type</label>
+                        <select class="form-control" change="chooseReportType()" ngModel="this.reportType" (contextmenu)="__elementSelectionService.select('297709328',$event)" [ngStyle]="__elementSelectionService.getStyles('297709328')">
+                            <option value="0" disabled="disabled" (contextmenu)="__elementSelectionService.select('196089303',$event)" [ngStyle]="__elementSelectionService.getStyles('196089303')">Please choose report type</option>
+                            <option value="1" (contextmenu)="__elementSelectionService.select('565192158',$event)" [ngStyle]="__elementSelectionService.getStyles('565192158')">Policy</option>
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-8" (contextmenu)="__elementSelectionService.select('1778051842',$event)" [ngStyle]="__elementSelectionService.getStyles('1778051842')">
+
+            	<div class="form-group row" ngIf="this.reportType == '1'" (contextmenu)="__elementSelectionService.select('232267522',$event)" [ngStyle]="__elementSelectionService.getStyles('232267522')">
+                    <div class="col-md-12" (contextmenu)="__elementSelectionService.select('114142659',$event)" [ngStyle]="__elementSelectionService.getStyles('114142659')">
+                        <label for="inputPassword" class="col-form-label digi-label" (contextmenu)="__elementSelectionService.select('653518353',$event)" [ngStyle]="__elementSelectionService.getStyles('653518353')">&#160;</label>
+                    </div>
+                    <div class="col-md-12" (contextmenu)="__elementSelectionService.select('409971510',$event)" [ngStyle]="__elementSelectionService.getStyles('409971510')">
+                        <button class="btn btn-digi" click="initialFilter()" (contextmenu)="__elementSelectionService.select('1434621750',$event)" [ngStyle]="__elementSelectionService.getStyles('1434621750')"><i class="fa fa-filter" (contextmenu)="__elementSelectionService.select('1045072880',$event)" [ngStyle]="__elementSelectionService.getStyles('1045072880')"></i> Search</button>&#160;
+                        <button class="btn btn-digi" click="clear()" (contextmenu)="__elementSelectionService.select('128983366',$event)" [ngStyle]="__elementSelectionService.getStyles('128983366')"><i class="fa fa-eraser" (contextmenu)="__elementSelectionService.select('1650658461',$event)" [ngStyle]="__elementSelectionService.getStyles('1650658461')"></i> Clear</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    <div ngIf="this.reportType == '1'" (contextmenu)="__elementSelectionService.select('588844224',$event)" [ngStyle]="__elementSelectionService.getStyles('588844224')">
+
+        <div class="row mt-2 mb-2" (contextmenu)="__elementSelectionService.select('1231423064',$event)" [ngStyle]="__elementSelectionService.getStyles('1231423064')">
+            <div class="col-md-4" (contextmenu)="__elementSelectionService.select('1331344419',$event)" [ngStyle]="__elementSelectionService.getStyles('1331344419')">
+
+                <div class="form-group row" (contextmenu)="__elementSelectionService.select('900161201',$event)" [ngStyle]="__elementSelectionService.getStyles('900161201')">
+                    <div class="col-md-12" (contextmenu)="__elementSelectionService.select('1588804553',$event)" [ngStyle]="__elementSelectionService.getStyles('1588804553')">
+                        <label for="inputPassword" class="col-form-label digi-label" (contextmenu)="__elementSelectionService.select('656323201',$event)" [ngStyle]="__elementSelectionService.getStyles('656323201')">Report Export Type</label>
+                        <select class="form-control" change="chooseReportType()" ngModel="this.reportExportType" (contextmenu)="__elementSelectionService.select('1031791085',$event)" [ngStyle]="__elementSelectionService.getStyles('1031791085')">
+                            <option value="1" (contextmenu)="__elementSelectionService.select('849506853',$event)" [ngStyle]="__elementSelectionService.getStyles('849506853')">Insurance Commission Monthly Reportorial Requirement</option>
+                            <option value="2" (contextmenu)="__elementSelectionService.select('1971874507',$event)" [ngStyle]="__elementSelectionService.getStyles('1971874507')">Declaration Report</option>
+                            <option value="3" (contextmenu)="__elementSelectionService.select('667964481',$event)" [ngStyle]="__elementSelectionService.getStyles('667964481')">Cancellation Report</option>
+                            <option value="4" (contextmenu)="__elementSelectionService.select('1709357535',$event)" [ngStyle]="__elementSelectionService.getStyles('1709357535')">Production Report</option>
+                            <option value="5" (contextmenu)="__elementSelectionService.select('1156631580',$event)" [ngStyle]="__elementSelectionService.getStyles('1156631580')">Paid Remittance Report</option>
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-8" (contextmenu)="__elementSelectionService.select('1914189947',$event)" [ngStyle]="__elementSelectionService.getStyles('1914189947')">
+
+                <div class="form-group row" ngIf="this.reportType == '1'" (contextmenu)="__elementSelectionService.select('1464797221',$event)" [ngStyle]="__elementSelectionService.getStyles('1464797221')">
+                    <div class="col-md-12" (contextmenu)="__elementSelectionService.select('663977810',$event)" [ngStyle]="__elementSelectionService.getStyles('663977810')">
+                        <label for="inputPassword" class="col-form-label digi-label" (contextmenu)="__elementSelectionService.select('1698809744',$event)" [ngStyle]="__elementSelectionService.getStyles('1698809744')">&#160;</label>
+                    </div>
+                    <div class="col-md-12" (contextmenu)="__elementSelectionService.select('1453977763',$event)" [ngStyle]="__elementSelectionService.getStyles('1453977763')">
+                        <button class="btn btn-digi" click="export()" (contextmenu)="__elementSelectionService.select('2030621811',$event)" [ngStyle]="__elementSelectionService.getStyles('2030621811')"><i class="fa fa-download" (contextmenu)="__elementSelectionService.select('1172131311',$event)" [ngStyle]="__elementSelectionService.getStyles('1172131311')"></i> Export</button>&#160;
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    	<div class="row mt-2 mb-2" (contextmenu)="__elementSelectionService.select('785088387',$event)" [ngStyle]="__elementSelectionService.getStyles('785088387')">
+    		<div class="col-md-3" (contextmenu)="__elementSelectionService.select('939441681',$event)" [ngStyle]="__elementSelectionService.getStyles('939441681')">
+
+                <div class="form-group row" (contextmenu)="__elementSelectionService.select('149577681',$event)" [ngStyle]="__elementSelectionService.getStyles('149577681')">
+                    <div class="col-md-12" (contextmenu)="__elementSelectionService.select('670550294',$event)" [ngStyle]="__elementSelectionService.getStyles('670550294')">
+                        <label for="inputPassword" class="col-form-label digi-label" (contextmenu)="__elementSelectionService.select('1387633932',$event)" [ngStyle]="__elementSelectionService.getStyles('1387633932')">Policy Type</label>
+                        <select class="form-control" ngModel="this.reportRequestDetails.policyTypeId" (contextmenu)="__elementSelectionService.select('276410237',$event)" [ngStyle]="__elementSelectionService.getStyles('276410237')">
+                        	<option value (contextmenu)="__elementSelectionService.select('1253539444',$event)" [ngStyle]="__elementSelectionService.getStyles('1253539444')">All</option>
+                            <option ngFor="let policyType of this.policyTypeList" value="{{policyType.policyTypeId}}" (contextmenu)="__elementSelectionService.select('1402057037',$event)" [ngStyle]="__elementSelectionService.getStyles('1402057037')">
+                                {{policyType.typeDescription}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-3" (contextmenu)="__elementSelectionService.select('758254542',$event)" [ngStyle]="__elementSelectionService.getStyles('758254542')">
+
+                <div class="form-group row" (contextmenu)="__elementSelectionService.select('1886210898',$event)" [ngStyle]="__elementSelectionService.getStyles('1886210898')">
+                    <div class="col-md-12" (contextmenu)="__elementSelectionService.select('30990325',$event)" [ngStyle]="__elementSelectionService.getStyles('30990325')">
+                        <label for="inputPassword" class="col-form-label digi-label" (contextmenu)="__elementSelectionService.select('1604128090',$event)" [ngStyle]="__elementSelectionService.getStyles('1604128090')">Manning Agency</label>
+                        <select class="form-control" ngModel="this.reportRequestDetails.manningAgencyId" (contextmenu)="__elementSelectionService.select('1649148188',$event)" [ngStyle]="__elementSelectionService.getStyles('1649148188')">
+                        	<option value (contextmenu)="__elementSelectionService.select('2019680732',$event)" [ngStyle]="__elementSelectionService.getStyles('2019680732')">All</option>
+                            <option ngFor="let ma of this.manningAgencyList" value="{{ma.customerDetails.customerId}}" (contextmenu)="__elementSelectionService.select('1057078866',$event)" [ngStyle]="__elementSelectionService.getStyles('1057078866')">
+                                {{ma.customerDetails.fullName}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-3" (contextmenu)="__elementSelectionService.select('146903861',$event)" [ngStyle]="__elementSelectionService.getStyles('146903861')">
+
+                <div class="form-group row" (contextmenu)="__elementSelectionService.select('176633808',$event)" [ngStyle]="__elementSelectionService.getStyles('176633808')">
+                    <div class="col-md-12" (contextmenu)="__elementSelectionService.select('2107594845',$event)" [ngStyle]="__elementSelectionService.getStyles('2107594845')">
+                        <label for="inputPassword" class="col-form-label digi-label" (contextmenu)="__elementSelectionService.select('1331595922',$event)" [ngStyle]="__elementSelectionService.getStyles('1331595922')">Date From</label>
+                        <input type="date" class="form-control" ngModel="this.reportRequestDetails.dateFrom" (contextmenu)="__elementSelectionService.select('1258479735',$event)" [ngStyle]="__elementSelectionService.getStyles('1258479735')">
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-3" (contextmenu)="__elementSelectionService.select('2013816688',$event)" [ngStyle]="__elementSelectionService.getStyles('2013816688')">
+
+                <div class="form-group row" (contextmenu)="__elementSelectionService.select('2144503196',$event)" [ngStyle]="__elementSelectionService.getStyles('2144503196')">
+                    <div class="col-md-12" (contextmenu)="__elementSelectionService.select('1147374318',$event)" [ngStyle]="__elementSelectionService.getStyles('1147374318')">
+                        <label for="inputPassword" class="col-form-label digi-label" (contextmenu)="__elementSelectionService.select('406772557',$event)" [ngStyle]="__elementSelectionService.getStyles('406772557')">Date To</label>
+                        <input type="date" class="form-control" ngModel="this.reportRequestDetails.dateTo" (contextmenu)="__elementSelectionService.select('590744797',$event)" [ngStyle]="__elementSelectionService.getStyles('590744797')">
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-3" (contextmenu)="__elementSelectionService.select('1218679618',$event)" [ngStyle]="__elementSelectionService.getStyles('1218679618')">
+
+                <div class="form-group row" (contextmenu)="__elementSelectionService.select('282022978',$event)" [ngStyle]="__elementSelectionService.getStyles('282022978')">
+                    <div class="col-md-12" (contextmenu)="__elementSelectionService.select('2126840229',$event)" [ngStyle]="__elementSelectionService.getStyles('2126840229')">
+                        <label for="inputPassword" class="col-form-label digi-label" (contextmenu)="__elementSelectionService.select('1829153348',$event)" [ngStyle]="__elementSelectionService.getStyles('1829153348')">Policy Status</label>
+                        <select class="form-control" id="policyStatusSelect" ngModel="this.reportRequestDetails.policyStatusId" (contextmenu)="__elementSelectionService.select('963321125',$event)" [ngStyle]="__elementSelectionService.getStyles('963321125')">
+                            <option value (contextmenu)="__elementSelectionService.select('1399599886',$event)" [ngStyle]="__elementSelectionService.getStyles('1399599886')">All</option>
+                            <option ngFor="let ps of this.policyStatusList" value="{{ps.policyStatusId}}" (contextmenu)="__elementSelectionService.select('91412719',$event)" [ngStyle]="__elementSelectionService.getStyles('91412719')">
+                                {{ps.statusDescription}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-3" (contextmenu)="__elementSelectionService.select('1568544399',$event)" [ngStyle]="__elementSelectionService.getStyles('1568544399')">
+                <label for="inputPassword" class="col-form-label digi-label" (contextmenu)="__elementSelectionService.select('1016969776',$event)" [ngStyle]="__elementSelectionService.getStyles('1016969776')">Items per page</label>
+                <select class="form-control" change="initialFilter()" ngModel="this.pageSize" (contextmenu)="__elementSelectionService.select('240851694',$event)" [ngStyle]="__elementSelectionService.getStyles('240851694')">
+                    <option value="10" selected="selected" (contextmenu)="__elementSelectionService.select('503127658',$event)" [ngStyle]="__elementSelectionService.getStyles('503127658')">10</option>
+                    <option value="25" (contextmenu)="__elementSelectionService.select('807053620',$event)" [ngStyle]="__elementSelectionService.getStyles('807053620')">25</option>
+                    <option value="50" (contextmenu)="__elementSelectionService.select('1627900221',$event)" [ngStyle]="__elementSelectionService.getStyles('1627900221')">50</option>
+                    <option value="100" (contextmenu)="__elementSelectionService.select('937243545',$event)" [ngStyle]="__elementSelectionService.getStyles('937243545')">100</option>
+                    <option value="500" (contextmenu)="__elementSelectionService.select('1118201158',$event)" [ngStyle]="__elementSelectionService.getStyles('1118201158')">500</option>
+                    <option value="1000" (contextmenu)="__elementSelectionService.select('663758639',$event)" [ngStyle]="__elementSelectionService.getStyles('663758639')">1000</option>
+                </select>
+            </div>
+            
+        </div>
+
+        <div class="table-responsive" ngIf="this.customerList.length &#62; 0" (contextmenu)="__elementSelectionService.select('2013355201',$event)" [ngStyle]="__elementSelectionService.getStyles('2013355201')">
+            <table class="table table-condensed table-hover table-small" (contextmenu)="__elementSelectionService.select('639560099',$event)" [ngStyle]="__elementSelectionService.getStyles('639560099')">
+                <thead (contextmenu)="__elementSelectionService.select('1466119283',$event)" [ngStyle]="__elementSelectionService.getStyles('1466119283')">
+                    <td (contextmenu)="__elementSelectionService.select('1911347439',$event)" [ngStyle]="__elementSelectionService.getStyles('1911347439')">Holder ID</td>
+                    <td (contextmenu)="__elementSelectionService.select('58291527',$event)" [ngStyle]="__elementSelectionService.getStyles('58291527')">Holder Name</td>
+                    <td (contextmenu)="__elementSelectionService.select('1392232314',$event)" [ngStyle]="__elementSelectionService.getStyles('1392232314')">Policy Number</td>
+                    <td ngIf="this.reportRequestDetails.policyTypeId == '2'" (contextmenu)="__elementSelectionService.select('485859834',$event)" [ngStyle]="__elementSelectionService.getStyles('485859834')">Master Policy Number</td>
+                    <td (contextmenu)="__elementSelectionService.select('189348139',$event)" [ngStyle]="__elementSelectionService.getStyles('189348139')">Policy Date Added</td>
+                    <td (contextmenu)="__elementSelectionService.select('1137878600',$event)" [ngStyle]="__elementSelectionService.getStyles('1137878600')">Status</td>
+                </thead>
+                <tbody (contextmenu)="__elementSelectionService.select('1335785823',$event)" [ngStyle]="__elementSelectionService.getStyles('1335785823')">
+                    <tr ngFor="let customer of this.customerList" (contextmenu)="__elementSelectionService.select('2119559975',$event)" [ngStyle]="__elementSelectionService.getStyles('2119559975')">
+                        <td (contextmenu)="__elementSelectionService.select('1016534439',$event)" [ngStyle]="__elementSelectionService.getStyles('1016534439')">{{customer.customerDetails.customerId}}</td>
+                        <td (contextmenu)="__elementSelectionService.select('1788937371',$event)" [ngStyle]="__elementSelectionService.getStyles('1788937371')">{{customer.customerDetails.fullName}}</td>
+                        <td (contextmenu)="__elementSelectionService.select('1456069649',$event)" [ngStyle]="__elementSelectionService.getStyles('1456069649')">{{customer.customerDetails.policyNumber}}</td>
+                        <td ngIf="this.reportRequestDetails.policyTypeId == '2'" (contextmenu)="__elementSelectionService.select('127142204',$event)" [ngStyle]="__elementSelectionService.getStyles('127142204')">{{customer.customerDetails.masterPolicyNumber}}</td>
+                        <td (contextmenu)="__elementSelectionService.select('61480516',$event)" [ngStyle]="__elementSelectionService.getStyles('61480516')">{{customer.customerDetails.policyDateAdded}}</td>
+                        <td (contextmenu)="__elementSelectionService.select('1632454518',$event)" [ngStyle]="__elementSelectionService.getStyles('1632454518')">{{customer.customerDetails.policyStatusDescription}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="row mt-5" (contextmenu)="__elementSelectionService.select('2038183450',$event)" [ngStyle]="__elementSelectionService.getStyles('2038183450')">
+            <div class="col-md-12 text-center" (contextmenu)="__elementSelectionService.select('1577455072',$event)" [ngStyle]="__elementSelectionService.getStyles('1577455072')">
+
+                <div class="btn-group" role="group" aria-label="Button group with nested dropdown" ngIf="this.customerList.length &#62; 0" (contextmenu)="__elementSelectionService.select('218984538',$event)" [ngStyle]="__elementSelectionService.getStyles('218984538')">
+                  <button type="button" class="btn btn-secondary" click="filter('0')" (contextmenu)="__elementSelectionService.select('108060794',$event)" [ngStyle]="__elementSelectionService.getStyles('108060794')"><i class="fa fa-chevron-left" (contextmenu)="__elementSelectionService.select('505731656',$event)" [ngStyle]="__elementSelectionService.getStyles('505731656')"></i>
+                        <i class="fa fa-chevron-left" (contextmenu)="__elementSelectionService.select('1889779041',$event)" [ngStyle]="__elementSelectionService.getStyles('1889779041')"></i></button>
+                  <button type="button" class="btn btn-secondary" click="filter(this.currentPage - 2)" (contextmenu)="__elementSelectionService.select('382373007',$event)" [ngStyle]="__elementSelectionService.getStyles('382373007')"><i class="fa fa-chevron-left" (contextmenu)="__elementSelectionService.select('397987100',$event)" [ngStyle]="__elementSelectionService.getStyles('397987100')"></i></button>
+
+                  <div class="btn-group" role="group" (contextmenu)="__elementSelectionService.select('796304185',$event)" [ngStyle]="__elementSelectionService.getStyles('796304185')">
+                    <button id="btnGroupDrop1" type="button" class="btn btn-digi" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" (contextmenu)="__elementSelectionService.select('1121147651',$event)" [ngStyle]="__elementSelectionService.getStyles('1121147651')">
+                       {{this.currentPage}} <i class="fa fa-chevron-down" (contextmenu)="__elementSelectionService.select('4135202',$event)" [ngStyle]="__elementSelectionService.getStyles('4135202')"></i>
+                    </button>
+                    <div class="dropdown-menu dropdown-head" aria-labelledby="btnGroupDrop1" (contextmenu)="__elementSelectionService.select('1363080212',$event)" [ngStyle]="__elementSelectionService.getStyles('1363080212')">
+                      <a class="dropdown-item" ngFor="let pocPage of this.pocPageLength; let i = index" click="filter(i)" (contextmenu)="__elementSelectionService.select('1271659105',$event)" [ngStyle]="__elementSelectionService.getStyles('1271659105')">{{pocPage}}</a>
+                    </div>
+                  </div>
+
+                  <button type="button" class="btn btn-secondary" click="filter(this.currentPage)" (contextmenu)="__elementSelectionService.select('328772440',$event)" [ngStyle]="__elementSelectionService.getStyles('328772440')"><i class="fa fa-chevron-right" (contextmenu)="__elementSelectionService.select('1796621824',$event)" [ngStyle]="__elementSelectionService.getStyles('1796621824')"></i></button>
+                  <button type="button" class="btn btn-secondary" click="filter(this.pageLength.length - 1)" (contextmenu)="__elementSelectionService.select('1294897442',$event)" [ngStyle]="__elementSelectionService.getStyles('1294897442')"><i class="fa fa-chevron-right" (contextmenu)="__elementSelectionService.select('1503818260',$event)" [ngStyle]="__elementSelectionService.getStyles('1503818260')"></i><i class="fa fa-chevron-right" (contextmenu)="__elementSelectionService.select('255246355',$event)" [ngStyle]="__elementSelectionService.getStyles('255246355')"></i></button>
+
+                </div>
+                
+            </div>
+        </div>
+
+	</div>
+
+</div>

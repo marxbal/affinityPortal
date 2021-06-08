@@ -1,0 +1,1053 @@
+<div id="content">
+    <h5 class="page-title" id="page-title">
+        <i class="fa fa-list"></i> Customer Management
+    </h5>
+    
+    <div class="alert alert-success hidden alert-dismissible fade" id="addCustomerSuccess" role="alert">
+      <i class="fa fa-check"></i> {{this.addCustomerNotice}}
+          <button type="button" class="close" (click)="closeAlert('addCustomerSuccess')" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+    </div>
+    <div class="alert alert-danger hidden alert-dismissible fade" id="addCustomerError" role="alert">
+      <i class="fa fa-times"></i> {{this.addCustomerNotice}}
+          <button type="button" class="close" (click)="closeAlert('addCustomerError')" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+    </div>
+    <div *ngIf="this.templateRouter == 'initialize'">
+
+        <!-- START OF ROW MT-2 -->
+
+        <div class="row mt-2">
+            <div class="col-md-12">
+                <div class="form-group row">
+                    <div class="col-md-3">
+                        <label for="inputPassword" class="col-form-label digi-label">Filter Customer</label>
+                        <select class="form-control" [(ngModel)]="this.customerDetailHolder.customerTypeId">
+                            <option *ngFor="let customerType of this.customerTypeList" value="{{customerType.customerTypeId}}">
+                                {{customerType.typeDescription}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                            <label for="agentCode" class="col-form-label digi-label">Search Client</label>
+                            <input type="text" id="agentCode" class="form-control" placeholder="Policy No. or Name or Passport No." [(ngModel)]="this.clientSearch">
+                    </div>
+                    <div class="col-md-2">
+
+                        <label for="inputPassword" class="col-form-label digi-label">Items per page</label>
+                        <select class="form-control" [(ngModel)]="this.pageSize">
+                            <option value="10" selected="selected">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                            <option value="500">500</option>
+                            <option value="1000">1000</option>
+                        </select>
+                        
+                    </div>
+                    <div class="col-md-2">
+                        <div class="row">
+                            <div class="col-md-12"><label for="agentCode" class="col-form-label digi-label">&nbsp;</label></div>
+                            <div class="col-md-12"><button class="btn btn-digi" type="button" (click)="initialChooseCustomerType()"><i class="fa fa-search"></i> Search</button></div>
+                        </div>
+                    </div>
+
+                     <div class="col-md-2" *ngIf="this.auth.getUserType() !== 'MA'">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label for="inputPassword" class="col-form-label digi-label">&nbsp;</label>
+                            </div>
+                            <div class="col-md-12">
+                                <button class="btn btn-digi" (click)="modalAddCustomer()"><i class="fa fa-plus"></i> Add Customer</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div> 
+
+            </div>
+            
+        </div>
+
+          <!--   END OF ROW MT-2 -->
+
+        <div class="table-responsive" *ngIf="this.customerList.length > 0">
+            <table class="table table-condensed table-hover table-small">
+                <thead>
+                    <td>Customer ID</td>
+                    <td>Fullname</td>
+                    <td *ngIf="this.showPassport == 'show'">Passport No.</td>
+                    <td>Customer Type</td>
+                    <td>Registration Date</td>
+                    <td>Status</td>
+                    <td></td>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let customer of this.customerList">
+                        <td>{{customer.customerDetails.customerId}}</td>
+                        <td>{{customer.customerDetails.fullName}}</td>
+                        <td *ngIf="this.showPassport == 'show'">{{customer.customerDetails.passportId}}</td>
+                        <td>{{customer.customerDetails.typeDescription}}</td>
+                        <td>{{customer.customerDetails.dateAdded}}</td>
+                        <td *ngIf="customer.customerDetails.status == '1'">Active</td>
+                        <td *ngIf="customer.customerDetails.status == '0'">Inactive</td>
+                        <td>
+                            <button class="btn btn-digi btn-sm" title="Update client details" (click)="modalUpdateCustomer(customer)"  *ngIf="(this.auth.getUserRole() == '9' || this.auth.getUserRole() == '2')" ><i class="fa fa-pencil"></i></button>&nbsp;
+                            <button class="btn btn-digi btn-sm" title="View more info" (click)="issueCustomerPolicy(customer)" data-dismiss="modal"><i class="fa fa-eye"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="row mt-5">
+            <div class="col-md-12 text-center">
+
+                <div class="btn-group" role="group" aria-label="Button group with nested dropdown" *ngIf="this.customerList.length > 0">
+                  <button type="button" class="btn btn-secondary" (click)="chooseCustomerType('0')"><i class="fa fa-chevron-left"></i>
+                        <i class="fa fa-chevron-left"></i></button>
+                  <button type="button" class="btn btn-secondary" (click)="chooseCustomerType(this.currentPage - 2)"><i class="fa fa-chevron-left"></i></button>
+
+                  <div class="btn-group" role="group">
+                    <button id="btnGroupDrop1" type="button" class="btn btn-digi" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                       {{this.currentPage}} <i class="fa fa-chevron-down"></i>
+                    </button>
+                    <div class="dropdown-menu dropdown-head" aria-labelledby="btnGroupDrop1">
+                      <a class="dropdown-item" *ngFor="let pocPage of this.pageLength; let i = index" (click)="chooseCustomerType(i)" >{{pocPage}}</a>
+                    </div>
+                  </div>
+
+                  <button type="button" class="btn btn-secondary" (click)="chooseCustomerType(this.currentPage)"><i class="fa fa-chevron-right"></i></button>
+                  <button type="button" class="btn btn-secondary" (click)="chooseCustomerType(this.pageLength.length - 1)"><i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i></button>
+
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+
+    <div *ngIf="this.templateRouter == 'viewCustomer'">
+        <div class="row" id="issuePolicy">
+
+            <div class="col-md-12">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <button class="btn btn-digi" (click)="backPage('')"><i class="fa fa-chevron-left"></i></button>
+                        <button class="btn btn-digi pull-right" *ngIf="this.auth.getUserType() !== 'MA' && (this.allCustomerDetailsSingle.customerDetails.customerTypeId == '1' || this.allCustomerDetailsSingle.customerDetails.customerTypeId == '2')" (click)="issuePolicy()"><i class="fa fa-check"></i> Issue Policy</button>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="card mt-3">
+          <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <span class="profile-name">
+                        {{this.allCustomerDetailsSingle.customerDetails.fullName}}
+
+                        <span class="pull-right" *ngIf="this.allCustomerDetailsSingle.customerDetails.naturalFlag == '1'">
+                            <i class="fa fa-venus text-danger" *ngIf="this.allCustomerDetailsSingle.customerDetails.gender == '2'"></i>
+                            <i class="fa fa-mars text-info" *ngIf="this.allCustomerDetailsSingle.customerDetails.gender == '1'"></i>
+                        </span>
+                        
+
+                    </span>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="policyNumber" class="col-form-label digi-label font-weight-bold">Customer Type</label>
+                            <div id="policyNumber">{{this.allCustomerDetailsSingle.customerDetails.typeDescription}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="policyNumber" class="col-form-label digi-label font-weight-bold">Date Added</label>
+                            <div id="policyNumber">{{this.formattedDate}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3" *ngIf="this.allCustomerDetailsSingle.customerDetails.customerTypeId == '1'">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="policyNumber" class="col-form-label digi-label font-weight-bold">Passport</label>
+                            <div id="policyNumber">{{this.allCustomerDetailsSingle.customerDetails.passportId}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3" *ngIf="this.allCustomerDetailsSingle.customerDetails.customerTypeId == '1'">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="policyNumber" class="col-form-label digi-label font-weight-bold">Occupation</label>
+                            <div id="policyNumber">{{this.allCustomerDetailsSingle.customerDetails.occupation}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3" *ngIf="this.allCustomerDetailsSingle.customerDetails.customerTypeId == '1'">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="policyNumber" class="col-form-label digi-label font-weight-bold">Birthday</label>
+                            <div id="policyNumber">{{this.allCustomerDetailsSingle.customerDetails.birthDay}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3" *ngIf="this.allCustomerDetailsSingle.paymentTermDetails.termInDay > 0">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="policyNumber" class="col-form-label digi-label font-weight-bold">Credit Term</label>
+                            <div id="policyNumber">{{this.allCustomerDetailsSingle.paymentTermDetails.termInDay}} Days Credit Term</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3" *ngIf="this.allCustomerDetailsSingle.customerDetails.customerTypeId == '3'">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="policyNumber" class="col-form-label digi-label font-weight-bold">Agent Code</label>
+                            <div id="policyNumber">{{this.allCustomerDetailsSingle.customerDetails.customerId}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                
+                <div class="card card-digi mt-3" *ngIf="this.allCustomerDetailsSingle.attributeDetails.length > 0">
+                    <div class="card-header accordion-header" id="heading-customer-one-view" data-toggle="collapse" data-target="#collapse-customer-one-view" aria-expanded="false" aria-controls="collapse-customer-one-view" (click)="openAccordion('heading-customer-one-view')">
+                        <h6 class="mb-0">
+                            <i class="fa fa-list"></i> Additional Attributes <span class="pull-right"><i class="fa fa-chevron-down"></i></span>
+                        </h6>
+                    </div>
+                    <div class="card-body collapse show" id="collapse-customer-one-view">
+
+                        <table class="table table-hover table-condensed">
+                            <thead>
+                                <tr>
+                                    <td>Type</td>
+                                    <td>Attribute Detail</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let attrib of this.allCustomerDetailsSingle.attributeDetails">
+                                    <td>{{attrib.description}}</td>
+                                    <td>{{attrib.attributeValue}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+
+            </li>
+            <li class="list-group-item">
+                
+                <div class="card card-digi mt-3">
+                    <div class="card-header accordion-header" id="heading-customer-two-view" data-toggle="collapse" data-target="#collapse-customer-two-view" aria-expanded="false" aria-controls="collapse-customer-two-view" (click)="openAccordion('heading-customer-two-view')">
+                        <h6 class="mb-0">
+                            <i class="fa fa-map-marker"></i> Address <span class="pull-right"><i class="fa fa-chevron-up"></i></span>
+                        </h6>
+                    </div>
+                    <div class="card-body collapse show show" id="collapse-customer-two-view">
+
+                        <table class="table table-condensed">
+                            <thead>
+                                <th>Address Type</th>
+                                <th>Details</th>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let address of this.allCustomerDetailsSingle.addressDetails">
+                                    <td>{{address.addressType}}</td>
+                                    <td>{{address.addressDetails}} Brgy. {{address.barangayDetail}}, {{address.municipalityDetail}}  {{address.provinceDetail}} {{address.zipCode}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+
+            </li>
+            <li class="list-group-item">
+                
+                <div class="card card-digi mt-3">
+                    <div class="card-header accordion-header" id="heading-customer-three-view" data-toggle="collapse" data-target="#collapse-customer-three-view" aria-expanded="false" aria-controls="collapse-customer-three-view" (click)="openAccordion('heading-customer-three-view')">
+                        <h6 class="mb-0">
+                            <i class="fa fa-phone"></i> Contact <span class="pull-right"><i class="fa fa-chevron-down"></i></span>
+                        </h6>
+                    </div>
+                    <div class="card-body collapse show" id="collapse-customer-three-view">
+
+                        <table class="table table-condensed">
+                            <thead>
+                                <th>Contact Type</th>
+                                <th>Details</th>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let contact of this.allCustomerDetailsSingle.contactDetails">
+                                    <td>{{contact.typeDescription}}</td>
+                                    <td>{{contact.detail}} </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+
+            </li>
+          </ul>
+        </div>
+
+    </div>
+
+    <div *ngIf="this.templateRouter == 'issuePolicy'">
+        
+        <div class="row">
+
+            <div class="col-md-12">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <button class="btn btn-digi" (click)="backPage('initialize')"><i class="fa fa-chevron-left"></i></button>
+                        <button class="btn btn-digi pull-right" (click)="submitIssuePolicy()"><i class="fa fa-paper-plane"></i> Submit Policy</button>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="card card-digi mt-3">
+            <div class="card-header accordion-header" >
+              <h6 class="mb-0">
+                <span id="main-details-holder">Policy Details</span> <span class="text-danger small hidden" id="passport-error"><i>*For underwriting approval</i></span> <span class="pull-right"><i class="fa fa-chevron-up"></i></span>
+              </h6>
+            </div>
+
+              <div class="card-body">
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-4 hidden">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label for="policyType" class="col-form-label digi-label">Policy Type</label>
+                                    <select id="policyType" class="form-control" (change)="showHideIssuePolicyFields()" [(ngModel)]="this.policyDetails.policyTypeId">
+                                        <option value="0" selected="selected" disabled="disabled">Choose Policy Type</option>
+                                        <option  *ngFor="let pType of this.policyTypeList" value="{{pType.policyTypeId}}">
+                                                    {{pType.typeDescription}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4" *ngIf="this.policyDetails.policyTypeId == '2'">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label for="policyType" class="col-form-label digi-label">Master Policies</label>
+                                    <ng2-completer [(ngModel)]="this.tempMasterPolicyHolder" (change)="selectMasterPolicy()" [datasource]="userData" [minSearchLength]="0"></ng2-completer>
+                                    <!-- <select id="policyType" id="select-master-policy" class="form-control" [(ngModel)]="this.policyDetails.policyHeaderId">
+                                        <option value="0" selected="selected" disabled="disabled">Choose Master Policy</option>
+                                        <option  *ngFor="let masterP of this.masterPolicyList" value="{{masterP.policyId}}-{{masterP.productId}}-{{masterP.agentCode}}-{{masterP.customerId}}">
+                                                    {{masterP.fullName}} ({{masterP.policyNumber}})
+                                        </option>
+                                    </select> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-8" *ngIf="this.policyDetails.policyTypeId == '2'">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="policyType" class="col-form-label digi-label">Area of Deployment <span class="text-danger hidden" id="aod-error"><i>*For underwriting approval</i></span></label>
+                                    <select id="areaOfDeployment" class="form-control" (change)="checkForUnderwriting('3')" [(ngModel)]="this.policyDetails.areaOfDeploymentId">
+                                        <option value="0" selected="selected" disabled="disabled">Choose Area of Deployment</option>
+                                        <option *ngFor="let country of this.countryList" value="{{country.countryId}}">
+                                                {{country.name}}
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="policyType" class="col-form-label digi-label">Product Variant</label>
+                                    <select id="pocBased" class="form-control" [(ngModel)]="this.policyDetails.pocBased"  (change)="changePremiumParameters()">
+                                        <option value="0" selected="selected" disabled="disabled">Choose Variant</option>
+                                        <option value="Land">Land Based</option>
+                                        <option value="Sea">Sea Based</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div *ngIf="this.issuePolicyShowFields == 'show'">
+                        <div class="row mt-3">
+                            <div class="col-md-4">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label for="effectivityDate" class="col-form-label digi-label">Effectivity Date <span class="text-danger hidden" id="retro-error"><i>*For underwriting approval</i></span></label> 
+                                        <input type="date" (change)="checkForUnderwriting('4')" id="effectivityDate" class="form-control" id="company-birth" [(ngModel)]="this.policyDetails.effectivityDate">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4" *ngIf="this.policyDetails.policyTypeId !== '2'">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label for="policyNumber" class="col-form-label digi-label">Policy Number</label>
+                                        <input type="text" id="policyNumber" class="form-control" id="company-birth" [(ngModel)]="this.policyDetails.policyNumber" (change)="checkUniquePolicyNumber()">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 hidden" *ngIf="this.policyDetails.policyTypeId !== '2'">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label for="policyType" class="col-form-label digi-label">Line</label>
+                                        <select id="policyType" class="form-control" (change)="chooseLine()" [(ngModel)]="this.policyDetails.lineId">
+                                            <option value="0" selected="selected" disabled="disabled">Choose Line</option>
+                                            <option *ngFor="let line of this.lineList" value="{{line.line_detail_id}}">
+                                                {{line.description}}
+                                            </option>
+                                            <option value="0">Multiple Line</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 hidden" *ngIf="this.policyDetails.policyTypeId !== '2'">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label for="policyType" class="col-form-label digi-label">Subline</label>
+                                        <select id="policyType" class="form-control" (change)="chooseSubline()" [(ngModel)]="this.policyDetails.sublineId">
+                                            <option value="0" selected="selected" disabled="disabled">Choose Subline</option>
+                                            <option *ngFor="let subline of this.sublineList" value="{{subline.subline_detail_id}}">
+                                                {{subline.description}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4" *ngIf="this.policyDetails.policyTypeId !== '1'">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label for="termInMonth" class="col-form-label digi-label">Term</label>
+                                        <input type="number" id="termInMonth"  (change)="chooseProduct()" class="form-control" placeholder="Term in months" [(ngModel)]="this.policyDetails.termInMonth">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4"  *ngIf="this.policyDetails.policyTypeId !== '2'">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label for="productType" class="col-form-label digi-label">Product</label>
+                                        <select id="productType" class="form-control" [(ngModel)]="this.policyDetails.productId">
+                                            <option value="0" selected="selected" disabled="disabled">Choose Product</option>
+                                            <option *ngFor="let product of this.productList" value="{{product.product_detail_id}}">
+                                                {{product.description}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4" *ngIf="this.policyDetails.policyTypeId !== '1'">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label for="premium_amount" class="col-form-label digi-label">Premium Amount</label>
+                                        <input type="number" id="premium_amount" class="form-control" placeholder="0.00" [(ngModel)]="this.policyDetails.premiumAmount" readonly="readonly">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12" *ngIf="this.policyDetails.policyTypeId !== '1'">
+                                <button class="btn btn-digi pull-right mt-3" (click)="chooseProduct()"><i class="fa fa-calculator"></i> Compute Premium</button>
+                            </div>
+                        </div>
+
+                        <div class="card card-digi mt-3" *ngIf="this.productCoveragesList.length > 0">
+                            <div class="card-header accordion-header" id="heading-customer-three-view" data-toggle="collapse" data-target="#collapse-product-coverages-list" aria-expanded="false" aria-controls="collapse-product-coverages-list">
+                                <h6 class="mb-0">
+                                    <i class="fa fa-list"></i> Product Coverages <span class="pull-right"><i class="fa fa-chevron-down"></i></span>
+                                </h6>
+                            </div>
+                            <div class="card-body collapse show show" id="collapse-product-coverages-list">
+
+                                <table class="table table-condensed table-small">
+                                    <thead>
+                                        <td>Coverage</td>
+                                        <td>Benefit</td>
+                                        <td>Line</td>
+                                        <td>Subline</td>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let productCover of productCoveragesList">
+                                            <td>{{productCover.type_name}}</td>
+                                            <td>{{productCover.type_description}}</td>
+                                            <td>{{productCover.line_description}}</td>
+                                            <td>{{productCover.subline_description}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+
+                    </div>
+                    
+                </div>
+
+              </div>
+
+          </div>
+
+          <div class="card card-digi mt-3" *ngIf="this.issuePolicyShowFields == 'show' && this.policyDetails.policyTypeId !== '2'" >
+            <div class="card-header accordion-header" >
+              <h6 class="mb-0">
+                <span id="main-details-holder">Agent Details</span> <span class="pull-right"><i class="fa fa-chevron-up"></i></span>
+              </h6>
+            </div>
+
+              <div class="card-body">
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label for="agentCode" class="col-form-label digi-label">Agent Code</label>
+                                    <input type="number" id="agentCode" class="form-control" placeholder="Agent Code" [(ngModel)]="this.policyDetails.agentCode">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-10">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label for="policyType" class="col-form-label digi-label">Agent Name</label>
+                                    <select id="policyType" class="form-control" [(ngModel)]="this.policyDetails.agentCode">
+                                        <option value="0" selected="selected" disabled="disabled">Choose Line</option>
+                                        <option *ngFor="let agent of this.agentList" value="{{agent.customerDetails.customerId}}">
+                                            {{agent.customerDetails.fullName}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+
+              </div>
+
+          </div>
+
+
+          <div class="card card-digi mt-3" *ngIf="this.issuePolicyShowFields == 'show' && this.policyDetails.policyTypeId !== '1'" >
+            <div class="card-header accordion-header" >
+              <h6 class="mb-0">
+                <span id="main-details-holder">Beneficiary Details</span> <span class="pull-right"><i class="fa fa-chevron-up"></i></span>
+              </h6>
+            </div>
+
+              <div class="card-body">
+
+                <div class="row" *ngIf="this.finalBeneficiaryList.length > 0">
+                    <div class="col-md-12">
+                        <h5>POC Beneficiary</h5>
+                        <div class="table-responsive table-height-200">
+                            <table class="table table-condensed table-hover   table-small">
+                                <thead>
+                                    <td>Fullname</td>
+                                    <td>Customer Type</td>
+                                    <td></td>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let customer of this.finalBeneficiaryList">
+                                        <td>{{customer.customerDetails.fullName}}</td>
+                                        <td>{{customer.customerDetails.typeDescription}}</td>
+                                        <td>
+                                            <button class="btn btn-digi" title="Add as Beneficiary" (click)="removeBeneficiary(customer)"><i class="fa fa-times"></i> Remove Beneficiary</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn btn-digi" id="add-beneficiary-btn" (click)="showAddBeneficiary()"><i class="fa fa-user-plus"></i> Add beneficiary</button>
+
+                <div class="form-group hidden" id="add-beneficiary">
+                    <div class="row">
+
+                        <div class="col-md-12">
+                            <hr>
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <label for="agentCode" class="col-form-label digi-label">Search Beneficiary</label>
+                                    <input type="text" id="agentCode" class="form-control" placeholder="Beneficiary Name" [(ngModel)]="this.beneficiarySearch">
+                                </div>
+                                <div class="col-md-1">
+                                    <div class="row">
+                                        <div class="col-md-12"><label for="agentCode" class="col-form-label digi-label">&nbsp;</label></div>
+                                        <div class="col-md-12"><button class="btn btn-digi" type="button" (click)="searchBeneficiary()"><i class="fa fa-search"></i></button></div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            <div class="table-responsive table-height-200">
+                                <table class="table table-condensed table-hover   table-small">
+                                    <thead>
+                                        <td>Fullname</td>
+                                        <td>Customer Type</td>
+                                        <td></td>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let customer of this.beneficiaryList">
+                                            <td>{{customer.customerDetails.fullName}}</td>
+                                            <td>{{customer.customerDetails.typeDescription}}</td>
+                                            <td>
+                                                <button class="btn btn-digi" title="Add as Beneficiary" (click)="addBeneficiary(customer)"><i class="fa fa-user-plus"></i> Add Beneficiary</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                    
+                </div>
+
+              </div>
+
+          </div>
+
+        
+
+    </div>
+
+    <div *ngIf="this.templateRouter == 'addCustomer'"></div>
+    <div [ngClass]="this.addEditCustmerShow">
+
+        <div class="row">
+
+            <div class="col-md-12">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <button class="btn btn-digi" (click)="backPage('initialize')"><i class="fa fa-chevron-left"></i></button>
+                        <button type="button" class="btn btn-digi pull-right" (click)="saveCustomer()"><i class="fa fa-save"></i> Save changes</button>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+            <div class="alert alert-danger hidden" id="addCustomerError2" role="alert">
+              <i class="fa fa-times"></i> {{this.addCustomerNotice}}
+            </div>
+            <div class="row">
+            <div class="col-md-4">
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="fullname" class="col-form-label digi-label">Customer Type</label>
+                            <select class="form-control" (change)="chooseNewCustomerType()" [(ngModel)]="this.newCustomerTypeHolder">
+                                <option value="" disabled="disabled">Please choose Customer Type</option>
+                                <option *ngFor="let customerType of this.customerTypeList" value="{{customerType.customerTypeId}}-{{customerType.naturalFlag}}">
+                                    {{customerType.typeDescription}}
+                                </option>
+                            </select>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-md-4" *ngIf="this.newCustomerTypeHolder == '2-0' || this.newCustomerTypeHolder == '3-1'">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label for="gender" class="col-form-label digi-label">Credit Term</label>
+                        <select id="gender" class="form-control" (change)="showAddressPanel()" [(ngModel)]="this.customerPaymentTerm.paymentTermId">
+                            <option value="0" selected="selected" disabled="disabled">Choose Credit Term</option>
+                            <option *ngFor="let term of this.paymentTermType" value="{{term.paymentTermId}}">
+                                {{term.termInDay}} Days
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            </div>  
+
+            <hr>
+
+            <div id="accordions">
+                <div id="accordion" class="customer-accordion hidden">
+                  <div class="card card-digi">
+                    <div class="card-header accordion-header"  id="heading-customer-One" data-toggle="collapse" data-target="#collapse-customer-One" aria-expanded="true" aria-controls="collapse-customer-One" (click)="openAccordion('heading-customer-One')">
+                      <h6 class="mb-0">
+                        <span id="main-details-holder">Personal Details</span> <span class="pull-right"><i class="fa fa-chevron-up"></i></span>
+                      </h6>
+                    </div>
+
+                    <div id="collapse-customer-One" class="collapse show" aria-labelledby="heading-customer-One">
+                      <div class="card-body">
+
+                        <div class="form-group" *ngIf="this.showJuridicalFields == '0'">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <label for="fullname" class="col-form-label digi-label">Full Company Name</label>
+                                    <input type="text" class="form-control" placeholder="Full Company Name" id="fullname" value="" [(ngModel)]="this.newCustomerHolder.fullName">
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <label for="fullname" class="col-form-label digi-label">Established Date</label>
+                                            <input type="date" class="form-control" (change)="showAddressPanel()" id="company-birth" [(ngModel)]="this.newCustomerHolder.birthDay">
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div class="form-group" *ngIf="this.showJuridicalFields == '1'">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <label for="firstname" class="col-form-label digi-label">First name</label>
+                                            <input type="text" placeholder="First name" class="form-control" id="firstname" [(ngModel)]="this.newCustomerHolder.firstName">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <label for="lastname" class="col-form-label digi-label">Last name</label>
+                                            <input type="text" placeholder="Last Name" class="form-control" id="lastname" [(ngModel)]="this.newCustomerHolder.lastName">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <label for="middlename" class="col-form-label digi-label">Middle name</label>
+                                            <input type="text" placeholder="Middle Name" class="form-control" id="middlename"  [(ngModel)]="this.newCustomerHolder.middleName">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-3">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <label for="birthday" class="col-form-label digi-label">Birthday</label>
+                                            <input type="date" class="form-control" id="birthday" [(ngModel)]="this.newCustomerHolder.birthDay">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <label for="gender" class="col-form-label digi-label">Gender</label>
+                                            <select id="gender" class="form-control"[(ngModel)]="this.newCustomerHolder.gender">
+                                                <option value="0" selected="selected" disabled="disabled">Choose Gender</option>
+                                                <option value="1">Male</option>
+                                                <option value="2">Female</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3" *ngIf="this.newCustomerHolder.customerTypeId == '1'">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <label for="passport" class="col-form-label digi-label">Passport</label>
+                                            <input type="text" placeholder="Passport" maxlength="9" minlength="9" class="form-control" id="passport" [(ngModel)]="this.newCustomerHolder.passportId" (change)="checkUniquePassport()">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3" *ngIf="this.newCustomerHolder.customerTypeId == '1'">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <label for="passport" class="col-form-label digi-label">Occupation</label>
+                                            <input type="text" placeholder="Occupation" class="form-control" id="occupation" [(ngModel)]="this.newCustomerHolder.occupation">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mt-3">
+
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <label for="contactType" class="col-form-label digi-label">Additional attribute type</label>
+                                            <select class="form-control" id="contactType" (change)="chooseAttribType()" [(ngModel)]="this.additionalAttribute.attributeTypeId">
+                                                <option *ngFor="let attribType of this.attributeTypeList" value="{{attribType.attributeTypeId}}-{{attribType.inputType}}-{{attribType.description}}">
+                                                    {{attribType.description}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <label for="attribute-detail-holder" class="col-form-label digi-label">Contact details</label>
+                                            <input type="text" placeholder="Details" class="form-control" id="attribute-detail-holder" disabled [(ngModel)]="this.additionalAttribute.attributeValue" value="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <label for="no" class="col-form-label digi-label">&nbsp;</label>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <button class="btn btn-digi" (click)="addNewAttribute()"><i class="fa fa-plus"></i> Add Attribute</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row mt-3" *ngIf="this.additionalAttributeFinal.length > 0">
+                                <div class="col-md-12">
+                                    <table class="table   table-small table-hover table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <td>Type</td>
+                                                <td>Attribute Detail</td>
+                                                <td></td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let attrib of this.additionalAttributeFinal">
+                                                <td>{{attrib.attributeType}}</td>
+                                                <td>{{attrib.attributeValue}}</td>
+                                                <td><button type="button" class="btn btn-digi btn-sm" (click)="removeAttribList(attrib)" ><i class="fa fa-times"></i></button></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                      </div>
+
+                    </div>
+                  </div>
+                  <div class="card card-digi mt-3" id="address-holder">
+                    <div class="card-header accordion-header" id="heading-customer-Two" data-toggle="collapse" data-target="#collapse-customer-Two" (click)="openAccordion('heading-customer-Two')" aria-expanded="false" aria-controls="collapse-customer-Two">
+                      <h6 class="mb-0">
+                          Address Details <span class="pull-right"><i class="fa fa-chevron-up"></i></span>
+                      </h6>
+                    </div>
+                    <div id="collapse-customer-Two" class="collapse show" aria-labelledby="heading-customer-Two">
+                      <div class="card-body">
+                        <button class="btn btn-digi" *ngIf="this.addAddress !== ''" (click)="showAddingFields('address')"><i class="fa fa-plus"></i> Add Address</button>
+                        <div class="form-group" [ngClass]="this.addAddress">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <label for="full-address" class="col-form-label digi-label">Address details</label>
+                                            <input type="text" placeholder="House Number, Building and Street Name" class="form-control" id="full-address" [(ngModel)]="this.singleAddressDetail.addressDetails" value="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <label for="province" class="col-form-label digi-label">Province</label>
+                                            <select class="form-control" id="province" (change)="chooseNewProvince()" [(ngModel)]="this.singleAddressDetail.provinceDetailId">
+                                                <option *ngFor="let province of this.provinceList" value="{{province.provinceDetailId}}-{{province.description}}">
+                                                    {{province.description}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 hidden" id="city-holder">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <label for="city" class="col-form-label digi-label">Municipality</label>
+                                            <select class="form-control" id="city" (change)="chooseNewMunicipality()" [(ngModel)]="this.singleAddressDetail.municipalityDetailId">
+                                                <option  *ngFor="let city of this.municipalityList" value="{{city.municipalityDetailId}}-{{city.description}}">
+                                                    {{city.description}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 hidden" id="barangay-holder">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <label for="brgy" class="col-form-label digi-label">Barangay</label>
+                                            <select class="form-control" id="brgy" (change)="chooseNewBarangay()" [(ngModel)]="this.singleAddressDetail.barangayDetailId">
+                                                <option value="0"></option>
+                                                <option  *ngFor="let brgy of this.barangayList" value="{{brgy.barangayDetailId}}-{{brgy.description}}">
+                                                    {{brgy.description}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row mt-3 hidden" id="other-addr-details">
+
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <label for="zipcode" class="col-form-label digi-label">Zip code</label>
+                                            <input type="text" placeholder="Zip Code" class="form-control" id="zipcode" [(ngModel)]="this.singleAddressDetail.zipCode" value="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <label for="addressType" class="col-form-label digi-label">Address type</label>
+                                            <select class="form-control" id="addressType" [(ngModel)]="this.singleAddressDetail.addressTypeId">
+                                                <option *ngFor="let addressType of this.addressTypeList" value="{{addressType.addressTypeId}}-{{addressType.typeDescription}}">
+                                                    {{addressType.typeDescription}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mt-3">
+                                    <button class="btn btn-digi pull-right" (click)="addNewAddress()"><i class="fa fa-plus"></i> Add Address</button>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row mt-3" *ngIf="this.allAddressDetailList.length > 0">
+                                <div class="col-md-12">
+                                    <table class="table   table-small table-hover table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <td>Type</td>
+                                                <td>Full Address</td>
+                                                <td></td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let address of this.allAddressDetailList">
+                                                <td>{{address.addressType}}</td>
+                                                <td>{{address.addressDetails}} Brgy. {{address.barangayDetail}}, {{address.municipalityDetail}}  {{address.provinceDetail}} {{address.zipCode}}</td>
+                                                <td><button type="button" class="btn btn-digi btn-sm" (click)="removeAddressList(address)" ><i class="fa fa-times"></i></button></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card card-digi mt-3" id="contact-holder">
+                    <div class="card-header accordion-header" id="heading-customer-Three" data-toggle="collapse" data-target="#collapse-customer-Three" (click)="openAccordion('heading-customer-Three')" aria-expanded="false" aria-controls="collapse-customer-Three">
+                      <h6 class="mb-0">
+                          Contact Details <span class="pull-right"><i class="fa fa-chevron-up"></i></span>
+                      </h6>
+                    </div>
+                    <div id="collapse-customer-Three" class="collapse show" aria-labelledby="heading-customer-Three">
+                      <div class="card-body">
+                        <button class="btn btn-digi" *ngIf="this.addContact !== ''" (click)="showAddingFields('contact')"><i class="fa fa-plus"></i> Add Contact</button>
+                        <div class="row mt-3" [ngClass]="this.addContact">
+
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <label for="contactType" class="col-form-label digi-label">Contact type</label>
+                                            <select class="form-control" id="contactType" (change)="chooseContactType()" [(ngModel)]="this.customerContact.customerContactTypeId">
+                                                <option *ngFor="let customerType of this.customerContactTypeList" value="{{customerType.customerContactTypeId}}-{{customerType.typeDescription}}">
+                                                    {{customerType.typeDescription}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <label for="contact-detail-holder" class="col-form-label digi-label">Contact details</label>
+                                            <input type="text" placeholder="Contact Details" class="form-control" id="contact-detail-holder" disabled [(ngModel)]="this.customerContact.detail" value="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <label for="no" class="col-form-label digi-label">&nbsp;</label>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <button class="btn btn-digi" (click)="addNewContact()"><i class="fa fa-plus"></i> Add Contact</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row mt-3" *ngIf="this.customerContactList.length > 0">
+                                <div class="col-md-12">
+                                    <table class="table   table-small table-hover table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <td>Type</td>
+                                                <td>Detail</td>
+                                                <td></td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let contact of this.customerContactList">
+                                                <td>{{contact.customerContactType}}</td>
+                                                <td>{{contact.detail}}</td>
+                                                <td><button type="button" class="btn btn-digi btn-sm" (click)="removeContactDetail(contact)" ><i class="fa fa-times"></i></button></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card card-digi hidden mt-3" id="attachements-holder">
+                    <div class="card-header accordion-header" id="heading-customer-Four" data-toggle="collapse" data-target="#collapse-customer-Four" (click)="openAccordion('heading-customer-Four')" aria-expanded="false" aria-controls="collapse-customer-Four">
+                      <h6 class="mb-0">
+                          Attachments <span class="pull-right"><i class="fa fa-chevron-up"></i></span>
+                      </h6>
+                    </div>
+                    <div id="collapse-customer-Four" class="collapse show" aria-labelledby="heading-customer-Four">
+                      <div class="card-body">
+                        
+
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+
+</div>

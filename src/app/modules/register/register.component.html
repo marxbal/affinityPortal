@@ -1,0 +1,151 @@
+<div class="container">
+    <div class="d-flex justify-content-center">
+        <div class="card mb-3 login-card">
+            <div class="card-body login-card-body">
+                <div class="row mt-5">
+                    <div class="col-md-12 text-center">
+                        <h3 class="font-weight-bold">SIGN UP</h3>
+                    </div>
+                </div>
+                <form class="mt-4"  (ngSubmit)="registerSubmit($event)" ngNativeValidate>
+                    
+                    <div class="alert alert-danger" role="alert" *ngIf="errorMessage != ''">
+                      {{ errorMessage }}
+                    </div>
+                    <div class="alert alert-success" role="alert" *ngIf="successMessage != ''">
+                      {{ successMessage }}
+                    </div>
+
+                    <div class="input-group form-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-user"></i></span>
+                        </div>
+
+                        <input type="text" class="form-control" id="firstname" name="firstname" 
+                        [(ngModel)]="register.firstName" placeholder="Firstname" required />
+                        
+                    </div>
+                    <div class="input-group form-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-user"></i></span>
+                        </div>
+
+                        <input type="text" class="form-control" id="middlename" name="middlename" 
+                        [(ngModel)]="register.middleName" placeholder="Middlename" />
+                        
+                    </div>
+                    <div class="input-group form-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-user"></i></span>
+                        </div>
+
+                        <input type="text" class="form-control" id="lastname" name="lastname" 
+                        [(ngModel)]="register.lastName" placeholder="Lastname" required />
+                        
+                    </div>
+                    <div class="input-group form-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-phone"></i></span>
+                        </div>
+
+                        <input type="text" class="form-control" id="contact" name="contact" 
+                        [(ngModel)]="register.contactNumber" placeholder="Contact" required />
+                        
+                    </div>
+                    <div class="input-group form-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-user"></i></span>
+                        </div>
+
+                        <select class="form-control" id="roleId" name="roleId"  [(ngModel)]="register.roleId" (change)="addRole()" >
+                          <option value="" disabled="disabled">Choose Role</option>
+                            <option *ngFor="let role of rolesList" value="{{role.roleId}}">
+                                {{role.description}}
+                            </option>
+                          
+                        </select>
+                        
+                    </div>
+                    <div class="input-group form-group hidden" id="manningAgencyField">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-user"></i></span>
+                        </div>
+
+                        <select class="form-control" id="manningAgencyId" name="manningAgencyId" [(ngModel)]="register.manningAgencyId" required *ngIf="this.customerList.length > 0">
+                          <option value="0" disabled="disabled">Choose Agency</option>
+                            <option *ngFor="let cust of customerList" value="{{cust.customerDetails.customerId}}">
+                                {{cust.customerDetails.fullName}}
+                            </option>
+                        </select>
+                        
+                    </div>
+                    <div class="input-group form-group hidden" id="agentField">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-user"></i></span>
+                        </div>
+
+                        <select class="form-control" id="customerId" name="customerId" [(ngModel)]="register.customerId" required *ngIf="this.customerAgentList.length > 0">
+                          <option value="0" disabled="disabled">Choose Agent</option>
+                            <option *ngFor="let cust of customerAgentList" value="{{cust.customerDetails.customerId}}">
+                                {{cust.customerDetails.fullName}}
+                            </option>
+                        </select>
+                        
+                    </div>
+                    <!-- <div class="input-group form-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-user"></i></span>
+                        </div>
+
+                        <input type="text" class="form-control" id="username" name="username" 
+                         placeholder="Username" required />
+                        
+                    </div> -->
+                    <div class="input-group form-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-envelope"></i></span>
+                        </div>
+
+                        <input type="email" class="form-control" id="email" name="email" 
+                        [(ngModel)]="register.email" [(ngModel)]="register.username" placeholder="Email" required />
+                        
+                    </div>
+
+                    <small class="text-danger" *ngIf="this.passwordError != ''">*{{this.passwordError}}</small>
+                    <div class="input-group form-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-key"></i></span>
+                        </div>
+                        <input type="password" (change)="checkPassword()" class="form-control" id="password" placeholder="Password" 
+                        [(ngModel)]="register.password" name="password" required minlength="8" maxlength="14" >
+
+                    </div>
+
+
+                    <div class="input-group form-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-key"></i></span>
+                        </div>
+                        <input type="password" class="form-control" id="cpassword" placeholder="Confirm Password" 
+                        [(ngModel)]="cpassword" name="cpassword" required minlength="8" maxlength="14" >
+                    </div>
+                    <div class="row remember">
+                        <input type="checkbox" required>I agree to &nbsp;<a href="#" class="color-digi"> Terms and use of Service</a>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="SUBMIT" class="btn float-right btn-block login_btn mt-4 mb-4">
+                    </div>
+                </form>
+                <div class="text-center">
+                    <span class="links">Do you already have an account?<a href="/login" style="cursor: pointer;" class="color-digi"><u>Log in</u></a></span>
+                </div>
+            </div>
+            <div class="card-footer text-center">
+                <img src="assets/images/home-header.png" class="client-logo" /><br>
+                <span class="digitalInno-brand">DigitalInno by MORPHSYS Inc.</span> &nbsp;
+                <small class="text-secondary">v.1.0.0</small>
+            </div>
+        </div>
+    </div>
+</div>
+

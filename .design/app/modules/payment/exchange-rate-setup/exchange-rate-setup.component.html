@@ -1,0 +1,139 @@
+<div id="content" (contextmenu)="__elementSelectionService.select('1611612364',$event)" [ngStyle]="__elementSelectionService.getStyles('1611612364')"(click)='__elementSelectionService.clear()'>
+    <h3 class="page-title" (contextmenu)="__elementSelectionService.select('1733756386',$event)" [ngStyle]="__elementSelectionService.getStyles('1733756386')">
+
+        <i class="fa fa-cogs" (contextmenu)="__elementSelectionService.select('2039054891',$event)" [ngStyle]="__elementSelectionService.getStyles('2039054891')"></i> Exchange Rate Setup
+    </h3>
+    
+    <div class="alert alert-success hidden fade" id="addExchangeRateSuccess" role="alert" (contextmenu)="__elementSelectionService.select('1662694646',$event)" [ngStyle]="__elementSelectionService.getStyles('1662694646')">
+      <i class="fa fa-check" (contextmenu)="__elementSelectionService.select('32218631',$event)" [ngStyle]="__elementSelectionService.getStyles('32218631')"></i> {{this.addExchangeRateSuccess}}
+          <button type="button" class="close" aria-label="Close" click="closeAlert('addExchangeRateSuccess')" (contextmenu)="__elementSelectionService.select('1582097357',$event)" [ngStyle]="__elementSelectionService.getStyles('1582097357')">
+            <span aria-hidden="true" (contextmenu)="__elementSelectionService.select('1801562869',$event)" [ngStyle]="__elementSelectionService.getStyles('1801562869')">&#215;</span>
+          </button>
+    </div>
+
+    <div (contextmenu)="__elementSelectionService.select('1567231595',$event)" [ngStyle]="__elementSelectionService.getStyles('1567231595')">
+
+        <div class="row mt-2 mb-2" (contextmenu)="__elementSelectionService.select('11319399',$event)" [ngStyle]="__elementSelectionService.getStyles('11319399')">
+            <div class="col-md-4" (contextmenu)="__elementSelectionService.select('969371956',$event)" [ngStyle]="__elementSelectionService.getStyles('969371956')">
+
+                <div class="form-group row" (contextmenu)="__elementSelectionService.select('1595364091',$event)" [ngStyle]="__elementSelectionService.getStyles('1595364091')">
+                    <div class="col-md-12" (contextmenu)="__elementSelectionService.select('1375933988',$event)" [ngStyle]="__elementSelectionService.getStyles('1375933988')">
+                        <label for="inputPassword" class="col-form-label digi-label" (contextmenu)="__elementSelectionService.select('931787651',$event)" [ngStyle]="__elementSelectionService.getStyles('931787651')">Exchange Rate Type</label>
+                        <select class="form-control" change="chooseExchangeRateType()" ngModel="this.exchangeType" (contextmenu)="__elementSelectionService.select('893745815',$event)" [ngStyle]="__elementSelectionService.getStyles('893745815')">
+                            <option value="0" disabled="disabled" (contextmenu)="__elementSelectionService.select('1344304718',$event)" [ngStyle]="__elementSelectionService.getStyles('1344304718')">Please choose type</option>
+                            <option ngFor="let type of exchangeRateTypeList" value="{{type.exchangeRateTypeId}}" (contextmenu)="__elementSelectionService.select('450422872',$event)" [ngStyle]="__elementSelectionService.getStyles('450422872')">
+                                {{type.description}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-8 text-right" (contextmenu)="__elementSelectionService.select('1647641963',$event)" [ngStyle]="__elementSelectionService.getStyles('1647641963')">
+                <div class="row" (contextmenu)="__elementSelectionService.select('2092587640',$event)" [ngStyle]="__elementSelectionService.getStyles('2092587640')">
+                    <div class="col-md-12" (contextmenu)="__elementSelectionService.select('805028263',$event)" [ngStyle]="__elementSelectionService.getStyles('805028263')">
+                        <label for="inputPassword" class="col-form-label digi-label" (contextmenu)="__elementSelectionService.select('1916560936',$event)" [ngStyle]="__elementSelectionService.getStyles('1916560936')">&#160;</label>
+                    </div>
+                    <div class="col-md-12" (contextmenu)="__elementSelectionService.select('954743641',$event)" [ngStyle]="__elementSelectionService.getStyles('954743641')">
+                        <button class="btn btn-digi" click="clearModalContent()" data-toggle="modal" data-target="#modalNewProduct" (contextmenu)="__elementSelectionService.select('372232102',$event)" [ngStyle]="__elementSelectionService.getStyles('372232102')"><i class="fa fa-plus" (contextmenu)="__elementSelectionService.select('1739117117',$event)" [ngStyle]="__elementSelectionService.getStyles('1739117117')"></i> Add new setup</button>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+        <div class="table-responsive" (contextmenu)="__elementSelectionService.select('1991566790',$event)" [ngStyle]="__elementSelectionService.getStyles('1991566790')">
+            <table class="table table-condensed table-hover table-small" (contextmenu)="__elementSelectionService.select('268384954',$event)" [ngStyle]="__elementSelectionService.getStyles('268384954')">
+                <thead (contextmenu)="__elementSelectionService.select('1732609564',$event)" [ngStyle]="__elementSelectionService.getStyles('1732609564')">
+                    <td (contextmenu)="__elementSelectionService.select('1188923891',$event)" [ngStyle]="__elementSelectionService.getStyles('1188923891')">Date</td>
+                    <td (contextmenu)="__elementSelectionService.select('387374651',$event)" [ngStyle]="__elementSelectionService.getStyles('387374651')">Type</td>
+                    <td (contextmenu)="__elementSelectionService.select('1632242825',$event)" [ngStyle]="__elementSelectionService.getStyles('1632242825')">Amount</td>
+                    <td (contextmenu)="__elementSelectionService.select('712246234',$event)" [ngStyle]="__elementSelectionService.getStyles('712246234')"></td>
+                </thead>
+                <tbody (contextmenu)="__elementSelectionService.select('13407606',$event)" [ngStyle]="__elementSelectionService.getStyles('13407606')">
+
+                	<tr ngFor="let ex of this.exchangeRateList" (contextmenu)="__elementSelectionService.select('554329170',$event)" [ngStyle]="__elementSelectionService.getStyles('554329170')">
+                        <td (contextmenu)="__elementSelectionService.select('278207166',$event)" [ngStyle]="__elementSelectionService.getStyles('278207166')">{{ex.dateAdded}}</td>
+                        <td (contextmenu)="__elementSelectionService.select('452305317',$event)" [ngStyle]="__elementSelectionService.getStyles('452305317')">{{ex.exchangeRateType}}</td>
+                        <td (contextmenu)="__elementSelectionService.select('2121719976',$event)" [ngStyle]="__elementSelectionService.getStyles('2121719976')">{{ex.amount}}</td>
+                        <td (contextmenu)="__elementSelectionService.select('212607936',$event)" [ngStyle]="__elementSelectionService.getStyles('212607936')">
+                        	<button class="btn btn-digi-red btn-sm" click="deleteExchangeRate(ex)" (contextmenu)="__elementSelectionService.select('877955073',$event)" [ngStyle]="__elementSelectionService.getStyles('877955073')"><i class="fa fa-times" (contextmenu)="__elementSelectionService.select('52162471',$event)" [ngStyle]="__elementSelectionService.getStyles('52162471')"></i></button>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+       
+</div>
+
+<div class="modal fade" id="modalNewProduct" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true" (contextmenu)="__elementSelectionService.select('1243692236',$event)" [ngStyle]="__elementSelectionService.getStyles('1243692236')">
+      <div class="modal-dialog modal-lg" role="document" (contextmenu)="__elementSelectionService.select('670999659',$event)" [ngStyle]="__elementSelectionService.getStyles('670999659')">
+        <div class="modal-content" (contextmenu)="__elementSelectionService.select('939144213',$event)" [ngStyle]="__elementSelectionService.getStyles('939144213')">
+          <div class="modal-header modal-header-digi" (contextmenu)="__elementSelectionService.select('1799390106',$event)" [ngStyle]="__elementSelectionService.getStyles('1799390106')">
+            <h5 class="modal-title" id="exampleModalLongTitle" (contextmenu)="__elementSelectionService.select('683935074',$event)" [ngStyle]="__elementSelectionService.getStyles('683935074')"><i class="fa fa-plus" (contextmenu)="__elementSelectionService.select('2060136941',$event)" [ngStyle]="__elementSelectionService.getStyles('2060136941')"></i> Add new Exchange Rate</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" (contextmenu)="__elementSelectionService.select('477624381',$event)" [ngStyle]="__elementSelectionService.getStyles('477624381')">
+              <span aria-hidden="true" (contextmenu)="__elementSelectionService.select('1942283386',$event)" [ngStyle]="__elementSelectionService.getStyles('1942283386')">&#215;</span>
+            </button>
+          </div>
+          <div class="modal-body" (contextmenu)="__elementSelectionService.select('2074284149',$event)" [ngStyle]="__elementSelectionService.getStyles('2074284149')">
+            <div class="alert alert-danger hidden fade" id="addExchangeRateError" role="alert" (contextmenu)="__elementSelectionService.select('1489244853',$event)" [ngStyle]="__elementSelectionService.getStyles('1489244853')">
+              <i class="fa fa-times" (contextmenu)="__elementSelectionService.select('2068950912',$event)" [ngStyle]="__elementSelectionService.getStyles('2068950912')"></i> {{this.addExchangeRateError}}
+                  <button type="button" class="close" aria-label="Close" click="closeAlert('addExchangeRateError')" (contextmenu)="__elementSelectionService.select('803365796',$event)" [ngStyle]="__elementSelectionService.getStyles('803365796')">
+                    <span aria-hidden="true" (contextmenu)="__elementSelectionService.select('1277292181',$event)" [ngStyle]="__elementSelectionService.getStyles('1277292181')">&#215;</span>
+                  </button>
+            </div>
+            <hr (contextmenu)="__elementSelectionService.select('881331230',$event)" [ngStyle]="__elementSelectionService.getStyles('881331230')">
+
+            <div class="form-group" (contextmenu)="__elementSelectionService.select('1121163424',$event)" [ngStyle]="__elementSelectionService.getStyles('1121163424')">
+                    <div class="row" (contextmenu)="__elementSelectionService.select('2123381789',$event)" [ngStyle]="__elementSelectionService.getStyles('2123381789')">
+                        <div class="col-md-4" (contextmenu)="__elementSelectionService.select('1032200220',$event)" [ngStyle]="__elementSelectionService.getStyles('1032200220')">
+                            <div class="row" (contextmenu)="__elementSelectionService.select('1234842446',$event)" [ngStyle]="__elementSelectionService.getStyles('1234842446')">
+
+                                <div class="col-md-12" (contextmenu)="__elementSelectionService.select('399680581',$event)" [ngStyle]="__elementSelectionService.getStyles('399680581')">
+                                    <label for="term-in-month" class="col-form-label digi-label" (contextmenu)="__elementSelectionService.select('1750930038',$event)" [ngStyle]="__elementSelectionService.getStyles('1750930038')">Exchange Rate Type</label>
+                                    <select class="form-control" ngModel="this.exchangeRateNew.exchangeRateTypeId" (contextmenu)="__elementSelectionService.select('1691834785',$event)" [ngStyle]="__elementSelectionService.getStyles('1691834785')">
+                                        <option disabled="disabled" (contextmenu)="__elementSelectionService.select('2093946422',$event)" [ngStyle]="__elementSelectionService.getStyles('2093946422')">Please choose type</option>
+                                        <option ngFor="let type of exchangeRateTypeList" value="{{type.exchangeRateTypeId}}" (contextmenu)="__elementSelectionService.select('2117952870',$event)" [ngStyle]="__elementSelectionService.getStyles('2117952870')">
+                                            {{type.description}}
+                                        </option>
+                                    </select>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-md-4" (contextmenu)="__elementSelectionService.select('2121467509',$event)" [ngStyle]="__elementSelectionService.getStyles('2121467509')">
+                            <div class="row" (contextmenu)="__elementSelectionService.select('548885067',$event)" [ngStyle]="__elementSelectionService.getStyles('548885067')">
+
+                                <div class="col-md-12" (contextmenu)="__elementSelectionService.select('617451213',$event)" [ngStyle]="__elementSelectionService.getStyles('617451213')">
+                                    <label for="premium-amount" class="col-form-label digi-label" (contextmenu)="__elementSelectionService.select('827246951',$event)" [ngStyle]="__elementSelectionService.getStyles('827246951')">Date</label>
+                                    <input type="date" class="form-control" ngModel="this.exchangeRateNew.dateAdded" (contextmenu)="__elementSelectionService.select('1466446229',$event)" [ngStyle]="__elementSelectionService.getStyles('1466446229')">
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-md-4" (contextmenu)="__elementSelectionService.select('1305936953',$event)" [ngStyle]="__elementSelectionService.getStyles('1305936953')">
+                            <div class="row" (contextmenu)="__elementSelectionService.select('86266024',$event)" [ngStyle]="__elementSelectionService.getStyles('86266024')">
+
+                                <div class="col-md-12" (contextmenu)="__elementSelectionService.select('1122411674',$event)" [ngStyle]="__elementSelectionService.getStyles('1122411674')">
+                                    <label for="premium-amount" class="col-form-label digi-label" (contextmenu)="__elementSelectionService.select('1419035082',$event)" [ngStyle]="__elementSelectionService.getStyles('1419035082')">Rate</label>
+                                    <input type="number" class="form-control" ngModel="this.exchangeRateNew.amount" (contextmenu)="__elementSelectionService.select('563605933',$event)" [ngStyle]="__elementSelectionService.getStyles('563605933')">
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            
+
+          <div class="modal-footer" (contextmenu)="__elementSelectionService.select('101798951',$event)" [ngStyle]="__elementSelectionService.getStyles('101798951')">
+            <button type="button" id="closeModalSetup" class="btn btn-digi" data-dismiss="modal" (contextmenu)="__elementSelectionService.select('1898246667',$event)" [ngStyle]="__elementSelectionService.getStyles('1898246667')">Close</button>
+            <button type="button" class="btn btn-digi" click="addNewRate()" (contextmenu)="__elementSelectionService.select('55375732',$event)" [ngStyle]="__elementSelectionService.getStyles('55375732')">Submit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+</div></div>

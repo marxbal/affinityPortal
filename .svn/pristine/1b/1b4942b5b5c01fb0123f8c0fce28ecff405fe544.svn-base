@@ -1,0 +1,246 @@
+<div id="content" (contextmenu)="__elementSelectionService.select('965559320',$event)" [ngStyle]="__elementSelectionService.getStyles('965559320')"(click)='__elementSelectionService.clear()'>
+    <h5 class="page-title" (contextmenu)="__elementSelectionService.select('622825905',$event)" [ngStyle]="__elementSelectionService.getStyles('622825905')">
+        <i class="fa fa-product-hunt" (contextmenu)="__elementSelectionService.select('191559658',$event)" [ngStyle]="__elementSelectionService.getStyles('191559658')"></i> Product Management
+    </h5>
+
+    <div class="row mt-2" (contextmenu)="__elementSelectionService.select('1486151451',$event)" [ngStyle]="__elementSelectionService.getStyles('1486151451')">
+        <div class="col-md-12" (contextmenu)="__elementSelectionService.select('696473404',$event)" [ngStyle]="__elementSelectionService.getStyles('696473404')">
+            <div class="form-group row" (contextmenu)="__elementSelectionService.select('1883822500',$event)" [ngStyle]="__elementSelectionService.getStyles('1883822500')">
+                <div class="col-md-4" (contextmenu)="__elementSelectionService.select('750888416',$event)" [ngStyle]="__elementSelectionService.getStyles('750888416')">
+                    <label for="inputPassword" class="digi-label " (contextmenu)="__elementSelectionService.select('1381223268',$event)" [ngStyle]="__elementSelectionService.getStyles('1381223268')">Product List</label>
+                    <select class="form-control" change="chooseProduct()" ngModel="this.productHolder.product_detail_id" (contextmenu)="__elementSelectionService.select('1633311909',$event)" [ngStyle]="__elementSelectionService.getStyles('1633311909')">
+                        <option value="0" selected disabled (contextmenu)="__elementSelectionService.select('1474903251',$event)" [ngStyle]="__elementSelectionService.getStyles('1474903251')">Choose Product</option>
+                        <option ngFor="let product of latestProductList" value="{{product.product_detail_id}}" (contextmenu)="__elementSelectionService.select('1982229867',$event)" [ngStyle]="__elementSelectionService.getStyles('1982229867')">
+                            {{product.description}}
+                        </option>
+                    </select>
+                </div>
+                <div class="col-md-8" (contextmenu)="__elementSelectionService.select('979537952',$event)" [ngStyle]="__elementSelectionService.getStyles('979537952')">
+                    <div class="row" (contextmenu)="__elementSelectionService.select('166612157',$event)" [ngStyle]="__elementSelectionService.getStyles('166612157')">
+                        <div class="col-md-12" (contextmenu)="__elementSelectionService.select('394262263',$event)" [ngStyle]="__elementSelectionService.getStyles('394262263')"><label for="inputPassword" class="digi-label " (contextmenu)="__elementSelectionService.select('1391955014',$event)" [ngStyle]="__elementSelectionService.getStyles('1391955014')">&#160;</label></div>
+                        <div class="col-md-12" (contextmenu)="__elementSelectionService.select('2092623272',$event)" [ngStyle]="__elementSelectionService.getStyles('2092623272')">
+                            <button class="btn btn-digi" data-toggle="modal" data-target="#modalNewProduct" click="clearModalContents()" (contextmenu)="__elementSelectionService.select('130729254',$event)" [ngStyle]="__elementSelectionService.getStyles('130729254')"><i class="fa fa-plus" (contextmenu)="__elementSelectionService.select('1877627750',$event)" [ngStyle]="__elementSelectionService.getStyles('1877627750')"></i> Add New Product</button>
+                            <button class="btn btn-digi ml-1 hidden product-action-button" data-toggle="modal" data-target="#modalUpdateProduct" click="openUpdateProduct()" (contextmenu)="__elementSelectionService.select('17921889',$event)" [ngStyle]="__elementSelectionService.getStyles('17921889')"><i class="fa fa-pencil" (contextmenu)="__elementSelectionService.select('707609934',$event)" [ngStyle]="__elementSelectionService.getStyles('707609934')"></i> Update Product</button>
+                            <button class="btn btn-digi ml-1 hidden product-action-button" click="deleteProduct()" (contextmenu)="__elementSelectionService.select('2065647320',$event)" [ngStyle]="__elementSelectionService.getStyles('2065647320')"><i class="fa fa-eraser" (contextmenu)="__elementSelectionService.select('1179868094',$event)" [ngStyle]="__elementSelectionService.getStyles('1179868094')"></i> Delete Product</button>
+                        </div>
+                    </div>
+                    
+                </div>
+
+            </div>
+        </div>
+        
+    </div>
+
+    <table class="table table-condensed table-small" (contextmenu)="__elementSelectionService.select('1282639466',$event)" [ngStyle]="__elementSelectionService.getStyles('1282639466')">
+
+        <thead (contextmenu)="__elementSelectionService.select('213167519',$event)" [ngStyle]="__elementSelectionService.getStyles('213167519')">
+            <td (contextmenu)="__elementSelectionService.select('219939671',$event)" [ngStyle]="__elementSelectionService.getStyles('219939671')">Coverage</td>
+            <td (contextmenu)="__elementSelectionService.select('1364080609',$event)" [ngStyle]="__elementSelectionService.getStyles('1364080609')">Benefit</td>
+            <td (contextmenu)="__elementSelectionService.select('22981492',$event)" [ngStyle]="__elementSelectionService.getStyles('22981492')">Line</td>
+            <td (contextmenu)="__elementSelectionService.select('674178709',$event)" [ngStyle]="__elementSelectionService.getStyles('674178709')">Subline</td>
+            <td (contextmenu)="__elementSelectionService.select('1162120828',$event)" [ngStyle]="__elementSelectionService.getStyles('1162120828')">Date Added</td>
+            <td (contextmenu)="__elementSelectionService.select('1704286218',$event)" [ngStyle]="__elementSelectionService.getStyles('1704286218')"></td>
+        </thead>
+        <tbody (contextmenu)="__elementSelectionService.select('291785415',$event)" [ngStyle]="__elementSelectionService.getStyles('291785415')">
+            <tr ngFor="let productCover of productCoveragesList" (contextmenu)="__elementSelectionService.select('1085201904',$event)" [ngStyle]="__elementSelectionService.getStyles('1085201904')">
+                <td (contextmenu)="__elementSelectionService.select('561552631',$event)" [ngStyle]="__elementSelectionService.getStyles('561552631')">{{productCover.type_name}}</td>
+                <td (contextmenu)="__elementSelectionService.select('1851966938',$event)" [ngStyle]="__elementSelectionService.getStyles('1851966938')">{{productCover.type_description}}</td>
+                <td (contextmenu)="__elementSelectionService.select('1566804131',$event)" [ngStyle]="__elementSelectionService.getStyles('1566804131')">{{productCover.line_description}}</td>
+                <td (contextmenu)="__elementSelectionService.select('1804902306',$event)" [ngStyle]="__elementSelectionService.getStyles('1804902306')">{{productCover.subline_description}}</td>
+                <td (contextmenu)="__elementSelectionService.select('250493187',$event)" [ngStyle]="__elementSelectionService.getStyles('250493187')">{{productCover.date_added}}</td>
+                <td (contextmenu)="__elementSelectionService.select('1994023185',$event)" [ngStyle]="__elementSelectionService.getStyles('1994023185')">
+                    <button class="btn btn-digi-red btn-sm" click="deleteProductCoverage(productCover)" (contextmenu)="__elementSelectionService.select('935188985',$event)" [ngStyle]="__elementSelectionService.getStyles('935188985')"><i class="fa fa-times" (contextmenu)="__elementSelectionService.select('2023438627',$event)" [ngStyle]="__elementSelectionService.getStyles('2023438627')"></i> </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="modal fade" id="modalUpdateProduct" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true" (contextmenu)="__elementSelectionService.select('130167058',$event)" [ngStyle]="__elementSelectionService.getStyles('130167058')">
+      <div class="modal-dialog modal-lg" role="document" (contextmenu)="__elementSelectionService.select('582289938',$event)" [ngStyle]="__elementSelectionService.getStyles('582289938')">
+        <div class="modal-content" (contextmenu)="__elementSelectionService.select('2065595820',$event)" [ngStyle]="__elementSelectionService.getStyles('2065595820')">
+          <div class="modal-header modal-header-digi" (contextmenu)="__elementSelectionService.select('1525481933',$event)" [ngStyle]="__elementSelectionService.getStyles('1525481933')">
+            <h5 class="modal-title" id="exampleModalLongTitle" (contextmenu)="__elementSelectionService.select('1286730019',$event)" [ngStyle]="__elementSelectionService.getStyles('1286730019')"><i class="fa fa-pencil" (contextmenu)="__elementSelectionService.select('1180604221',$event)" [ngStyle]="__elementSelectionService.getStyles('1180604221')"></i> Update Product</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" (contextmenu)="__elementSelectionService.select('1311072583',$event)" [ngStyle]="__elementSelectionService.getStyles('1311072583')">
+              <span aria-hidden="true" (contextmenu)="__elementSelectionService.select('2088034855',$event)" [ngStyle]="__elementSelectionService.getStyles('2088034855')">&#215;</span>
+            </button>
+          </div>
+          <div class="modal-body" (contextmenu)="__elementSelectionService.select('1057959011',$event)" [ngStyle]="__elementSelectionService.getStyles('1057959011')">
+
+            <div class="form-group" (contextmenu)="__elementSelectionService.select('232432576',$event)" [ngStyle]="__elementSelectionService.getStyles('232432576')">
+                <div class="row" (contextmenu)="__elementSelectionService.select('1754317925',$event)" [ngStyle]="__elementSelectionService.getStyles('1754317925')">
+                    <div class="col-md-6" (contextmenu)="__elementSelectionService.select('867067530',$event)" [ngStyle]="__elementSelectionService.getStyles('867067530')">
+                        <div class="row" (contextmenu)="__elementSelectionService.select('1963206824',$event)" [ngStyle]="__elementSelectionService.getStyles('1963206824')">
+                            <div class="col-md-2" (contextmenu)="__elementSelectionService.select('764952939',$event)" [ngStyle]="__elementSelectionService.getStyles('764952939')">
+                                <label for="fullname" (contextmenu)="__elementSelectionService.select('1128602449',$event)" [ngStyle]="__elementSelectionService.getStyles('1128602449')">Name</label>
+                            </div>
+                            <div class="col-md-10" (contextmenu)="__elementSelectionService.select('52412293',$event)" [ngStyle]="__elementSelectionService.getStyles('52412293')">
+                                <input type="text" class="form-control" placeholder="Name" aria-label="Name" aria-describedby="basic-addon1" change="isDirty = true" id="product-name-update" value="{{updateProduct.description}}" ngModel="updateProduct.description" (contextmenu)="__elementSelectionService.select('1460307494',$event)" [ngStyle]="__elementSelectionService.getStyles('1460307494')">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+
+            <div class="form-group" (contextmenu)="__elementSelectionService.select('947263157',$event)" [ngStyle]="__elementSelectionService.getStyles('947263157')">
+                <div class="row" (contextmenu)="__elementSelectionService.select('1401036153',$event)" [ngStyle]="__elementSelectionService.getStyles('1401036153')">
+                    <div class="col-md-6" (contextmenu)="__elementSelectionService.select('757031707',$event)" [ngStyle]="__elementSelectionService.getStyles('757031707')">
+                        <div class="row" (contextmenu)="__elementSelectionService.select('782756648',$event)" [ngStyle]="__elementSelectionService.getStyles('782756648')">
+
+                            <div class="col-md-4" (contextmenu)="__elementSelectionService.select('653034487',$event)" [ngStyle]="__elementSelectionService.getStyles('653034487')">
+                                <label for="fullname" (contextmenu)="__elementSelectionService.select('1707490182',$event)" [ngStyle]="__elementSelectionService.getStyles('1707490182')">Line</label>
+                            </div>
+                            <div class="col-md-8" (contextmenu)="__elementSelectionService.select('857181086',$event)" [ngStyle]="__elementSelectionService.getStyles('857181086')">
+                                <select class="form-control" change="chooseLine('update')" ngModel="updateProduct.line_detail_id" (contextmenu)="__elementSelectionService.select('578340991',$event)" [ngStyle]="__elementSelectionService.getStyles('578340991')">
+                                    <option disabled="disabled" (contextmenu)="__elementSelectionService.select('1623786748',$event)" [ngStyle]="__elementSelectionService.getStyles('1623786748')">Please choose a Line</option>
+                                    <option ngFor="let line of lineList" value="{{line.line_detail_id}}" (contextmenu)="__elementSelectionService.select('881269096',$event)" [ngStyle]="__elementSelectionService.getStyles('881269096')">
+                                        {{line.description}}
+                                    </option>
+                                </select>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-md-6" (contextmenu)="__elementSelectionService.select('1002647325',$event)" [ngStyle]="__elementSelectionService.getStyles('1002647325')">
+                        <div class="row" id="update-subline-chooser" (contextmenu)="__elementSelectionService.select('1595679530',$event)" [ngStyle]="__elementSelectionService.getStyles('1595679530')">
+                            <div class="col-md-4" (contextmenu)="__elementSelectionService.select('2010788561',$event)" [ngStyle]="__elementSelectionService.getStyles('2010788561')">
+                                <label for="fullname" (contextmenu)="__elementSelectionService.select('2073704731',$event)" [ngStyle]="__elementSelectionService.getStyles('2073704731')">Subline</label>
+                            </div>
+                            <div class="col-md-8" (contextmenu)="__elementSelectionService.select('1493392050',$event)" [ngStyle]="__elementSelectionService.getStyles('1493392050')">
+                                <select class="form-control" change="chooseSubLine('update')" ngModel="updateProduct.subline_detail_id" (contextmenu)="__elementSelectionService.select('1731737547',$event)" [ngStyle]="__elementSelectionService.getStyles('1731737547')">
+                                    <option disabled="disabled" (contextmenu)="__elementSelectionService.select('1095949639',$event)" [ngStyle]="__elementSelectionService.getStyles('1095949639')">Please choose a Subline</option>
+                                    <option ngFor="let subline of sublineList" value="{{subline.subline_detail_id}}" (contextmenu)="__elementSelectionService.select('1797944983',$event)" [ngStyle]="__elementSelectionService.getStyles('1797944983')">
+                                        {{subline.description}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                </div>
+            </div>
+          </div>
+            <hr (contextmenu)="__elementSelectionService.select('675248010',$event)" [ngStyle]="__elementSelectionService.getStyles('675248010')">
+            <div class="form-group" id="update-coverages-chooser" (contextmenu)="__elementSelectionService.select('245340969',$event)" [ngStyle]="__elementSelectionService.getStyles('245340969')">
+                <div class="row" (contextmenu)="__elementSelectionService.select('1500563288',$event)" [ngStyle]="__elementSelectionService.getStyles('1500563288')">
+                    <div class="col-md-2" (contextmenu)="__elementSelectionService.select('1633066031',$event)" [ngStyle]="__elementSelectionService.getStyles('1633066031')">
+                        <label (contextmenu)="__elementSelectionService.select('839263400',$event)" [ngStyle]="__elementSelectionService.getStyles('839263400')">Coverage</label>
+                    </div>
+                    <div class="col-md-7" (contextmenu)="__elementSelectionService.select('1085454098',$event)" [ngStyle]="__elementSelectionService.getStyles('1085454098')">
+
+                        <div class="form-check form-check-inline" ngFor="let coverageUpdate of coveragesListUpdateFinal" (contextmenu)="__elementSelectionService.select('522707547',$event)" [ngStyle]="__elementSelectionService.getStyles('522707547')">
+                            <input class="form-check-input" type="checkbox" id="update-coverage-{{coverageUpdate.coverage_type_id}}" click="addCoverageListUpdate(coverageUpdate)" (contextmenu)="__elementSelectionService.select('1254470260',$event)" [ngStyle]="__elementSelectionService.getStyles('1254470260')">
+                            <label class="form-check-label" for="update-coverage-{{coverageUpdate.coverage_type_id}}" (contextmenu)="__elementSelectionService.select('1239809248',$event)" [ngStyle]="__elementSelectionService.getStyles('1239809248')">{{coverageUpdate.type_name}}</label>
+                        </div>
+
+                    </div>
+                    <div class="col-md-3" (contextmenu)="__elementSelectionService.select('482007273',$event)" [ngStyle]="__elementSelectionService.getStyles('482007273')">
+                        <button type="button" class="btn btn-digi" click="addFinalUpdateCoverages()" (contextmenu)="__elementSelectionService.select('1018156063',$event)" [ngStyle]="__elementSelectionService.getStyles('1018156063')"><i class="fa fa-plus" (contextmenu)="__elementSelectionService.select('1537120236',$event)" [ngStyle]="__elementSelectionService.getStyles('1537120236')"></i> Add Coverage</button>
+                    </div>
+                </div>
+                <button class="btn btn-digi btn-xs mr-1" ngFor="let update_coverages of updateCoverages" click="removeFinalCoverageUpdate(update_coverages)" (contextmenu)="__elementSelectionService.select('1039819395',$event)" [ngStyle]="__elementSelectionService.getStyles('1039819395')">{{update_coverages.type_name}} <i class="fa fa-times" (contextmenu)="__elementSelectionService.select('2001569861',$event)" [ngStyle]="__elementSelectionService.getStyles('2001569861')"></i></button>
+            </div>
+            <hr (contextmenu)="__elementSelectionService.select('889238943',$event)" [ngStyle]="__elementSelectionService.getStyles('889238943')">
+
+          <div class="modal-footer" (contextmenu)="__elementSelectionService.select('445543716',$event)" [ngStyle]="__elementSelectionService.getStyles('445543716')">
+            <button type="button" class="btn btn-digi" id="updateProductSubmitClose" data-dismiss="modal" (contextmenu)="__elementSelectionService.select('1955521164',$event)" [ngStyle]="__elementSelectionService.getStyles('1955521164')">Close</button>
+            <button type="button" class="btn btn-digi" click="updateProductSubmit()" (contextmenu)="__elementSelectionService.select('1863996408',$event)" [ngStyle]="__elementSelectionService.getStyles('1863996408')">Save Changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+    <div class="modal fade" id="modalNewProduct" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true" (contextmenu)="__elementSelectionService.select('1594277833',$event)" [ngStyle]="__elementSelectionService.getStyles('1594277833')">
+      <div class="modal-dialog modal-lg" role="document" (contextmenu)="__elementSelectionService.select('910743128',$event)" [ngStyle]="__elementSelectionService.getStyles('910743128')">
+        <div class="modal-content" (contextmenu)="__elementSelectionService.select('894556319',$event)" [ngStyle]="__elementSelectionService.getStyles('894556319')">
+          <div class="modal-header modal-header-digi" (contextmenu)="__elementSelectionService.select('141150302',$event)" [ngStyle]="__elementSelectionService.getStyles('141150302')">
+            <h5 class="modal-title" id="exampleModalLongTitle" (contextmenu)="__elementSelectionService.select('1652282989',$event)" [ngStyle]="__elementSelectionService.getStyles('1652282989')"><i class="fa fa-plus" (contextmenu)="__elementSelectionService.select('309409388',$event)" [ngStyle]="__elementSelectionService.getStyles('309409388')"></i> New Product</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" (contextmenu)="__elementSelectionService.select('694129053',$event)" [ngStyle]="__elementSelectionService.getStyles('694129053')">
+              <span aria-hidden="true" (contextmenu)="__elementSelectionService.select('1873971152',$event)" [ngStyle]="__elementSelectionService.getStyles('1873971152')">&#215;</span>
+            </button>
+          </div>
+          <div class="modal-body" (contextmenu)="__elementSelectionService.select('1405545717',$event)" [ngStyle]="__elementSelectionService.getStyles('1405545717')">
+
+            <div class="form-group" (contextmenu)="__elementSelectionService.select('1210020535',$event)" [ngStyle]="__elementSelectionService.getStyles('1210020535')">
+                <div class="row" (contextmenu)="__elementSelectionService.select('488231248',$event)" [ngStyle]="__elementSelectionService.getStyles('488231248')">
+                    <div class="col-md-6" (contextmenu)="__elementSelectionService.select('1726892324',$event)" [ngStyle]="__elementSelectionService.getStyles('1726892324')">
+                        <div class="row" (contextmenu)="__elementSelectionService.select('36417608',$event)" [ngStyle]="__elementSelectionService.getStyles('36417608')">
+                            <div class="col-md-2" (contextmenu)="__elementSelectionService.select('823320688',$event)" [ngStyle]="__elementSelectionService.getStyles('823320688')">
+                                <label for="fullname" (contextmenu)="__elementSelectionService.select('1657939027',$event)" [ngStyle]="__elementSelectionService.getStyles('1657939027')">Name</label>
+                            </div>
+                            <div class="col-md-10" (contextmenu)="__elementSelectionService.select('1994516036',$event)" [ngStyle]="__elementSelectionService.getStyles('1994516036')">
+                                <input type="text" change="isDirty = true" class="form-control" placeholder="Name" aria-label="Name" aria-describedby="basic-addon1" id="product-name" ngModel="newProduct.description" (contextmenu)="__elementSelectionService.select('697803040',$event)" [ngStyle]="__elementSelectionService.getStyles('697803040')">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+
+            <div class="form-group" (contextmenu)="__elementSelectionService.select('253809922',$event)" [ngStyle]="__elementSelectionService.getStyles('253809922')">
+                <div class="row" (contextmenu)="__elementSelectionService.select('2082703369',$event)" [ngStyle]="__elementSelectionService.getStyles('2082703369')">
+                    <div class="col-md-6" (contextmenu)="__elementSelectionService.select('84513295',$event)" [ngStyle]="__elementSelectionService.getStyles('84513295')">
+                        <div class="row" (contextmenu)="__elementSelectionService.select('285457711',$event)" [ngStyle]="__elementSelectionService.getStyles('285457711')">
+
+                            <div class="col-md-4" (contextmenu)="__elementSelectionService.select('402846408',$event)" [ngStyle]="__elementSelectionService.getStyles('402846408')">
+                                <label for="fullname" (contextmenu)="__elementSelectionService.select('2013348353',$event)" [ngStyle]="__elementSelectionService.getStyles('2013348353')">Line</label>
+                            </div>
+                            <div class="col-md-8" (contextmenu)="__elementSelectionService.select('827404004',$event)" [ngStyle]="__elementSelectionService.getStyles('827404004')">
+                                <select class="form-control" change="chooseLine('insert')" ngModel="newProduct.line_detail_id" (contextmenu)="__elementSelectionService.select('1035405092',$event)" [ngStyle]="__elementSelectionService.getStyles('1035405092')">
+                                    <option disabled="disabled" (contextmenu)="__elementSelectionService.select('850142952',$event)" [ngStyle]="__elementSelectionService.getStyles('850142952')">Please choose a Line</option>
+                                    <option ngFor="let line of lineList" value="{{line.line_detail_id}}" (contextmenu)="__elementSelectionService.select('1078946806',$event)" [ngStyle]="__elementSelectionService.getStyles('1078946806')">
+                                        {{line.description}}
+                                    </option>
+                                </select>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-md-6" (contextmenu)="__elementSelectionService.select('2026982165',$event)" [ngStyle]="__elementSelectionService.getStyles('2026982165')">
+                        <div class="row hidden" id="subline-chooser" (contextmenu)="__elementSelectionService.select('2111503628',$event)" [ngStyle]="__elementSelectionService.getStyles('2111503628')">
+                            <div class="col-md-4" (contextmenu)="__elementSelectionService.select('781324089',$event)" [ngStyle]="__elementSelectionService.getStyles('781324089')">
+                                <label for="fullname" (contextmenu)="__elementSelectionService.select('364499398',$event)" [ngStyle]="__elementSelectionService.getStyles('364499398')">Subline</label>
+                            </div>
+                            <div class="col-md-8" (contextmenu)="__elementSelectionService.select('1732422023',$event)" [ngStyle]="__elementSelectionService.getStyles('1732422023')">
+                                <select class="form-control" change="chooseSubLine('insert')" ngModel="newProduct.subline_detail_id" (contextmenu)="__elementSelectionService.select('1306139390',$event)" [ngStyle]="__elementSelectionService.getStyles('1306139390')">
+                                    <option disabled="disabled" (contextmenu)="__elementSelectionService.select('1930379195',$event)" [ngStyle]="__elementSelectionService.getStyles('1930379195')">Please choose a Subline</option>
+                                    <option ngFor="let subline of sublineList" value="{{subline.subline_detail_id}}" (contextmenu)="__elementSelectionService.select('677636093',$event)" [ngStyle]="__elementSelectionService.getStyles('677636093')">
+                                        {{subline.description}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                </div>
+            </div>
+          </div>
+            <hr (contextmenu)="__elementSelectionService.select('1520401895',$event)" [ngStyle]="__elementSelectionService.getStyles('1520401895')">
+            <div class="form-group hidden" id="coverages-chooser" (contextmenu)="__elementSelectionService.select('1192198560',$event)" [ngStyle]="__elementSelectionService.getStyles('1192198560')">
+                <div class="row" (contextmenu)="__elementSelectionService.select('1308072989',$event)" [ngStyle]="__elementSelectionService.getStyles('1308072989')">
+                    <div class="col-md-2" (contextmenu)="__elementSelectionService.select('2057094737',$event)" [ngStyle]="__elementSelectionService.getStyles('2057094737')">
+                        <label (contextmenu)="__elementSelectionService.select('1540226208',$event)" [ngStyle]="__elementSelectionService.getStyles('1540226208')">Coverage</label>
+                    </div>
+                    <div class="col-md-7" (contextmenu)="__elementSelectionService.select('1626633464',$event)" [ngStyle]="__elementSelectionService.getStyles('1626633464')">
+
+                        <div class="form-check form-check-inline" ngFor="let coverage of coveragesList" (contextmenu)="__elementSelectionService.select('286399375',$event)" [ngStyle]="__elementSelectionService.getStyles('286399375')">
+                            <input class="form-check-input" type="checkbox" id="coverage-{{coverage.coverage_type_id}}" click="addCoverageList(coverage)" (contextmenu)="__elementSelectionService.select('220260786',$event)" [ngStyle]="__elementSelectionService.getStyles('220260786')">
+                            <label class="form-check-label" for="coverage-{{coverage.coverage_type_id}}" (contextmenu)="__elementSelectionService.select('960248906',$event)" [ngStyle]="__elementSelectionService.getStyles('960248906')">{{coverage.type_name}}</label>
+                        </div>
+
+                    </div>
+                    <div class="col-md-3" (contextmenu)="__elementSelectionService.select('2058148897',$event)" [ngStyle]="__elementSelectionService.getStyles('2058148897')">
+                        <button type="button" class="btn btn-digi" click="addFinalCoverages()" (contextmenu)="__elementSelectionService.select('2070113944',$event)" [ngStyle]="__elementSelectionService.getStyles('2070113944')"><i class="fa fa-plus" (contextmenu)="__elementSelectionService.select('1896113471',$event)" [ngStyle]="__elementSelectionService.getStyles('1896113471')"></i> Add Coverage</button>
+                    </div>
+                </div>
+                <button class="btn btn-digi btn-xs mr-1" ngFor="let final of finalCoverageList" click="removeFinalCoverage(final)" (contextmenu)="__elementSelectionService.select('688048441',$event)" [ngStyle]="__elementSelectionService.getStyles('688048441')">{{final.type_name}} <i class="fa fa-times" (contextmenu)="__elementSelectionService.select('903042540',$event)" [ngStyle]="__elementSelectionService.getStyles('903042540')"></i></button>
+            </div>
+            <hr (contextmenu)="__elementSelectionService.select('1428486752',$event)" [ngStyle]="__elementSelectionService.getStyles('1428486752')">
+
+          <div class="modal-footer" (contextmenu)="__elementSelectionService.select('131809382',$event)" [ngStyle]="__elementSelectionService.getStyles('131809382')">
+            <button type="button" class="btn btn-digi" id="addProductClose" data-dismiss="modal" (contextmenu)="__elementSelectionService.select('950999717',$event)" [ngStyle]="__elementSelectionService.getStyles('950999717')">Close</button>
+            <button type="button" class="btn btn-digi" click="addProduct()" (contextmenu)="__elementSelectionService.select('402408553',$event)" [ngStyle]="__elementSelectionService.getStyles('402408553')">Save Changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+</div>

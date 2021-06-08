@@ -1,0 +1,25 @@
+<app-landingpage *ngIf="this.templateRouter == 'initialize'"  [marsh]="this.marsh" (issuanceType)="nextStepActionQuoteIssuance($event)" (backButton)="backButtonAction($event)"></app-landingpage>
+<div class="container issuance-container">
+	
+
+	<app-property *ngIf="this.templateRouter == 'householdQuotationIssuance'" (nextStep)="nextStepAction($event)" (marshOutput)="marshOutput($event)" (backButton)="backButtonAction($event)" [marsh]="this.marsh"></app-property>
+
+	<app-personal *ngIf="this.templateRouter == 'personalInformation'" [backButton]="this.backButton" [marsh]="this.marsh" (marshOutput)="marshOutput($event)" (nextStep)="nextStepAction($event)"></app-personal>
+
+	<app-quotation *ngIf="this.templateRouter == 'issueQuotation'" [marsh]="this.marsh" [line]="this.line" (nextStep)="nextStepAction($event)"></app-quotation>
+
+	<app-technical-control *ngIf="this.templateRouter == 'techControl'" [marsh]="this.marsh" [line]="this.line" (nextStep)="nextStepAction($event)"></app-technical-control>
+
+	<app-risk *ngIf="this.templateRouter == 'riskInformation'" (nextStep)="nextStepAction($event)" (marshOutput)="marshOutput($event)" [marsh]="this.marsh" [line]="this.line"></app-risk>
+	
+	<app-motor *ngIf="this.templateRouter == 'motorQuotationIssuance'" (nextStep)="nextStepAction($event)" (marshOutput)="marshOutput($event)" (backButton)="backButtonAction($event)" [marsh]="this.marsh"></app-motor>
+
+	<app-accident *ngIf="this.templateRouter == 'PAQuotationIssuance'" (nextStep)="nextStepAction($event)" (marshOutput)="marshOutput($event)" (backButton)="backButtonAction($event)" [marsh]="this.marsh"></app-accident>
+
+	<app-motor-policy *ngIf="this.templateRouter == 'motorPolicyIssuance'"  (nextStep)="nextStepAction($event)" (marshOutput)="marshOutput($event)" [marsh]="this.marsh"></app-motor-policy>
+
+	<app-payment  *ngIf="this.templateRouter == 'payment'"  (nextStep)="nextStepAction($event)" (marshOutput)="marshOutput($event)" [marsh]="this.marsh"></app-payment>
+
+	<app-policy  *ngIf="this.templateRouter == 'policy'"  (nextStep)="nextStepAction($event)" (marshOutput)="marshOutput($event)" [marsh]="this.marsh"></app-policy>
+</div>
+<app-footer></app-footer>

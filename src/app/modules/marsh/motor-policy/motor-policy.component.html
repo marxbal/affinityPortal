@@ -1,0 +1,476 @@
+<div class="row">
+	<div class="col-md-12">
+		<h1  data-toggle="tooltip" data-placement="top" title="Tooltip on top" id="test">Tell us more about your vehicle</h1>
+		<small><i>(<span class="text-mapfre">*</span>) - required fields</i></small>
+
+	</div>
+</div>
+<br />
+<h5>Insured Vehicle</h5>
+<div class="row">
+	<div class="col-md-4">
+		<div class="form-group row">
+            <div class="col-md-12">
+                <label for="manufacturerId" class="col-form-label marsh-label">MAKE/MANUFACTURER <span class="text-mapfre text-heavy">*</span></label>
+                <select class="form-control required motor-policy-issuance" id="manufacturerId" [(ngModel)]="this.marsh.motorDetails.manufacturerIdHolder" name="Make/Manufacturer" (change)="chooseMake()">
+                    <option value="0" disabled="disabled">Please choose Manufacturer</option>
+                    <option *ngFor="let make of this.marsh.lov.makeLOV" value="{{make.COD_MARCA}}-{{make.NOM_MARCA}}">{{make.NOM_MARCA}}</option>
+                </select>
+            </div>
+        </div>
+	</div>
+	<div class="col-md-4">
+		<div class="form-group row">
+            <div class="col-md-12">
+                <label for="modelId" class="col-form-label marsh-label">MODEL <span class="text-mapfre text-heavy">*</span></label>
+                <select class="form-control required motor-policy-issuance" id="modelId" [(ngModel)]="this.marsh.motorDetails.modelIdHolder" name="Model" (change)="chooseModel()">
+                    <option value="0" disabled="disabled">Please choose Model</option>
+                    <option *ngFor="let model of this.marsh.lov.modelLOV" value="{{model.COD_MODELO}}-{{model.NOM_MODELO}}">{{model.NOM_MODELO}}</option>
+                </select>
+            </div>
+        </div>
+	</div>
+	<div class="col-md-4">
+		<div class="form-group row">
+            <div class="col-md-12">
+                <label for="vehicleTypeId" class="marsh-label">VEHICLE TYPE <span class="text-mapfre text-heavy">*</span></label>
+                <select class="form-control required motor-policy-issuance" name="Vehicle Type" id="vehicleTypeId" [(ngModel)]="this.marsh.motorDetails.vehicleTypeIdHolder" (change)="chooseVariant()">
+                    <option value="0" disabled="disabled">Please choose Vehicle Type</option>
+                    <option *ngFor="let variant of this.marsh.lov.variantLOV" value="{{variant.COD_TIP_VEHI}}-{{variant.NOM_TIP_VEHI}}">{{variant.NOM_TIP_VEHI}}</option>
+                </select>
+            </div>
+        </div>
+	</div>
+	<div class="col-md-4">
+		<div class="form-group row">
+            <div class="col-md-12">
+                <label for="modelYear" class="marsh-label">MODEL YEAR <span class="text-mapfre text-heavy">*</span></label>
+                <select class="form-control required motor-policy-issuance" name="Model Year" id="modelYear" [(ngModel)]="this.marsh.motorDetails.modelYear" (change)="chooseModelYear()">
+                    <option value="0" disabled="disabled">Please choose Model Year</option>
+                    <option *ngFor="let year of this.marsh.lov.yearList" value="{{year.ANIO_SUB_MODELO}}">{{year.ANIO_SUB_MODELO}}</option>
+                </select>
+            </div>
+        </div>
+	</div>
+	
+	<div class="col-md-4">
+		<div class="form-group row">
+            <div class="col-md-12">
+                <label for="subModelId" class="col-form-label marsh-label">SUB-MODEL <span class="text-mapfre text-heavy">*</span></label>
+                <select class="form-control required motor-policy-issuance" name="Sub-Model" id="subModelId" [(ngModel)]="this.marsh.motorDetails.subModelIdHolder" (change)="chooseSubModel()">
+                    <option value="0" disabled="disabled">Please choose Sub-Model</option>
+                    <option *ngFor="let subModel of this.marsh.lov.subModelLOV" value="{{subModel.COD_SUB_MODELO}}-{{subModel.NOM_SUB_MODELO}}">{{subModel.NOM_SUB_MODELO}}</option>
+                </select>
+            </div>
+        </div>
+	</div>
+	<div class="col-md-4">
+		<div class="form-group row">
+            <div class="col-md-12">
+                <label for="motorNumber" class="marsh-label">FAIR MARKET VALUE </label>
+                <input type="number" id="FMV" class="form-control number required motor-quote" name="FMV"  placeholder="0.00" [(ngModel)]="this.marsh.motorDetails.FMV">
+            </div>
+        </div>
+	</div>
+	<!-- <div class="col-md-4">
+		<div class="form-group row">
+	        <div class="col-md-12">
+	            <label for="transmissionId" class="col-form-label marsh-label">TRANSMISSION <span class="text-mapfre text-heavy">*</span></label>
+	            <select class="form-control" id="transmissionId" [(ngModel)]="this.marsh.motorDetails.transmissionId">
+	                <option value="0" disabled="disabled">Please choose Transmission</option>
+	                <option value="1">Manual</option>
+	                <option value="1">Automatic</option>
+	            </select>
+	        </div>
+	    </div>
+	</div>
+	<div class="col-md-4">
+		<div class="form-group row">
+	        <div class="col-md-12">
+	            <label for="fuelId" class="col-form-label marsh-label">FUEL <span class="text-mapfre text-heavy">*</span></label>
+	            <select class="form-control" id="fuelId" [(ngModel)]="this.marsh.motorDetails.fuelId">
+	                <option value="0" disabled="disabled">Please choose Fuel Type</option>
+	                <option value="1">Unleaded</option>
+	                <option value="1">Diesel</option>
+	            </select>
+	        </div>
+	    </div>
+	</div>
+	<div class="col-md-4">
+		<div class="form-group row">
+	        <div class="col-md-12">
+	            <label for="drivetrainId" class="col-form-label marsh-label">DRIVETRAIN/TRACTION <span class="text-mapfre text-heavy">*</span></label>
+	            <select class="form-control" id="drivetrainId" [(ngModel)]="this.marsh.motorDetails.drivetrainId">
+	                <option value="0" disabled="disabled">Please choose Drivetrain Type</option>
+	                <option value="1">AWD</option>
+	                <option value="1">FWD</option>
+	                <option value="1">RWD</option>
+	                <option value="1">4WD</option>
+	            </select>
+	        </div>
+	    </div>
+	</div> -->
+</div>
+<br />
+<h5>Vehicle Identification</h5>
+<div class="row">
+	<div class="col-md-4">
+		<div class="form-group row">
+            <div class="col-md-12">
+                <label for="motorNumber" class="marsh-label">ENGINE NUMBER <span class="text-mapfre text-heavy">*</span></label>
+                <input type="text" id="motorNumber" class="form-control required motor-policy-issuance to-uppercase" name="Motor Number" placeholder="Motor Number" (change)="validateEngine()" [(ngModel)]="this.marsh.motorDetails.motorNumber">
+            </div>
+        </div>
+	</div>
+	<div class="col-md-4">
+		<div class="form-group row">
+            <div class="col-md-12">
+                <label for="serialNumber" class="marsh-label">CHASSIS NUMBER <span class="text-mapfre text-heavy">*</span></label>
+                <input type="text" id="serialNumber" class="form-control required motor-policy-issuance to-uppercase" name="Serial Number/Chassis Number" placeholder="Serial Number" (change)="validateChassis()" [(ngModel)]="this.marsh.motorDetails.serialNumber">
+            </div>
+        </div>
+	</div>
+	<div class="col-md-4">
+		<div class="form-group row">
+            <div class="col-md-12">
+                <label for="plateNumber" class="marsh-label">PLATE NUMBER</label>
+                <input type="text" id="plateNumber" class="form-control motor-policy-issuance to-uppercase" name="Plate Number" placeholder="Plate Number" (change)="changePlateNumber()" [(ngModel)]="this.marsh.motorDetails.plateNumber">
+            </div>
+        </div>
+	</div>
+	<div class="col-md-4">
+		<div class="form-group row">
+            <div class="col-md-12">
+                <label for="conductionNumber" class="marsh-label">CONDUCTION STICKER NUMBER</label>
+                <input type="text" id="conductionNumber" class="form-control to-uppercase" placeholder="Conduction Number" (change)="validateConduction()" [(ngModel)]="this.marsh.motorDetails.conductionNumber">
+            </div>
+        </div>
+	</div>
+	<div class="col-md-4">
+		<div class="form-group row">
+            <div class="col-md-12">
+                <label for="MVFileNumber" class="marsh-label">MV FILE NUMBER <span class="text-mapfre text-heavy">*</span></label>
+                <input type="text" id="MVFileNumber" class="form-control required motor-policy-issuance to-uppercase" name="MV File Number" placeholder="MV File Number" [(ngModel)]="this.marsh.motorDetails.MVFileNumber">
+            </div>
+        </div>
+	</div>
+</div>
+<br />
+<h5>Other Vehicle Details</h5>
+<div class="row">
+	<div class="col-md-4">
+        <div class="form-group row">
+            <div class="col-md-12">
+                <label for="vehicleUsedId" class="marsh-label">USE OF THE INSURED VEHICLE <span class="text-mapfre text-heavy">*</span></label>
+                <select class="form-control required motor-policy-issuance" id="vehicleUsedId" name="Use of the Insured Vehicle" [(ngModel)]="this.marsh.motorDetails.vehicleUsedIdHolder">
+	                <option value="0" disabled="disabled">Please choose Type of Use</option>
+	                <option *ngFor="let typeOfUse of this.marsh.lov.typeOfUseLOV" value="{{typeOfUse.COD_USO_VEHI}}-{{typeOfUse.NOM_USO_VEHI}}">{{typeOfUse.NOM_USO_VEHI}}</option>
+	            </select>
+            </div>
+        </div>
+	</div>
+	<div class="col-md-4">
+		<div class="form-group row">
+            <div class="col-md-12">
+                <label for="usageAreaId" class="marsh-label">AREA OF USAGE <span class="text-mapfre text-heavy">*</span></label>
+                <select class="form-control required motor-policy-issuance" name="Area of Usage" id="usageAreaId" [(ngModel)]="this.marsh.motorDetails.usageAreaIdHolder">
+	                <option value="0" disabled="disabled">Please choose Area of Usage</option>
+	                <option value="1-LUZON">LUZON</option>
+	                <option value="2-VIZMIN">VIZMIN</option>
+	                <option value="3-NATIONWIDE">NATIONWIDE</option>
+	            </select>
+            </div>
+        </div>
+    </div>
+	<div class="col-md-4">
+		<div class="form-group row">
+            <div class="col-md-12">
+                <label for="color" class="marsh-label">COLOR <span class="text-mapfre text-heavy">*</span></label>
+                <select class="form-control required motor-policy-issuance" name="Color" id="colorId" [(ngModel)]="this.marsh.motorDetails.colorIdHolder">
+	                <option value="0" disabled="disabled">Please choose Type of Use</option>
+	                <option *ngFor="let color of this.marsh.lov.colorLOV" value="{{color.COD_COLOR}}-{{color.NOM_COLOR}}">{{color.NOM_COLOR}}</option>
+	            </select>
+            </div>
+        </div>
+	</div>
+	<div class="col-md-4">
+        <div class="form-group row">
+            <div class="col-md-12">
+                <div class="form-check">
+				  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" [(ngModel)]="this.marsh.motorDetails.isMortgaged" >
+				  <label class="form-check-label" for="defaultCheck1">
+				    Mortgaged?
+				  </label>
+				</div>
+            </div>
+            <div class="col-md-12" *ngIf="this.marsh.motorDetails.isMortgaged == true">
+                <label for="mortgageeId" class="marsh-label">MORTGAGEE <span class="text-mapfre text-heavy">*</span></label>
+                <select class="form-control" id="mortgageeId" [(ngModel)]="this.marsh.motorDetails.mortgageeIdHolder">
+	                <option value="0" disabled="disabled">Please choose Mortgagee</option>
+	                <option *ngFor="let mortgagee of this.marsh.lov.mortgageeLOV" value="{{mortgagee[1]}}:=:{{mortgagee[2]}}">{{mortgagee[4]}} ({{mortgagee[2]}})</option>
+	            </select>
+            </div>
+        </div>
+	</div> 
+</div>
+<br />
+<h5 *ngIf="this.marsh.productId == '10001'">Declaration of non-standard Accessories</h5>
+<div class="row" *ngIf="this.marsh.productId == '10001'">
+	<div class="col-md-3">
+        <div class="form-group row">
+            <div class="col-md-12">
+                <label for="vehicleUsedId" class="marsh-label">Accessory</label>
+                <select class="form-control" id="accessoryId" [(ngModel)]="this.accessory.accessoryIdHolder">
+	                <option value="0" disabled="disabled">Please choose Type of Use</option>
+	                <option *ngFor="let accesory of this.marsh.lov.accessoryLOV" value="{{accesory.COD_ACCESORIO}}-{{accesory.NOM_ACCESORIO}} ({{accesory.ABR_AGRUP_ACCESORIO}})">{{accesory.NOM_ACCESORIO}} ({{accesory.ABR_AGRUP_ACCESORIO}})</option>
+	            </select>
+            </div>
+        </div>
+	</div>
+	<div class="col-md-3">
+        <div class="form-group row">
+            <div class="col-md-12">
+                <label for="vehicleUsedId" class="marsh-label">Value</label>
+                <input type="text" id="policyPeriodTo" class="form-control to-uppercase" [(ngModel)]="this.accessory.accessoryValue">
+            </div>
+        </div>
+	</div>
+	<div class="col-md-3">
+        <div class="form-group row">
+            <div class="col-md-12">
+                <label for="accessoryDescription" class="marsh-label">Description</label>
+                <input type="text" id="accessoryDescription" class="form-control to-uppercase" [(ngModel)]="this.accessory.accessoryDescription">
+            </div>
+        </div>
+	</div>
+	<div class="col-md-3">
+		<div class="form-group row">
+            <div class="col-md-12">
+                <label for="vehicleUsedId" class="marsh-label">&nbsp;</label>
+				<button  *ngIf="this.accessory.accessoryValue" class="btn btn-mapfre btn-block" (click)="addAccessory()"><b>Add Accessory</b></button>
+                
+            </div>
+        </div>
+	</div>
+</div>
+<div class="row" *ngIf="this.marsh.motorDetails.accessories.length > 0">
+	<div class="col-md-6">
+		<div class="table-responsive">
+			<table class="table table-condensed table-hover table-small">
+				<thead>
+					<td>Name</td>
+					<td>Value</td>
+					<td></td>
+				</thead>
+				<tbody>
+					<tr  *ngFor="let accessory of this.marsh.motorDetails.accessories">
+						<td>{{accessory.accessoryName}}</td>
+						<td>{{accessory.accessoryValue}}</td>
+						<td><button class="btn btn-mapfre btn-sm" (click)="removeAccessory(accessory)"><i class="fa fa-times"></i></button></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		
+	</div>
+</div>
+<br />
+<h5 *ngIf="this.marsh.productId == '10001'">Coverages</h5>
+<div class="row" *ngIf="this.marsh.productId == '10001'">
+	<div class="col-md-4">
+        <div class="form-group row">
+            <div class="col-md-12">
+                <label for="bodilyInjuryLimit" class="marsh-label">Excess Liability Insurance for Bodily Injury</label>
+                <select class="form-control" id="bodilyInjuryLimit" [(ngModel)]="this.marsh.motorDetails.bodilyInjuryLimit" (change)="chooseVTPL()">
+	                <option *ngFor="let bodily of this.marsh.lov.bodilyInjuryLOV" value="{{bodily.impLimite}}">{{bodily.impLimiteFormatted}}</option>
+	            </select>
+	            <small><i>*Covers legal liabilities of the insured or authorized driver due to death of or bodily injury to third parties in excess of the limits provided by the CTPL coverage, arising out of the use of the insured unit.</i></small>
+            </div>
+        </div>
+	</div>
+	<div class="col-md-4">
+        <div class="form-group row">
+            <div class="col-md-12">
+                <label for="propertyDamageLimit" class="marsh-label">Excess Liability Insurance for Property Damage</label>
+                <select class="form-control" id="propertyDamageLimit" [(ngModel)]="this.marsh.motorDetails.propertyDamageLimit">
+	                <option *ngFor="let property of this.marsh.lov.propertyDamageLOV" value="{{property.impLimite}}">{{property.impLimiteFormatted}}</option>
+	            </select>
+	            <small><i>*Covers the insured or authorized driver against liabilities to third parties for actual physical damage to properties of third parties arising out of the use of the insured vehicle.</i></small>
+            </div>
+        </div>
+	</div>
+</div>
+<br />
+<h5>Policy Period</h5>
+<div class="row">
+	<div class="col-md-4">
+		<div class="form-group row">
+            <div class="col-md-12">
+                <label for="policyPeriodFrom" class="marsh-label">EFFECTIVITY <span class="text-mapfre text-heavy">*</span></label>
+                <input type="date" id="policyPeriodFrom" min="{{this.minRetro}}" class="form-control" [(ngModel)]="this.marsh.motorDetails.policyPeriodFrom" (change)="chooseEffectivityDate()">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+		<div class="form-group row">
+            <div class="col-md-12">
+                <label for="policyPeriodTo" class="marsh-label">EXPIRY <span class="text-mapfre text-heavy">*</span></label>
+                <input type="date" id="policyPeriodTo" class="form-control" [(ngModel)]="this.marsh.motorDetails.policyPeriodTo">
+            </div>
+        </div>
+    </div>
+</div>
+<div id="vehiclePhotosContainer" class="hidden">
+	<h5>Vehicle Photos</h5>
+	<button type="button"  class="btn btn-mapfre mb-5 mt-3" data-toggle="modal" data-target="#addAlternativeId">
+	  View Guidelines
+	</button>
+
+	<div class="row">
+		<div class="col-md-12">
+			<ngx-dropzone (change)="onSelect($event)">
+			    <ngx-dropzone-label>Drop your photos here</ngx-dropzone-label>
+			    <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of this.marsh.motorDetails.vehiclePhotos" [removable]="true" (removed)="onRemove(f)" [file]="f">
+			    </ngx-dropzone-image-preview>
+			</ngx-dropzone>
+	    </div>
+	</div>
+</div>
+
+<br />
+<br />
+<div class="row">
+<div class="col-md-6">
+	<button class="btn btn-mapfre mt-3" (click)="nextStepAction()"><b>Proceed to Next step</b></button>
+</div>
+</div>
+<div class="modal fade" id="addAlternativeId" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">GUIDELINES FOR UNDERWRITING PICTURES</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+      	<div class="row">
+      		<div class="col-md-12">
+      			<h3>GUIDELINES FOR UNDERWRITING PICTURES</h3>
+      			<h5>Procedures for Taking Pictures</h5>
+      			<h6>Materials Needed:</h6>
+      			<ul>
+      				<li>Camera (Digital or Cellphone with camera)</li>
+      				<li>Current edition of any news paper to establish the date of inspection.</li>
+      			</ul>
+      			<br />
+      			<br />
+      			
+
+      		</div>
+      		<div class="col-md-12">
+      			<h5>General Guidelines</h5>
+      			<h6>Taking Pictures</h6>
+      			<ul>
+      				<li>All photos for submission should be colored, sharp and clear. </li>
+      				<li>Minimum of 5 pictures taken in the following order:
+      					<ul>
+      						<li>i.	Front shot (always the 1st picture)</li>
+      						<li>ii.	Front angle shot</li>
+      						<li>iii.	Rear shot</li>
+      						<li>iv.	Rear angle shot</li>
+      						<li>v.	Left shot</li>
+      						<li>vi.	Right shot</li>
+      						<li>vii.	Internal shots – dashboard showing stereo and aircon</li>
+      						<li>viii.	Close up shot of the newspaper wherein the date is clearly visible.</li>
+      						<li>ix.	Additional pictures should be taken of damage/s observed and/or non-standard accessories installed. Pictures for the accessories and other damages should be properly taken and can easily recognize its location</li>
+      					</ul>
+      				</li>
+      				<li>c.	To establish the date and time of inspection, a copy of the current headline of a daily newspaper shall be clearly displayed with the vehicle for the front and rear pictures without obstructing the view of the vehicle.</li>
+      				<li>d.	The pictures should have 320x480 pixel resolution</li>
+      			</ul>
+      			<br />
+      			<br />
+      			<h5>ILLUSTRATION 1 - Front Shot (Exterior)</h5>
+      			<span>This shot is accomplished by stepping back 2 to 3 meters away from the subject vehicle front position.  It is important to ensure that the plate number of the subject vehicle and newspaper are visible when the establishing shots are taken.</span>
+      			<br />
+      			
+      		</div>
+      		<div class="col-md-12 text-center">
+      			<img class="img-responsive" style="width: 25%" src="assets/images/1.png">
+      			<img class="img-responsive" style="width: 35%" src="assets/images/2.png">
+      		</div>
+      		<div class="col-md-12">
+      			<br />
+      			<br />
+      			<h5>ILLUSTRATION 2 - Rear Shot</h5>
+      			<span>The rear shot should be taken the same way how the front shot was taken, making sure that the newspaper, plate number, and the subject vehicle are visible.</span>
+      			<br />
+      		</div>
+      		<div class="col-md-12 text-center">
+      			<img class="img-responsive" style="width: 30%" src="assets/images/3.png">
+      			<img class="img-responsive" style="width: 30%" src="assets/images/4.png">
+      		</div>
+      		<div class="col-md-12">
+      			<br />
+      			<br />
+      			<h5>ILLUSTRATION 3 - Left & Right Shots</h5>
+      			<span>These shots should be taken from the left/right portion showing the whole vehicle.</span>
+      			<br />
+      		</div>
+      		<div class="col-md-12 text-center">
+      			<b>Left</b> <br />
+      			<img class="img-responsive" style="width: 30%" src="assets/images/5.png">
+      			<img class="img-responsive" style="width: 30%" src="assets/images/6.png">
+      			<br />
+      			<br />
+      			<b>Right </b><br />
+      			<img class="img-responsive" style="width: 30%" src="assets/images/7.png">
+      			<img class="img-responsive" style="width: 30%" src="assets/images/8.png">
+      		</div>
+      		<div class="col-md-12">
+      			<br />
+      			<br />
+      			<h5>ILLUSTRATION 4 – Left & Right Angle Shots</h5>
+      			<span>These shots should be taken from the left/right portion showing the angular view of the vehicle.</span>
+      			<br />
+      		</div>
+      		<div class="col-md-12 text-center">
+      			<b>Right and Front</b> <br />
+      			<img class="img-responsive" style="width: 30%" src="assets/images/9.png">
+      			<br />
+      			<br />
+      			<b>Left and Back</b> <br />
+      			<img class="img-responsive" style="width: 30%" src="assets/images/10.png">
+      		</div>
+      		<div class="col-md-12">
+      			<br />
+      			<br />
+      			<h5>ILLUSTRATION 5 – Close up shot of the Newspaper</h5>
+      			<span>When taking picture of the newspaper, make sure that the date is clearly visible.</span>
+      			<br />
+      		</div>
+      		<div class="col-md-12 text-center">
+      			<img class="img-responsive" style="width: 30%" src="assets/images/11.png">
+      		</div>
+      		<div class="col-md-12">
+      			<br />
+      			<br />
+      			<h5>ILLUSTRATION 6 – Additional pictures (Damage parts, Non-standard Accessories, etc.)</h5>
+      			<span>When taking shots of the damage parts, make sure that its location will be easily determined by including the involved portion and not the damage only.</span>
+      			<br />
+      		</div>
+      		<div class="col-md-12 text-center">
+      			<img class="img-responsive" style="width: 30%" src="assets/images/12.png">
+      			<img class="img-responsive" style="width: 30%" src="assets/images/13.png">
+      		</div>
+      	</div>
+        
+      </div>
+      <div class="modal-footer">
+<button type="button" id="closeModal" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

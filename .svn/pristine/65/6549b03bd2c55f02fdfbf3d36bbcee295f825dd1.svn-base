@@ -1,0 +1,653 @@
+    <h5 *ngIf="this.marsh.motorDetails.isCorporate == '1'">Personal Details</h5>
+    <h5 *ngIf="this.marsh.motorDetails.isCorporate == '2'">Company Details</h5>
+    <div class="row" *ngIf="this.marsh.motorDetails.isCorporate == '1'">
+        <div class="col-md-4">
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <label for="firstName" class="col-form-label marsh-label">FIRST NAME <span class="text-mapfre text-heavy">*</span></label>
+                    <input type="text" id="firstName" [(ngModel)]="this.marsh.riskDetails.firstName" name="Firt Name" class="form-control required property-issuance to-uppercase" placeholder="First Name">
+                </div>
+            </div>
+            
+        </div>
+        <div class="col-md-4">
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <label for="middleName" class="marsh-label">MIDDLE NAME</label>
+                    <input type="text" id="middleName" [(ngModel)]="this.marsh.riskDetails.middleName" class="form-control to-uppercase" placeholder="Middle Name">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <label for="lastName" class="marsh-label">LAST NAME <span class="text-mapfre text-heavy">*</span></label>
+                    <input type="text" id="lastName" [(ngModel)]="this.marsh.riskDetails.lastName" name="Last Name" class="form-control required property-issuance to-uppercase" placeholder="Last Name">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <label for="suffix" class="marsh-label">SUFFIX</label>
+                    <select class="form-control" id="suffix" [(ngModel)]="this.marsh.riskDetails.suffix" name="Suffix">
+                        <option></option>
+                        <option *ngFor="let suffix of this.marsh.lov.suffixLOV" value="{{suffix.TIPO_SUFIJO_NOMBRE}}">{{suffix.NOM_VALOR}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <label for="civilStatus" class="marsh-label">CIVIL STATUS <span class="text-mapfre text-heavy">*</span></label>
+                    <select class="form-control required property-issuance" id="civilStatus" name="Civil Status" [(ngModel)]="this.marsh.riskDetails.civilStatus">
+                        <option value="0" disabled="disabled">Please choose Civil Status</option>
+                        <option *ngFor="let civil of this.marsh.lov.civilStatusLOV" value="{{civil.COD_EST_CIVIL}}">{{civil.NOM_VALOR}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+                <div class="form-group row">
+                    <div class="col-md-12">
+                        <label for="gender" class="marsh-label">GENDER <span class="text-mapfre text-heavy">*</span></label>
+                        <select class="form-control  required property-issuance" id="gender" name="Gender" [(ngModel)]="this.marsh.riskDetails.gender">
+                            <option value="" disabled="disabled">Please choose Gender</option>
+                            <option value="1">Male</option>
+                            <option value="0">Female</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        <div class="col-md-4">
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <label for="birthDate" class="marsh-label">DATE OF BIRTH <span class="text-mapfre text-heavy">*</span></label>
+                    <input type="date" id="birthDate" [(ngModel)]="this.marsh.riskDetails.birthDate" name="Date of Birth" class="form-control required property-issuance">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <label for="nationality" class="marsh-label">NATIONALITY</label>
+                    <select class="form-control" name="Nationality" id="nationality" [(ngModel)]="this.marsh.riskDetails.nationality">
+                        <option value="0" disabled="disabled">Please choose Nationality</option>
+                        <option *ngFor="let nat of this.marsh.lov.nationalityLOV" value="{{nat.COD_PAIS}}">{{nat.NOM_PAIS}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="row"  *ngIf="this.marsh.motorDetails.isCorporate == '2'">
+            <div class="col-md-6">
+                <div class="form-group row">
+                    <div class="col-md-12">
+                        <label for="fullName" class="col-form-label marsh-label">COMPANY NAME <span class="text-mapfre text-heavy">*</span></label>
+                        <input type="text" id="fullName" [(ngModel)]="this.marsh.riskDetails.firstName" class="form-control to-uppercase" placeholder="Full Company Name">
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        <br />
+        <h5>Mortgaged</h5>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group row">
+                    <div class="col-md-12">
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" [(ngModel)]="this.marsh.motorDetails.isMortgaged" >
+                          <label class="form-check-label" for="defaultCheck1">
+                            Mortgaged?
+                          </label>
+                        </div>
+                    </div>
+                    <div class="col-md-12" *ngIf="this.marsh.motorDetails.isMortgaged == true">
+                        <label for="mortgageeId" class="marsh-label">MORTGAGEE <span class="text-mapfre text-heavy">*</span></label>
+                        <select class="form-control" id="mortgageeId" [(ngModel)]="this.marsh.motorDetails.mortgageeIdHolder">
+                            <option value="0" disabled="disabled">Please choose Mortgagee</option>
+                            <option *ngFor="let mortgagee of this.marsh.lov.mortgageeLOV" value="{{mortgagee[1]}}:=:{{mortgagee[2]}}">{{mortgagee[4]}} ({{mortgagee[2]}})</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <h5>Mailing Address</h5>
+        <div class="row" *ngIf="this.addAddress == '' && this.marsh.lov.addressLOV.length > 0">
+            <div class="col-md-4"><button type="button" class="btn btn-mapfre" (click)="openAddress()">Add Address</button></div>
+        </div>
+        <app-address *ngIf="this.addAddress == 'add'" [title]="this.presentAddressTitle" [marsh]="this.marsh" (addressDetailsOutput)="catchAddress($event)"></app-address>
+        <!-- 
+        <app-address *ngIf="this.marsh.motorDetails.isCorporate == '2'" [title]="this.pbAddressTitle" [marsh]="this.marsh" (addressDetailsOutput)="catchPresentAddress($event)"></app-address> -->
+
+        <div class="row mt-5" *ngIf="this.tempAddresses.length > 0">
+            <div class="col-md-12">
+                <table class="table table-small table-hover table-condensed">
+                    <thead>
+                        <tr>
+                            <td>Type</td>
+                            <td>Full Address</td>
+                            <td>Mailing Address</td>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let address of this.tempAddresses">
+                            <td>{{address.addressType}}</td>
+                            <td>{{address.addressDetails}} {{address.municipalityDetail}}  {{address.provinceDetail}} {{address.zipCode}}</td>
+                            <td><h3><i class="fa fa-check-circle text-success" *ngIf="address.mailingAddress == '1'"></i></h3></td>
+                            <td><button type="button" class="btn btn-mapfre mr-3" (click)="setCorrespondent(address)" ><i class="fa fa-envelope"></i> Set Mailing Address</button><button type="button" class="btn btn-mapfre" (click)="removeAddressList(address)" ><i class="fa fa-times"></i> Remove</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <br />
+        <h5>Alternative Holder</h5>
+        <button type="button"  *ngIf="this.alternativeHolder.length == 0" class="btn btn-mapfre" data-toggle="modal" data-target="#addAlternativeId" (click)="addAlternativeHolderModal()">
+          Add Alternative Holder
+        </button>
+        <div class="row mt-5" *ngIf="this.alternativeHolder.length > 0">
+            <div class="col-md-12">
+                <table class="table table-small table-hover table-condensed">
+                    <thead>
+                        <tr>
+                            <td>Complete Name</td>
+                            <td>Full Address</td>
+                            <td>ID</td>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let altHolder of this.alternativeHolder">
+                            <td>{{altHolder.riskDetails.firstName}}<span *ngIf="altHolder.motorDetails.isCorporate == '1'">{{altHolder.riskDetails.middleName}} {{altHolder.riskDetails.lastName}}</span></td>
+                            <td>{{altHolder.riskDetails.homeAddress.addressDetails}} {{altHolder.riskDetails.homeAddress.municipalityDetail}}  {{altHolder.riskDetails.homeAddress.provinceDetail}} {{altHolder.riskDetails.homeAddress.zipCode}}</td>
+                            <td><button type="button" class="btn btn-mapfre" (click)="removeAddressList(altHolder)" ><i class="fa fa-times"></i></button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <br />
+
+        <!-- <div *ngIf="this.marsh.riskDetails.civilStatus == '1'">
+            <h5>Parent's Details (Optional)</h5>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <label for="motherName" class="marsh-label">MOTHER'S NAME</label>
+                            <input type="text" id="motherName" class="form-control" placeholder="Mother's Name" [(ngModel)]="this.marsh.riskDetails.motherName">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <label for="motherBirthday" class="marsh-label">MOTHER'S BIRTHDAY</label>
+                            <input type="date" id="motherBirthday" class="form-control" [(ngModel)]="this.marsh.riskDetails.motherBirthday">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <label for="fatherName" class="marsh-label">FATHER'S NAME</label>
+                            <input type="text" id="fatherName" class="form-control" placeholder="Father's Name" [(ngModel)]="this.marsh.riskDetails.fatherName">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <label for="fatherBirthday" class="marsh-label">FATHER'S BIRTHDAY</label>
+                            <input type="date" id="fatherBirthday" class="form-control" [(ngModel)]="this.marsh.riskDetails.fatherBirthday">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="this.marsh.riskDetails.civilStatus == '2'">
+            <h5>Family's Details (Optional)</h5>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <label for="spouseName" class="marsh-label">SPOUSE'S NAME</label>
+                            <input type="text" id="spouseName" class="form-control" placeholder="Mother's Name" [(ngModel)]="this.marsh.riskDetails.spouseName">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <label for="spouseBirthday" class="marsh-label">SPOUSE'S BIRTHDAY</label>
+                            <input type="date" id="spouseBirthday" class="form-control" [(ngModel)]="this.marsh.riskDetails.spouseBirthday">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <label for="children1Name" class="marsh-label">CHILDREN'S NAME 1</label>
+                            <input type="text" id="children1Name" class="form-control" placeholder="Children's Name 1" [(ngModel)]="this.marsh.riskDetails.children1Name">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <label for="children1Birthday" class="marsh-label">CHILDREN'S BIRTHDAY 1</label>
+                            <input type="date" id="children1Birthday" class="form-control" [(ngModel)]="this.marsh.riskDetails.children1Birthday">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <label for="children2Name" class="marsh-label">CHILDREN'S NAME 2</label>
+                            <input type="text" id="children2Name" class="form-control" placeholder="Children's Name 2" [(ngModel)]="this.marsh.riskDetails.children2Name">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <label for="children2Birthday" class="marsh-label">CHILDREN'S BIRTHDAY 2</label>
+                            <input type="date" id="children2Birthday" class="form-control" [(ngModel)]="this.marsh.riskDetails.children2Birthday">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="this.marsh.riskDetails.civilStatus">
+            <h5>Helper's Details (Optional)</h5>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <label for="helper1Name" class="marsh-label">HELPER'S NAME 1</label>
+                            <input type="text" id="helper1Name" class="form-control" placeholder="Helper's Name 1" [(ngModel)]="this.marsh.riskDetails.helper1Name">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <label for="helper1Birthday" class="marsh-label">HELPER'S BIRTHDAY 1</label>
+                            <input type="date" id="helper1Birthday" class="form-control" [(ngModel)]="this.marsh.riskDetails.helper1Birthday">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <label for="helper2Name" class="marsh-label">HELPER'S NAME 2</label>
+                            <input type="text" id="helper2Name" class="form-control" placeholder="Helper's Name 1" [(ngModel)]="this.marsh.riskDetails.helper2Name">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <label for="helper2Birthday" class="marsh-label">HELPER'S BIRTHDAY 2</label>
+                            <input type="date" id="helper2Birthday" class="form-control" [(ngModel)]="this.marsh.riskDetails.helper2Birthday">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <label for="helper3Name" class="marsh-label">HELPER'S NAME 3</label>
+                            <input type="text" id="helper3Name" class="form-control" placeholder="Helper's Name 1" [(ngModel)]="this.marsh.riskDetails.helper3Name">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <label for="helper3Birthday" class="marsh-label">HELPER'S BIRTHDAY 3</label>
+                            <input type="date" id="helper3Birthday" class="form-control" [(ngModel)]="this.marsh.riskDetails.helper3Birthday">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+        <br />
+        <h5>Valid Government IDs</h5>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group row">
+                    <div class="col-md-12">
+                        <label for="validID" class="marsh-label">GOVERNMENT ID <span class="text-mapfre text-heavy">*</span></label>
+                        <select class="form-control required property-issuance" id="validID" name="Government ID" [(ngModel)]="this.marsh.riskDetails.validID">
+                            <option value="0" disabled="disabled">Please choose ID</option>
+                            <option *ngFor="let cod of this.marsh.lov.documentLOV" value="{{cod.TIP_DOCUM}}">{{cod.NOM_DOCUM}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group row">
+                    <div class="col-md-12">
+                        <label for="validIDValue" class="marsh-label">ID NUMBER <span class="text-mapfre text-heavy">*</span></label>
+                        <input type="text" id="validIDValue" class="form-control required property-issuance to-uppercase" name="ID Number" placeholder="ID Number" [(ngModel)]="this.marsh.riskDetails.validIDValue">
+                    </div>
+                </div>
+            </div>
+        </div>
+    <br />
+    <h5>Contact Details</h5>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <label for="email" class="marsh-label">EMAIL <span class="text-mapfre text-heavy">*</span></label>
+                    <input type="email" id="email" class="form-control required to-uppercase property-issuance" name="Email" placeholder="Email" [(ngModel)]="this.marsh.riskDetails.emailAddress">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <label for="phoneNumber" class="marsh-label">MOBILE/PHONE NUMBER <span class="text-mapfre text-heavy">*</span></label>
+                    <input type="text" id="phoneNumber" maxlength="12" class="form-control required to-uppercase property-issuance" name="Phone Number" placeholder="Phone Number" [(ngModel)]="this.marsh.riskDetails.phoneNumber">
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div  *ngIf="this.marsh.propertyDetails.workOfArtsAmount == 'hide123'">
+        <h5>Works of Art</h5>
+        <!-- <div class="row">
+            <div class="col-md-4">
+                <div class="form-group row">
+                    <div class="col-md-12">
+                        <label class="marsh-label">DECRIPTION OF PAINTING, VISUAL ART</label>
+                        <input type="text" name="Description of Paintings" class="form-control mb-3 to-uppercase required property-woa" [(ngModel)]="this.tempWOA.workOfArtsValues" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group row">
+                    <div class="col-md-12">
+                        <label class="marsh-label">AMOUNT</label>
+                        <input type="number" name="Amount" class="form-control mb-3 required property-woa" [(ngModel)]="this.tempWOA.workOfArtsAmount" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <button class="btn btn-mapfre mt-4" (click)="addWorkOfArt()"><i class="fa fa-plus"></i> Add Work of Art</button>
+            </div>
+        </div> -->
+        <small>Please provide  a detailed description of your valuable art by specifying the type ;date of purchase; color; detailed size; year (period)  made; name of artist and title of artwork (if applicable), etc.</small>
+        <br />
+        <div class="row" *ngIf="this.marsh.propertyDetails.workOfArtsList.length > 0">
+            <br />
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-condensed table-hover table-small">
+                        <thead>
+                            <td>Work of Art</td>
+                            <td>Value</td>
+                            <td>Description</td>
+                            <!-- <td></td> -->
+                        </thead>
+                        <tbody>
+                            <tr  *ngFor="let woa of this.marsh.propertyDetails.workOfArtsList">
+                                <td>{{woa.workOfArtsValues}}</td>
+                                <td>{{this.formatter.format(woa.workOfArtsAmount)}}</td>
+                                <td><textarea type="text" name="Painting's Description" cols="60" rows="2" class="form-control required property-issuance to-uppercase" [(ngModel)]="woa.workOfArtsDescription"></textarea></td>
+                                <!-- <td><button class="btn btn-mapfre btn-sm" (click)="removeWorkOfArt(woa)"><i class="fa fa-times"></i></button></td> -->
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+            </div>
+        </div>
+        <br />
+    </div>
+    <h5>KYC Fields</h5>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <button class="btn btn-mapfre btn-block"  data-toggle="collapse" href="#kycFieldHolder" role="button" aria-expanded="false" aria-controls="kycFieldHolder"><b>Show all Fields</b></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row collapse" id="kycFieldHolder">
+        <div class="col-md-4">
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <label for="birthPlace" class="marsh-label">PLACE OF BIRTH</label>
+                    <input type="text" id="birthPlace" class="form-control to-uppercase" placeholder="Place of Birth" [(ngModel)]="this.marsh.KYC.NOM_NACIMIENTO">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <label for="sssGSIS" class="marsh-label">SSS/GSIS NUMBER</label>
+                    <input type="text" id="sssGSIS" class="form-control to-uppercase" placeholder="SSS/GSIS Number" [(ngModel)]="this.marsh.KYC.NUM_SSS_GSIS">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <label for="numTIN" class="marsh-label">TIN</label>
+                    <input type="text" id="numTIN" class="form-control to-uppercase" placeholder="TIN" [(ngModel)]="this.marsh.KYC.NUM_TIN">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <label for="sourceOfFunds" class="marsh-label">SOURCE OF FUNDS</label>
+                    <input type="text" id="sourceOfFunds" class="form-control to-uppercase" placeholder="Source of Funds" [(ngModel)]="this.marsh.KYC.NOM_FUENTO_FONDO">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <label for="netIncome" class="marsh-label">NET INCOME</label>
+                    <input type="text" id="netIncome" class="form-control to-uppercase" placeholder="Net Income" [(ngModel)]="this.marsh.KYC.NUM_INGRESOS_NETOS">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <label for="businessNature" class="marsh-label">NAME OF BUSINESS/SELF EMPLOYMENT</label>
+                    <input type="text" id="businessNature" class="form-control to-uppercase" placeholder="Nature of Business" [(ngModel)]="this.marsh.KYC.NOM_NEGOCIO">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <label for="empBusName" class="marsh-label">EMPLOYER'S/BUSINESS NAME</label>
+                    <input type="text" id="empBusName" class="form-control to-uppercase" placeholder="Employer's Business Name" [(ngModel)]="this.marsh.KYC.NOM_EMP_BUS_ANIO_SINGKO">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <label for="houseOwnName" class="marsh-label">HOUSE OWNER'S NAME</label>
+                    <input type="text" id="houseOwnName" class="form-control to-uppercase" placeholder="House Owner's Name" [(ngModel)]="this.marsh.KYC.NOM_CASA_OWN">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <label for="houseRentName" class="marsh-label">HOUSE LESSEE'S NAME</label>
+                    <input type="text" id="houseRentName" class="form-control to-uppercase" placeholder="House Lessee's Name" [(ngModel)]="this.marsh.KYC.NOM_CASE_RENT">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <label for="benef" class="marsh-label">BENEFICIARIES</label>
+                    <input type="text" id="benef" class="form-control to-uppercase" placeholder="Beneficiaries" [(ngModel)]="this.marsh.KYC.NOM_BENEFICIARIO">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <label for="numChild" class="marsh-label">NO. OF CHILDREN W/ SUPPORT</label>
+                    <input type="text" id="numChild" class="form-control to-uppercase" placeholder="Number of Children w/ Support" [(ngModel)]="this.marsh.KYC.NUM_NINOS">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <label for="carOwn" class="marsh-label">CAR'S OWNED</label>
+                    <input type="text" id="carOwn" class="form-control to-uppercase" placeholder="Car's Owned" [(ngModel)]="this.marsh.KYC.NOM_COCHE">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <label for="banksList" class="marsh-label">LIST OF BANKS</label>
+                    <input type="text" id="banksList" class="form-control to-uppercase" placeholder="List of Banks" [(ngModel)]="this.marsh.KYC.NOM_BANCO">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <label for="banksAcctTypes" class="marsh-label">TYPE OF BANK ACCOUNTS</label>
+                    <input type="text" id="banksAcctTypes" class="form-control to-uppercase" placeholder="Type of Bank Accounts" [(ngModel)]="this.marsh.KYC.TIP_BANCO_ACCT">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <label for="seniorOfficer" class="marsh-label">SENIOR OFFICER</label>
+                    <input type="text" id="seniorOfficer" class="form-control to-uppercase" placeholder="Senior Officer" [(ngModel)]="this.marsh.KYC.COD_EMP_CLASS">
+                </div>
+            </div>
+        </div>
+    </div>
+    <h5>Policy Period</h5>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <label for="policyPeriodFrom" class="marsh-label">EFFECTIVITY <span class="text-mapfre text-heavy">*</span></label>
+                    <input type="date" id="policyPeriodFrom" class="form-control pa-personal required property-issuance" name="Effectivity Date" [(ngModel)]="this.marsh.motorDetails.policyPeriodFrom"  min="{{this.minRetro}}" max="{{this.maxDate}}" (change)="chooseEffectivityDate()">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <label for="policyPeriodTo" class="marsh-label">EXPIRY <span class="text-mapfre text-heavy">*</span></label>
+                    <input type="date" readonly="readonly" id="policyPeriodTo" class="form-control required pa-personal property-issuance" name="Expiry Date" [(ngModel)]="this.marsh.motorDetails.policyPeriodTo">
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="form-check" *ngIf="this.isRetroactive == '1'"> 
+        <input type="checkbox" class="form-check-input" [(ngModel)]="this.marsh.riskDetails.underTaking" id="exampleCheck1">
+        <label class="form-check-label" for="exampleCheck1">Agree to <a  data-toggle="modal" data-target="#goodHealthDeclaration" href="#">Declaration of No Known Loss</a></label>
+    </div> 
+    <br />
+<br />
+<br />
+<h5>Payment Option</h5>
+<div class="row">
+    <div class="col-md-3">
+        <div class="custom-control custom-radio custom-control-inline">
+          <input type="radio" id="customRadioInline1" name="customRadioInline1" [(ngModel)]="this.marsh.paymentOption" class="custom-control-input" value="cc">
+          <label class="custom-control-label" for="customRadioInline1">Pay using Credit Card</label> 
+        </div>
+        <br />
+        <img class="logo-collection" src="assets/images/authProgram_SC.gif" />
+        <img class="logo-collection" src="assets/images/authProgram_VBV.gif" />
+    </div>
+    <div class="col-md-3">
+        <div class="custom-control custom-radio custom-control-inline">
+          <input type="radio" id="customRadioInline2" name="customRadioInline1" [(ngModel)]="this.marsh.paymentOption" class="custom-control-input" value="co">
+          <label class="custom-control-label" for="customRadioInline2">Pay via OTC/GCash</label>
+        </div>
+    </div>
+</div>
+<br />
+<div class="row" *ngIf="this.marsh.paymentOption">
+    <div class="col-md-3">
+        <!-- <button class="btn btn-mapfre mr-3 mt-3" (click)="backButtonAction()"><b>Back</b></button> -->
+        <button class="btn btn-mapfre mt-3" (click)="nextStepAction('payment')"><b>Proceed to Payment</b></button>
+    </div>
+</div>
+<div class="modal fade" id="goodHealthDeclaration" tabindex="-1" role="dialog" aria-labelledby="goodHealthDeclaration" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Declaration of No Known Loss</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h3>Declaration of No Known Loss</h3>
+        <div>I/We expressly represent, warrant and confirm that there is ( ) NO KNOWN LOSS ( ) NO PRIOR LOSS or ( ) NO KNOWN CIRCUMSTANCE as of the effectivity date of the policy that would give rise to a claim.  <br />
+            <br />
+
+For this purpose, “NO KNOWN LOSS”, “NO PRIOR LOSS” OR “NO KNOWN CIRCUMSTANCE” shall mean that the Insured/Policyholder [including its authorised representative(s), key officer(s) and executive(s), as the case may be] has no knowledge of either actual or impending loss, event, accident that may result to a financial loss to the Insured/Policyholder, third party or any person(s) or entity(ies) who may have interest in the subject matter insured or the claim proceeds thereon, if any.   <br />
+ <br />
+
+Likewise, I/We affirm that this request is not intended to be used for any unlawful purpose. Nevertheless, I/We agree to indemnify and hold Mapfre Insurance, its directors, officers and employees and agents, free and harmless from any expense, damage, cost or suit/action which may arise, directly or indirectly, from and in connection with this request.   <br />
+ <br />
+
+The purpose of this request/warranty is to assist in the underwriting process. The undersigned, therefore, warrants that the information contained herein is true and accurate to the best of his/her knowledge, information and belief. This request/warranty shall be the basis of any insurance that may be issued and will be a part of such policy. It is understood that any misrepresentation or omission shall constitute grounds for immediate cancellation of coverage or rescission of policy and denial of claims, if any. It is further understood that the applicant (the Insured/Policyholder) is under a continuing obligation to immediately notify the underwriter through the broker of any material alteration of the information given.</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="addAlternativeId" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Alternative Holder</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-alternative-holder *ngIf="this.addAlternativeShow == 'show'" (marshOutputt)="addAlternative($event)"  (nextStep)="modalAction($event)"></app-alternative-holder>
+      </div>
+      <div class="modal-footer">
+<button type="button" style="display: none" id="closeModal" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

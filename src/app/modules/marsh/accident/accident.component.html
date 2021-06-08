@@ -1,0 +1,140 @@
+<div class="row">
+	<div class="col-md-12">
+		<h1  data-toggle="tooltip" data-placement="top" title="Tooltip on top" id="test">Tell us about yourself</h1>
+		<small><i>(<span class="text-mapfre">*</span>) - required fields</i></small>
+
+	</div>
+</div>
+<h5>Personal Details</h5>
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group row">
+            <div class="col-md-12">
+                <label for="firstName" class="col-form-label marsh-label">FIRST NAME <span class="text-mapfre text-heavy">*</span></label>
+                <input type="text" id="firstName" [(ngModel)]="this.marsh.paDetails.insured.firstName" class="form-control" placeholder="First Name">
+            </div>
+        </div>
+        
+    </div>
+    <div class="col-md-4">
+        <div class="form-group row">
+            <div class="col-md-12">
+                <label for="middleName" class="marsh-label">MIDDLE NAME</label>
+                <input type="text" id="middleName" [(ngModel)]="this.marsh.paDetails.insured.middleName" class="form-control" placeholder="Middle Name">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group row">
+            <div class="col-md-12">
+                <label for="lastName" class="marsh-label">LAST NAME <span class="text-mapfre text-heavy">*</span></label>
+                <input type="text" id="lastName" [(ngModel)]="this.marsh.paDetails.insured.lastName" class="form-control" placeholder="Last Name">
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<div class="row">
+	<div class="col-md-6">
+		<button class="btn btn-mapfre mr-3 mt-3" (click)="backButtonAction()"><b>Back to Homepage</b></button>
+		<button  *ngIf="this.marsh.motorDetails.productId" class="btn btn-mapfre mt-3" (click)="nextStepAction()"><b>Proceed to Next step</b></button>
+	</div>
+</div>
+
+<div class="modal fade" id="compreModal" tabindex="-1" role="dialog" aria-labelledby="compreModal" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Comprehensive Insurance Coverages</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="table table-sm table-bordered">
+	    	<thead>
+	    		<td>Coverage</td>
+	    		<td>Description</td>
+	    	</thead>
+	    	<tbody>
+	    		<tr>
+	    			<td>Own Damage</td>
+	    			<td>Damage to the insured's own vehicle or
+					<br />- Covers partial or total damage of the insured unit in excess of the policy deductible due to accidental collision, fire, explosion, overturning or malicious damage</td>
+	    		</tr>
+	    		<tr>
+	    			<td>Theft</td>
+	    			<td>Unlawfully taking away of the Scheduled Vehicle or any parts, accessories attached thereon
+					<br />- Covers against loss of the insured unit, its accessories and spare parts attached thereon in excess of the policy deductible due to theft</td>
+	    		</tr>
+	    		<tr>
+	    			<td>Excess Third Party Liability-Bodily Injury</td>
+	    			<td>- insurance against loss due to claims for damages because of bodily injury (including death) to a Third Party
+					<br />- Covers legal liabilities of the insured or authorized driver due to death of or bodily injury to third parties in excess of the limits provided by the CTPL coverage arising out of the use of the insured unit</td>
+	    		</tr>
+	    		<tr>
+	    			<td>Excess Third Party Liability-Property Damage</td>
+	    			<td>- insurance against loss due to claims for damages to physical property of a Third Party
+					<br />- Covers the insured or authorized driver against liabilities to third parties for actual physical damage to properties of third parties arising out of the use of the insured vehicle</td>
+	    		</tr>
+	    		<tr>
+	    			<td>Unnamed Driver/Passenger Personal Accident</td>
+	    			<td>Insures each passengers for death or permanent disability due to an accident while riding in the insured vehicle</td>
+	    		</tr>
+	    		<tr>
+	    			<td>Acts of Nature</td>
+	    			<td>Covers loss of or damage to the insured vehicle due to typhoon, earthquake, flood and other natural calamities</td>
+	    		</tr>
+	    		<tr>
+	    			<td>Deductible</td>
+	    			<td>An amount being the first part of the cost of a claim, which the insured has to bear in accordance with the terms of the insurance</td>
+	    		</tr>
+	    		<tr>
+	    			<td>Roadside Assistance</td>
+	    			<td>A 24-hour emergency roadside assistance: towing of insured vehicle, and personal assistance in case of accidents and vehicle breakdowns</td>
+	    		</tr>
+	    		<tr>
+	    			<td>Security Glass Etching</td>
+	    			<td>A proven effective car theft deterrent, where the vehicle plate number is permanently etched on the windshield, back glass and front side window glasses of the insured vehicle
+					<br />- Permanent markings of the vehicle identification number (plate number) on the windshield, back glass and side window glasses of the insured vehicle.</td>
+	    		</tr>
+	    	</tbody>
+	    	
+	    </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="ctplModal" tabindex="-1" role="dialog" aria-labelledby="ctplModal" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">CTPL Insurance Coverages</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="table table-sm table-bordered">
+	    	<thead>
+	    		<td>Coverage</td>
+	    		<td>Description</td>
+	    	</thead>
+	    	<tbody>
+	    		<tr>
+	    			<td>Compulsory Third Party Liability (CTPL)</td>
+	    			<td>Coverage required by law for the registration of any vehicle licensed for use on the public highways. Provides cover against legal liabilities of the assured and/or the vehicle’s authorized driver due to bodily injury and/or death to third parties arising from the use of the insured vehicle.</td>
+	    		</tr>
+	    	</tbody>
+	    	
+	    </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

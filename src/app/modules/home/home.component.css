@@ -1,0 +1,19 @@
+#header-home {
+	background: #005AA7;  /* fallback for old browsers */
+	background: -webkit-linear-gradient(to top, #c5defe ,#FFFDE4);  /* Chrome 10-25, Safari 5.1-6 */
+	background: linear-gradient(to top, #c5defe ,#FFFDE4); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+
+.m-t-15 {
+	margin-top: 15px;
+}
+
+.home-font {
+	font-size: 14px;
+	font-family: roboto,sans-serif;
+}
+
+.PB-color {
+	color: #144b93;
+}

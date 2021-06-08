@@ -1,0 +1,139 @@
+<div id="content">
+    <h3 class="page-title">
+
+        <i class="fa fa-cogs"></i> Exchange Rate Setup
+    </h3>
+    
+    <div class="alert alert-success hidden fade" id="addExchangeRateSuccess" role="alert">
+      <i class="fa fa-check"></i> {{this.addExchangeRateSuccess}}
+          <button type="button" class="close" aria-label="Close" (click)="closeAlert('addExchangeRateSuccess')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+    </div>
+
+    <div>
+
+        <div class="row mt-2 mb-2">
+            <div class="col-md-4">
+
+                <div class="form-group row">
+                    <div class="col-md-12">
+                        <label for="inputPassword" class="col-form-label digi-label">Exchange Rate Type</label>
+                        <select class="form-control" (change)="chooseExchangeRateType()" [(ngModel)]="this.exchangeType">
+                            <option value="0" disabled="disabled">Please choose type</option>
+                            <option *ngFor="let type of exchangeRateTypeList" value="{{type.exchangeRateTypeId}}">
+                                {{type.description}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-8 text-right">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label for="inputPassword" class="col-form-label digi-label">&nbsp;</label>
+                    </div>
+                    <div class="col-md-12">
+                        <button class="btn btn-digi" (click)="clearModalContent()" data-toggle="modal" data-target="#modalNewProduct"><i class="fa fa-plus"></i> Add new setup</button>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-condensed table-hover table-small">
+                <thead>
+                    <td>Date</td>
+                    <td>Type</td>
+                    <td>Amount</td>
+                    <td></td>
+                </thead>
+                <tbody>
+
+                	<tr *ngFor="let ex of this.exchangeRateList">
+                        <td>{{ex.dateAdded}}</td>
+                        <td>{{ex.exchangeRateType}}</td>
+                        <td>{{ex.amount}}</td>
+                        <td>
+                        	<button class="btn btn-digi-red btn-sm" (click)="deleteExchangeRate(ex)"><i class="fa fa-times"></i></button>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+       
+</div>
+
+<div class="modal fade" id="modalNewProduct" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header modal-header-digi">
+            <h5 class="modal-title" id="exampleModalLongTitle"><i class="fa fa-plus"></i> Add new Exchange Rate</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="alert alert-danger hidden fade" id="addExchangeRateError" role="alert">
+              <i class="fa fa-times"></i> {{this.addExchangeRateError}}
+                  <button type="button" class="close" aria-label="Close" (click)="closeAlert('addExchangeRateError')">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+            </div>
+            <hr>
+
+            <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="row">
+
+                                <div class="col-md-12">
+                                    <label for="term-in-month" class="col-form-label digi-label">Exchange Rate Type</label>
+                                    <select class="form-control" [(ngModel)]="this.exchangeRateNew.exchangeRateTypeId">
+                                        <option disabled="disabled">Please choose type</option>
+                                        <option *ngFor="let type of exchangeRateTypeList" value="{{type.exchangeRateTypeId}}">
+                                            {{type.description}}
+                                        </option>
+                                    </select>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="row">
+
+                                <div class="col-md-12">
+                                    <label for="premium-amount" class="col-form-label digi-label">Date</label>
+                                    <input type="date" class="form-control" [(ngModel)]="this.exchangeRateNew.dateAdded" />
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="row">
+
+                                <div class="col-md-12">
+                                    <label for="premium-amount" class="col-form-label digi-label">Rate</label>
+                                    <input type="number" class="form-control" [(ngModel)]="this.exchangeRateNew.amount" />
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            
+
+          <div class="modal-footer">
+            <button type="button" id="closeModalSetup" class="btn btn-digi" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-digi" (click)="addNewRate()">Submit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>

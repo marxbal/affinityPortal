@@ -1,0 +1,210 @@
+
+<div class="row">
+    <div class="col-md-12">
+        <h1  data-toggle="tooltip" data-placement="top" title="Tooltip on top" id="test">Let's start by choosing a Product</h1>
+    </div>
+</div>
+<br />
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card" id="compreCard">
+          <div class="card-body text-center">
+            <img class="card-img-top" src="assets/images/household.jpg" alt="Card image cap">
+            <h5 class="card-title mt-3"><b>Household Insurance</b></h5>
+            
+            <div class="card-footer text-center">
+                <button type="button" data-toggle="modal" data-target="#compreModal" class="btn btn-mapfre btn-block" (click)="viewCoverage('household','Household Insurance')">View Coverages</button>
+                <button type="button" class="btn btn-mapfre btn-block" (click)="selectProduct('20008','household')">Apply</button>
+            </div>
+
+          </div>
+        </div>
+    </div>
+</div>
+<hr />
+<br />
+<div *ngIf="this.showAll == '1'">
+    <div class="row" id="property">
+        <div class="col-md-12">
+            <h1  data-toggle="tooltip" data-placement="top" title="Tooltip on top" id="test">Tell us about your property</h1>
+        </div>
+    </div>
+    <br />
+    <h5>Property Details</h5>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <label for="property_name" class="col-form-label marsh-label">PROPERTY</label>
+                    <select class="form-control required property-quote" id="property_name" [(ngModel)]="this.marsh.propertyDetails.propertyId" name="Property">
+                        <option value="0" disabled="disabled">Please choose your Property</option>
+                        <option *ngFor="let building of this.marsh.lov.buildingsLOV" value="{{building.codBuilding}}">{{building.txtDescription}}</option>
+                    </select>
+                </div>
+            </div>
+            
+        </div>
+        <div class="col-md-4">
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <label for="unit_number" class="marsh-label">UNIT NUMBER</label>
+                    <input type="text" id="unit_number" name="Unit Number" class="form-control required property-quote to-uppercase" placeholder="Unit Number" [(ngModel)]="this.marsh.propertyDetails.unitNumber">
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <h5>Estimated Values</h5>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <label for="value_ffp" class="marsh-label">FURNISHINGS, FIXTURES, AND PERSONAL EFFECTS</label>
+                    <input type="text" id="value_ffp"  name="Estimated Value of Furnishings" class="form-control mb-3 required property-quote" placeholder="0.00" (change)="checkIfNumber($event,1)" (keyup)="onKey($event)" [(ngModel)]="this.marsh.propertyDetails.EVFurnishing">
+                    <small><i>*<b>Furnishings</b> are larger items of movable equipment such as tables, chairs, beds, desks, backpacks, dressers, and cupboards. These objects are usually kept in a house or other building to make it suitable or comfortable for living or working in.<br /><br />
+
+
+                    <b>*Fixtures</b> are secured or fixed to the walls or floor. Not usually removed when the unit is sold (e.g. lights, sinks, toilet, plugs and sockets)
+                    Fittings are free standing items. Can be removed if the unit is sold (e.g. carpets, curtains, kitchen appliances, etc.)
+                    <br />
+                    <br />
+                    <b>*Furnitures</b> are larger items of movable equipment such as tables, chairs, beds, desks, backpacks, dressers, and cupboards. These objects are usually kept in a house or other building to make it suitable or comfortable for living or working in.
+                    <br />
+                    <br />
+                    <b>*Personal Effects</b> are privately owned items (such as clothing) normally worn or carried on the person
+                    </i></small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <label for="value_improvements" class="marsh-label">IMPROVEMENTS</label>
+                    <input type="text" id="value_improvements" name="Estimated Value of Improvements" class="form-control mb-3 required property-quote" placeholder="0.00"  (change)="checkIfNumber($event,2)" (keyup)="onKey($event)" [(ngModel)]="this.marsh.propertyDetails.EVImprovements">
+                    <small><i>*<b>Improvements</b> are changes made to the unit or a rental property to customize it for the particular needs of a tenant. These can include alterations such as painting, installing partitions, changing the flooring, or putting in customized light fixtures.
+                    </i></small>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="col-md-4">
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <label for="value_ffp" class="marsh-label">WORK OF ARTS</label>
+                    <input type="number" id="value_ffp" name="Estimated Value of Work of Arts" class="form-control mb-3" placeholder="0.00" [(ngModel)]="this.marsh.propertyDetails.workOfArtsAmount">
+                    <small><i>*Works of Art are expensive paintings, visual arts (i.e.ceramics, murals, works on paper, antiques, collectibles rare stamps, etc.). <br /><br />
+
+Note : Subject to submission of list of items and declaration of Sum Insured (should be part of TSI and with premium)
+<br /><br />
+Kindly email detailed description of works of art specifying the date of purchase, current fair market value with certificate of authenticity and picture at fopmsecure@mapfreinsurance.com.ph</i></small>
+                </div>
+            </div>
+        </div> -->
+        <div class="col-md-12">
+            <h5 class="mt-5">Works of Art</h5>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <label class="marsh-label">DESCRIPTION OF WORKS OF ART</label>
+                            <select class="form-control required property-woa" id="property_name" [(ngModel)]="this.tempWOA.workOfArtsValues" name="Works of Arts Type">
+                                <option value="0" disabled="disabled">Please choose your Works of Art</option>
+                                <option *ngFor="let woa of this.marsh.lov.workOfArtsLOV" value="{{woa.NOM_VALOR}}">{{woa.NOM_VALOR}}</option>
+                            </select>
+                            <small><i>*Works of Art are expensive paintings, visual arts (i.e.ceramics, murals, works on paper, antiques, collectibles rare stamps, etc.).
+                            </i></small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <label class="marsh-label">AMOUNT</label>
+                            <input type="text" (keyup)="onKey($event)" name="Amount" class="form-control mb-3 required property-woa" [(ngModel)]="this.tempWOA.workOfArtsAmount" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <label class="marsh-label">DESCRIPTION</label>
+                            <input type="text" name="Description" class="form-control required property-woa to-uppercase" [(ngModel)]="this.tempWOA.workOfArtsDescription" />
+                            <small><i>*Please provide detailed description of your valuable art by specifying the type; date of purchase; color; size; name of artist, title of artwork whichever is applicable (e.g. For Painting : Abstract – January 20, 2005 – Blue and White – 20 X 30 – Van Gogh – Starry Night)</i></small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <button class="btn btn-mapfre mt-4" (click)="addWorkOfArt()"><i class="fa fa-plus"></i> Add Work of Art</button>
+                </div>
+            </div>
+            
+            <div class="row" *ngIf="this.marsh.propertyDetails.workOfArtsList.length > 0">
+                <div class="col-md-6">
+                    <div class="table-responsive">
+                        <table class="table table-condensed table-hover table-small">
+                            <thead>
+                                <td>Work of Art</td>
+                                <td>Value</td>
+                                <td>Description</td>
+                                <td></td>
+                            </thead>
+                            <tbody>
+                                <tr  *ngFor="let woa of this.marsh.propertyDetails.workOfArtsList">
+                                    <td>{{woa.workOfArtsValues}}</td>
+                                    <td>{{this.formatter.format(woa.workOfArtsAmount)}}</td>
+                                    <td>{{woa.workOfArtsDescription}}</td>
+                                    <td><button class="btn btn-mapfre btn-sm" (click)="removeWorkOfArt(woa)"><i class="fa fa-times"></i></button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <br />    
+</div>
+
+<div class="row">
+	<div class="col-md-6">
+        <button class="btn btn-mapfre mr-3 mt-3" (click)="backButtonAction()"><b>Back to Homepage</b></button>
+		<button class="btn btn-mapfre mt-3" *ngIf="this.showAll == '1'" (click)="nextStepAction()"><b>Proceed to Next step</b></button>
+	</div>
+</div>
+
+<div class="modal fade" id="compreModal" tabindex="-1" role="dialog" aria-labelledby="compreModal" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{this.title}} Coverages</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="table table-sm table-bordered">
+            <thead>
+                <td>Coverage</td>
+                <td>Description</td>
+            </thead>
+            <tbody>
+                <tr *ngFor="let coverage of this.coverageList">
+                    <td style="min-width: 300px;">{{coverage.benefit}}</td>
+                    <td style="text-align: justify;">
+                        <span *ngFor="let coverages of coverage.coverages">
+                            {{coverages}}<br /><br />
+                        </span>
+                    </td>
+                </tr>
+            </tbody>
+            
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
