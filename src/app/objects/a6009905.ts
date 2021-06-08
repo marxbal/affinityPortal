@@ -15,5 +15,6 @@ export class A6009905 {
 	 fecActu: string;
 	 codValidation: string;
 	 txtAux1: string;
+	 txtAux2: string;
   
 }
