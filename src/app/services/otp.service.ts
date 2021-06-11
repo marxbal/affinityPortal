@@ -1,7 +1,7 @@
 import {
   Injectable
 } from '@angular/core';
-import * as c from './../objects/const';
+import * as c from '../objects/const';
 import {
   HttpHeaders,
   HttpClient
@@ -23,21 +23,53 @@ import {
 import {
   environment
 } from '../../environments/environment';
+import { Users } from '../objects/user';
+import { CURRENT_USER } from '../constants/local.storage';
 
 export const InterceptorSkipHeader = 'X-Skip-Interceptor';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class OTPService {
   private apiUrl = environment.apiUrl;
 
-  private dataSubject: BehaviorSubject < any > = new BehaviorSubject({});
-  data$: Observable < any > = this.dataSubject.asObservable();
+  // private dataSubject: BehaviorSubject < any > = new BehaviorSubject({});
+  // data$: Observable < any > = this.dataSubject.asObservable();
 
   constructor(private http: HttpClient, private spinner: NgxSpinnerService) {}
 
-  refreshToken() {
+  requestOTP(email: string) {
+    return this.http.post(this.apiUrl + '/auth/otp', { email }).pipe(map((res) => {
+      if (res["status"]) {
+        return 0;
+      } else {
+        return res["errorStatus"];
+      }
+    }));
+  }
+
+  // verifyOTP(email: string, otp: string) {
+  //   return this.http.post(this.apiUrl + '/auth/otp', { email }).pipe(map((res) => {
+  //     if (res["status"]) {
+  //       // store user details and jwt token in local storage to keep user logged in between page refreshes
+  //       const user = new Users(res["user"]);
+  //       const pages = res["pages"];
+  //       const token = res["token"];
+  //       user.token = 'Bearer ' + token;
+
+  //       localStorage.setItem(CURRENT_USER, JSON.stringify(user));
+  //       this.currentUserSubject.next(user);
+
+  //       this.getPages(pages);
+  //       return user;
+  //     } else {
+  //       return null;
+  //     }
+  //   }));
+  // }
+
+  requestsOTP() {
     const as = this;
     const body = `grant_type=refresh_token&refresh_token=` + localStorage.getItem('refresh_token');
 

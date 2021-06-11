@@ -15,5 +15,9 @@ export class Users {
   dateAdded: string;
   roleId: string;
   unitNo: string;
+  token: string;
   
+  constructor(init ? : Partial < Users > ) {
+    Object.assign(this, init);
+  }
 }
