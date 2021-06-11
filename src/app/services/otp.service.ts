@@ -40,7 +40,7 @@ export class OTPService {
   constructor(private http: HttpClient, private spinner: NgxSpinnerService) {}
 
   requestOTP(email: string) {
-    return this.http.post(this.apiUrl + 'otp', { email }).pipe(map((res) => {
+    return this.http.post(this.apiUrl + 'otp/request', { email }).pipe(map((res) => {
       if (res["status"]) {
         return 0;
       } else {
