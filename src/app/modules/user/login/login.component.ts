@@ -247,7 +247,11 @@ export class LoginComponent implements OnInit {
   requestOTP() {
     this.otp.requestOTP(this.loginForm.value.email).pipe(first()).subscribe(
       (data) => {
-        console.log(data);
+        if (data == 0) {
+          window.location.href = "?email=" + this.loginForm.value.email + "&resend=true";
+        } else {
+          window.location.href = "?error=1";
+        }
       }
     );
   }
