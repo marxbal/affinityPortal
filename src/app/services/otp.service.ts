@@ -48,7 +48,7 @@ export class OTPService {
     headers = headers.set('Authorization', 'Basic ' + btoa(c.CLIENT + ':' + c.SECRET));
     headers = headers.set(InterceptorSkipHeader, '');
 
-    return this.http.post(this.apiUrl + "/otp/request", {email}, {
+    return this.http.post(this.apiUrl + "otp/request", {email}, {
         headers
       })
       .pipe(map((res: any) => {
