@@ -39,6 +39,36 @@ export class OTPService {
 
   constructor(private http: HttpClient, private spinner: NgxSpinnerService) {}
 
+  testOTP(email: string) {
+    const as = this;
+    // const body = `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}&grant_type=password`;
+
+    let headers = new HttpHeaders();
+    headers = headers.set('Content-Type', 'application/x-www-form-urlencoded;charset=utf-8');
+    headers = headers.set('Authorization', 'Basic ' + btoa(c.CLIENT + ':' + c.SECRET));
+    headers = headers.set(InterceptorSkipHeader, '');
+
+    return this.http.post(this.apiUrl + "/otp/request", {email}, {
+        headers
+      })
+      .pipe(map((res: any) => {
+        if (res) {
+          return res;
+        }
+      })).pipe(catchError((err: any) => {
+        console.log('An error occurred:', err.error);
+        Swal.fire({
+          type: 'error',
+          title: 'Unable to proceed.',
+          text: "We are unable to process your request."
+        });
+
+        this.spinner.hide();
+        return throwError(err.error);
+      }));
+  }
+
+
   requestOTP(email: string) {
     return this.http.post(this.apiUrl + 'otp/request', { email }).pipe(map((res) => {
       if (res["status"]) {

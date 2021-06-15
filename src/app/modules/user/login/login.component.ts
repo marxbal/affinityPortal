@@ -245,15 +245,26 @@ export class LoginComponent implements OnInit {
   // }
 
   requestOTP() {
-    this.otp.requestOTP(this.loginForm.value.email).pipe(first()).subscribe(
-      (data) => {
-        if (data == 0) {
-          window.location.href = "?email=" + this.loginForm.value.email + "&resend=true";
-        } else {
-          window.location.href = "?error=1";
-        }
+    // this.otp.requestOTP(this.loginForm.value.email).pipe(first()).subscribe(
+    //   (data) => {
+    //     if (data == 0) {
+    //       window.location.href = "?email=" + this.loginForm.value.email + "&resend=true";
+    //     } else {
+    //       window.location.href = "?error=1";
+    //     }
+    //   }
+    // );
+
+    this.otp.testOTP(this.loginForm.value.email).subscribe(
+      result => {
+        window.location.href = result == 0 
+          ? "?email=" + this.loginForm.value.email + "&resend=true"
+          : "?error=1";
+      },
+      error => {
+        window.location.href = "?error=2";
       }
-    );
+    )
   }
 
   resendOTP() {
