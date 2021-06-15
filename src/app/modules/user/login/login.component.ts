@@ -262,7 +262,7 @@ export class LoginComponent implements OnInit {
           : "?error=1";
       },
       error => {
-        window.location.href = "?error=2";
+        // window.location.href = "?error=2";
       }
     )
   }
