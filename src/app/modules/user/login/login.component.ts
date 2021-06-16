@@ -26,10 +26,13 @@ import {
   CommonService
 } from '../../../services/common.service';
 import {
+  BehaviorSubject,
   Observable
 } from 'rxjs';
 import {
-  catchError, first
+  catchError,
+  first,
+  map
 } from 'rxjs/operators';
 import * as _ from 'lodash';
 import {
@@ -68,7 +71,12 @@ import {
   FormGroup,
   Validators
 } from '@angular/forms';
-import { OTPService } from 'src/app/services/otp.service';
+import {
+  OTPService
+} from 'src/app/services/otp.service';
+import {
+  CURRENT_USER
+} from 'src/app/constants/local.storage';
 
 @Component({
   selector: 'app-login',
@@ -76,6 +84,9 @@ import { OTPService } from 'src/app/services/otp.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+
+  private currentUserSubject: BehaviorSubject < Users > ;
+  public currentUser: Observable < Users > ;
 
   @Input() user: Users;
 
@@ -104,41 +115,44 @@ export class LoginComponent implements OnInit {
   // });
 
   constructor(
-    private auth: AuthenticationService,
-    private caller: AuthService,
     private router: Router,
-    private commonService: CommonService,
-    private ls: LogService,
-    private spinner: NgxSpinnerService,
     private route: ActivatedRoute,
     private fb: FormBuilder,
     private otp: OTPService,
-  ) {}
+  ) {
+    this.currentUserSubject = new BehaviorSubject < Users > (
+      JSON.parse(localStorage.getItem(CURRENT_USER))
+    );
+    this.currentUser = this.currentUserSubject.asObservable();
+  }
 
   ngOnInit() {
     this.route.queryParams
       .subscribe(params => {
-        if (params.error == 1 || params.error == 2) {
+        var err = params.error;
+        var email = params.email;
+        var resend = params.resend == 'true';
+        if (err != undefined) {
           this.loginMsgStatus = "alert-danger";
-          this.loginMsg = params.error == 1 
-            ? "Email doesn't exist, please make sure to enter your correct email."
-            : "OTP Expired. Please generate new OTP.";
+          this.loginMsg = params.error == 1 ?
+            'Email does not exist, please make sure to enter your correct email.' :
+            'OTP Expired. Please generate new OTP.';
         } else {
-          this.showSubmitBtn = params.email != '' && params.email != undefined;
+          this.showSubmitBtn = email != '' && email != undefined;
           this.showOTPBtn = !this.showSubmitBtn;
-  
+
           if (this.showSubmitBtn) {
-            this.email = params.email;
-            this.loginMsg = params.resend  == 'true'
-            ? "OTP was resent to your email. OTP is valid for 5 minutes only."
-            : "Use the OTP sent to your email to proceed. OTP is valid for 5 minutes only. If you are unable to receive an email, click resend OTP button to generate new OTP." ;
+            this.email = email;
+            this.loginMsg = resend ?
+              'OTP was resent to your email. OTP is valid for 5 minutes only.' :
+              'Use the OTP sent to your email to proceed. OTP is valid for 5 minutes only. If you are unable to receive an email, click resend OTP button to generate new OTP.';
           }
         }
 
       });
 
     this.createForm();
-    
+
     // this.up = new UploadParams();
     // this.changePasswordRequest = new ChangePasswordRequest();
     // this.showButton = "false";
@@ -150,7 +164,7 @@ export class LoginComponent implements OnInit {
     // localStorage.clear();
 
     var body = document.querySelector("body");
-    body.setAttribute("style","background-image: url('/assets/images/bg.jpg'); background-size: cover; background-repeat: no-repeat; background-position: fixed;");
+    body.setAttribute("style", "background-image: url('/assets/images/bg.jpg'); background-size: cover; background-repeat: no-repeat; background-position: fixed;");
 
     // if(this.auth.getLoginVal() == "true") {
     //   this.router.navigate([this.auth.getLandingPage()]);
@@ -244,34 +258,36 @@ export class LoginComponent implements OnInit {
   //   );
   // }
 
-  requestOTP() {
-    // this.otp.requestOTP(this.loginForm.value.email).pipe(first()).subscribe(
-    //   (data) => {
-    //     if (data == 0) {
-    //       window.location.href = "?email=" + this.loginForm.value.email + "&resend=true";
-    //     } else {
-    //       window.location.href = "?error=1";
-    //     }
-    //   }
-    // );
-
-    this.otp.testOTP(this.loginForm.value.email).subscribe(
-      result => {
-        window.location.href = result == 0 
-          ? "?email=" + this.loginForm.value.email + "&resend=true"
-          : "?error=1";
-      },
-      error => {
-        // window.location.href = "?error=2";
+  requestOTP(resend: boolean) {
+    var email = this.loginForm.value.email;
+    this.otp.requestOTP(email).then(
+      res => {
+        this.router.navigateByUrl(
+          res.status ?
+          '?email=' + email + '&resend=' + resend :
+          '?error=' + res.statusCode);
       }
     )
   }
 
-  resendOTP() {
-    window.location.href = "?email=" + this.loginForm.value.email + "&resend=true";
+  request() {
+    this.requestOTP(false);
   }
 
-  submit() {
-    window.location.href = "?error=1";
+  resend() {
+    this.requestOTP(true);
+  }
+
+  verifyOTP() {
+    var email = this.loginForm.value.email;
+    var otp = this.loginForm.value.otp;
+    this.otp.verifyOTP(email, otp).pipe(first()).subscribe((res) => {
+      if (res.status) {
+        this.router.navigateByUrl('/home');
+        window.location.href = "/home";
+      } else {
+        this.router.navigateByUrl('?error=3');
+      }
+    });
   }
 }

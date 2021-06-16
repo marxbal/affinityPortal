@@ -7,7 +7,7 @@ import {
   OTPService
 } from './otp.service';
 
-describe('AuthService', () => {
+describe('OTPService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [OTPService]

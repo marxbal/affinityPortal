@@ -4,10 +4,6 @@ import {
 import {
   HttpClient
 } from '@angular/common/http';
-// import {
-//   Observable,
-//   BehaviorSubject
-// } from 'rxjs';
 import Swal from 'sweetalert2';
 import {
   NgxSpinnerService
@@ -15,6 +11,9 @@ import {
 import {
   environment
 } from '../../environments/environment';
+import {
+  Return
+} from '../objects/return';
 
 export const InterceptorSkipHeader = 'X-Skip-Interceptor';
 
@@ -24,33 +23,30 @@ export const InterceptorSkipHeader = 'X-Skip-Interceptor';
 export class AppService {
   private apiUrl = environment.apiUrl;
 
-  // private dataSubject: BehaviorSubject < any > = new BehaviorSubject({});
-  // data$: Observable < any > = this.dataSubject.asObservable();
-
   constructor(private http: HttpClient, private spinner: NgxSpinnerService) {}
-  
+
   async post(param: any, endpoint: string): Promise < any > {
     this.spinner.show();
     return this.http.post(this.apiUrl + endpoint, param)
       .toPromise()
-      .then(response => response)
+      .then(ret => ret as Return)
       // .catch(err => console.log(err));
-      .catch(err => Swal.fire({
-        type: 'error',
-        title: 'Unable to proceed',
-        text: 'Error! Problem encountered and unable to process request at this time.'
-      }));
+      .catch(err => this.alertErr(err));
   }
 
   async get(endpoint: string): Promise < any > {
     return this.http.get(this.apiUrl + endpoint)
       .toPromise()
-      .then(response => response)
+      .then(ret => ret as Return)
       // .catch(err => console.log(err));
-      .catch(err => Swal.fire({
-        type: 'error',
-        title: 'Unable to proceed',
-        text: 'Error! Problem encountered and unable to process request at this time.'
-      }));
+      .catch(err => this.alertErr(err));
+  }
+
+  alertErr(err: string) {
+    Swal.fire({
+      type: 'error',
+      title: 'Unable to proceed',
+      text: 'Error! Problem encountered and unable to process request at this time due to ' + err
+    });
   }
 }
