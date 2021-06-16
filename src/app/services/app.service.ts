@@ -64,7 +64,7 @@ export class AppService {
 
   getHeaders() {
     let headers = new HttpHeaders();
-    headers = headers.set('Content-Type', 'application/x-www-form-urlencoded;charset=utf-8');
+    headers = headers.set('Content-Type', 'application/json');
     headers = headers.set('Authorization', 'Basic ' + btoa(c.CLIENT + ':' + c.SECRET));
     headers = headers.set(InterceptorSkipHeader, '');
 
