@@ -41,6 +41,7 @@ import {
 import {
   Router
 } from '@angular/router';
+import { OTP } from '../objects/otp';
 
 // export const InterceptorSkipHeader = 'X-Skip-Interceptor';
 
@@ -66,9 +67,9 @@ export class OTPService {
   }
 
   requestOTP(email: string, resend: boolean) {
-    this.app.post({
-        email
-      }, this.map + 'request')
+    var otp = new OTP();
+    otp.email = email;
+    this.app.post(otp, this.map + 'request')
       .pipe(first())
       .subscribe((res => {
         this.spinner.hide();
