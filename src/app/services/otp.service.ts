@@ -3,7 +3,8 @@ import {
 } from '@angular/core';
 import * as c from './../objects/const';
 import {
-  HttpClient, HttpHeaders
+  HttpClient,
+  HttpHeaders
 } from '@angular/common/http';
 import {
   NgxSpinnerService
@@ -34,7 +35,12 @@ import {
   CURRENT_USER
 } from '../constants/local.storage';
 import Swal from 'sweetalert2';
-import { InterceptorSkipHeader } from './auth.service';
+import {
+  InterceptorSkipHeader
+} from './auth.service';
+import {
+  Router
+} from '@angular/router';
 
 // export const InterceptorSkipHeader = 'X-Skip-Interceptor';
 
@@ -51,26 +57,26 @@ export class OTPService {
   constructor(
     private http: HttpClient,
     private spinner: NgxSpinnerService,
-    private app: AppService) {
+    private app: AppService,
+    private router: Router) {
     this.currentUserSubject = new BehaviorSubject < Users > (
       JSON.parse(localStorage.getItem(CURRENT_USER))
     );
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
-  requestOTP(email: string) {
+  requestOTP(email: string, resend: boolean) {
     this.app.post({
-      email
-    }, this.map + 'request')
-    .pipe(first())
-    .subscribe((res => {
-      console.log(res);
-      alert(res);
-        // this.router.navigateByUrl(
-        //   res.status ?
-        //   '?email=' + email + '&resend=' + resend :
-        //   '?error=' + res.statusCode);
-    }));
+        email
+      }, this.map + 'request')
+      .pipe(first())
+      .subscribe((res => {
+        var r = res as Return;
+        this.router.navigateByUrl(
+          r.status ?
+          '?email=' + email + '&resend=' + resend :
+          '?error=' + r.statusCode);
+      }));
   }
 
   verifyOTP(email: string, otp: string) {
