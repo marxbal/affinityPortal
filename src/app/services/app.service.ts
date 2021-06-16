@@ -16,6 +16,8 @@ import {
   Return
 } from '../objects/return';
 import * as c from './../objects/const';
+import { catchError, map } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
 
 export const InterceptorSkipHeader = 'X-Skip-Interceptor';
 
@@ -27,29 +29,37 @@ export class AppService {
 
   constructor(private http: HttpClient, private spinner: NgxSpinnerService) {}
 
-
-
-  async post(param: any, endpoint: string): Promise < any > {
-    let headers = new HttpHeaders();
-    headers = headers.set('Content-Type', 'application/x-www-form-urlencoded;charset=utf-8');
-    headers = headers.set('Authorization', 'Basic ' + btoa(c.CLIENT + ':' + c.SECRET));
-    headers = headers.set(InterceptorSkipHeader, '');
+  post(param: any, endpoint: string) : Observable <any>{
+    // let headers = new HttpHeaders();
+    // headers = headers.set('Content-Type', 'application/x-www-form-urlencoded;charset=utf-8');
+    // headers = headers.set('Authorization', 'Basic ' + btoa(c.CLIENT + ':' + c.SECRET));
+    // headers = headers.set(InterceptorSkipHeader, '');
 
     this.spinner.show();
     return this.http.post(this.apiUrl + endpoint, param, this.getHeaders())
-      .toPromise()
-      .then(ret => ret as Return)
-      // .catch(err => console.log(err));
-      .catch(err => this.alertErr(err));
+    .pipe(catchError((err: any) => {
+      this.alertErr(err);
+      this.spinner.hide();
+      return throwError(err.error);
+    }));
   }
 
-  async get(endpoint: string): Promise < any > {
-
+  get(endpoint: string): Observable < any > {
     return this.http.get(this.apiUrl + endpoint, this.getHeaders())
-      .toPromise()
-      .then(ret => ret as Return)
-      // .catch(err => console.log(err));
-      .catch(err => this.alertErr(err));
+    .pipe(map((res: any) => {
+      if (res) {
+        return res;
+      }
+    })).pipe(catchError((err: any) => {
+      this.alertErr(err);
+
+      this.spinner.hide();
+      return throwError(err.error);
+    }));
+      // .toPromise()
+      // .then(ret => ret as Return)
+      // // .catch(err => console.log(err));
+      // .catch(err => this.alertErr(err));
   }
 
   getHeaders() {

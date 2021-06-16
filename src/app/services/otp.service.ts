@@ -57,10 +57,10 @@ export class OTPService {
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
-  async requestOTP(email: string) {
+  requestOTP(email: string) {
     return this.app.post({
       email
-    }, this.map + 'request').then(ret => ret as Return);
+    }, this.map + 'request').subscribe(ret => ret as Return);
   }
 
   verifyOTP(email: string, otp: string) {

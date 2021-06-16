@@ -269,15 +269,19 @@ export class LoginComponent implements OnInit {
     //   }
     // );
 
-    this.otp.testOTP(this.loginForm.value.email).subscribe(
-      result => {
-        window.location.href = result == 0 
-          ? "?email=" + this.loginForm.value.email + "&resend=true"
-          : "?error=1";
-      },
-      error => {
-        //
-      });
+
+    var test = this.otp.requestOTP(email);
+    console.log(test);
+
+  //   this.otp.testOTP(this.loginForm.value.email).subscribe(
+  //     result => {
+  //       window.location.href = result == 0 
+  //         ? "?email=" + this.loginForm.value.email + "&resend=true"
+  //         : "?error=1";
+  //     },
+  //     error => {
+  //       //
+  //     });
   }
 
   request() {
