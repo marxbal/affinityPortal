@@ -16,10 +16,19 @@ import {
 import {
   environment
 } from 'src/environments/environment';
-import { map } from 'rxjs/operators';
-import { Users } from '../objects/user';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { CURRENT_USER } from '../constants/local.storage';
+import {
+  map
+} from 'rxjs/operators';
+import {
+  Users
+} from '../objects/user';
+import {
+  BehaviorSubject,
+  Observable
+} from 'rxjs';
+import {
+  CURRENT_USER
+} from '../constants/local.storage';
 
 // export const InterceptorSkipHeader = 'X-Skip-Interceptor';
 
@@ -37,11 +46,11 @@ export class OTPService {
     private http: HttpClient,
     // private spinner: NgxSpinnerService,
     private app: AppService) {
-      this.currentUserSubject = new BehaviorSubject < Users > (
-        JSON.parse(localStorage.getItem(CURRENT_USER))
-      );
-      this.currentUser = this.currentUserSubject.asObservable();
-    }
+    this.currentUserSubject = new BehaviorSubject < Users > (
+      JSON.parse(localStorage.getItem(CURRENT_USER))
+    );
+    this.currentUser = this.currentUserSubject.asObservable();
+  }
 
   async requestOTP(email: string) {
     return this.app.post({
@@ -53,7 +62,7 @@ export class OTPService {
     return this.http.post(this.apiUrl + 'otp/login', {
       email,
       otp
-    }).pipe(map((res) => {
+    }, this.app.getHeaders()).pipe(map((res) => {
       var r = res as Return;
       if (r.status) {
         // store user details and jwt token in local storage to keep user logged in between page refreshes

@@ -2,7 +2,8 @@ import {
   Injectable
 } from '@angular/core';
 import {
-  HttpClient
+  HttpClient,
+  HttpHeaders
 } from '@angular/common/http';
 import Swal from 'sweetalert2';
 import {
@@ -14,6 +15,7 @@ import {
 import {
   Return
 } from '../objects/return';
+import * as c from './../objects/const';
 
 export const InterceptorSkipHeader = 'X-Skip-Interceptor';
 
@@ -25,9 +27,16 @@ export class AppService {
 
   constructor(private http: HttpClient, private spinner: NgxSpinnerService) {}
 
+
+
   async post(param: any, endpoint: string): Promise < any > {
+    let headers = new HttpHeaders();
+    headers = headers.set('Content-Type', 'application/x-www-form-urlencoded;charset=utf-8');
+    headers = headers.set('Authorization', 'Basic ' + btoa(c.CLIENT + ':' + c.SECRET));
+    headers = headers.set(InterceptorSkipHeader, '');
+
     this.spinner.show();
-    return this.http.post(this.apiUrl + endpoint, param)
+    return this.http.post(this.apiUrl + endpoint, param, this.getHeaders())
       .toPromise()
       .then(ret => ret as Return)
       // .catch(err => console.log(err));
@@ -35,11 +44,23 @@ export class AppService {
   }
 
   async get(endpoint: string): Promise < any > {
-    return this.http.get(this.apiUrl + endpoint)
+
+    return this.http.get(this.apiUrl + endpoint, this.getHeaders())
       .toPromise()
       .then(ret => ret as Return)
       // .catch(err => console.log(err));
       .catch(err => this.alertErr(err));
+  }
+
+  getHeaders() {
+    let headers = new HttpHeaders();
+    headers = headers.set('Content-Type', 'application/x-www-form-urlencoded;charset=utf-8');
+    headers = headers.set('Authorization', 'Basic ' + btoa(c.CLIENT + ':' + c.SECRET));
+    headers = headers.set(InterceptorSkipHeader, '');
+
+    return {
+      headers
+    };
   }
 
   alertErr(err: string) {
