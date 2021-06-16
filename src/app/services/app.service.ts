@@ -12,12 +12,15 @@ import {
 import {
   environment
 } from '../../environments/environment';
-import {
-  Return
-} from '../objects/return';
 import * as c from './../objects/const';
-import { catchError, map } from 'rxjs/operators';
-import { Observable, throwError } from 'rxjs';
+import {
+  catchError,
+  map
+} from 'rxjs/operators';
+import {
+  Observable,
+  throwError
+} from 'rxjs';
 
 export const InterceptorSkipHeader = 'X-Skip-Interceptor';
 
@@ -29,41 +32,33 @@ export class AppService {
 
   constructor(private http: HttpClient, private spinner: NgxSpinnerService) {}
 
-  post(param: any, endpoint: string) : Observable <any>{
-    // let headers = new HttpHeaders();
-    // headers = headers.set('Content-Type', 'application/x-www-form-urlencoded;charset=utf-8');
-    // headers = headers.set('Authorization', 'Basic ' + btoa(c.CLIENT + ':' + c.SECRET));
-    // headers = headers.set(InterceptorSkipHeader, '');
-
+  post(param: any, endpoint: string): Observable < any > {
     this.spinner.show();
     return this.http.post(this.apiUrl + endpoint, param, this.getHeaders())
-    .pipe(catchError((err: any) => {
-      this.alertErr(err);
-      this.spinner.hide();
-      return throwError(err.error);
-    }));
+      .pipe(catchError((err: any) => {
+        this.alertErr(err);
+        this.spinner.hide();
+        return throwError(err.error);
+      }));
   }
 
   get(endpoint: string): Observable < any > {
+    this.spinner.show();
     return this.http.get(this.apiUrl + endpoint, this.getHeaders())
-    .pipe(map((res: any) => {
-      if (res) {
-        return res;
-      }
-    })).pipe(catchError((err: any) => {
-      this.alertErr(err);
-
-      this.spinner.hide();
-      return throwError(err.error);
-    }));
-      // .toPromise()
-      // .then(ret => ret as Return)
-      // // .catch(err => console.log(err));
-      // .catch(err => this.alertErr(err));
+      .pipe(map((res: any) => {
+        if (res) {
+          return res;
+        }
+      })).pipe(catchError((err: any) => {
+        this.alertErr(err);
+        this.spinner.hide();
+        return throwError(err.error);
+      }));
   }
 
   getHeaders() {
     let headers = new HttpHeaders();
+    // headers = headers.set('Content-Type', 'application/x-www-form-urlencoded;charset=utf-8');
     headers = headers.set('Content-Type', 'application/json');
     headers = headers.set('Authorization', 'Basic ' + btoa(c.CLIENT + ':' + c.SECRET));
     headers = headers.set(InterceptorSkipHeader, '');
@@ -77,7 +72,7 @@ export class AppService {
     Swal.fire({
       type: 'error',
       title: 'Unable to proceed',
-      text: 'Error! Problem encountered and unable to process request at this time due to ' + err
+      text: 'Error! Problem encountered and unable to process request at this time due to ' + err + '.'
     });
   }
 }
