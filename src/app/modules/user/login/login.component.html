@@ -5,12 +5,14 @@
       <div class="d-flex justify-content-center">
         <div class="card login-card">
           <div class="card-header text-center">
-            <img class="logo-collection-redirect" src="./assets/images/logo.png" />
+            <a href="/">
+              <img class="logo-collection-redirect" src="./assets/images/logo.png" />
+            </a>
           </div>
           <div class="card-body login-card-body">
             <form class="login-form" [formGroup]="loginForm">
               <div *ngIf="loginMsg != ''" class="col-md-12">
-                <div class="alert {{loginMsgStatus}}" >{{ loginMsg }}</div>
+                <div class="alert {{loginMsgStatus}}">{{ loginMsg }}</div>
               </div>
 
               <div class="clearfix"></div>
@@ -49,7 +51,8 @@
 
                 <div *ngIf="showSubmitBtn" class="form-group row">
                   <div class="col-md-6">
-                    <button [disabled]="loginForm.invalid" (click)="verify()" class="btn btn-primary form-control">VERIFY</button>
+                    <button [disabled]="loginForm.invalid" (click)="verify()"
+                      class="btn btn-primary form-control">VERIFY</button>
                   </div>
 
                   <div class="col-md-6">
