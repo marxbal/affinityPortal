@@ -1,12 +1,13 @@
 import {
   Injectable
 } from '@angular/core';
+import * as c from './../objects/const';
 import {
-  HttpClient
+  HttpClient, HttpHeaders
 } from '@angular/common/http';
-// import {
-//   NgxSpinnerService
-// } from 'ngx-spinner';
+import {
+  NgxSpinnerService
+} from 'ngx-spinner';
 import {
   AppService
 } from './app.service';
@@ -17,6 +18,7 @@ import {
   environment
 } from 'src/environments/environment';
 import {
+  catchError,
   map
 } from 'rxjs/operators';
 import {
@@ -24,11 +26,14 @@ import {
 } from '../objects/user';
 import {
   BehaviorSubject,
-  Observable
+  Observable,
+  throwError
 } from 'rxjs';
 import {
   CURRENT_USER
 } from '../constants/local.storage';
+import Swal from 'sweetalert2';
+import { InterceptorSkipHeader } from './auth.service';
 
 // export const InterceptorSkipHeader = 'X-Skip-Interceptor';
 
@@ -44,7 +49,7 @@ export class OTPService {
 
   constructor(
     private http: HttpClient,
-    // private spinner: NgxSpinnerService,
+    private spinner: NgxSpinnerService,
     private app: AppService) {
     this.currentUserSubject = new BehaviorSubject < Users > (
       JSON.parse(localStorage.getItem(CURRENT_USER))
@@ -78,36 +83,36 @@ export class OTPService {
     }));
   }
 
-  // testOTP(email: string) {
-  //   const as = this;
-  //   // const body = `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}&grant_type=password`;
+  testOTP(email: string) {
+    const as = this;
+    // const body = `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}&grant_type=password`;
 
-  //   let headers = new HttpHeaders();
-  //   headers = headers.set('Content-Type', 'application/x-www-form-urlencoded;charset=utf-8');
-  //   headers = headers.set('Authorization', 'Basic ' + btoa(c.CLIENT + ':' + c.SECRET));
-  //   headers = headers.set(InterceptorSkipHeader, '');
+    let headers = new HttpHeaders();
+    headers = headers.set('Content-Type', 'application/x-www-form-urlencoded;charset=utf-8');
+    headers = headers.set('Authorization', 'Basic ' + btoa(c.CLIENT + ':' + c.SECRET));
+    headers = headers.set(InterceptorSkipHeader, '');
 
-  //   return this.http.post(this.apiUrl + "otp/request", {
-  //       email
-  //     }, {
-  //       headers
-  //     })
-  //     .pipe(map((res: any) => {
-  //       if (res) {
-  //         return res;
-  //       }
-  //     })).pipe(catchError((err: any) => {
-  //       console.log('An error occurred:', err.error);
-  //       Swal.fire({
-  //         type: 'error',
-  //         title: 'Unable to proceed.',
-  //         text: "We are unable to process your request."
-  //       });
+    return this.http.post(this.apiUrl + "otp/request", {
+        email
+      }, {
+        headers
+      })
+      .pipe(map((res: any) => {
+        if (res) {
+          return res;
+        }
+      })).pipe(catchError((err: any) => {
+        console.log('An error occurred:', err.error);
+        Swal.fire({
+          type: 'error',
+          title: 'Unable to proceed.',
+          text: "We are unable to process your request."
+        });
 
-  //       this.spinner.hide();
-  //       return throwError(err.error);
-  //     }));
-  // }
+        this.spinner.hide();
+        return throwError(err.error);
+      }));
+  }
 
   // loginUser(username: string, password: string) {
   //   const as = this;
