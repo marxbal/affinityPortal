@@ -71,6 +71,7 @@ export class OTPService {
       }, this.map + 'request')
       .pipe(first())
       .subscribe((res => {
+        this.spinner.hide();
         var r = res as Return;
         this.router.navigateByUrl(
           r.status ?

@@ -260,27 +260,7 @@ export class LoginComponent implements OnInit {
 
   requestOTP(resend: boolean) {
     var email = this.loginForm.value.email;
-    // this.otp.requestOTP(email).then(
-    //   res => {
-    //     this.router.navigateByUrl(
-    //       res.status ?
-    //       '?email=' + email + '&resend=' + resend :
-    //       '?error=' + res.statusCode);
-    //   }
-    // );
-
-
-    this.otp.requestOTP(email);
-
-  //   this.otp.testOTP(this.loginForm.value.email).subscribe(
-  //     result => {
-  //       window.location.href = result == 0 
-  //         ? "?email=" + this.loginForm.value.email + "&resend=true"
-  //         : "?error=1";
-  //     },
-  //     error => {
-  //       //
-  //     });
+    this.otp.requestOTP(email, resend);
   }
 
   request() {
