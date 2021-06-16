@@ -19,6 +19,7 @@ import {
 } from 'src/environments/environment';
 import {
   catchError,
+  first,
   map
 } from 'rxjs/operators';
 import {
@@ -58,9 +59,18 @@ export class OTPService {
   }
 
   requestOTP(email: string) {
-    return this.app.post({
+    this.app.post({
       email
-    }, this.map + 'request').subscribe(ret => ret as Return);
+    }, this.map + 'request')
+    .pipe(first())
+    .subscribe((res => {
+      console.log(res);
+      alert(res);
+        // this.router.navigateByUrl(
+        //   res.status ?
+        //   '?email=' + email + '&resend=' + resend :
+        //   '?error=' + res.statusCode);
+    }));
   }
 
   verifyOTP(email: string, otp: string) {

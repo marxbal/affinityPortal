@@ -270,8 +270,7 @@ export class LoginComponent implements OnInit {
     // );
 
 
-    var test = this.otp.requestOTP(email);
-    console.log(test);
+    this.otp.requestOTP(email);
 
   //   this.otp.testOTP(this.loginForm.value.email).subscribe(
   //     result => {
