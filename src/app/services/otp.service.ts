@@ -83,10 +83,10 @@ export class OTPService {
       }));
   }
 
-  verifyOTP(email: string, otp: string) {
-    var otpObj = new OTP();
-    otpObj.email = email;
-    otpObj.otp = otp;
+  verifyOTP(email: string, requestOTP: string) {
+    var otp = new OTP();
+    otp.email = email;
+    otp.otp = requestOTP;
     this.app.post(otp, this.map + 'verify')
       .pipe(first())
       .subscribe((res => {
@@ -106,7 +106,7 @@ export class OTPService {
           '?/home' :
           '?error=' + r.statusCode);
       }));
-      
+
     // return this.http.post(this.apiUrl + 'otp/login', {
     //   email,
     //   otp
