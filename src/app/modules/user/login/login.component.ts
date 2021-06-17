@@ -117,13 +117,6 @@ export class LoginComponent implements OnInit {
   verifyOTP() {
     var email = this.loginForm.value.email;
     var otp = this.loginForm.value.otp;
-    this.otp.verifyOTP(email, otp).pipe(first()).subscribe((res) => {
-      if (res.status) {
-        this.router.navigateByUrl('/home');
-        window.location.href = "/home";
-      } else {
-        this.router.navigateByUrl('?error=3');
-      }
-    });
+    this.otp.verifyOTP(email, otp);
   }
 }

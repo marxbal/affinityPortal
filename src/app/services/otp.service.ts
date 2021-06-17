@@ -41,7 +41,9 @@ import {
 import {
   Router
 } from '@angular/router';
-import { OTP } from '../objects/otp';
+import {
+  OTP
+} from '../objects/otp';
 
 // export const InterceptorSkipHeader = 'X-Skip-Interceptor';
 
@@ -82,23 +84,46 @@ export class OTPService {
   }
 
   verifyOTP(email: string, otp: string) {
-    return this.http.post(this.apiUrl + 'otp/login', {
-      email,
-      otp
-    }, this.app.getHeaders()).pipe(map((res) => {
-      var r = res as Return;
-      if (r.status) {
-        // store user details and jwt token in local storage to keep user logged in between page refreshes
-        const user = new Users(r.obj['users']);
-        user.token = 'Bearer ' + r.obj['token'];
+    var otpObj = new OTP();
+    otpObj.email = email;
+    otpObj.otp = otp;
+    this.app.post(otp, this.map + 'verify')
+      .pipe(first())
+      .subscribe((res => {
+        this.spinner.hide();
+        var r = res as Return;
+        if (r.status) {
+          // store user details and jwt token in local storage to keep user logged in between page refreshes
+          const user = new Users(r.obj['users']);
+          user.token = 'Bearer ' + r.obj['token'];
 
-        localStorage.setItem(CURRENT_USER, JSON.stringify(user));
-        this.currentUserSubject.next(user);
-        return user;
-      } else {
-        return null;
-      }
-    }));
+          localStorage.setItem(CURRENT_USER, JSON.stringify(user));
+          this.currentUserSubject.next(user);
+        }
+
+        this.router.navigateByUrl(
+          r.status ?
+          '?/home' :
+          '?error=' + r.statusCode);
+      }));
+      
+    // return this.http.post(this.apiUrl + 'otp/login', {
+    //   email,
+    //   otp
+    // }, this.app.getHeaders()).pipe(map((res) => {
+    //   var r = res as Return;
+    //   if (r.status) {
+    //     // store user details and jwt token in local storage to keep user logged in between page refreshes
+    //     const user = new Users(r.obj['users']);
+    //     user.token = 'Bearer ' + r.obj['token'];
+
+    //     localStorage.setItem(CURRENT_USER, JSON.stringify(user));
+    //     this.currentUserSubject.next(user);
+    //     return user;
+    //   } else {
+    //     return null;
+    //   }
+    // }));
   }
 
   testOTP(email: string) {
