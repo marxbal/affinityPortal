@@ -13,10 +13,7 @@ import {
   BehaviorSubject,
   Observable
 } from 'rxjs';
-import {
-  first
-} from 'rxjs/operators';
-import * as _ from 'lodash';
+import * as c from '../../../objects/const';
 import {
   ActivatedRoute
 } from "@angular/router";
@@ -51,6 +48,8 @@ export class LoginComponent implements OnInit {
   showOTPBtn: boolean = true;
   showSubmitBtn: boolean = false;
   email: string = "";
+
+  version: string = c.VER;
 
   constructor(
     private router: Router,

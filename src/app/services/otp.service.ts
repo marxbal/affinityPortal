@@ -3,8 +3,7 @@ import {
 } from '@angular/core';
 import * as c from './../objects/const';
 import {
-  HttpClient,
-  HttpHeaders
+  HttpClient
 } from '@angular/common/http';
 import {
   NgxSpinnerService
@@ -19,25 +18,19 @@ import {
   environment
 } from 'src/environments/environment';
 import {
-  catchError,
-  first,
-  map
+  first
 } from 'rxjs/operators';
 import {
   Users
 } from '../objects/user';
 import {
   BehaviorSubject,
-  Observable,
-  throwError
+  Observable
 } from 'rxjs';
 import {
-  CURRENT_USER
+  CURRENT_USER,
+  TOKEN
 } from '../constants/local.storage';
-import Swal from 'sweetalert2';
-import {
-  InterceptorSkipHeader
-} from './auth.service';
 import {
   Router
 } from '@angular/router';
@@ -53,8 +46,6 @@ import {
 export class OTPService {
   private currentUserSubject: BehaviorSubject < Users > ;
   public currentUser: Observable < Users > ;
-
-  private apiUrl = environment.apiUrl;
   private map: string = 'otp/';
 
   constructor(
@@ -97,6 +88,7 @@ export class OTPService {
           const user = new Users(r.obj['users']);
           user.token = 'Bearer ' + r.obj['token'];
 
+          localStorage.setItem(TOKEN, user.token);
           localStorage.setItem(CURRENT_USER, JSON.stringify(user));
           this.currentUserSubject.next(user);
 
@@ -105,83 +97,5 @@ export class OTPService {
           this.router.navigateByUrl('?error=' + r.statusCode);
         }
       }));
-
-    // return this.http.post(this.apiUrl + 'otp/login', {
-    //   email,
-    //   otp
-    // }, this.app.getHeaders()).pipe(map((res) => {
-    //   var r = res as Return;
-    //   if (r.status) {
-    //     // store user details and jwt token in local storage to keep user logged in between page refreshes
-    //     const user = new Users(r.obj['users']);
-    //     user.token = 'Bearer ' + r.obj['token'];
-
-    //     localStorage.setItem(CURRENT_USER, JSON.stringify(user));
-    //     this.currentUserSubject.next(user);
-    //     return user;
-    //   } else {
-    //     return null;
-    //   }
-    // }));
   }
-
-  testOTP(email: string) {
-    const as = this;
-    // const body = `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}&grant_type=password`;
-
-    let headers = new HttpHeaders();
-    headers = headers.set('Content-Type', 'application/x-www-form-urlencoded;charset=utf-8');
-    headers = headers.set('Authorization', 'Basic ' + btoa(c.CLIENT + ':' + c.SECRET));
-    headers = headers.set(InterceptorSkipHeader, '');
-
-    return this.http.post(this.apiUrl + "otp/request", {
-        email
-      }, {
-        headers
-      })
-      .pipe(map((res: any) => {
-        if (res) {
-          return res;
-        }
-      })).pipe(catchError((err: any) => {
-        console.log('An error occurred:', err.error);
-        Swal.fire({
-          type: 'error',
-          title: 'Unable to proceed.',
-          text: "We are unable to process your request."
-        });
-
-        this.spinner.hide();
-        return throwError(err.error);
-      }));
-  }
-
-  // loginUser(username: string, password: string) {
-  //   const as = this;
-  //   const body = `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}&grant_type=password`;
-
-  //   let headers = new HttpHeaders();
-  //   headers = headers.set('Content-Type', 'application/x-www-form-urlencoded;charset=utf-8');
-  //   headers = headers.set('Authorization', 'Basic ' + btoa(c.CLIENT + ':' + c.SECRET));
-  //   headers = headers.set(InterceptorSkipHeader, '');
-
-  //   return this.http.post(this.apiUrl + "/oauth/token", body, {
-  //       headers
-  //     })
-  //     .pipe(map((res: any) => {
-  //       if (res) {
-  //         return res;
-  //       }
-  //     })).pipe(catchError((err: any) => {
-  //       console.log('An error occurred:', err.error);
-  //       Swal.fire({
-  //         type: 'error',
-  //         title: 'Unable to proceed.',
-  //         text: "We are unable to process your request."
-  //       });
-
-  //       this.spinner.hide();
-  //       return throwError(err.error);
-  //     }));
-  // }
 }
