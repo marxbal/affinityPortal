@@ -1,5 +1,6 @@
 import {
-  Injectable
+  Injectable,
+  Input
 } from '@angular/core';
 import * as c from './../objects/const';
 import {
@@ -29,6 +30,7 @@ import {
 } from 'rxjs';
 import {
   CURRENT_USER,
+  EMAIL,
   TOKEN
 } from '../constants/local.storage';
 import {
@@ -37,6 +39,12 @@ import {
 import {
   OTP
 } from '../objects/otp';
+import {
+  AuthService
+} from './auth.service';
+import {
+  AuthenticationService
+} from './authentication.service';
 
 // export const InterceptorSkipHeader = 'X-Skip-Interceptor';
 
@@ -46,10 +54,12 @@ import {
 export class OTPService {
   private currentUserSubject: BehaviorSubject < Users > ;
   public currentUser: Observable < Users > ;
+  private user: Users;
   private map: string = 'otp/';
 
   constructor(
-    private http: HttpClient,
+    private auth: AuthenticationService,
+    private caller: AuthService,
     private spinner: NgxSpinnerService,
     private app: AppService,
     private router: Router) {
@@ -85,17 +95,42 @@ export class OTPService {
         var r = res as Return;
         if (r.status) {
           // store user details and jwt token in local storage to keep user logged in between page refreshes
-          const user = new Users(r.obj['users']);
-          user.token = 'Bearer ' + r.obj['token'];
+          // const user = new Users(r.obj['users']);
+          // user.token = 'Bearer ' + r.obj['token'];
 
-          localStorage.setItem(TOKEN, user.token);
-          localStorage.setItem(CURRENT_USER, JSON.stringify(user));
-          this.currentUserSubject.next(user);
+          // localStorage.setItem(EMAIL, email);
+          // localStorage.setItem(TOKEN, user.token);
+          // localStorage.setItem(CURRENT_USER, JSON.stringify(user));
+          // this.currentUserSubject.next(user);
 
-          this.router.navigateByUrl('/home');
+          // this.router.navigateByUrl('/home');
+          this.login();
         } else {
           this.router.navigateByUrl('?error=' + r.statusCode);
         }
       }));
+  }
+
+  login() {
+    let add_minutes = function (dt, minutes) {
+      return new Date(dt.getTime() + minutes * 60000);
+    }
+    this.caller.loginUser('m@rsh', 'm@rsh@2020').subscribe(
+      result => {
+        localStorage.setItem("token", result.access_token);
+        this.auth.setLogin("true");
+        var body = document.querySelector("body");
+        body.setAttribute("style", "background: nothing;");
+        this.auth.setLandingPage("issuance");
+        localStorage.setItem("userCardId", this.user.accountNumber);
+        this.router.navigate([this.auth.getLandingPage()]);
+        setTimeout(function () {
+          window.location.reload();
+        }, 10);
+      }, error => {
+        this.spinner.hide();
+        this.router.navigateByUrl('?error=1');
+      }
+    );
   }
 }
