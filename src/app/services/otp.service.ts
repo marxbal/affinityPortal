@@ -99,12 +99,11 @@ export class OTPService {
 
           localStorage.setItem(CURRENT_USER, JSON.stringify(user));
           this.currentUserSubject.next(user);
-        }
 
-        this.router.navigateByUrl(
-          r.status ?
-          '?/home' :
-          '?error=' + r.statusCode);
+          this.router.navigateByUrl('/home');
+        } else {
+          this.router.navigateByUrl('?error=' + r.statusCode);
+        }
       }));
 
     // return this.http.post(this.apiUrl + 'otp/login', {
