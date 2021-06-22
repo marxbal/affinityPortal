@@ -83,6 +83,7 @@ export class LoginComponent implements OnInit {
 
           this.loginMsg = message;
         } else {
+          this.loginMsgStatus = "alert-info";
           this.showSubmitBtn = params.email != '' && params.email != undefined;
           this.showOTPBtn = !this.showSubmitBtn;
 
