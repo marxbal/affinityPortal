@@ -23,6 +23,7 @@ import {
 import {
   environment
 } from '../../environments/environment';
+import { TOKEN } from '../constants/local.storage';
 
 export const InterceptorSkipHeader = 'X-Skip-Interceptor';
 
@@ -56,7 +57,7 @@ export class AuthService {
           }
           let tokenExpiration = add_minutes(new Date(), (res.expires_in / 60)).toString();
 
-          localStorage.setItem("token", res.access_token);
+          localStorage.setItem(TOKEN, "Bearer " + res.access_token);
           localStorage.setItem("expires_in", tokenExpiration);
           localStorage.setItem("refresh_token", res.refresh_token);
           return true;
@@ -72,8 +73,7 @@ export class AuthService {
     const body = `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}&grant_type=password`;
 
     let headers = new HttpHeaders();
-    // headers = headers.set('Content-Type', 'application/x-www-form-urlencoded;charset=utf-8');
-    headers = headers.set('Content-Type', 'application/json');
+    headers = headers.set('Content-Type', 'application/x-www-form-urlencoded;charset=UTF-8');
     headers = headers.set('Authorization', 'Basic ' + btoa(c.CLIENT + ':' + c.SECRET));
     headers = headers.set(InterceptorSkipHeader, '');
 

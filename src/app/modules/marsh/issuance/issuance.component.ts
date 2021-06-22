@@ -47,9 +47,9 @@ export class IssuanceComponent implements OnInit {
 
     // this.templateRouter = "riskInformation";
     this.marsh = new Marsh();
-    if (localStorage.getItem("userCardId") === null) {
-      this.router.navigate(['login']);
-    }
+    // if (localStorage.getItem("userCardId") === null) {
+    //   this.router.navigate(['login']);
+    // }
     this.marsh.clientId = localStorage.getItem("userCardId");
 
     let numPoliza = this.route.snapshot.paramMap.get("numPoliza");
@@ -58,46 +58,46 @@ export class IssuanceComponent implements OnInit {
     this.line = "";
     this.templateRouter = "initialize"; 
 
-    this.caller.doCallService('/marsh/retrieveTransactions',this.marsh.clientId).subscribe(
-      result => {
-        console.log(result);
+    // this.caller.doCallService('/marsh/retrieveTransactions',this.marsh.clientId).subscribe(
+    //   result => {
+    //     console.log(result);
 
-        let newResult = _.orderBy(result, ['transactionNumber'],['desc']);
+    //     let newResult = _.orderBy(result, ['transactionNumber'],['desc']);
         
-        this.marsh.previousIssuances = newResult;
+    //     this.marsh.previousIssuances = newResult;
 
-        for(let i = 0; i < this.marsh.previousIssuances.length; i++){
-        if(this.marsh.previousIssuances[i].policyNumber){
+    //     for(let i = 0; i < this.marsh.previousIssuances.length; i++){
+    //     if(this.marsh.previousIssuances[i].policyNumber){
 
-          for(let x = 0; x < this.marsh.previousIssuances[i].iDTO.a2000020List.length; x++){
-            switch(this.marsh.previousIssuances[i].iDTO.a2000020List[x].codCampo){
-              case "COD_MODALIDAD":
-              this.marsh.previousIssuances[i].productId = this.marsh.previousIssuances[i].iDTO.a2000020List[x].valCampo;
-              break;
-              default:
-              break;
-            }
-          }
+    //       for(let x = 0; x < this.marsh.previousIssuances[i].iDTO.a2000020List.length; x++){
+    //         switch(this.marsh.previousIssuances[i].iDTO.a2000020List[x].codCampo){
+    //           case "COD_MODALIDAD":
+    //           this.marsh.previousIssuances[i].productId = this.marsh.previousIssuances[i].iDTO.a2000020List[x].valCampo;
+    //           break;
+    //           default:
+    //           break;
+    //         }
+    //       }
    
-        }else{
+    //     }else{
 
-          for(let x = 0; x < this.marsh.previousIssuances[i].iDTO.p2000020List.length; x++){
-            switch(this.marsh.previousIssuances[i].iDTO.p2000020List[x].codCampo){
-              case "COD_MODALIDAD":
-              this.marsh.previousIssuances[i].productId = this.marsh.previousIssuances[i].iDTO.p2000020List[x].valCampo;
-              break;
-              default:
-              break;
-          }
+    //       for(let x = 0; x < this.marsh.previousIssuances[i].iDTO.p2000020List.length; x++){
+    //         switch(this.marsh.previousIssuances[i].iDTO.p2000020List[x].codCampo){
+    //           case "COD_MODALIDAD":
+    //           this.marsh.previousIssuances[i].productId = this.marsh.previousIssuances[i].iDTO.p2000020List[x].valCampo;
+    //           break;
+    //           default:
+    //           break;
+    //       }
 
-        }
+    //     }
         
-      }
+    //   }
 
       
-      }  
-      console.log(this.marsh.previousIssuances);
-    });
+    //   }  
+    //   console.log(this.marsh.previousIssuances);
+    // });
  
     if(numPoliza){
 

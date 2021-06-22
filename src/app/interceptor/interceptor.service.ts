@@ -81,8 +81,8 @@ export class InterceptorService implements HttpInterceptor {
       }),
       catchError((error: HttpErrorResponse) => {
         if (error.status === 401) {
-          window.location.reload();
-          ic.router.navigateByUrl('?error=3');
+          // window.location.reload();
+          ic.router.navigateByUrl('/login/?error=4');
         }
         return throwError(error);
       }));

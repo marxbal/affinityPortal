@@ -52,9 +52,9 @@ import {
   providedIn: 'root'
 })
 export class OTPService {
-  private currentUserSubject: BehaviorSubject < Users > ;
-  public currentUser: Observable < Users > ;
-  private user: Users;
+  // private currentUserSubject: BehaviorSubject < Users > ;
+  // public currentUser: Observable < Users > ;
+  // private user: Users;
   private map: string = 'otp/';
 
   constructor(
@@ -63,10 +63,10 @@ export class OTPService {
     private spinner: NgxSpinnerService,
     private app: AppService,
     private router: Router) {
-    this.currentUserSubject = new BehaviorSubject < Users > (
-      JSON.parse(localStorage.getItem(CURRENT_USER))
-    );
-    this.currentUser = this.currentUserSubject.asObservable();
+    // this.currentUserSubject = new BehaviorSubject < Users > (
+    //   JSON.parse(localStorage.getItem(CURRENT_USER))
+    // );
+    // this.currentUser = this.currentUserSubject.asObservable();
   }
 
   requestOTP(email: string, resend: boolean) {
@@ -94,35 +94,34 @@ export class OTPService {
         this.spinner.hide();
         var r = res as Return;
         if (r.status) {
-          // store user details and jwt token in local storage to keep user logged in between page refreshes
-          // const user = new Users(r.obj['users']);
-          // user.token = 'Bearer ' + r.obj['token'];
-
-          // localStorage.setItem(EMAIL, email);
-          // localStorage.setItem(TOKEN, user.token);
-          // localStorage.setItem(CURRENT_USER, JSON.stringify(user));
-          // this.currentUserSubject.next(user);
-
-          // this.router.navigateByUrl('/home');
-          this.login();
+          this.login(email);
         } else {
           this.router.navigateByUrl('?error=' + r.statusCode);
         }
       }));
   }
 
-  login() {
-    let add_minutes = function (dt, minutes) {
-      return new Date(dt.getTime() + minutes * 60000);
-    }
+  login(email: string) {
+    // let add_minutes = function (dt, minutes) {
+    //   return new Date(dt.getTime() + minutes * 60000);
+    // }
     this.caller.loginUser('m@rsh', 'm@rsh@2020').subscribe(
       result => {
-        localStorage.setItem("token", result.access_token);
+        localStorage.setItem(TOKEN, "Bearer " + result.access_token);
+        localStorage.setItem(EMAIL, email);
+
+        //TODO
+        //to be removed soon
+        // localStorage.setItem("userCardId", this.user.accountNumber);
+        localStorage.setItem("userCardId", email);
+
         this.auth.setLogin("true");
+        this.auth.setLandingPage("issuance");
+
+        //TODO
         var body = document.querySelector("body");
         body.setAttribute("style", "background: nothing;");
-        this.auth.setLandingPage("issuance");
-        localStorage.setItem("userCardId", this.user.accountNumber);
+        
         this.router.navigate([this.auth.getLandingPage()]);
         setTimeout(function () {
           window.location.reload();

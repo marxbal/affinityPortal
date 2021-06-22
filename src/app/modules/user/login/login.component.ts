@@ -80,8 +80,10 @@ export class LoginComponent implements OnInit {
         if (err != undefined) {
           this.loginMsgStatus = "alert-danger";
           this.loginMsg = params.error == 1 ?
-            'Email does not exist, please make sure to enter your correct email.' :
+            'Unable to process your request at this moment. Please try again later.' :
             params.error == 2 ?
+            'Email does not exist, please make sure to enter your correct email.' :
+            params.error == 3 ?
             'OTP Expired. Please generate new OTP.' :
             'Your session has expired, please log in again.';
         } else {
