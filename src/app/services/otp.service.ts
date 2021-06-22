@@ -16,21 +16,11 @@ import {
   Return
 } from '../objects/return';
 import {
-  environment
-} from 'src/environments/environment';
-import {
   first
 } from 'rxjs/operators';
 import {
-  Users
-} from '../objects/user';
-import {
-  BehaviorSubject,
-  Observable
-} from 'rxjs';
-import {
-  CURRENT_USER,
   EMAIL,
+  LOGIN_MSG,
   TOKEN
 } from '../constants/local.storage';
 import {
@@ -46,15 +36,10 @@ import {
   AuthenticationService
 } from './authentication.service';
 
-// export const InterceptorSkipHeader = 'X-Skip-Interceptor';
-
 @Injectable({
   providedIn: 'root'
 })
 export class OTPService {
-  // private currentUserSubject: BehaviorSubject < Users > ;
-  // public currentUser: Observable < Users > ;
-  // private user: Users;
   private map: string = 'otp/';
 
   constructor(
@@ -63,10 +48,6 @@ export class OTPService {
     private spinner: NgxSpinnerService,
     private app: AppService,
     private router: Router) {
-    // this.currentUserSubject = new BehaviorSubject < Users > (
-    //   JSON.parse(localStorage.getItem(CURRENT_USER))
-    // );
-    // this.currentUser = this.currentUserSubject.asObservable();
   }
 
   requestOTP(email: string, resend: boolean) {
@@ -77,10 +58,12 @@ export class OTPService {
       .subscribe((res => {
         this.spinner.hide();
         var r = res as Return;
+
+        localStorage.setItem(LOGIN_MSG, r.message);
         this.router.navigateByUrl(
           r.status ?
           '?email=' + email + '&resend=' + resend :
-          '?error=' + r.statusCode);
+          '?error=true');
       }));
   }
 
@@ -93,19 +76,18 @@ export class OTPService {
       .subscribe((res => {
         this.spinner.hide();
         var r = res as Return;
+
+        localStorage.setItem(LOGIN_MSG, r.message);
         if (r.status) {
           this.login(email);
         } else {
-          this.router.navigateByUrl('?error=' + r.statusCode);
+          this.router.navigateByUrl('?error=true');
         }
       }));
   }
 
   login(email: string) {
-    // let add_minutes = function (dt, minutes) {
-    //   return new Date(dt.getTime() + minutes * 60000);
-    // }
-    this.caller.loginUser('m@rsh', 'm@rsh@2020').subscribe(
+    this.caller.loginUser(c.LOGIN_EMAIL, c.LOGIN_PWD).subscribe(
       result => {
         localStorage.setItem(TOKEN, "Bearer " + result.access_token);
         localStorage.setItem(EMAIL, email);
@@ -128,7 +110,9 @@ export class OTPService {
         }, 10);
       }, error => {
         this.spinner.hide();
-        this.router.navigateByUrl('?error=1');
+        localStorage.setItem(LOGIN_MSG, "Error! Unable to Login.")
+        this.router.navigateByUrl('?error=true');
+
       }
     );
   }

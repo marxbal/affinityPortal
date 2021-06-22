@@ -7,9 +7,6 @@ import {
   Users
 } from '../../../objects/user';
 import {
-  Router
-} from '@angular/router';
-import {
   BehaviorSubject,
   Observable
 } from 'rxjs';
@@ -28,7 +25,8 @@ import {
 } from 'src/app/services/otp.service';
 import {
   CURRENT_USER,
-  EMAIL
+  EMAIL,
+  LOGIN_MSG
 } from 'src/app/constants/local.storage';
 
 @Component({
@@ -54,7 +52,6 @@ export class LoginComponent implements OnInit {
   version: string = c.VER;
 
   constructor(
-    private router: Router,
     private route: ActivatedRoute,
     private fb: FormBuilder,
     private otp: OTPService,
@@ -79,13 +76,12 @@ export class LoginComponent implements OnInit {
 
         if (err != undefined) {
           this.loginMsgStatus = "alert-danger";
-          this.loginMsg = params.error == 1 ?
-            'Unable to process your request at this moment. Please try again later.' :
-            params.error == 2 ?
-            'Email does not exist, please make sure to enter your correct email.' :
-            params.error == 3 ?
-            'OTP Expired. Please generate new OTP.' :
-            'Your session has expired, please log in again.';
+          var message = localStorage.getItem(LOGIN_MSG);
+          if (_.isNull(message)) {
+            message = "Application Error! Please contact administration.";
+          }
+
+          this.loginMsg = message;
         } else {
           this.showSubmitBtn = params.email != '' && params.email != undefined;
           this.showOTPBtn = !this.showSubmitBtn;
