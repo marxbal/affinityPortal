@@ -201,7 +201,7 @@ export class QuotationComponent implements OnInit {
       text: "You're about to request another computation of premium for this Quotation, Proceed?",
       type: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#d81e05',
+      confirmButtonColor: '#d31d29',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Proceed'
     }).then((result) => {

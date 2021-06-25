@@ -254,7 +254,7 @@ export class PropertyComponent implements OnInit {
       text: "MAX AMOUNT OF TOTAL SUM INSURED IS 30M. THIS IS SUBJECT TO UW APPROVAL.",
       type: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#d81e05',
+      confirmButtonColor: '#d31d29',
       cancelButtonColor: '#d33',
       cancelButtonText: 'Revise Values',
       confirmButtonText: 'Proceed to Next Step'

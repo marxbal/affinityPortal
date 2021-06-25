@@ -112,7 +112,6 @@ export class OTPService {
         this.spinner.hide();
         localStorage.setItem(LOGIN_MSG, "Error! Unable to Login.")
         this.router.navigateByUrl('?error=true');
-
       }
     );
   }

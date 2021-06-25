@@ -1,137 +1,141 @@
 <div class="container-fluid alt-grid">
-	<div class="row">
-		<div class="col-md-12">
-			<img style="width: 100%" src="assets/images/landing-page.jpg" alt="Card image cap">
-		</div>
-	</div>
-	<div class="col-md-12 text-center logo-holder">
-		<img class="logo-collection-fopm-1 mb-3" src="assets/images/FOPM.png" />
-		<img class="logo-collection-1" src="assets/images/marsh-logo-vector.png" />
-		<img class="logo-collection-1" src="assets/images/MAPFRE_Insurance_VB.png" />
-	</div>
+  <div class="row">
+    <div class="col-md-12">
+      <img style="width: 100%" src="assets/images/landing-page.jpg" alt="Card image cap">
+    </div>
+  </div>
+  <div class="col-md-12 text-center logo-holder">
+    <img *ngIf="partnerPath" class="partner-logo" src="assets/images/partners/{{partnerPath}}/logo.png" />
+    <img class="logo-collection-1" src="assets/images/MAPFRE_Insurance_VB.png" />
+  </div>
 </div>
 <div class="container">
-	<div class="row">
-		<div class="col-md-4">
-			<div class="card">
-			  <img class="card-img-top" src="assets/images/Home.jpg" alt="Card image cap">
-			  <div class="card-body">
-			    <h5 class="card-title"><b>Household</b> Insurance</h5>
-			    <p class="card-text">
-			    	Covers the contents such as improvements, furnishings, fixtures, personal effect.<br />
+  <div class="row">
+    <div class="col-md-4">
+      <div class="card">
+        <img class="card-img-top" src="assets/images/product_line/home.jpg" alt="Home">
+        <div class="card-body">
+          <h5 class="card-title"><b>Household</b> Insurance</h5>
+          <p class="card-text">
+            Covers the contents such as improvements, furnishings, fixtures, personal effect.<br />
 
-					With this policy you’re covered against events such as:<br />
-					- fire, flood, typhoon, and earthquake damages <br />
-					- robbery and burglary <br />
-					- personal liability</p>
-			  </div>
-			  <div class="card-footer text-center">
-			    <button (click)="householdIssuance()" class="btn btn-mapfre btn-quote">Get a FREE Quote</button>
-			  </div>
-			</div>
-		</div>
-		<div class="col-md-4">
-			<div class="card">
-			  <img class="card-img-top" src="assets/images/Car.jpg" alt="Card image cap">
-			  <div class="card-body">
-			    <h5 class="card-title"><b>Car</b> Insurance</h5>
-			    <p class="card-text">Comprehensive car insurance with all your basic coverage needs.<br /><br />
-‍
-This policy covers you against loss and accidental damage to the vehicle as well as legal liabilities to third parties in case of bodily injury and physical damage to properties.</p>
-			  </div>
-			  <div class="card-footer text-center">
-			    <button (click)="motorIssuance()" class="btn btn-mapfre btn-quote">Get a FREE Quote</button>
-			  </div>
-			</div>
-		</div>
-		<div class="col-md-4">
-			<div class="card">
-			  <img class="card-img-top" src="assets/images/PA.jpg" alt="Card image cap">
-			  <div class="card-body">
-			    <h5 class="card-title"><b>Accident</b> Insurance</h5>
-			    <p class="card-text">Provides protection 24 hours a day, 7 days a week and 365 days a year for family members.<br /><br />
+            With this policy you’re covered against events such as:<br />
+            - fire, flood, typhoon, and earthquake damages <br />
+            - robbery and burglary <br />
+            - personal liability</p>
+        </div>
+        <div class="card-footer text-center">
+          <button (click)="householdIssuance()" class="btn btn-mapfre btn-quote">Get a FREE Quote</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card">
+        <img class="card-img-top" src="assets/images/product_line/car.jpg" alt="Car">
+        <div class="card-body">
+          <h5 class="card-title"><b>Car</b> Insurance</h5>
+          <p class="card-text">Comprehensive car insurance with all your basic coverage needs.<br /><br />
+            ‍
+            This policy covers you against loss and accidental damage to the vehicle as well as legal liabilities to
+            third parties in case of bodily injury and physical damage to properties.</p>
+        </div>
+        <div class="card-footer text-center">
+          <button (click)="motorIssuance()" class="btn btn-mapfre btn-quote">Get a FREE Quote</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card">
+        <img class="card-img-top" src="assets/images/product_line/accident.jpg" alt="Accident">
+        <div class="card-body">
+          <h5 class="card-title"><b>Accident</b> Insurance</h5>
+          <p class="card-text">Provides protection 24 hours a day, 7 days a week and 365 days a year for family
+            members.<br /><br />
 
-This comprehensive personal accident insurance includes additional assistance benefits aside from the standard accidental death and permanent disability benefits.</p>
-			  </div>
-			  <div class="card-footer text-center">
-			    <button (click)="PAIssuance()" class="btn btn-mapfre btn-quote">Get a FREE Quote</button>
-			  </div>
-			</div>
-		</div>
-	</div>
+            This comprehensive personal accident insurance includes additional assistance benefits aside from the
+            standard accidental death and permanent disability benefits.</p>
+        </div>
+        <div class="card-footer text-center">
+          <button (click)="PAIssuance()" class="btn btn-mapfre btn-quote">Get a FREE Quote</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </div>
 <div class="container">
-	<div class="row mt-5">
-		<div class="col-md-12 text-center">
-			<button class="btn btn-mapfre btn-quote" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-				View Previous Transactions
-			</button>
-		</div>
-		<div class="col-md-12">
-			<div class="collapse" id="collapseExample">
-			  <div class="card card-body">
-			  	<div class="row">
-			  		<div class="col-md-4" *ngFor="let issue of this.marsh.previousIssuances">
+  <div class="row mt-5">
+    <div class="col-md-12 text-center">
+      <button class="btn btn-mapfre btn-quote" type="button" data-toggle="collapse" data-target="#collapseExample"
+        aria-expanded="false" aria-controls="collapseExample">
+        View Previous Transactions
+      </button>
+    </div>
+    <div class="col-md-12">
+      <div class="collapse" id="collapseExample">
+        <div class="card card-body">
+          <div class="row">
+            <div class="col-md-4" *ngFor="let issue of this.marsh.previousIssuances">
 
-			  			<div class="card card-previous" *ngIf="issue.policyNumber">
-						  <div class="card-body text-center">
-						  	<div class="desc-container" *ngIf="issue.productId == '10001'">
-				   				<h5 class="card-title mt-3"><b>Comprehensive Insurance</b></h5>
-			   				</div>
-			   				<div class="desc-container" *ngIf="issue.productId == '10002'">
-				    			<h5 class="card-title mt-3"><b>CTPL Insurance</b></h5>
-			    			</div>
-			    			<div class="desc-container" *ngIf="issue.productId == '33701'">
-				   				<h5 class="card-title mt-3"><b>Individual Personal Accident</b></h5>
-			   				</div>
-			   				<div class="desc-container" *ngIf="issue.productId == '33702'">
-				    			<h5 class="card-title mt-3"><b>Family Personal Accident</b></h5>
-			    			</div>
-			    			<div class="desc-container" *ngIf="issue.productId == '20008'">
-				    			<h5 class="card-title mt-3"><b>Household Insurance</b></h5>
-			    			</div>
-						    <h5 class="card-title">Policy Request</h5>
-						    <h6 class="card-subtitle mb-2 text-muted">{{issue.policyNumber}}</h6>
+              <div class="card card-previous" *ngIf="issue.policyNumber">
+                <div class="card-body text-center">
+                  <div class="desc-container" *ngIf="issue.productId == '10001'">
+                    <h5 class="card-title mt-3"><b>Comprehensive Insurance</b></h5>
+                  </div>
+                  <div class="desc-container" *ngIf="issue.productId == '10002'">
+                    <h5 class="card-title mt-3"><b>CTPL Insurance</b></h5>
+                  </div>
+                  <div class="desc-container" *ngIf="issue.productId == '33701'">
+                    <h5 class="card-title mt-3"><b>Individual Personal Accident</b></h5>
+                  </div>
+                  <div class="desc-container" *ngIf="issue.productId == '33702'">
+                    <h5 class="card-title mt-3"><b>Family Personal Accident</b></h5>
+                  </div>
+                  <div class="desc-container" *ngIf="issue.productId == '20008'">
+                    <h5 class="card-title mt-3"><b>Household Insurance</b></h5>
+                  </div>
+                  <h5 class="card-title">Policy Request</h5>
+                  <h6 class="card-subtitle mb-2 text-muted">{{issue.policyNumber}}</h6>
 
-						    <button class="btn btn-mapfre btn-block" type="button" (click)="loadPolicy(issue,'51359e8b51c63b87d50cb1bab73380e2',issue.policyNumber)">
-								Load Transaction
-							</button>
-						  </div>
-						</div>
+                  <button class="btn btn-mapfre btn-block" type="button"
+                    (click)="loadPolicy(issue,'51359e8b51c63b87d50cb1bab73380e2',issue.policyNumber)">
+                    Load Transaction
+                  </button>
+                </div>
+              </div>
 
-						<div class="card card-previous" *ngIf="issue.quotationNumber">
-						  <div class="card-body text-center">
-						  	<div class="desc-container" *ngIf="issue.productId == '10001'">
-				   				<h5 class="card-title mt-3"><b>Comprehensive Insurance</b></h5>
-			   				</div>
-			   				<div class="desc-container" *ngIf="issue.productId == '10002'">
-				    			<h5 class="card-title mt-3"><b>CTPL Insurance</b></h5>
-			    			</div>
-			    			<div class="desc-container" *ngIf="issue.productId == '33701'">
-				   				<h5 class="card-title mt-3"><b>Individual Personal Accident</b></h5>
-			   				</div>
-			   				<div class="desc-container" *ngIf="issue.productId == '33702'">
-				    			<h5 class="card-title mt-3"><b>Family Personal Accident</b></h5>
-			    			</div>
-			    			<div class="desc-container" *ngIf="issue.productId == '20008'">
-				    			<h5 class="card-title mt-3"><b>Household Insurance</b></h5>
-			    			</div>
-						    <h5 class="card-title">Quotation Request</h5>
-						    <h6 class="card-subtitle mb-2 text-muted">{{issue.quotationNumber}}</h6>
+              <div class="card card-previous" *ngIf="issue.quotationNumber">
+                <div class="card-body text-center">
+                  <div class="desc-container" *ngIf="issue.productId == '10001'">
+                    <h5 class="card-title mt-3"><b>Comprehensive Insurance</b></h5>
+                  </div>
+                  <div class="desc-container" *ngIf="issue.productId == '10002'">
+                    <h5 class="card-title mt-3"><b>CTPL Insurance</b></h5>
+                  </div>
+                  <div class="desc-container" *ngIf="issue.productId == '33701'">
+                    <h5 class="card-title mt-3"><b>Individual Personal Accident</b></h5>
+                  </div>
+                  <div class="desc-container" *ngIf="issue.productId == '33702'">
+                    <h5 class="card-title mt-3"><b>Family Personal Accident</b></h5>
+                  </div>
+                  <div class="desc-container" *ngIf="issue.productId == '20008'">
+                    <h5 class="card-title mt-3"><b>Household Insurance</b></h5>
+                  </div>
+                  <h5 class="card-title">Quotation Request</h5>
+                  <h6 class="card-subtitle mb-2 text-muted">{{issue.quotationNumber}}</h6>
 
-						    <button class="btn btn-mapfre btn-block" type="button" (click)="loadPolicy(issue,'73015b3208cdee70a4497235463b63d7',issue.quotationNumber)">
-								Load Transaction
-							</button>
-						  </div>
-						</div>
+                  <button class="btn btn-mapfre btn-block" type="button"
+                    (click)="loadPolicy(issue,'73015b3208cdee70a4497235463b63d7',issue.quotationNumber)">
+                    Load Transaction
+                  </button>
+                </div>
+              </div>
 
-			  		</div>
-			  	</div>
-			    
+            </div>
+          </div>
 
-			  </div>
-			</div>
-		</div>
-	</div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

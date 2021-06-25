@@ -376,7 +376,7 @@ export class RiskAccidentComponent implements OnInit {
       html: "<p>You've selected "+option+", Proceed to Payment?</p>" + imges,
       type: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#d81e05',
+      confirmButtonColor: '#d31d29',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Proceed'
     }).then((result) => {

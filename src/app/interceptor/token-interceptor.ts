@@ -24,6 +24,8 @@ import {
   Base64
 } from 'js-base64';
 import {
+  EMAIL,
+  LOGIN_MSG,
   TOKEN
 } from '../constants/local.storage';
 
@@ -57,10 +59,11 @@ export class TokenInterceptor implements HttpInterceptor {
         }),
         catchError((error: HttpErrorResponse) => {
           if (error.status === 401) {
-            let past = Base64.encode(localStorage.getItem("tempECCard")) + '&u=' + Base64.encode(localStorage.getItem("tempUnit"));
-            window.location.reload();
-            localStorage.setItem("logoutMessage", 'Your session has expired, please log in again.');
-            ic.router.navigateByUrl('/?e=' + past);
+            // let past = Base64.encode(localStorage.getItem("tempECCard")) + '&u=' + Base64.encode(localStorage.getItem("tempUnit"));
+            const email = localStorage.getItem(EMAIL);
+            localStorage.setItem(LOGIN_MSG, "Your session has expired, please log in again.");
+            ic.router.navigateByUrl('/?email=' + email);
+            // window.location.reload();
           }
           return throwError(error);
         }));

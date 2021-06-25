@@ -1,77 +1,23 @@
-<ngx-spinner
-bdColor = "rgba(33,33,33,0.8)"
-size = "large"
-color = "#d81e05"
-type = "triangle-skew-spin" 
-[fullScreen] = "true"
->
-<p style="color: white; text-align: center;"> <br />We are validating your encoded details. <br />This will take a few seconds.</p>
+<ngx-spinner bdColor="rgba(33,33,33,0.8)" size="large" color="#d31d29" type="triangle-skew-spin" [fullScreen]="true">
+  <p style="color: white; text-align: center;"> <br />We are validating your encoded details. <br />This will take a few
+    seconds.</p>
 </ngx-spinner>
-<div id="toHide" [ngClass]="showHidePageClass()">
-<div class="col-md-12 red-top" ></div>
-<ul class="nav justify-content-center">
-  <li class="nav-item">
-    <!-- <a class="nav-link active" href="https://fopm.mapfreinsular.com/fopm/issuance/">Insurance For You</a> -->
-    <a class="nav-link active" href="{{baseUrl}}/issuance/">Insurance For You</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="https://www.mapfre.com.ph/insurance-ph/customer-services/faq" target="_blank">Insurance FAQ</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="https://www.mapfre.com.ph/insurance-ph/contact-us/" target="_blank">Contact Us</a>
-  </li>
-</ul>
+
+<div *ngIf="isLoggedIn" id="header" class="{{partnerName}} header-nav">
+  <div class="col-md-12 header-border"></div>
+  <ul class="nav justify-content-center">
+    <li class="nav-item">
+      <a class="nav-link" href="{{baseUrl}}profile/"><i class="fa fa-user"></i> Profile</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link active" href="{{baseUrl}}issuance/"><i class="fa fa-home"></i> Home</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" (click)="logout()"><i class="fa fa-sign-out"></i> Logout</a>
+    </li>
+  </ul>
 </div>
-<!-- <div id="toHide" [ngClass]="showHidePageClass()">
-    <nav id="sidebar"> 
 
-        <div class="sidebar-header text-center">
-            
-            <button type="button" id="sidebarCollapse" (click)="sidebarCollapse('all')" class="btn btn-secondary pull-right">
-                <i class="fa fa-align-left"></i>
-            </button>
-
-        </div>
-        <div class="components ml-2 mt-5 welcome-user">
-            <strong>Welcome</strong>, {{this.auth.getUserDetails().firstName}} {{this.auth.getUserDetails().lastName}}! <br>
-            <span class="person-identifier">{{this.userType}}</span>
-        </div>
-
-        <ul class="list-unstyled components components-holder mt-3">
-            <li *ngFor="let screen of screenList | async" (click)="updateActivePage()" class="{{screen.isActive}}">
-                <a routerLink="/{{screen.routeLink}}" *ngIf="screen.subLink.length === 0 && screen.level === 1">
-                    <i class="{{screen.image}} screen-icon"></i> &nbsp;
-                    <span class="route-description">{{screen.screen}}</span> 
-                </a>
-
-                <a href="#homeSubmenu{{screen.routeLink}}" data-toggle="collapse" aria-expanded="false" class=" {{screen.isActive}} parent-menus" *ngIf="screen.subLink.length > 0" (click)="sidebarCollapse('menu')"><i class="{{screen.image}} screen-icon"></i> &nbsp;<span class="route-description">{{screen.screen}}</span></a>
-                <ul class="collapse list-unstyled {{screen.isActive}}" id="homeSubmenu{{screen.routeLink}}">
-                    <li *ngFor="let screenSub of screen.subLink" (click)="updateActivePage()" class="{{screenSub.isActive}}" >
-                        <a routerLink="/{{screenSub.routeLink}}"><i class="{{screenSub.image}}"></i> &nbsp;{{screenSub.screen}}</a>
-                    </li>
-                </ul>
-
-            </li>
-            
-            <li>
-                <a (click)="logout()"><i class="fa fa-sign-out screen-icon"></i> <span class="route-description"> Logout</span></a>
-            </li>
-        </ul>
-
-        <div class="sidebar-footer text-center">
-            
-            <img src="assets/images/home-header.png" class="client-logo" /> <br><br>
-            <span class="digitalInno-brand">DigitalInno by MORPHSYS Inc.</span><br>
-            <small>v.1.0.0</small>
-            
-        </div>
-
-
-
-
-    </nav>
-</div> -->
-
-<router-outlet></router-outlet>
-
-
+<div class="{{partnerName}}">
+  <router-outlet></router-outlet>
+</div>

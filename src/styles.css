@@ -67,16 +67,16 @@ body {
 
 .btn-mapfre {
   color: white !important;
-  background-color: #d81e05 !important;
-  border: 1px solid #d81e05 !important;
-  border-radius: 25px !important;
+  background-color: #d31d29 !important;
+  border: 1px solid #d31d29 !important;
+  border-radius: 5px !important;
   padding: 10px 30px 10px 30px !important;
 }
 
 .btn-mapfre:hover {
-  color: #d81e05 !important;
+  color: #d31d29 !important;
   background-color: white !important;
-  border: 1px solid #d81e05 !important;
+  border: 1px solid #d31d29 !important;
 }
 
 .btn-digi-light {
@@ -150,6 +150,36 @@ a:focus {
   height: 1px;
   border-bottom: 1px dashed #ddd;
   margin: 40px 0;
+}
+
+
+/* ---------------------------------------------------
+    HEADER STYLE
+----------------------------------------------------- */
+
+.header-border {
+  background-color: #d31d29;
+  height: 10px;
+}
+
+.nav-link {
+  color: #474747;
+}
+
+.nav-item {
+  color: #c3c3c3;
+}
+
+.nav-item .active {
+  color: #ffffff;
+}
+
+.nav-link:hover {
+  color: #d31d29;
+}
+
+.nav {
+  box-shadow: 0 0.5px 5px 0.1px #3d3d3d;
 }
 
 /* ---------------------------------------------------
@@ -435,12 +465,18 @@ a.article:hover {
   padding: .375rem .25rem;
 }
 
-.red-bottom {
-  background-color: #d81e05;
+.footer {
+  display: block;
+  box-shadow: 0 1px 15px -2px grey;
+  margin-top: 40px;
+}
+
+.footer-bottom {
+  background-color: #d31d29;
 }
 
 .text-mapfre {
-  color: #d81e05;
+  color: #d31d29;
 }
 
 .text-heavy {
@@ -467,6 +503,35 @@ form .form-group.input-error .multiselect-dropdown {
   border: 2px solid #c31f09 !important;
 }
 
+/* ---------------------------------------------------
+    PARTNER  - MERCER
+----------------------------------------------------- */
+.mercer .header-border {
+  background-color: #243472;
+}
+
+.mercer .footer-bottom {
+  background-color: #243472;
+}
+
+.mercer .btn-mapfre {
+  background-color: #243472 !important;
+  border: 1px solid #151e43 !important;
+}
+
+.mercer .btn-mapfre:hover {
+  color: #243472 !important;
+  border: 1px solid #151e43 !important;
+}
+
+.mercer .card-title {
+  font-family: verdana;
+  color: #243472 !important;
+}
+
+/* .mercer .nav-item .active {
+  color: #243472 !important;
+} */
 
 /* ---------------------------------------------------
     MEDIAQUERIES

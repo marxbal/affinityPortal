@@ -1,18 +1,39 @@
-import { Component, OnInit, HostListener, Input, Output, EventEmitter } from '@angular/core';
-import * as $ from 'jquery/dist/jquery.min';
-import {AuthenticationService} from '../../../services/authentication.service';
-import {Router} from '@angular/router';
-import {ComponentCanDeactivate} from '../../../guard/component-can-deactivate';
-import {Marsh} from '../../../objects/marsh';
+import {
+  Component,
+  OnInit,
+  HostListener,
+  Input,
+  Output,
+  EventEmitter
+} from '@angular/core';
+// import * as $ from 'jquery/dist/jquery.min';
+import * as _ from 'lodash';
+import {
+  AuthenticationService
+} from '../../../services/authentication.service';
+import {
+  Router
+} from '@angular/router';
+import {
+  ComponentCanDeactivate
+} from '../../../guard/component-can-deactivate';
+import {
+  Marsh
+} from '../../../objects/marsh';
+import {
+  Partner
+} from 'src/app/objects/partner';
 
 @Component({
   selector: 'app-landingpage',
   templateUrl: './landingpage.component.html',
   styleUrls: ['./landingpage.component.css']
 })
-export class LandingpageComponent implements OnInit, ComponentCanDeactivate  {
+export class LandingpageComponent implements OnInit, ComponentCanDeactivate {
 
-  constructor(private auth: AuthenticationService,private router: Router) { }
+  constructor(private auth: AuthenticationService, private router: Router) {}
+
+  partnerPath: string = "";
 
   isDirty: boolean = false;
   @HostListener('window:beforeunload')
@@ -24,20 +45,21 @@ export class LandingpageComponent implements OnInit, ComponentCanDeactivate  {
   @Output() issuanceType = new EventEmitter();
   @Output() backButton = new EventEmitter();
 
-
-
   ngOnInit() {
     console.log(this.marsh);
 
+    const partner = this.auth.getPartner() as Partner;
+    console.log(partner);
+    if (!_.isEmpty(partner)) {
+      this.partnerPath = partner.name;
+    }
+
   }
 
-  loadPolicy(issue,type,numPoliza){
-
-
-
+  loadPolicy(issue, type, numPoliza) {
     type = "";
 
-    switch(issue.process) {
+    switch (issue.process) {
       case '1':
         type = "73015b3208cdee70a4497235463b63d7";
         break;
@@ -52,23 +74,23 @@ export class LandingpageComponent implements OnInit, ComponentCanDeactivate  {
         break;
     }
 
-    this.router.navigate(['issuance/'+ type +'/'+ numPoliza ]);
-    setTimeout(function(){
+    this.router.navigate(['issuance/' + type + '/' + numPoliza]);
+    setTimeout(function () {
       window.location.reload();
-    },10);
+    }, 10);
   }
 
-  householdIssuance(){
+  householdIssuance() {
     this.issuanceType.emit("householdQuotationIssuance");
     this.backButton.emit("initialize");
   }
 
-  motorIssuance(){
+  motorIssuance() {
     this.issuanceType.emit("motorQuotationIssuance");
     this.backButton.emit("initialize");
   }
 
-  PAIssuance(){
+  PAIssuance() {
     this.issuanceType.emit("personalInformation");
     this.backButton.emit("initialize");
   }

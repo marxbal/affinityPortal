@@ -1,111 +1,123 @@
 .card {
-	border-radius: 0;
-	background-color: rgb(230,230,230);
-	border: 0;
-	margin-top: 25px;
+  border-radius: 0;
+  background-color: rgb(230, 230, 230);
+  border: 0;
+  margin-top: 25px;
 }
 
 .card-previous {
-	border-radius: 0;
-	background-color: rgb(215,215,215);
-	border: 0;
-	margin-top: 25px;
+  border-radius: 0;
+  background-color: rgb(215, 215, 215);
+  border: 0;
+  margin-top: 25px;
 }
 
-.desc-container{
-	height: 70px;
+.desc-container {
+  height: 70px;
 }
 
 .card-img-top {
-	border-radius: 0;
+  border-radius: 0;
 }
 
-.card img{
-	padding: 0.5rem;
+.card img {
+  padding: 0.5rem;
 }
 
-.card-title{
-	font-family: verdana;
-	color: #d81e05;
+.card-title {
+  font-family: verdana;
+  color: #d31d29;
 }
 
-.card-text{
-	font-family: calibri;
-	font-size: 1.05rem;
-	color: #474747;
+.card-text {
+  /* font-family: calibri; */
+  min-height: 290px;
+  font-size: 1.05rem;
+  color: #474747;
 }
 
-.btn-mapfre{
-	background-color: #d81e05;
-	color: white;
-	border-radius: 25px;
-	padding: 10px 30px 10px 30px;
+.btn-mapfre {
+  background-color: #d31d29;
+  color: white;
+  border-radius: 25px;
+  padding: 10px 30px 10px 30px;
 }
 
-.btn-quote{
-	background-color: #d81e05;
-	color: white;
-	border-radius: 25px;
-	padding: 10px 60px 10px 60px !important;
-	font-size: 18px;
+.btn-quote {
+  background-color: #d31d29;
+  color: white;
+  border-radius: 25px;
+  padding: 10px 60px 10px 60px !important;
+  font-size: 18px;
 }
 
-.card-footer{
-	background-color: rgb(240,240,240);
-	border: 0;
+.card-footer {
+  background-color: rgb(240, 240, 240);
+  border: 0;
 }
 
-.logo-collection-fopm{
-	width: 5%;
+.logo-collection-fopm {
+  width: 5%;
 }
 
-.logo-collection{
-	width: 10%;
-	margin-left: 20px;
+.logo-collection {
+  width: 10%;
+  margin-left: 20px;
 }
 
-.logo-collection-fopm-1{
-	width: 8%;
+.logo-collection-fopm-1 {
+  width: 8%;
 }
 
-.logo-collection-1{
-	width: 15%;
-	margin-left: 50px;
+.partner-logo,
+.logo-collection-1 {
+  width: 200px;
+  padding: 0 20px;
 }
 
-.logo-holder{
-	margin-top: 30px;
+.logo-holder {
+  padding: 30px;
 }
 
-.under-logo{
-	font-family: calibri;
-	color: #474747;
-	font-weight: bold;
-	margin-top: 30px;
+.under-logo {
+  /* font-family: calibri; */
+  color: #474747;
+  font-weight: bold;
+  margin-top: 30px;
 }
 
-.under-header-img{
-	font-family: verdana;
-	color: #474747;
-	margin-top: 30px;
-	font-size: 2rem;
-}
-.footer-text{
-	font-family: calibri;
+.under-header-img {
+  font-family: verdana;
+  color: #474747;
+  margin-top: 30px;
+  font-size: 2rem;
 }
 
-.website-holder{
-
+.footer-text {
+  /* font-family: calibri; */
 }
+
+.website-holder {}
 
 .alt-grid {
-	padding-right: 0 !important;
-	padding-left: 0 !important;
-	box-shadow: 0 1px 15px -2px gray;
+  padding-right: 0 !important;
+  padding-left: 0 !important;
+  box-shadow: 0 1px 15px -2px gray;
 }
 
-.alt-grid [class*="col-"] {padding-left:0;padding-right:0}
-.alt-grid .row {margin-left:0;margin-right:0}
+.alt-grid [class*="col-"] {
+  padding-left: 0;
+  padding-right: 0
+}
+
+.alt-grid .row {
+  margin-left: 0;
+  margin-right: 0
+}
 
 /* container adjusted */
-.alt-grid .container {width:100%;max-width:none;padding:0;}
+.alt-grid .container {
+  width: 100%;
+  max-width: none;
+  padding: 0;
+}

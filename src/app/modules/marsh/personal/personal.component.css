@@ -15,11 +15,11 @@
 
 .card-title{
 	font-family: verdana;
-	color: #d81e05;
+	color: #d31d29;
 }
 
 .card-text{
-	font-family: calibri;
+	/* font-family: calibri; */
 	font-size: 1.05rem;
 	color: #474747;
 }
@@ -52,7 +52,7 @@
 }
 
 .under-logo{
-	font-family: calibri;
+	/* font-family: calibri; */
 	color: #474747;
 	font-weight: bold;
 	margin-top: 30px;
@@ -65,7 +65,7 @@
 	font-size: 2rem;
 }
 .footer-text{
-	font-family: calibri;
+	/* font-family: calibri; */
 }
 
 .website-holder{

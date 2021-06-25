@@ -4,26 +4,34 @@ import {
 import {
   BehaviorSubject
 } from 'rxjs/internal/BehaviorSubject';
-// import {
-//   Configuration
-// } from '../objects/configuration';
-
 import {
   Router
 } from '@angular/router';
+import {
+  LOGGED_IN,
+  PARTNER,
+  ALL_SCREEN,
+  USER,
+  ROLES,
+  LANDING_PAGE,
+  ACCESSIBLE_SCREENS
+} from '../constants/local.storage';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
 
-  public pageChecker = new BehaviorSubject < string > (localStorage.getItem('isLoggedIn') || "false");
-  public screenList = new BehaviorSubject < any > (JSON.parse(localStorage.getItem("allScreens") || "[]"));
-  public userDetails = new BehaviorSubject < any > (JSON.parse(localStorage.getItem("userDetail") || "[]"));
-  public userRoles = new BehaviorSubject < any > (JSON.parse(localStorage.getItem("userRoles") || "[]"));
-  public loginChecker = new BehaviorSubject < string > (localStorage.getItem('isLoggedIn') || "false");
-  public initialLandingPage = new BehaviorSubject < string > (localStorage.getItem('landingPage') || "login");
-  public accessibleScreens = new BehaviorSubject < any > (JSON.parse(localStorage.getItem("accessibleScreen") || "[]"));
+  public pageChecker = new BehaviorSubject < string > (localStorage.getItem(LOGGED_IN) || "false");
+  public loginChecker = new BehaviorSubject < string > (localStorage.getItem(LOGGED_IN) || "false");
+
+  public screenList = new BehaviorSubject < any > (JSON.parse(localStorage.getItem(ALL_SCREEN) || "[]"));
+  public userDetails = new BehaviorSubject < any > (JSON.parse(localStorage.getItem(USER) || "[]"));
+  public userRoles = new BehaviorSubject < any > (JSON.parse(localStorage.getItem(ROLES) || "[]"));
+
+  public initialLandingPage = new BehaviorSubject < string > (localStorage.getItem(LANDING_PAGE) || "login");
+  public accessibleScreens = new BehaviorSubject < any > (JSON.parse(localStorage.getItem(ACCESSIBLE_SCREENS) || "[]"));
+  public partner = new BehaviorSubject < any > (JSON.parse(localStorage.getItem(PARTNER) || "[]"));
 
   constructor(private router: Router) {}
 
@@ -48,8 +56,8 @@ export class AuthenticationService {
   }
 
   setLogin(logged: string) {
-    localStorage.setItem("isLoggedIn", logged);
-    this.loginChecker.next(localStorage.getItem('isLoggedIn'));
+    localStorage.setItem(LOGGED_IN, logged);
+    this.loginChecker.next(localStorage.getItem(LOGGED_IN));
   }
 
   get ScreenList() {
@@ -61,8 +69,8 @@ export class AuthenticationService {
   }
 
   setScreens(screens: any) {
-    localStorage.setItem("allScreens", JSON.stringify(screens));
-    let screenList = JSON.parse(localStorage.getItem("allScreens") || "[]");
+    localStorage.setItem(ALL_SCREEN, JSON.stringify(screens));
+    let screenList = JSON.parse(localStorage.getItem(ALL_SCREEN) || "[]");
 
     this.screenList.next(screenList);
   }
@@ -135,8 +143,8 @@ export class AuthenticationService {
   }
 
   setUserDetails(userDetails: any) {
-    localStorage.setItem("userDetail", JSON.stringify(userDetails));
-    let details = JSON.parse(localStorage.getItem("userDetail") || "[]");
+    localStorage.setItem(USER, JSON.stringify(userDetails));
+    let details = JSON.parse(localStorage.getItem(USER) || "[]");
 
     this.userDetails.next(details);
   }
@@ -146,8 +154,8 @@ export class AuthenticationService {
   }
 
   setUserRoles(userRoles: any) {
-    localStorage.setItem("userRoles", JSON.stringify(userRoles));
-    let details = JSON.parse(localStorage.getItem("userRoles") || "[]");
+    localStorage.setItem(ROLES, JSON.stringify(userRoles));
+    let details = JSON.parse(localStorage.getItem(ROLES) || "[]");
 
     this.userRoles.next(details);
   }
@@ -156,7 +164,6 @@ export class AuthenticationService {
 
     let userType = "";
     for (let i = 0; i < this.userRoles.getValue().length; i++) {
-
       if (this.userRoles.getValue()[i].roleId == 3 || this.userRoles.getValue()[i].roleId == 6) {
         userType = "MA";
         break;
@@ -191,11 +198,9 @@ export class AuthenticationService {
         userType = "ICSS";
         break;
       }
-
     }
 
     return userType;
-
   }
 
   getUserRole() {
@@ -225,8 +230,8 @@ export class AuthenticationService {
   }
 
   setLandingPage(initialPage: string) {
-    localStorage.setItem("landingPage", initialPage);
-    this.initialLandingPage.next(localStorage.getItem('landingPage'));
+    localStorage.setItem(LANDING_PAGE, initialPage);
+    this.initialLandingPage.next(localStorage.getItem(LANDING_PAGE));
   }
 
   get AccessibleScreen() {
@@ -238,8 +243,22 @@ export class AuthenticationService {
   }
 
   setAccessibleScreen(screens: any) {
-    localStorage.setItem("accessibleScreen", JSON.stringify(screens));
-    let accessibleScreen = JSON.parse(localStorage.getItem("accessibleScreen") || "[]");
+    localStorage.setItem(ACCESSIBLE_SCREENS, JSON.stringify(screens));
+    let accessibleScreen = JSON.parse(localStorage.getItem(ACCESSIBLE_SCREENS) || "[]");
     this.accessibleScreens.next(accessibleScreen);
+  }
+
+  get Partner() {
+    return this.partner.asObservable();
+  }
+
+  getPartner() {
+    return this.partner.getValue();
+  }
+
+  setPartner(details: any) {
+    localStorage.setItem(PARTNER, JSON.stringify(details));
+    let partner = JSON.parse(localStorage.getItem(PARTNER) || "[]");
+    this.partner.next(partner);
   }
 }

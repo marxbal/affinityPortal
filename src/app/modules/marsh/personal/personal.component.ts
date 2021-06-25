@@ -307,7 +307,7 @@ export class PersonalComponent implements OnInit {
       text: "You're about to submit request for a Quotation, Proceed?",
       type: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#d81e05',
+      confirmButtonColor: '#d31d29',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Proceed'
     }).then((result) => {
@@ -469,7 +469,7 @@ export class PersonalComponent implements OnInit {
       text: "You're about to submit request for a Quotation, Proceed?",
       type: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#d81e05',
+      confirmButtonColor: '#d31d29',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Proceed'
     }).then((result) => {
@@ -634,7 +634,7 @@ export class PersonalComponent implements OnInit {
       text: "You're about to submit request for a Quotation, Proceed?",
       type: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#d81e05',
+      confirmButtonColor: '#d31d29',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Proceed'
     }).then((result) => {

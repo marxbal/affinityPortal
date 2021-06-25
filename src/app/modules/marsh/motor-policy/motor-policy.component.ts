@@ -493,7 +493,7 @@ export class MotorPolicyComponent  implements OnInit {
       text: "Motor vehicle with more than 5 million total sum insured requires underwriting approval.",
       type: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#d81e05',
+      confirmButtonColor: '#d31d29',
       cancelButtonColor: '#d33',
       cancelButtonText: 'Revise Values',
       confirmButtonText: 'Proceed to Next Step'
