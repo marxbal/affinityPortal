@@ -157,29 +157,36 @@ a:focus {
     HEADER STYLE
 ----------------------------------------------------- */
 
-.header-border {
+/* .header-border {
   background-color: #d31d29;
   height: 10px;
-}
+} */
 
 .nav-link {
-  color: #474747;
+  color: #232323;
 }
 
 .nav-item {
-  color: #c3c3c3;
+  color: #202020;
+}
+
+li.nav-item a.nav-link.link {
+  cursor: pointer;
+}
+
+li.nav-item a.nav-link.link:hover {
+  cursor: pointer;
+  font-weight: 700;
 }
 
 .nav-item .active {
-  color: #ffffff;
-}
-
-.nav-link:hover {
-  color: #d31d29;
+  color: #121212;
+  font-weight: 700;
 }
 
 .nav {
   box-shadow: 0 0.5px 5px 0.1px #3d3d3d;
+  padding: 20px 0;
 }
 
 /* ---------------------------------------------------
@@ -342,14 +349,31 @@ a.article:hover {
 }
 
 .btn-primary {
-  color: #fff;
-  background-color: rgba(0, 123, 255, 0.8);
-  border-color: rgba(0, 123, 255, 0.8);
+  color: #fff !important;
+  background-color: #d31d29 !important;
+  border-color: #861118 !important;
+}
+
+.btn-primary:hover {
+  color: #d31d29 !important;
+  background-color: #f6f6f6 !important;
+  border-color: #861118 !important;
+}
+
+.btn-outline-primary {
+  border-color: #861118 !important;
+  color: #861118 !important;
+}
+
+.btn-outline-primary:hover {
+  border-color: #861118 !important;
+  background-color: #d31d29 !important;
+  color: #fcfcfc !important;
 }
 
 .btn-danger {
   color: #fff;
-  background-color: rgba(220, 53, 69, 0.8);
+  background-color: rgba(225, 46, 64, 0.8);
   border-color: rgba(220, 53, 69, 0.8);
 }
 
@@ -513,26 +537,32 @@ form .form-group.input-error .multiselect-dropdown {
 .mercer .footer-bottom {
   background-color: #243472;
 }
-
-.mercer .btn-mapfre {
+.mercer .btn-primary {
   background-color: #243472 !important;
-  border: 1px solid #151e43 !important;
+  border-color: #161f45 !important;
 }
 
-.mercer .btn-mapfre:hover {
+.mercer .btn-primary:hover {
   color: #243472 !important;
-  border: 1px solid #151e43 !important;
+  background-color: #f6f6f6 !important;
+  border-color: #161f45 !important;
+}
+
+.mercer .btn-outline-primary {
+  border-color: #161f45 !important;
+  color: #161f45 !important;
+}
+
+.mercer .btn-outline-primary:hover {
+  color: #d5d5d5 !important;
+  border-color: #161f45 !important;
+  background-color: #243472 !important;
 }
 
 .mercer .card-title {
   font-family: verdana;
   color: #243472 !important;
 }
-
-/* .mercer .nav-item .active {
-  color: #243472 !important;
-} */
-
 /* ---------------------------------------------------
     MEDIAQUERIES
 ----------------------------------------------------- */

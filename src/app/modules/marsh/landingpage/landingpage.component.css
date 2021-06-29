@@ -1,6 +1,6 @@
 .card {
   border-radius: 0;
-  background-color: rgb(230, 230, 230);
+  /* background-color: rgb(230, 230, 230); */
   border: 0;
   margin-top: 25px;
 }
@@ -29,26 +29,42 @@
   color: #d31d29;
 }
 
+.landing-container {
+  background-image: url('/assets/images/landing-bg-white.jpg');
+}
+
+.height-860 {
+  height: 860px;
+}
+
+.landing-img-family {
+  max-width: 600px;
+}
+
 .card-text {
   /* font-family: calibri; */
-  min-height: 290px;
+  /* min-height: 290px; */
   font-size: 1.05rem;
   color: #474747;
 }
 
-.btn-mapfre {
+/* .btn-mapfre {
   background-color: #d31d29;
   color: white;
   border-radius: 25px;
   padding: 10px 30px 10px 30px;
-}
+} */
 
-.btn-quote {
+/* .btn-quote {
   background-color: #d31d29;
   color: white;
   border-radius: 25px;
   padding: 10px 60px 10px 60px !important;
   font-size: 18px;
+} */
+
+.product {
+  margin-top: 10px;
 }
 
 .card-footer {
@@ -93,11 +109,11 @@
   font-size: 2rem;
 }
 
-.footer-text {
-  /* font-family: calibri; */
+/* .footer-text {
+  font-family: calibri;
 }
 
-.website-holder {}
+.website-holder {} */
 
 .alt-grid {
   padding-right: 0 !important;

@@ -56,6 +56,19 @@ export class LandingpageComponent implements OnInit, ComponentCanDeactivate {
 
   }
 
+   //smooth scroll to preferred html element
+  scroll(id: string) {
+    //buffer if id is hidden
+    setTimeout(() => {
+      var el = document.getElementById(id);
+      if (!_.isUndefined(el)) {
+        el.scrollIntoView({
+          behavior: 'smooth'
+        });
+      }
+    }, 500);
+  }
+
   loadPolicy(issue, type, numPoliza) {
     type = "";
 

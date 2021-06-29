@@ -6,14 +6,14 @@
 <div *ngIf="isLoggedIn" id="header" class="{{partnerName}} header-nav">
   <div class="col-md-12 header-border"></div>
   <ul class="nav justify-content-center">
-    <li class="nav-item">
-      <a class="nav-link" href="{{baseUrl}}profile/"><i class="fa fa-user"></i> Profile</a>
+    <li *ngIf="email != null" class="nav-item d-none d-md-block">
+      <a class="nav-link"><i>Hi, {{email}}</i></a>
     </li>
     <li class="nav-item">
-      <a class="nav-link active" href="{{baseUrl}}issuance/"><i class="fa fa-home"></i> Home</a>
+      <a class="nav-link link active" href="{{baseUrl}}issuance/"><i class="fa fa-home"></i> Home</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" (click)="logout()"><i class="fa fa-sign-out"></i> Logout</a>
+      <a class="nav-link link" (click)="logout()"><i class="fa fa-sign-out"></i> Logout</a>
     </li>
   </ul>
 </div>

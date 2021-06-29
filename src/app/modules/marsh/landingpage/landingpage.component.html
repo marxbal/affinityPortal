@@ -1,15 +1,48 @@
-<div class="container-fluid alt-grid">
+<!-- <div class="container-fluid height-860 landing-container">
+  <div class="height-860">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <p>test</p>
+        </div>
+        
+      </div>
+    </div>
+
+  </div>
   <div class="row">
     <div class="col-md-12">
-      <img style="width: 100%" src="assets/images/landing-page.jpg" alt="Card image cap">
+      img style="width: 100%" src="assets/images/landing-bg-white.jpg" alt="white background">
     </div>
   </div>
   <div class="col-md-12 text-center logo-holder">
     <img *ngIf="partnerPath" class="partner-logo" src="assets/images/partners/{{partnerPath}}/logo.png" />
     <img class="logo-collection-1" src="assets/images/MAPFRE_Insurance_VB.png" />
   </div>
+</div> -->
+
+<div class="container-fluid height-860 landing-container">
+  <div class="container">
+    <div class="row height-860 flex">
+      <div class="col-md-6 d-flex align-items-center">
+        <div>
+          <h1>GET YOUR <strong>POLICY</strong> TODAY</h1>
+          <p>Exclusive insurance coverage that protects your home, car and family.</p>
+          <div class="btn-group">
+            <button (click)="scroll('issuance')" class="btn btn-outline-primary">Get Started</button>
+            <button (click)="scroll('previousTransaction')" class="btn btn-outline-primary">Previous
+              Transaction</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 d-flex align-items-center">
+        <img class="landing-img-family d-none d-md-block" src="assets/images/insured-family.png" />
+      </div>
+    </div>
+  </div>
 </div>
-<div class="container">
+
+<!-- <div class="container">
   <div class="row">
     <div class="col-md-4">
       <div class="card">
@@ -29,6 +62,7 @@
         </div>
       </div>
     </div>
+
     <div class="col-md-4">
       <div class="card">
         <img class="card-img-top" src="assets/images/product_line/car.jpg" alt="Car">
@@ -61,12 +95,194 @@
       </div>
     </div>
   </div>
+</div> -->
 
+<div class="container" id="issuance">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="row">
+          <div class="col-md-6 d-none d-md-block">
+            <img class="card-img-top" src="assets/images/product_line/home.jpg" alt="Home">
+          </div>
+          <div class="col-md-6">
+            <div class="card">
+
+              <h1 class="card-title">
+                <span class="fa-stack fa-md">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-inverse fa-home fa-stack-1x"></i>
+                </span>
+                <strong>Household</strong> Insurance
+              </h1>
+              
+              <p class="card-text">
+                Covers the contents such as improvements, furnishings, fixtures, personal effect.
+                <br />
+                With this policy you’re covered against events such as:
+                <br />
+                - fire, flood, typhoon, and earthquake damages
+                <br />
+                - robbery and burglary
+                <br />
+                - personal liability</p>
+
+              <ul>
+                <li class="row product">
+                  <div class="col-md-6">
+                    <button disabled class="btn btn-light" type="button">
+                      <i class="fa fa-chevron-right"></i> Household
+                    </button>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="btn-group">
+                      <button class="btn btn-outline-primary">View Coverage</button>
+                      <button class="btn btn-outline-dark">Apply</button>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- <div class="card-footer text-center">
+          <button (click)="householdIssuance()" class="btn btn-mapfre btn-quote">Get a FREE Quote</button>
+        </div> -->
+      </div>
+    </div>
+
+    <div class="col-md-12">
+      <div class="card">
+        <div class="row">
+
+          <div class="col-md-6">
+            <div class="card">
+
+              <h1 class="card-title">
+                <span class="fa-stack fa-md">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-inverse fa-car fa-stack-1x"></i>
+                </span>
+                <strong>Car</strong> Insurance</h1>
+              <p class="card-text">Comprehensive car insurance with all your basic coverage needs.<br /><br />
+                ‍
+                This policy covers you against loss and accidental damage to the vehicle as well as legal liabilities to
+                third parties in case of bodily injury and physical damage to properties.</p>
+              <ul>
+                <li class="row product">
+                  <div class="col-md-6">
+                    <button disabled class="btn btn-light" type="button">
+                      <i class="fa fa-chevron-right"></i> Comprehensive
+                    </button>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="btn-group">
+                      <button class="btn btn-outline-primary">View Coverage</button>
+                      <button class="btn btn-outline-dark">Apply</button>
+                    </div>
+                  </div>
+                </li>
+                <li class="row product">
+                  <div class="col-md-6">
+                    <button disabled class="btn btn-light" type="button">
+                      <i class="fa fa-chevron-right"></i> CTPL
+                    </button>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="btn-group">
+                      <button class="btn btn-outline-primary">View Coverage</button>
+                      <button class="btn btn-outline-dark">Apply</button>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="col-md-6 d-none d-md-block">
+            <img class="card-img-top" src="assets/images/product_line/car.jpg" alt="Home">
+          </div>
+
+        </div>
+
+        <!-- <div class="card-footer text-center">
+          <button (click)="householdIssuance()" class="btn btn-mapfre btn-quote">Get a FREE Quote</button>
+        </div> -->
+      </div>
+    </div>
+
+    <div class="col-md-12">
+      <div class="card">
+
+        <div class="row">
+
+          <div class="col-md-6 d-none d-md-block">
+            <img class="card-img-top" src="assets/images/product_line/accident.jpg" alt="Home">
+          </div>
+          <div class="col-md-6">
+            <div class="card">
+
+
+              <h1 class="card-title">
+
+                <span class="fa-stack fa-md">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-inverse fa-shield fa-stack-1x"></i>
+                </span>
+                <strong>Accident</strong> Insurance</h1>
+              <p class="card-text">Provides protection 24 hours a day, 7 days a week and 365 days a year for family
+                members.<br /><br />
+
+                This comprehensive personal accident insurance includes additional assistance benefits aside from the
+                standard accidental death and permanent disability benefits.</p>
+
+              <ul>
+                <li class="row product">
+                  <div class="col-md-6">
+                    <button disabled class="btn btn-light" type="button">
+                      <i class="fa fa-chevron-right"></i> Individual
+                    </button>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="btn-group">
+                      <button class="btn btn-outline-primary">View Coverage</button>
+                      <button class="btn btn-outline-dark">Apply</button>
+                    </div>
+                  </div>
+                </li>
+                <li class="row product">
+                  <div class="col-md-6">
+                    <button disabled class="btn btn-light" type="button">
+                      <i class="fa fa-chevron-right"></i> Personal
+                    </button>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="btn-group">
+                      <button class="btn btn-outline-primary">View Coverage</button>
+                      <button class="btn btn-outline-dark">Apply</button>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- <div class="card-footer text-center">
+          <button (click)="householdIssuance()" class="btn btn-mapfre btn-quote">Get a FREE Quote</button>
+        </div> -->
+      </div>
+    </div>
+
+  </div>
 </div>
-<div class="container">
+
+<div class="container" id="previousTransaction">
   <div class="row mt-5">
     <div class="col-md-12 text-center">
-      <button class="btn btn-mapfre btn-quote" type="button" data-toggle="collapse" data-target="#collapseExample"
+      <button class="btn btn-primary btn-quote" type="button" data-toggle="collapse" data-target="#collapseExample"
         aria-expanded="false" aria-controls="collapseExample">
         View Previous Transactions
       </button>

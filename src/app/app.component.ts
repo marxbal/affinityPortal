@@ -22,6 +22,7 @@ import {
   Partner
 } from './objects/partner';
 import {
+  EMAIL,
   LOGGED_IN
 } from './constants/local.storage';
 
@@ -40,6 +41,7 @@ export class AppComponent implements OnInit {
   userType: String;
   partnerName: string = "";
   isLoggedIn: boolean = false;
+  email: string = null;
 
   constructor(
     public router: Router,
@@ -47,6 +49,7 @@ export class AppComponent implements OnInit {
     public auth: AuthenticationService) {}
 
   ngOnInit() {
+    this.email = localStorage.getItem(EMAIL);
     this.isLoggedIn = this.auth.getLoginVal() == "true" ? true : false;
 
     const partner = this.auth.getPartner() as Partner;
