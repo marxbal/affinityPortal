@@ -1,19 +1,55 @@
-import { Component, OnInit, HostListener, AfterViewInit, Input, Output, EventEmitter } from '@angular/core';
-import * as $ from 'jquery/dist/jquery.min';
-import {AuthenticationService} from '../../../services/authentication.service';
-import {Router,ActivatedRoute} from '@angular/router';
-import {ComponentCanDeactivate} from '../../../guard/component-can-deactivate';
-import {Marsh} from '../../../objects/marsh';
-import {AuthService} from '../../../services/auth.service';
-import {MarshCoverages} from '../../../objects/marsh-coverages';
-import { NgxSpinnerService } from 'ngx-spinner';
-import {CommonService} from '../../../services/common.service';
-import {MotorIssuanceService} from '../../../services/motor-issuance.service';
-import {PropertyIssuanceService} from '../../../services/property-issuance.service';
-import {PersonalAccidentIssuanceService} from '../../../services/personal-accident-issuance.service';
-import {MotorAccessories} from '../../../objects/motor-accessories';
-import * as m from 'moment';
+import {
+  Component,
+  OnInit,
+  // HostListener,
+  // AfterViewInit,
+  // Input,
+  // Output,
+  // EventEmitter
+} from '@angular/core';
+// import * as $ from 'jquery/dist/jquery.min';
+// import {
+//   AuthenticationService
+// } from '../../../services/authentication.service';
+import {
+  Router,
+  ActivatedRoute
+} from '@angular/router';
+// import {
+//   ComponentCanDeactivate
+// } from '../../../guard/component-can-deactivate';
+import {
+  Marsh
+} from '../../../objects/marsh';
+import {
+  AuthService
+} from '../../../services/auth.service';
+import {
+  MarshCoverages
+} from '../../../objects/marsh-coverages';
+import {
+  NgxSpinnerService
+} from 'ngx-spinner';
+import {
+  CommonService
+} from '../../../services/common.service';
+import {
+  MotorIssuanceService
+} from '../../../services/motor-issuance.service';
+import {
+  PropertyIssuanceService
+} from '../../../services/property-issuance.service';
+import {
+  PersonalAccidentIssuanceService
+} from '../../../services/personal-accident-issuance.service';
+import {
+  MotorAccessories
+} from '../../../objects/motor-accessories';
+// import * as m from 'moment';
 import * as _ from 'lodash';
+import {
+  EMAIL
+} from 'src/app/constants/local.storage';
 
 @Component({
   selector: 'app-issuance',
@@ -22,14 +58,14 @@ import * as _ from 'lodash';
 })
 export class IssuanceComponent implements OnInit {
 
-  constructor(private caller : AuthService, 
-    private route : ActivatedRoute,
-    private router : Router,
-    private spinner : NgxSpinnerService,
-    private commonService : CommonService,
+  constructor(private caller: AuthService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private spinner: NgxSpinnerService,
+    private commonService: CommonService,
     private motorIssuance: MotorIssuanceService,
     private propertyIssuance: PropertyIssuanceService,
-    private paIssuance : PersonalAccidentIssuanceService) { }
+    private paIssuance: PersonalAccidentIssuanceService) {}
 
   templateRouter: String;
   line: String;
@@ -38,72 +74,68 @@ export class IssuanceComponent implements OnInit {
   coverageList: MarshCoverages[] = [];
   coverage: MarshCoverages = new MarshCoverages();
 
+  product: number;
+  description: String;
+
   formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'PHP',
   });
 
   ngOnInit() {
-
     // this.templateRouter = "riskInformation";
     this.marsh = new Marsh();
-    // if (localStorage.getItem("userCardId") === null) {
-    //   this.router.navigate(['login']);
-    // }
-    this.marsh.clientId = localStorage.getItem("userCardId");
+    this.marsh.clientId = localStorage.getItem(EMAIL);
+
+    if (this.marsh.clientId === null) {
+      this.router.navigate(['login']);
+    }
+
+    // this.marsh.clientId = localStorage.getItem("userCardId");
 
     let numPoliza = this.route.snapshot.paramMap.get("numPoliza");
     let type = this.route.snapshot.paramMap.get("type");
 
     this.line = "";
-    this.templateRouter = "initialize"; 
+    this.templateRouter = "initialize";
+    this.caller.doCallService('/marsh/retrieveTransactions', this.marsh.clientId).subscribe(
+      result => {
+        console.log(result);
 
-    // this.caller.doCallService('/marsh/retrieveTransactions',this.marsh.clientId).subscribe(
-    //   result => {
-    //     console.log(result);
+        let newResult = _.orderBy(result, ['transactionNumber'], ['desc']);
 
-    //     let newResult = _.orderBy(result, ['transactionNumber'],['desc']);
-        
-    //     this.marsh.previousIssuances = newResult;
+        this.marsh.previousIssuances = newResult;
 
-    //     for(let i = 0; i < this.marsh.previousIssuances.length; i++){
-    //     if(this.marsh.previousIssuances[i].policyNumber){
+        for (let i = 0; i < this.marsh.previousIssuances.length; i++) {
+          if (this.marsh.previousIssuances[i].policyNumber) {
 
-    //       for(let x = 0; x < this.marsh.previousIssuances[i].iDTO.a2000020List.length; x++){
-    //         switch(this.marsh.previousIssuances[i].iDTO.a2000020List[x].codCampo){
-    //           case "COD_MODALIDAD":
-    //           this.marsh.previousIssuances[i].productId = this.marsh.previousIssuances[i].iDTO.a2000020List[x].valCampo;
-    //           break;
-    //           default:
-    //           break;
-    //         }
-    //       }
-   
-    //     }else{
+            for (let x = 0; x < this.marsh.previousIssuances[i].iDTO.a2000020List.length; x++) {
+              switch (this.marsh.previousIssuances[i].iDTO.a2000020List[x].codCampo) {
+                case "COD_MODALIDAD":
+                  this.marsh.previousIssuances[i].productId = this.marsh.previousIssuances[i].iDTO.a2000020List[x].valCampo;
+                  break;
+                default:
+                  break;
+              }
+            }
+          } else {
+            for (let x = 0; x < this.marsh.previousIssuances[i].iDTO.p2000020List.length; x++) {
+              switch (this.marsh.previousIssuances[i].iDTO.p2000020List[x].codCampo) {
+                case "COD_MODALIDAD":
+                  this.marsh.previousIssuances[i].productId = this.marsh.previousIssuances[i].iDTO.p2000020List[x].valCampo;
+                  break;
+                default:
+                  break;
+              }
+            }
+          }
+        }
+        console.log(this.marsh.previousIssuances);
+      });
 
-    //       for(let x = 0; x < this.marsh.previousIssuances[i].iDTO.p2000020List.length; x++){
-    //         switch(this.marsh.previousIssuances[i].iDTO.p2000020List[x].codCampo){
-    //           case "COD_MODALIDAD":
-    //           this.marsh.previousIssuances[i].productId = this.marsh.previousIssuances[i].iDTO.p2000020List[x].valCampo;
-    //           break;
-    //           default:
-    //           break;
-    //       }
-
-    //     }
-        
-    //   }
-
-      
-    //   }  
-    //   console.log(this.marsh.previousIssuances);
-    // });
- 
-    if(numPoliza){
-
-      switch(type) {
+    if (numPoliza) {
+      switch (type) {
         case "988fd738de9c6d177440c5dcf69e73ce":
-
           this.router.navigate([], {
             queryParams: {
               numPoliza: numPoliza,
@@ -118,113 +150,101 @@ export class IssuanceComponent implements OnInit {
           this.returnPayment(numPoliza, "policy");
           break;
         case "c453a4b8e8d98e82f35b67f433e3b4da":
-          this.returnPayment(numPoliza,"payment");
+          this.returnPayment(numPoliza, "payment");
           break;
         default:
-          this.retrieveQuote(numPoliza,type);
+          this.retrieveQuote(numPoliza, type);
           break;
       }
-      
     }
-
-
   }
 
-  processPayment(numPoliza){
-    console.log('start');
+  processPayment(numPoliza) {
     this.route.queryParams.subscribe(params => {
-      console.log('1');
-      if(!params.clientId){
+      if (!params.clientId) {
         return null;
       }
-      
+
       if (params.vpc_Message == null) {
         //for OTC transaction
         console.log('4');
       } else if (params.vpc_Message != 'Approved') {
         window.location.href = params.AgainLink + "?s=f";
       } else {
-        console.log('10');            
+        console.log('10');
         if (params != null) {
-          console.log('11');            
+          console.log('11');
           console.log(params);
           this.marsh.paymentConfirmed = params.vpc_Message;
-          this.validateGlobalPay(JSON.stringify(params),numPoliza);
-          
+          this.validateGlobalPay(JSON.stringify(params), numPoliza);
         }
       }
-
     });
   }
 
-  validateGlobalPay(params,numPoliza){
-    this.caller.doCallService('/marsh/validateGlobalPay',params).subscribe(
+  validateGlobalPay(params, numPoliza) {
+    this.caller.doCallService('/marsh/validateGlobalPay', params).subscribe(
       result => {
         this.returnPayment(numPoliza, "policy");
         console.log(result);
-
-    });
-  }
-
-  returnPayment(numPoliza, action){
-    this.spinner.show();
-      this.caller.doCallService('/marsh/retrievePolicyDetails',numPoliza).subscribe(
-        result => {
-          console.log(result);
-
-          switch(result.p2000030.codRamo){
-              case 251:
-
-              this.propertyIssuance.mapRetrievePolicy(this.marsh, result).subscribe( 
-              (resulta) => {
-                this.marsh = resulta; 
-                this.retrivePolicyNavigate(result,action);
-                console.log("hey");
-                console.log(this.marsh);
-              });
-
-              break;
-              case 337:
-
-              this.paIssuance.mapRetrievePolicy(this.marsh, result).subscribe( 
-              (resulta) => {
-                this.marsh = resulta; 
-                this.retrivePolicyNavigate(result,action);
-                console.log("hey");
-                console.log(this.marsh);
-              });
-
-              break;
-              default:
-
-              this.motorIssuance.mapRetrievePolicy(this.marsh, result).subscribe( 
-              (resulta) => {
-                this.marsh = resulta; 
-                this.retrivePolicyNavigate(result,action);
-                console.log("hey");
-                console.log(this.marsh);
-              });
-
-              break;
-          }
-
       });
   }
 
-  retrivePolicyNavigate(result,action){
-    if(this.marsh.premiumBreakdown){
+  returnPayment(numPoliza, action) {
+    this.spinner.show();
+    this.caller.doCallService('/marsh/retrievePolicyDetails', numPoliza).subscribe(
+      result => {
+        console.log(result);
 
+        switch (result.p2000030.codRamo) {
+          case 251:
+
+            this.propertyIssuance.mapRetrievePolicy(this.marsh, result).subscribe(
+              (resulta) => {
+                this.marsh = resulta;
+                this.retrivePolicyNavigate(result, action);
+                console.log("hey");
+                console.log(this.marsh);
+              });
+
+            break;
+          case 337:
+
+            this.paIssuance.mapRetrievePolicy(this.marsh, result).subscribe(
+              (resulta) => {
+                this.marsh = resulta;
+                this.retrivePolicyNavigate(result, action);
+                console.log("hey");
+                console.log(this.marsh);
+              });
+
+            break;
+          default:
+
+            this.motorIssuance.mapRetrievePolicy(this.marsh, result).subscribe(
+              (resulta) => {
+                this.marsh = resulta;
+                this.retrivePolicyNavigate(result, action);
+                console.log("hey");
+                console.log(this.marsh);
+              });
+
+            break;
+        }
+      });
+  }
+
+  retrivePolicyNavigate(result, action) {
+    if (this.marsh.premiumBreakdown) {
       this.templateRouter = action;
-
-      if(result.p2000030.mcaProvisional == "S"){
-
+      if (result.p2000030.mcaProvisional == "S") {
         this.marsh.techControl = result.techControlMessage.split("~");
         this.marsh = this.commonService.identifyTechControl(this.marsh);
 
         console.log(this.marsh);
 
         this.templateRouter = "techControl";
-      }else if(result.a2990700_mph.mcaCollectMivo == null){
+      } else if (result.a2990700_mph.mcaCollectMivo == null) {
         this.marsh.paymentReferenceNumber = result.a2990700_mph.numPaymentReference;
         this.templateRouter = "payment";
       }
@@ -232,65 +252,58 @@ export class IssuanceComponent implements OnInit {
       this.line = "motorQuotationIssuance";
       this.spinner.hide();
     }
-    
   }
 
-  retrieveQuote(numPoliza,type){
-      this.spinner.show();
-      this.caller.doCallService('/marsh/retrieveQuotationDetails',numPoliza).subscribe(
-        result => {
-          console.log(result);
-          
+  retrieveQuote(numPoliza, type) {
+    this.spinner.show();
+    this.caller.doCallService('/marsh/retrieveQuotationDetails', numPoliza).subscribe(
+      result => {
+        console.log(result);
 
-          switch(result.p2000030.codRamo){
-              case 251:
+        switch (result.p2000030.codRamo) {
+          case 251:
 
-              this.propertyIssuance.mapRetrieveQuote(this.marsh, result).subscribe( 
+            this.propertyIssuance.mapRetrieveQuote(this.marsh, result).subscribe(
               (resulta) => {
                 this.marsh = resulta;
-                this.retrieveQuoteNavigate(result,'householdQuotationIssuance');
+                this.retrieveQuoteNavigate(result, 'householdQuotationIssuance');
                 console.log("hey");
                 console.log(this.marsh);
               });
 
-              // this.marsh = this.motorIssuance.mapRetrieveQuote(this.marsh, result);
-              break;
-              case 337:
+            // this.marsh = this.motorIssuance.mapRetrieveQuote(this.marsh, result);
+            break;
+          case 337:
 
-              this.paIssuance.mapRetrieveQuote(this.marsh, result).subscribe( 
-              (resulta) => {
-                this.marsh = resulta; 
-                this.retrieveQuoteNavigate(result,'personalInformation');
-                console.log("hey");
-                console.log(this.marsh);
-              });
-
-              break;
-              default:
-
-              this.motorIssuance.mapRetrieveQuote(this.marsh, result).subscribe( 
+            this.paIssuance.mapRetrieveQuote(this.marsh, result).subscribe(
               (resulta) => {
                 this.marsh = resulta;
-                this.retrieveQuoteNavigate(result,'motorQuotationIssuance');
+                this.retrieveQuoteNavigate(result, 'personalInformation');
                 console.log("hey");
                 console.log(this.marsh);
               });
-              
-              break;
-          }
 
-          
+            break;
+          default:
 
+            this.motorIssuance.mapRetrieveQuote(this.marsh, result).subscribe(
+              (resulta) => {
+                this.marsh = resulta;
+                this.retrieveQuoteNavigate(result, 'motorQuotationIssuance');
+                console.log("hey");
+                console.log(this.marsh);
+              });
+
+            break;
+        }
       });
-
   }
 
-  retrieveQuoteNavigate(result,route){
-    
-    if(this.marsh.premiumBreakdown){
+  retrieveQuoteNavigate(result, route) {
+    if (this.marsh.premiumBreakdown) {
       this.assignP2161ToAccessory(result.p2100610List);
       this.templateRouter = "issueQuotation";
-      if(result.p2000030.mcaProvisional == "S"){
+      if (result.p2000030.mcaProvisional == "S") {
 
         this.marsh.techControl = result.techControlMessage.split("~");
         this.marsh = this.commonService.identifyTechControl(this.marsh);
@@ -302,18 +315,21 @@ export class IssuanceComponent implements OnInit {
       this.line = route;
       this.spinner.hide();
     }
-      
-
   }
 
-  sleep (time) {
+  sleep(time) {
     return new Promise((resolve) => setTimeout(resolve, time));
   }
 
-  assignP2161ToAccessory(p21006100){
+  applyProduct(product: number, description: String ) {
+    this.product = product;
+    this.description = description;
+  }
+
+  assignP2161ToAccessory(p21006100) {
     console.log(p21006100);
-    for(let i = 0; i < p21006100.length; i++){
-      let temp : MotorAccessories = new MotorAccessories();
+    for (let i = 0; i < p21006100.length; i++) {
+      let temp: MotorAccessories = new MotorAccessories();
 
       temp.accessoryId = p21006100[i]['codAccesorio'];
       temp.accessoryName = p21006100[i]['nomAccesorio'];
@@ -323,29 +339,31 @@ export class IssuanceComponent implements OnInit {
       // this.marsh.motorDetails.FMV = (parseInt(this.marsh.motorDetails.FMV) + parseInt(p21006100[i]['impAccesorio'])).toString();
 
       this.marsh.motorDetails.accessories.push(temp);
-      
     }
-
   }
 
-  backButtonAction(backButton){
+  backButtonAction(backButton) {
     this.backButton = backButton;
   }
 
-  nextStepAction(nextStep){
-  	this.templateRouter = nextStep;
+  productDetails(param: any) {
+    this.product = param.product;
+    this.description = param.description;
+  }
+
+  nextStepAction(nextStep) {
+    this.templateRouter = nextStep;
     this.scrollToTop();
   }
 
-  nextStepActionQuoteIssuance(nextStep){
+  nextStepActionQuoteIssuance(nextStep) {
     this.line = nextStep;
-    
 
     let type = "household";
     this.marsh.productId = "20008";
     this.marsh.lineId = "251";
 
-    if(this.line == "personalInformation"){
+    if (this.line == "personalInformation") {
       type = "personalAccident";
       this.marsh.productId = "33701";
       this.marsh.lineId = "337";
@@ -357,8 +375,8 @@ export class IssuanceComponent implements OnInit {
       result => {
         this.coverageList = [];
         let coverageHolder = result;
-        for(let c in coverageHolder){
-          for(let d in coverageHolder[c]){
+        for (let c in coverageHolder) {
+          for (let d in coverageHolder[c]) {
             this.coverage.benefit = coverageHolder[c][d].split(":=:")[1];
             this.coverage.coverages.push(coverageHolder[c][d].split(":=:")[2]);
           }
@@ -367,27 +385,26 @@ export class IssuanceComponent implements OnInit {
         }
 
         this.marsh.coverages = this.coverageList;
-    });
+      });
 
     this.templateRouter = nextStep;
     this.scrollToTop();
-    
   }
 
-  marshOutput(marshOutput){
+  marshOutput(marshOutput) {
     this.marsh = marshOutput;
   }
 
-  scrollToTop(){
+  scrollToTop() {
     let scrollToTop = window.setInterval(() => {
-        let pos = window.pageYOffset;
-        if (pos > 0) {
-            window.scrollTo(0, pos - 100); // how far to scroll on each step
-        } else {
-            window.clearInterval(scrollToTop);
-        }
+      let pos = window.pageYOffset;
+      if (pos > 0) {
+        window.scrollTo(0, pos - 100); // how far to scroll on each step
+      } else {
+        window.clearInterval(scrollToTop);
+      }
     }, 16);
-  } 
+  }
 
   // getLabel(id, anyList, cod, nom){
   //   let holder = "";

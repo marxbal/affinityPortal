@@ -1,11 +1,11 @@
 import {
   Injectable,
-  Input
+  // Input
 } from '@angular/core';
 import * as c from './../objects/const';
-import {
-  HttpClient
-} from '@angular/common/http';
+// import {
+//   HttpClient
+// } from '@angular/common/http';
 import {
   NgxSpinnerService
 } from 'ngx-spinner';
@@ -95,7 +95,7 @@ export class OTPService {
         //TODO
         //to be removed soon
         // localStorage.setItem("userCardId", this.user.accountNumber);
-        localStorage.setItem("userCardId", email);
+        // localStorage.setItem("userCardId", email);
 
         this.auth.setLogin("true");
         this.auth.setLandingPage("issuance");

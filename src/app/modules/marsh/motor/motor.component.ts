@@ -1,17 +1,45 @@
-import { Component, OnInit, HostListener, AfterViewInit, Input, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  // HostListener,
+  // AfterViewInit,
+  Input,
+  Output,
+  EventEmitter
+} from '@angular/core';
 import * as $ from 'jquery/dist/jquery.min';
-import * as dz from 'dropzone/dist/dropzone.js';
-import {AuthenticationService} from '../../../services/authentication.service';
-import {Router} from '@angular/router';
-import {ComponentCanDeactivate} from '../../../guard/component-can-deactivate';
-import {Marsh} from '../../../objects/marsh';
-import {MotorAccessories} from '../../../objects/motor-accessories';
-import {MarshCoverages} from '../../../objects/marsh-coverages';
+// import * as dz from 'dropzone/dist/dropzone.js';
+// import {
+//   AuthenticationService
+// } from '../../../services/authentication.service';
+// import {
+//   Router
+// } from '@angular/router';
+// import {
+//   ComponentCanDeactivate
+// } from '../../../guard/component-can-deactivate';
+import {
+  Marsh
+} from '../../../objects/marsh';
+import {
+  MotorAccessories
+} from '../../../objects/motor-accessories';
+import {
+  MarshCoverages
+} from '../../../objects/marsh-coverages';
 import * as m from 'moment';
-import {AuthService} from '../../../services/auth.service';
-import {CommonService} from '../../../services/common.service';
-import { NgxSpinnerService } from 'ngx-spinner';
-import {IsRequired} from '../../../guard/is-required';
+import {
+  AuthService
+} from '../../../services/auth.service';
+import {
+  CommonService
+} from '../../../services/common.service';
+import {
+  NgxSpinnerService
+} from 'ngx-spinner';
+import {
+  IsRequired
+} from '../../../guard/is-required';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -19,17 +47,20 @@ import Swal from 'sweetalert2';
   templateUrl: './motor.component.html',
   styleUrls: ['./motor.component.css']
 })
-export class MotorComponent  implements OnInit {
+export class MotorComponent implements OnInit {
 
-  constructor(private caller : AuthService,
+  constructor(private caller: AuthService,
     private spinner: NgxSpinnerService,
     private commonService: CommonService,
-    private checker : IsRequired) { }
+    private checker: IsRequired) {}
 
   @Input() marsh: Marsh;
   @Output() nextStep = new EventEmitter();
   @Output() marshOutput = new EventEmitter();
   @Output() backButton = new EventEmitter();
+
+  @Input() product: number;
+  @Input() description: String;
 
   accessory: MotorAccessories;
   coverageList: MarshCoverages[] = [];
@@ -41,85 +72,83 @@ export class MotorComponent  implements OnInit {
     currency: 'PHP',
   });
 
-  minRetro : String = m().subtract(6 , 'month').format('YYYY-MM-DD');
+  minRetro: String = m().subtract(6, 'month').format('YYYY-MM-DD');
 
   ngOnInit() {
+    this.selectProduct(this.product, this.description);
 
-  	if(!this.marsh){
+    if (!this.marsh) {
       this.marsh = new Marsh();
     }
 
     this.accessory = new MotorAccessories();
-    
+
     this.spinner.show();
 
-    this.caller.getLOV("A2100800","1",'').subscribe(
+    this.caller.getLOV("A2100800", "1", '').subscribe(
       result => {
         this.marsh.lov.colorLOV = result;
-    });
+      });
 
-    this.caller.getLOV("A1000101","1","").subscribe(
+    this.caller.getLOV("A1000101", "1", "").subscribe(
       result => {
         console.log(result);
-    });
+      });
 
     this.caller.getOptionList('EN', 'COD_NACIONALIDAD', '999').subscribe(
       result => {
         console.log(result);
-    });
+      });
 
     this.marsh.motorDetails.bodilyInjuryLimit = "200000";
     this.marsh.motorDetails.propertyDamageLimit = "200000";
 
     this.marsh.motorDetails.policyPeriodFrom = m().format('YYYY-MM-DD');
-    this.marsh.motorDetails.policyPeriodTo = m(this.marsh.motorDetails.policyPeriodFrom).add(1 , 'year').format('YYYY-MM-DD');
-
+    this.marsh.motorDetails.policyPeriodTo = m(this.marsh.motorDetails.policyPeriodFrom).add(1, 'year').format('YYYY-MM-DD');
 
     this.caller.doCallService("/marsh/getCoverageLimits?codRamo=100&codCob=1004", null).subscribe(
       result => {
         this.marsh.lov.bodilyInjuryLOV = result;
 
-        for(let i = 0; i < this.marsh.lov.bodilyInjuryLOV.length; i++){
+        for (let i = 0; i < this.marsh.lov.bodilyInjuryLOV.length; i++) {
           this.marsh.lov.bodilyInjuryLOV[i].impLimiteFormatted = this.formatter.format(parseFloat(this.marsh.lov.bodilyInjuryLOV[i].impLimite));
         }
 
-        this.marsh.lov.bodilyInjuryLOV.splice(-1,1);
-        this.marsh.lov.bodilyInjuryLOV.splice(-1,1);
-
-    });
+        this.marsh.lov.bodilyInjuryLOV.splice(-1, 1);
+        this.marsh.lov.bodilyInjuryLOV.splice(-1, 1);
+      });
 
     this.caller.doCallService("/marsh/getCoverageLimits?codRamo=100&codCob=1005", null).subscribe(
       result => {
         this.marsh.lov.propertyDamageLOV = result;
 
-        for(let i = 0; i < this.marsh.lov.propertyDamageLOV.length; i++){
+        for (let i = 0; i < this.marsh.lov.propertyDamageLOV.length; i++) {
           this.marsh.lov.propertyDamageLOV[i].impLimiteFormatted = this.formatter.format(parseFloat(this.marsh.lov.propertyDamageLOV[i].impLimite));
         }
 
-        this.marsh.lov.propertyDamageLOV.splice(-1,1);
-        this.marsh.lov.propertyDamageLOV.splice(-1,1);
-        
+        this.marsh.lov.propertyDamageLOV.splice(-1, 1);
+        this.marsh.lov.propertyDamageLOV.splice(-1, 1);
+
         this.spinner.hide();
-    });
+      });
 
   }
 
-  changePlateNumber(){
-
-    if(this.marsh.productId == "10002"){
+  changePlateNumber() {
+    if (this.marsh.productId == "10002") {
       this.marsh.motorDetails.policyPeriodFrom = m("2020-" + this.getMonthBasedOnPlate(this.marsh.motorDetails.plateNumber) + "-01").format('YYYY-MM-DD');
-      this.marsh.motorDetails.policyPeriodTo = m(this.marsh.motorDetails.policyPeriodFrom).add(1 , 'year').format('YYYY-MM-DD');
+      this.marsh.motorDetails.policyPeriodTo = m(this.marsh.motorDetails.policyPeriodFrom).add(1, 'year').format('YYYY-MM-DD');
     }
 
     this.validatePlateNumber();
   }
 
-  getMonthBasedOnPlate(plate:string){
-    var lastDigitPlate = plate.charAt(plate.length-1);
+  getMonthBasedOnPlate(plate: string) {
+    var lastDigitPlate = plate.charAt(plate.length - 1);
     let monthValue = "";
     switch (lastDigitPlate) {
       case "1":
-        monthValue = "02"//FEBRUARY 1 ending plate 1
+        monthValue = "02" //FEBRUARY 1 ending plate 1
         break;
       case "2":
         monthValue = "03" //MARCH 1 ending plate 2
@@ -147,7 +176,7 @@ export class MotorComponent  implements OnInit {
         break;
       case "0":
         monthValue = "11" //NOVEMBER 1 ending plate 0
-        break;                
+        break;
       default:
         monthValue = "01"
         break;
@@ -156,23 +185,23 @@ export class MotorComponent  implements OnInit {
     return monthValue;
   }
 
-  chooseVTPL(){
+  chooseVTPL() {
     this.marsh.motorDetails.propertyDamageLimit = this.marsh.motorDetails.bodilyInjuryLimit;
   }
 
-  chooseEffectivityDate(){
+  chooseEffectivityDate() {
     this.spinner.show();
-    this.marsh.motorDetails.policyPeriodTo = m(this.marsh.motorDetails.policyPeriodFrom).add(1 , 'year').format('YYYY-MM-DD');
-    
+    this.marsh.motorDetails.policyPeriodTo = m(this.marsh.motorDetails.policyPeriodFrom).add(1, 'year').format('YYYY-MM-DD');
+
     let isRetro = m().isAfter(this.marsh.motorDetails.policyPeriodFrom, 'day');
-    let isBelowSix = m(this.marsh.motorDetails.policyPeriodFrom).isBefore(m().subtract(6 , 'month'));
+    let isBelowSix = m(this.marsh.motorDetails.policyPeriodFrom).isBefore(m().subtract(6, 'month'));
 
     console.log(isBelowSix);
 
     $("#vehiclePhotosContainer").addClass("hidden");
-    this.spinner.hide(); 
+    this.spinner.hide();
 
-    if(!isRetro){
+    if (!isRetro) {
       return null;
     }
 
@@ -184,87 +213,77 @@ export class MotorComponent  implements OnInit {
       text: "Submission of current pictures of all sides of the motor vehicle is required for evaluation of acceptance of MAPFRE Insurance  prior to the issuance of the Policy."
     });
 
-    if(isBelowSix){
+    if (isBelowSix) {
       Swal.fire({
         type: 'error',
         title: 'Policy Issuance',
         text: "Effectivity date should not below Six (6) months from current date."
       });
       this.marsh.motorDetails.policyPeriodFrom = m().subtract(6, 'month').format('YYYY-MM-DD');
-      this.marsh.motorDetails.policyPeriodTo = m(this.marsh.motorDetails.policyPeriodFrom).add(1 , 'year').format('YYYY-MM-DD');
-      return null; 
+      this.marsh.motorDetails.policyPeriodTo = m(this.marsh.motorDetails.policyPeriodFrom).add(1, 'year').format('YYYY-MM-DD');
+      return null;
     }
-
-    
   }
 
-  chooseType(){
-
+  chooseType() {
     this.commonService.chooseType(
       this.marsh.motorDetails.motorTypeId
     ).subscribe(
-    (result) => {
-      this.marsh.lov.makeLOV = result
-    });
-
+      (result) => {
+        this.marsh.lov.makeLOV = result
+      });
   }
 
-  chooseMake(){
-
+  chooseMake() {
     this.commonService.chooseMake(
       this.marsh.motorDetails.motorTypeId,
       $("#manufacturerId").val().split("-")[0]
-    ).subscribe( 
-    (result) => {
-      this.marsh.lov.modelLOV = result;
-      this.marsh.motorDetails.modelIdHolder = "";
-      this.marsh.motorDetails.vehicleTypeIdHolder = "";
-      this.marsh.motorDetails.modelYear = "";
-      this.marsh.motorDetails.subModelIdHolder = "";
-      this.marsh.motorDetails.FMV = "";
+    ).subscribe(
+      (result) => {
+        this.marsh.lov.modelLOV = result;
+        this.marsh.motorDetails.modelIdHolder = "";
+        this.marsh.motorDetails.vehicleTypeIdHolder = "";
+        this.marsh.motorDetails.modelYear = "";
+        this.marsh.motorDetails.subModelIdHolder = "";
+        this.marsh.motorDetails.FMV = "";
 
-      this.marsh.lov.variantLOV = [];
-      this.marsh.lov.yearList = [];
-      this.marsh.lov.subModelLOV = [];
-
-    });
-
+        this.marsh.lov.variantLOV = [];
+        this.marsh.lov.yearList = [];
+        this.marsh.lov.subModelLOV = [];
+      });
   }
 
-  chooseModel(){
-
+  chooseModel() {
     this.commonService.chooseModel(
       $("#manufacturerId").val().split("-")[0],
       $("#modelId").val().split("-")[0]
-    ).subscribe( 
-    (result) => {
-      this.marsh.lov.variantLOV = result;
-      this.marsh.motorDetails.vehicleTypeIdHolder = "";
-      this.marsh.motorDetails.modelYear = "";
-      this.marsh.motorDetails.subModelIdHolder = "";
-      this.marsh.motorDetails.FMV = "";
+    ).subscribe(
+      (result) => {
+        this.marsh.lov.variantLOV = result;
+        this.marsh.motorDetails.vehicleTypeIdHolder = "";
+        this.marsh.motorDetails.modelYear = "";
+        this.marsh.motorDetails.subModelIdHolder = "";
+        this.marsh.motorDetails.FMV = "";
 
-      this.marsh.lov.yearList = [];
-      this.marsh.lov.subModelLOV = [];
-    });
-
+        this.marsh.lov.yearList = [];
+        this.marsh.lov.subModelLOV = [];
+      });
   }
 
-  chooseVariant(){
-
+  chooseVariant() {
     this.commonService.chooseVariant(
       $("#manufacturerId").val().split("-")[0],
       $("#modelId").val().split("-")[0],
       $("#vehicleTypeId").val().split("-")[0]
-    ).subscribe( 
-    (result) => {
-      this.marsh.lov.yearList = result;
-      this.marsh.motorDetails.modelYear = "";
-      this.marsh.motorDetails.subModelIdHolder = "";
-      this.marsh.motorDetails.FMV = "";
+    ).subscribe(
+      (result) => {
+        this.marsh.lov.yearList = result;
+        this.marsh.motorDetails.modelYear = "";
+        this.marsh.motorDetails.subModelIdHolder = "";
+        this.marsh.motorDetails.FMV = "";
 
-      this.marsh.lov.subModelLOV = [];
-    });
+        this.marsh.lov.subModelLOV = [];
+      });
 
     this.marsh.lineId = this.commonService.selectSubline($("#vehicleTypeId").val().split("-")[0]).split("-")[1];
     this.marsh.motorDetails.motorTypeId = this.commonService.selectSubline($("#vehicleTypeId").val().split("-")[0]).split("-")[1];
@@ -274,23 +293,21 @@ export class MotorComponent  implements OnInit {
     this.commonService.loadAccessories(
       $("#vehicleTypeId").val().split("-")[0],
       this.marsh.motorDetails.validityDate
-    ).subscribe( 
-    (result) => {
-      this.marsh.lov.accessoryLOV = result;
-    });    
-
+    ).subscribe(
+      (result) => {
+        this.marsh.lov.accessoryLOV = result;
+      });
   }
 
-  chooseModelYear(){
+  chooseModelYear() {
     $("#vehiclePhotosContainer").addClass("hidden");
-    if((m().year() - parseInt(this.marsh.motorDetails.modelYear)) > 8 ){
+    if ((m().year() - parseInt(this.marsh.motorDetails.modelYear)) > 8) {
 
       Swal.fire({
         type: 'warning',
         title: 'Policy Issuance',
         text: "Vehicle more than eight (8) years old is subject to approval. Submission of current pictures of all sides of the risk is required for evaluation of acceptance of MAPFRE Insurance prior issuance of policy."
       });
-
     }
 
     this.commonService.chooseModelYear(
@@ -298,40 +315,37 @@ export class MotorComponent  implements OnInit {
       $("#modelId").val().split("-")[0],
       $("#vehicleTypeId").val().split("-")[0],
       this.marsh.motorDetails.modelYear
-    ).subscribe( 
-    (result) => {
-      this.marsh.lov.subModelLOV = result;
-      this.marsh.motorDetails.FMV = "";
-    });    
-
+    ).subscribe(
+      (result) => {
+        this.marsh.lov.subModelLOV = result;
+        this.marsh.motorDetails.FMV = "";
+      });
   }
 
-  chooseSubModel(){
-
+  chooseSubModel() {
     this.commonService.chooseSubModel(
       this.marsh.motorDetails.motorTypeId,
       $("#manufacturerId").val().split("-")[0],
       $("#modelId").val().split("-")[0],
       $("#vehicleTypeId").val().split("-")[0],
       this.marsh.motorDetails.modelYear
-    ).subscribe( 
-    (result) => {
-      this.marsh.lov.typeOfUseLOV = result
-    });    
+    ).subscribe(
+      (result) => {
+        this.marsh.lov.typeOfUseLOV = result
+      });
 
     this.commonService.loadFMV(
       $("#manufacturerId").val().split("-")[0],
       $("#modelId").val().split("-")[0],
       $("#subModelId").val().split("-")[0],
       this.marsh.motorDetails.modelYear
-    ).subscribe( 
-    (result) => {
-      this.marsh.motorDetails.FMV = result
-    });
-
+    ).subscribe(
+      (result) => {
+        this.marsh.motorDetails.FMV = result
+      });
   }
 
-  chooseAccessory(){
+  chooseAccessory() {
     this.accessory.accessoryValue = this.accessory.accessoryIdHolder.split("-")[2];
   }
 
@@ -339,59 +353,54 @@ export class MotorComponent  implements OnInit {
     console.log(event);
     this.marsh.motorDetails.vehiclePhotos.push(...event.addedFiles);
   }
-   
+
   onRemove(event) {
     console.log(event);
     this.marsh.motorDetails.vehiclePhotos.splice(this.marsh.motorDetails.vehiclePhotos.indexOf(event), 1);
   }
 
-  addAccessory(){
+  addAccessory() {
     let accessoryy = this.accessory.accessoryIdHolder;
     this.accessory.accessoryId = accessoryy.split("-")[0];
     this.accessory.accessoryName = accessoryy.split("-")[1];
-
     // this.marsh.motorDetails.FMV = (parseInt(this.marsh.motorDetails.FMV) + parseInt(this.accessory.accessoryValue)).toString();
-
     this.marsh.motorDetails.accessories.push(this.accessory);
     this.accessory = new MotorAccessories();
     console.log(this.marsh.motorDetails.accessories);
   }
 
-  removeAccessory(accessory: MotorAccessories){
+  removeAccessory(accessory: MotorAccessories) {
     const index: number = this.marsh.motorDetails.accessories.indexOf(accessory);
-
     // this.marsh.motorDetails.FMV = (parseInt(this.marsh.motorDetails.FMV) - parseInt(accessory.accessoryValue)).toString();
-
     if (index !== -1) {
       this.marsh.motorDetails.accessories.splice(index, 1);
     }
   }
 
-  selectProduct(product,description){
+  selectProduct(product, description) {
     this.marsh.motorDetails.productId = product;
     this.marsh.productId = product;
-    this.marsh.motorDetails.motorTypeIdHolder = "100-PRIVATE CAR"; 
-    this.marsh.motorDetails.motorTypeId = "100"; 
-    this.marsh.motorDetails.motorType = "PRIVATE CAR"; 
-    this.viewCoverage(description,'');
+    this.marsh.motorDetails.motorTypeIdHolder = "100-PRIVATE CAR";
+    this.marsh.motorDetails.motorTypeId = "100";
+    this.marsh.motorDetails.motorType = "PRIVATE CAR";
+    this.viewCoverage(description, '');
     this.chooseType();
- 
+
     this.commonService.sleep(1000).then(() => {
-      this.commonService.scrollToElement("tellUsVehicle",500);
+      this.commonService.scrollToElement("tellUsVehicle", 500);
     });
 
     $("#compreCard").removeClass("card-shadow");
     $("#ctplCard").removeClass("card-shadow");
 
-    if(this.marsh.productId == "10001"){
+    if (this.marsh.productId == "10001") {
       $("#compreCard").addClass("card-shadow");
-    }else{
+    } else {
       $("#ctplCard").addClass("card-shadow");
     }
-
   }
 
-  viewCoverage(type,description){
+  viewCoverage(type, description) {
     this.spinner.show();
     this.title = description;
 
@@ -399,34 +408,28 @@ export class MotorComponent  implements OnInit {
       result => {
         this.coverageList = [];
         let coverageHolder = result;
-        for(let c in coverageHolder){
-          for(let d in coverageHolder[c]){
+        for (let c in coverageHolder) {
+          for (let d in coverageHolder[c]) {
             this.coverage.benefit = coverageHolder[c][d].split(":=:")[1];
             this.coverage.coverages.push(coverageHolder[c][d].split(":=:")[2]);
           }
           this.coverageList.push(this.coverage);
           this.coverage = new MarshCoverages();
-          
+
         }
         this.spinner.hide();
         this.marsh.coverages = this.coverageList;
-    });
-
+      });
   }
 
-  nextStepAction(){
-
-    
-    
-    if(this.checker.checkIfRequired('motor-quote') == "1"){
-
-      if(this.marsh.productId == "10002"){
+  nextStepAction() {
+    if (this.checker.checkIfRequired('motor-quote') == "1") {
+      if (this.marsh.productId == "10002") {
         let currentYearDiff = (m().year() - parseInt(this.marsh.motorDetails.modelYear));
         let incepExpiryDiff = m(new Date(this.marsh.motorDetails.policyPeriodTo)).diff(new Date(this.marsh.motorDetails.policyPeriodFrom), 'months', true);
-        
 
-        if(currentYearDiff <= 2){
-          if(incepExpiryDiff != 36){
+        if (currentYearDiff <= 2) {
+          if (incepExpiryDiff != 36) {
             Swal.fire({
               type: 'error',
               title: 'Quotation Issuance',
@@ -434,8 +437,8 @@ export class MotorComponent  implements OnInit {
             });
             return null;
           }
-        }else{
-          if(incepExpiryDiff < 12 || incepExpiryDiff > 23){
+        } else {
+          if (incepExpiryDiff < 12 || incepExpiryDiff > 23) {
             Swal.fire({
               type: 'error',
               title: 'Quotation Issuance',
@@ -444,10 +447,9 @@ export class MotorComponent  implements OnInit {
             return null;
           }
         }
-        
       }
 
-      if(!this.marsh.motorDetails.plateNumber && !this.marsh.motorDetails.conductionNumber){
+      if (!this.marsh.motorDetails.plateNumber && !this.marsh.motorDetails.conductionNumber) {
         Swal.fire({
           type: 'error',
           title: 'Quotation Issuance',
@@ -458,72 +460,68 @@ export class MotorComponent  implements OnInit {
 
       let pass = "0";
 
-      if(this.marsh.motorDetails.plateNumber){
-        if(!this.validatePlateNumber()){
+      if (this.marsh.motorDetails.plateNumber) {
+        if (!this.validatePlateNumber()) {
           return null;
         }
 
         pass = "1";
       }
 
-      if(this.marsh.motorDetails.conductionNumber || pass == "0"){
-        if(!this.validateConduction()){
+      if (this.marsh.motorDetails.conductionNumber || pass == "0") {
+        if (!this.validateConduction()) {
           return null;
         }
       }
 
-      if(!this.validateEngine()){
+      if (!this.validateEngine()) {
         return null;
       }
 
-      if(!this.validateChassis()){
+      if (!this.validateChassis()) {
         return null;
       }
       let totalCheck = 0;
-      if(this.marsh.motorDetails.accessories.length > 0){
-        for(let i = 0; i < this.marsh.motorDetails.accessories.length; i++){
+      if (this.marsh.motorDetails.accessories.length > 0) {
+        for (let i = 0; i < this.marsh.motorDetails.accessories.length; i++) {
           totalCheck = totalCheck + parseFloat(this.marsh.motorDetails.accessories[i].accessoryValue);
         }
       }
       totalCheck = totalCheck + parseFloat(this.marsh.motorDetails.FMV);
 
-      if(totalCheck > 5000000){
+      if (totalCheck > 5000000) {
 
-      Swal.fire({
-      title: 'Quotation Issuance',
-      text: "Motor vehicle with more than 5 million total sum insured requires underwriting approval.",
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#d31d29',
-      cancelButtonColor: '#d33',
-      cancelButtonText: 'Revise Values',
-      confirmButtonText: 'Proceed to Next Step'
-      }).then((result) => {
+        Swal.fire({
+          title: 'Quotation Issuance',
+          text: "Motor vehicle with more than 5 million total sum insured requires underwriting approval.",
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#d31d29',
+          cancelButtonColor: '#d33',
+          cancelButtonText: 'Revise Values',
+          confirmButtonText: 'Proceed to Next Step'
+        }).then((result) => {
 
-         if(!result.value){
-          return null;
-        }
+          if (!result.value) {
+            return null;
+          }
 
+          this.nextStep.emit("personalInformation");
+          this.backButton.emit("motorQuotationIssuance");
+          this.marshOutput.emit(this.marsh);
+
+        });
+
+      } else {
         this.nextStep.emit("personalInformation");
         this.backButton.emit("motorQuotationIssuance");
         this.marshOutput.emit(this.marsh);
-
-      });
-
-    }else{
-      this.nextStep.emit("personalInformation");
-      this.backButton.emit("motorQuotationIssuance");
-      this.marshOutput.emit(this.marsh);
+      }
     }
-
-
-      
-    }
-
   }
 
-  validatePlateNumber(){
-    if(this.marsh.productId == "10002"){
+  validatePlateNumber() {
+    if (this.marsh.productId == "10002") {
       return true;
     }
 
@@ -531,79 +529,80 @@ export class MotorComponent  implements OnInit {
 
     this.marsh.motorDetails.plateNumber = this.marsh.motorDetails.plateNumber.toUpperCase();
 
-      let valid = userKeyRegExpPlate.test(this.marsh.motorDetails.plateNumber);
+    let valid = userKeyRegExpPlate.test(this.marsh.motorDetails.plateNumber);
 
-      if(!valid){
-        Swal.fire({
-          type: 'error',
-          title: 'Policy Issuance',
-          text: "Invalid Plate Number format, please make sure you follow the format ABC1234."
-        });
-        
-      }
+    if (!valid) {
+      Swal.fire({
+        type: 'error',
+        title: 'Policy Issuance',
+        text: "Invalid Plate Number format, please make sure you follow the format ABC1234."
+      });
 
-      return valid;
+    }
+
+    return valid;
   }
 
-  validateEngine(){
+  validateEngine() {
     let valid = this.validateEngineChassis(this.marsh.motorDetails.motorNumber);
-   if(!valid){
-    Swal.fire({
-      type: 'error',
-      title: 'Policy Issuance',
-      text: "Invalid Engine Number format, please make sure Engine Number includes number and alphabet characters."
-    });
+    if (!valid) {
+      Swal.fire({
+        type: 'error',
+        title: 'Policy Issuance',
+        text: "Invalid Engine Number format, please make sure Engine Number includes number and alphabet characters."
+      });
 
-   }
-   return valid;
+    }
+    return valid;
   }
 
-  validateChassis(){
+  validateChassis() {
     let valid = this.validateEngineChassis(this.marsh.motorDetails.serialNumber);
-   if(!valid){
-    Swal.fire({
-      type: 'error',
-      title: 'Policy Issuance',
-      text: "Invalid Chassis Number format, please make sure Chassis Number includes number and alphabet characters."
-    });
-   }
-   return valid;
+    if (!valid) {
+      Swal.fire({
+        type: 'error',
+        title: 'Policy Issuance',
+        text: "Invalid Chassis Number format, please make sure Chassis Number includes number and alphabet characters."
+      });
+    }
+    return valid;
   }
 
-  validateEngineChassis(numb){
+  validateEngineChassis(numb) {
     const alphaNumeric = /^(?=.*[a-zA-Z])(?=.*[0-9])[A-Za-z0-9]+$/;
 
-    if(numb.length < 5){ return false; }
-    if(!alphaNumeric.test(numb)){ return false; }
+    if (numb.length < 5) {
+      return false;
+    }
+    if (!alphaNumeric.test(numb)) {
+      return false;
+    }
 
     return true;
-
   }
 
-  validateConduction(){
+  validateConduction() {
 
     const userKeyRegExpConduction = /^[A-Z]{2}[0-9]{4}?$/;
 
     this.marsh.motorDetails.conductionNumber = this.marsh.motorDetails.conductionNumber.toUpperCase();
 
-      let validCond = userKeyRegExpConduction.test(this.marsh.motorDetails.conductionNumber);
+    let validCond = userKeyRegExpConduction.test(this.marsh.motorDetails.conductionNumber);
 
-      if(!validCond){
-        Swal.fire({
-          type: 'error',
-          title: 'Policy Issuance',
-          text: "Invalid Conduction Number format, please make sure you follow the format AB1234."
-        });
-        
-      }
+    if (!validCond) {
+      Swal.fire({
+        type: 'error',
+        title: 'Policy Issuance',
+        text: "Invalid Conduction Number format, please make sure you follow the format AB1234."
+      });
+    }
 
-      return validCond;
+    return validCond;
   }
 
-  backButtonAction(){
+  backButtonAction() {
     this.nextStep.emit("initialize");
     this.backButton.emit("");
     this.marshOutput.emit(this.marsh);
   }
-
 }
