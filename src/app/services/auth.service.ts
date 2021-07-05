@@ -77,7 +77,7 @@ export class AuthService {
     headers = headers.set('Authorization', 'Basic ' + btoa(c.CLIENT + ':' + c.SECRET));
     headers = headers.set(InterceptorSkipHeader, '');
 
-    return this.http.post(this.apiUrl + "oauth/token", body, {
+    return this.http.post(this.apiUrl + "/oauth/token", body, {
         headers
       })
       .pipe(map((res: any) => {
