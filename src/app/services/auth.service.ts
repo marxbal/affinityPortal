@@ -189,7 +189,7 @@ export class AuthService {
     headers = headers.set(InterceptorSkipHeader, '');
 
     let tempAct = action;
-    if (action.includes("afnty/")) {
+    if (action.includes("/afnty/")) {
       action = this.apiUrl + tempAct;
     }
     return this.http.post(action, param, {
@@ -216,7 +216,7 @@ export class AuthService {
     let au = this;
 
     let tempAct = action;
-    if (action.includes("afnty/")) {
+    if (action.includes("/afnty/")) {
       action = this.apiUrl + tempAct;
     }
 
@@ -273,7 +273,7 @@ export class AuthService {
   }
 
   checkWsdl() {
-    return this.http.post(this.apiUrl + 'afnty/cocaf/checkWsdl', '', {
+    return this.http.post(this.apiUrl + '/afnty/cocaf/checkWsdl', '', {
       responseType: "text"
     }).pipe(
       map((res: string) => {
@@ -288,7 +288,7 @@ export class AuthService {
       "columnName": columnName,
       "param": params
     };
-    return this.http.post(this.apiUrl + "afnty/getOptionList", param)
+    return this.http.post(this.apiUrl + "/afnty/getOptionList", param)
       .pipe(map((res: any) => {
         if (res) {
           return res;
@@ -316,7 +316,7 @@ export class AuthService {
       "version": version,
       "params": params
     };
-    return this.http.post(this.apiUrl + "afnty/getLOV", param)
+    return this.http.post(this.apiUrl + "/afnty/getLOV", param)
       .pipe(map((res: any) => {
         if (res) {
           return res;
@@ -362,7 +362,7 @@ export class AuthService {
   generatePDFTW(url, param: any): Observable < any > {
 
     let tempAct = url;
-    if (url.includes("afnty/")) {
+    if (url.includes("/afnty/")) {
       url = this.apiUrl + tempAct;
     }
 

@@ -134,7 +134,7 @@ export class PropertyIssuanceService {
 
       });
 
-      this.caller.doCallService("afnty/coverage/getCoverageDescriptions", type).subscribe(
+      this.caller.doCallService("/afnty/coverage/getCoverageDescriptions", type).subscribe(
         coverages => {
           this.coverageList = [];
           let coverageHolder = coverages;
@@ -152,11 +152,11 @@ export class PropertyIssuanceService {
 
       let ret : any = new BehaviorSubject<any>([]);
 
-      this.caller.doCallService('afnty/getPaymentBreakdown?numPoliza='+ this.propertyMarsh.quotationNumber +'&type=C',null).subscribe(
+      this.caller.doCallService('/afnty/getPaymentBreakdown?numPoliza='+ this.propertyMarsh.quotationNumber +'&type=C',null).subscribe(
 		paymentBreakdown => {
 		  this.propertyMarsh.premiumBreakdown = paymentBreakdown;
 
-      this.caller.doCallService('afnty/getBuildings',null).subscribe(
+      this.caller.doCallService('/afnty/getBuildings',null).subscribe(
         result => {
           console.log(result);
           this.propertyMarsh.lov.buildingsLOV = result;
@@ -278,7 +278,7 @@ export class PropertyIssuanceService {
 
       let ret : any = new BehaviorSubject<any>([]);
 
-      this.caller.doCallService("afnty/coverage/getCoverageDescriptions", type).subscribe(
+      this.caller.doCallService("/afnty/coverage/getCoverageDescriptions", type).subscribe(
         coverages => {
           this.coverageList = [];
           let coverageHolder = coverages;
@@ -293,12 +293,12 @@ export class PropertyIssuanceService {
  
           this.propertyMarsh.coverages = this.coverageList;
 
-          this.caller.doCallService('afnty/getPaymentBreakdown?numPoliza='+ this.propertyMarsh.policyNumber +'&type=P',null).subscribe(
+          this.caller.doCallService('/afnty/getPaymentBreakdown?numPoliza='+ this.propertyMarsh.policyNumber +'&type=P',null).subscribe(
             paymentBreakdown => {
                 this.propertyMarsh.premiumBreakdown = paymentBreakdown;
                 console.log(this.propertyMarsh.premiumBreakdown);
 
-                this.caller.doCallService('afnty/getBuildings',null).subscribe(
+                this.caller.doCallService('/afnty/getBuildings',null).subscribe(
                   result => {
                     console.log(result);
                     this.propertyMarsh.lov.buildingsLOV = result;

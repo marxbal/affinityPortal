@@ -47,7 +47,7 @@ export class PropertyComponent implements OnInit {
       this.marsh = new Marsh();
     }
 
-    this.caller.doCallService('afnty/getBuildings',null).subscribe(
+    this.caller.doCallService('/afnty/getBuildings',null).subscribe(
       result => {
         console.log(result);
         this.marsh.lov.buildingsLOV = result;
@@ -188,7 +188,7 @@ export class PropertyComponent implements OnInit {
     this.spinner.show();
     this.title = description;
 
-    this.caller.doCallService("afnty/coverage/getCoverageDescriptions", type).subscribe(
+    this.caller.doCallService("/afnty/coverage/getCoverageDescriptions", type).subscribe(
       result => {
         this.coverageList = [];
         console.log(result);

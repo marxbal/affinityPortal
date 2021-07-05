@@ -70,7 +70,7 @@ export class TechnicalControlComponent implements OnInit {
 
     if(this.marsh.productId == "10002"){
 
-      this.caller.doCallService("afnty/cocaf/checkWsdl", null).subscribe(
+      this.caller.doCallService("/afnty/cocaf/checkWsdl", null).subscribe(
         result => {
           console.log(result);
           if(result != ""){

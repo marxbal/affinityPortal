@@ -106,7 +106,7 @@ export class MotorComponent implements OnInit {
     this.marsh.motorDetails.policyPeriodFrom = m().format('YYYY-MM-DD');
     this.marsh.motorDetails.policyPeriodTo = m(this.marsh.motorDetails.policyPeriodFrom).add(1, 'year').format('YYYY-MM-DD');
 
-    this.caller.doCallService("afnty/getCoverageLimits?codRamo=100&codCob=1004", null).subscribe(
+    this.caller.doCallService("/afnty/getCoverageLimits?codRamo=100&codCob=1004", null).subscribe(
       result => {
         this.marsh.lov.bodilyInjuryLOV = result;
 
@@ -118,7 +118,7 @@ export class MotorComponent implements OnInit {
         this.marsh.lov.bodilyInjuryLOV.splice(-1, 1);
       });
 
-    this.caller.doCallService("afnty/getCoverageLimits?codRamo=100&codCob=1005", null).subscribe(
+    this.caller.doCallService("/afnty/getCoverageLimits?codRamo=100&codCob=1005", null).subscribe(
       result => {
         this.marsh.lov.propertyDamageLOV = result;
 
@@ -404,7 +404,7 @@ export class MotorComponent implements OnInit {
     this.spinner.show();
     this.title = description;
 
-    this.caller.doCallService("marsh/coverage/getCoverageDescriptions", type).subscribe(
+    this.caller.doCallService("/afnty/coverage/getCoverageDescriptions", type).subscribe(
       result => {
         this.coverageList = [];
         let coverageHolder = result;

@@ -70,7 +70,7 @@ export class PersonalAccidentIssuanceService {
 
     });
 
-    this.caller.doCallService("afnty/coverage/getCoverageDescriptions", "personalAccident").subscribe(
+    this.caller.doCallService("/afnty/coverage/getCoverageDescriptions", "personalAccident").subscribe(
       coverages => {
         this.coverageList = [];
         let coverageHolder = coverages;
@@ -88,7 +88,7 @@ export class PersonalAccidentIssuanceService {
 
     let ret : any = new BehaviorSubject<any>([]);
 
-    this.caller.doCallService('afnty/getPaymentBreakdown?numPoliza='+ this.paMarsh.quotationNumber +'&type=C',null).subscribe(
+    this.caller.doCallService('/afnty/getPaymentBreakdown?numPoliza='+ this.paMarsh.quotationNumber +'&type=C',null).subscribe(
 		paymentBreakdown => {
       console.log(paymentBreakdown);
 		  this.paMarsh.premiumBreakdown = paymentBreakdown;
@@ -141,7 +141,7 @@ export class PersonalAccidentIssuanceService {
 
         });
 
-        this.caller.doCallService("afnty/coverage/getCoverageDescriptions", "personalAccident").subscribe(
+        this.caller.doCallService("/afnty/coverage/getCoverageDescriptions", "personalAccident").subscribe(
           coverages => {
             this.coverageList = [];
             let coverageHolder = coverages;
@@ -159,7 +159,7 @@ export class PersonalAccidentIssuanceService {
 
         let ret : any = new BehaviorSubject<any>([]);
 
-        this.caller.doCallService('afnty/getPaymentBreakdown?numPoliza='+ this.paMarsh.policyNumber +'&type=P',null).subscribe(
+        this.caller.doCallService('/afnty/getPaymentBreakdown?numPoliza='+ this.paMarsh.policyNumber +'&type=P',null).subscribe(
       paymentBreakdown => {
         this.paMarsh.premiumBreakdown = paymentBreakdown;
         ret.next(this.paMarsh);
