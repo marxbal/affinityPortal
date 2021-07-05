@@ -132,7 +132,7 @@ export class MotorIssuanceService {
 
       });
 
-      this.caller.doCallService("/marsh/coverage/getCoverageDescriptions", type).subscribe(
+      this.caller.doCallService("afnty/coverage/getCoverageDescriptions", type).subscribe(
         coverages => {
           this.coverageList = [];
           let coverageHolder = coverages;
@@ -162,7 +162,7 @@ export class MotorIssuanceService {
 
       let ret : any = new BehaviorSubject<any>([]);
 
-      this.caller.doCallService('/marsh/getPaymentBreakdown?numPoliza='+ this.motorMarsh.quotationNumber +'&type=C',null).subscribe(
+      this.caller.doCallService('afnty/getPaymentBreakdown?numPoliza='+ this.motorMarsh.quotationNumber +'&type=C',null).subscribe(
 		paymentBreakdown => {
 		  this.motorMarsh.premiumBreakdown = paymentBreakdown;
 		  ret.next(this.motorMarsh);
@@ -285,7 +285,7 @@ export class MotorIssuanceService {
 
       let ret : any = new BehaviorSubject<any>([]);
 
-      this.caller.doCallService("/marsh/coverage/getCoverageDescriptions", type).subscribe(
+      this.caller.doCallService("afnty/coverage/getCoverageDescriptions", type).subscribe(
         coverages => {
           this.coverageList = [];
           let coverageHolder = coverages;
@@ -300,7 +300,7 @@ export class MotorIssuanceService {
 
           this.motorMarsh.coverages = this.coverageList;
 
-          this.caller.doCallService('/marsh/getPaymentBreakdown?numPoliza='+ this.motorMarsh.policyNumber +'&type=P',null).subscribe(
+          this.caller.doCallService('afnty/getPaymentBreakdown?numPoliza='+ this.motorMarsh.policyNumber +'&type=P',null).subscribe(
             paymentBreakdown => {
                 this.motorMarsh.premiumBreakdown = paymentBreakdown;
                 console.log(this.motorMarsh.premiumBreakdown);

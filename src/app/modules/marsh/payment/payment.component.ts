@@ -65,7 +65,7 @@ export class PaymentComponent implements OnInit {
     pDTO.grossPrem = this.grossPremSend;
     pDTO.numRecibo = this.marsh.premiumBreakdown.numRecibo;
     console.log(pDTO);
-    this.caller.doCallService('/marsh/Payment/Request',pDTO).subscribe(
+    this.caller.doCallService('afnty/Payment/Request',pDTO).subscribe(
       response => {
         var mapForm = document.createElement("form");
         mapForm.method = "POST"; // or "post" if appropriate

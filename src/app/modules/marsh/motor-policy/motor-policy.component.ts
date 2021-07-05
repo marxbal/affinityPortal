@@ -50,7 +50,7 @@ export class MotorPolicyComponent  implements OnInit {
         this.marsh.lov.colorLOV = result;
     });
 
-    this.caller.doCallService('/marsh/getMortgagees',null).subscribe(
+    this.caller.doCallService('afnty/getMortgagees',null).subscribe(
       result => {
         this.marsh.lov.mortgageeLOV = result;
     });
@@ -342,7 +342,7 @@ export class MotorPolicyComponent  implements OnInit {
       console.log(result);
       this.marsh.lov.typeOfUseLOV = result;
 
-      this.caller.doCallService('/marsh/getFMV?codCia=1&codMarca='+ 
+      this.caller.doCallService('afnty/getFMV?codCia=1&codMarca='+ 
                                   this.marsh.motorDetails.manufacturerId + '&codModelo=' +
                                   this.marsh.motorDetails.modelId + '&codSubModelo=' +
                                   this.marsh.motorDetails.subModelId + '&anioSubModelo='+

@@ -159,7 +159,7 @@ export class CommonService {
     
     let ret : any = new BehaviorSubject<any>([]);
     this.spinner.show();
-    this.caller.doCallService('/marsh/getCoveragesByPolicy?type='+ type
+    this.caller.doCallService('afnty/getCoveragesByPolicy?type='+ type
           + "&numPoliza=" + numPoliza + '&codRamo='+ codRamo,null).subscribe(
         result => {
           ret.next(result);
@@ -174,7 +174,7 @@ export class CommonService {
     
     let ret : any = new BehaviorSubject<any>([]);
     this.spinner.show();
-    this.caller.doCallService('/marsh/getCoverageByProduct?validityDate='+ validityDate
+    this.caller.doCallService('afnty/getCoverageByProduct?validityDate='+ validityDate
           + "&productId=" + productId + '&codRamo='+ motorTypeId + "&codCia=1",null).subscribe(
         result => {
           ret.next(result);
@@ -189,7 +189,7 @@ export class CommonService {
     
     let ret : any = new BehaviorSubject<any>([]);
     this.spinner.show();
-    this.caller.doCallService('/marsh/getFMV?codCia=1&codMarca='+ 
+    this.caller.doCallService('afnty/getFMV?codCia=1&codMarca='+ 
       manufacturerId + '&codModelo=' +
       modelId + '&codSubModelo=' +
       subModelId + '&anioSubModelo='+

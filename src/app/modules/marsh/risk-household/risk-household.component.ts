@@ -84,7 +84,7 @@ export class RiskHouseholdComponent implements OnInit {
         
     });
 
-    this.caller.doCallService('/marsh/getMortgagees',null).subscribe(
+    this.caller.doCallService('afnty/getMortgagees',null).subscribe(
       result => {
         this.marsh.lov.mortgageeLOV = result;
     });
@@ -406,7 +406,7 @@ export class RiskHouseholdComponent implements OnInit {
       };
       console.log(param);
       this.spinner.show();
-      this.caller.doCallService('/marsh/issuePolicy',param).subscribe(
+      this.caller.doCallService('afnty/issuePolicy',param).subscribe(
         result => {
           console.log(result);
 
@@ -432,7 +432,7 @@ export class RiskHouseholdComponent implements OnInit {
               if(this.marsh.techControlLevel == "1"){
                 window.open(result.message, "_self");
               }else{
-                this.caller.doCallService('/marsh/getPaymentBreakdown?numPoliza='+ result.message +'&type=P',null).subscribe(
+                this.caller.doCallService('afnty/getPaymentBreakdown?numPoliza='+ result.message +'&type=P',null).subscribe(
                 paymentBreakdown => {
                   this.marsh.premiumBreakdown = paymentBreakdown;
                   this.getCoverages(result.message, this.marsh, "techControl");

@@ -183,7 +183,7 @@ export class IssuanceComponent implements OnInit {
   }
 
   validateGlobalPay(params, numPoliza) {
-    this.caller.doCallService('/marsh/validateGlobalPay', params).subscribe(
+    this.caller.doCallService('afnty/validateGlobalPay', params).subscribe(
       result => {
         this.returnPayment(numPoliza, "policy");
         console.log(result);
@@ -192,7 +192,7 @@ export class IssuanceComponent implements OnInit {
 
   returnPayment(numPoliza, action) {
     this.spinner.show();
-    this.caller.doCallService('/marsh/retrievePolicyDetails', numPoliza).subscribe(
+    this.caller.doCallService('afnty/retrievePolicyDetails', numPoliza).subscribe(
       result => {
         console.log(result);
 
@@ -256,7 +256,7 @@ export class IssuanceComponent implements OnInit {
 
   retrieveQuote(numPoliza, type) {
     this.spinner.show();
-    this.caller.doCallService('/marsh/retrieveQuotationDetails', numPoliza).subscribe(
+    this.caller.doCallService('afnty/retrieveQuotationDetails', numPoliza).subscribe(
       result => {
         console.log(result);
 
@@ -371,7 +371,7 @@ export class IssuanceComponent implements OnInit {
 
     console.log(type);
 
-    this.caller.doCallService("/marsh/coverage/getCoverageDescriptions", type).subscribe(
+    this.caller.doCallService("afnty/coverage/getCoverageDescriptions", type).subscribe(
       result => {
         this.coverageList = [];
         let coverageHolder = result;

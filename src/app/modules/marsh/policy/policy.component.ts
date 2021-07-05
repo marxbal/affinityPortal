@@ -88,7 +88,7 @@ export class PolicyComponent implements OnInit {
     }).then((result) => {
       if (result.value) {
 
-        this.caller.doCallService("/marsh/sendEmail?email="+ emailFinal.slice(0, -1) +"&numPoliza=" 
+        this.caller.doCallService("afnty/sendEmail?email="+ emailFinal.slice(0, -1) +"&numPoliza=" 
           + this.marsh.policyNumber + "&subject=MAPFRE Online Policy Number " + this.marsh.policyNumber + "&type=P", null).subscribe(
           resulta => { 
             
@@ -119,7 +119,7 @@ export class PolicyComponent implements OnInit {
  
   printPolicy(){
     this.spinner.show();
-    this.caller.generatePDFTW("/marsh/printPolicy?numPoliza="+this.marsh.policyNumber+"&printType=P", null).subscribe(
+    this.caller.generatePDFTW("afnty/printPolicy?numPoliza="+this.marsh.policyNumber+"&printType=P", null).subscribe(
       result => {
         this.spinner.hide();
     });

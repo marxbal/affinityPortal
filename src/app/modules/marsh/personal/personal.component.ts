@@ -219,7 +219,7 @@ export class PersonalComponent implements OnInit {
     this.spinner.show();
     this.title = description;
 
-    this.caller.doCallService("/marsh/coverage/getCoverageDescriptions", type).subscribe(
+    this.caller.doCallService("afnty/coverage/getCoverageDescriptions", type).subscribe(
       result => {
         this.coverageList = [];
         let coverageHolder = result;
@@ -408,7 +408,7 @@ export class PersonalComponent implements OnInit {
         "p2000025List": this.p2000025
       };
       console.log(param);
-      this.caller.doCallService('/marsh/issueQuote', param).subscribe(
+      this.caller.doCallService('afnty/issueQuote', param).subscribe(
         result => {
           console.log(result);
 
@@ -424,7 +424,7 @@ export class PersonalComponent implements OnInit {
               break;
             case 2:
 
-              this.caller.doCallService('/marsh/getPaymentBreakdown?numPoliza=' + result.message + '&type=C', null).subscribe(
+              this.caller.doCallService('afnty/getPaymentBreakdown?numPoliza=' + result.message + '&type=C', null).subscribe(
                 paymentBreakdown => {
                   this.marsh.premiumBreakdown = paymentBreakdown;
 
@@ -445,7 +445,7 @@ export class PersonalComponent implements OnInit {
             default:
               this.marsh.quotationNumber = result.message;
 
-              this.caller.doCallService('/marsh/getPaymentBreakdown?numPoliza=' + result.message + '&type=C', null).subscribe(
+              this.caller.doCallService('afnty/getPaymentBreakdown?numPoliza=' + result.message + '&type=C', null).subscribe(
                 resultpb => {
                   console.log(result);
                   this.marsh.premiumBreakdown = resultpb;
@@ -576,7 +576,7 @@ export class PersonalComponent implements OnInit {
 
       this.spinner.show();
       console.log(param);
-      this.caller.doCallService('/marsh/issueQuote', param).subscribe(
+      this.caller.doCallService('afnty/issueQuote', param).subscribe(
         result => {
           console.log(result);
 
@@ -593,7 +593,7 @@ export class PersonalComponent implements OnInit {
             case 2:
               this.marsh.quotationNumber = result.message;
 
-              this.caller.doCallService('/marsh/getPaymentBreakdown?numPoliza=' + result.message + '&type=C', null).subscribe(
+              this.caller.doCallService('afnty/getPaymentBreakdown?numPoliza=' + result.message + '&type=C', null).subscribe(
                 paymentBreakdown => {
                   this.marsh.premiumBreakdown = paymentBreakdown;
                   console.log(paymentBreakdown);
@@ -615,7 +615,7 @@ export class PersonalComponent implements OnInit {
             default:
               this.marsh.quotationNumber = result.message;
 
-              this.caller.doCallService('/marsh/getPaymentBreakdown?numPoliza=' + result.message + '&type=C', null).subscribe(
+              this.caller.doCallService('afnty/getPaymentBreakdown?numPoliza=' + result.message + '&type=C', null).subscribe(
                 resultpb => {
                   console.log(result);
                   this.marsh.premiumBreakdown = resultpb;
@@ -746,7 +746,7 @@ export class PersonalComponent implements OnInit {
         "p2000025List": this.p2000025
       };
       console.log(param);
-      this.caller.doCallService('/marsh/issueQuote', param).subscribe(
+      this.caller.doCallService('afnty/issueQuote', param).subscribe(
         result => {
           console.log(result);
 
@@ -762,7 +762,7 @@ export class PersonalComponent implements OnInit {
               break;
             case 2:
 
-              this.caller.doCallService('/marsh/getPaymentBreakdown?numPoliza=' + result.message + '&type=C', null).subscribe(
+              this.caller.doCallService('afnty/getPaymentBreakdown?numPoliza=' + result.message + '&type=C', null).subscribe(
                 paymentBreakdown => {
                   this.marsh.premiumBreakdown = paymentBreakdown;
 
@@ -783,7 +783,7 @@ export class PersonalComponent implements OnInit {
             default:
               this.marsh.quotationNumber = result.message;
 
-              this.caller.doCallService('/marsh/getPaymentBreakdown?numPoliza=' + result.message + '&type=C', null).subscribe(
+              this.caller.doCallService('afnty/getPaymentBreakdown?numPoliza=' + result.message + '&type=C', null).subscribe(
                 resultpb => {
                   console.log(result);
                   this.marsh.premiumBreakdown = resultpb;

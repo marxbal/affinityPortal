@@ -67,7 +67,7 @@ export class QuotationComponent implements OnInit {
       this.buyNowStep = "riskInformation";
     }
 
-    this.caller.doCallService("/marsh/getCoverageLimits?codRamo=100&codCob=1004", null).subscribe(
+    this.caller.doCallService("afnty/getCoverageLimits?codRamo=100&codCob=1004", null).subscribe(
       result => {
         this.marsh.lov.bodilyInjuryLOV = result;
 
@@ -80,7 +80,7 @@ export class QuotationComponent implements OnInit {
 
     });
 
-    this.caller.doCallService("/marsh/getCoverageLimits?codRamo=100&codCob=1005", null).subscribe(
+    this.caller.doCallService("afnty/getCoverageLimits?codRamo=100&codCob=1005", null).subscribe(
       result => {
         this.marsh.lov.propertyDamageLOV = result;
 
@@ -105,7 +105,7 @@ export class QuotationComponent implements OnInit {
 
   printQuotation(){
     this.spinner.show();
-    this.caller.generatePDFTW("/marsh/printPolicy?numPoliza="+this.marsh.quotationNumber+"&printType=Q", null).subscribe(
+    this.caller.generatePDFTW("afnty/printPolicy?numPoliza="+this.marsh.quotationNumber+"&printType=Q", null).subscribe(
       result => {
         this.spinner.hide();
     });
@@ -142,7 +142,7 @@ export class QuotationComponent implements OnInit {
     }).then((result) => {
       if (result.value) {
 
-        this.caller.doCallService("/marsh/sendEmail?email="+ emailFinal.slice(0, -1) +"&numPoliza=" 
+        this.caller.doCallService("afnty/sendEmail?email="+ emailFinal.slice(0, -1) +"&numPoliza=" 
           + this.marsh.quotationNumber + "&subject=MAPFRE Online Quotation Number " + this.marsh.quotationNumber + "&type=Q" , null).subscribe(
           resulta => {
             
@@ -262,7 +262,7 @@ export class QuotationComponent implements OnInit {
         "p2000025List" : this.p2000025
       };
       console.log(param);
-      this.caller.doCallService('/marsh/issueQuote',param).subscribe(
+      this.caller.doCallService('afnty/issueQuote',param).subscribe(
         result => {
           console.log(result);
 
@@ -280,7 +280,7 @@ export class QuotationComponent implements OnInit {
             default:
               this.marsh.quotationNumber = result.message;
 
-              this.caller.doCallService('/marsh/getPaymentBreakdown?numPoliza='+ result.message +'&type=C',null).subscribe(
+              this.caller.doCallService('afnty/getPaymentBreakdown?numPoliza='+ result.message +'&type=C',null).subscribe(
                 resultpb => {
                   console.log(resultpb);
                   this.marsh.premiumBreakdown = resultpb;

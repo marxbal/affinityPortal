@@ -375,7 +375,7 @@ export class RiskMotorComponent implements OnInit {
       };
       console.log(param);
       this.spinner.show();
-      this.caller.doCallService('/marsh/issuePolicy',param).subscribe(
+      this.caller.doCallService('afnty/issuePolicy',param).subscribe(
         result => {
           console.log(result);
 
@@ -401,7 +401,7 @@ export class RiskMotorComponent implements OnInit {
               if(this.marsh.techControlLevel == "1"){
                 window.open(result.message, "_self");
               }else{
-                this.caller.doCallService('/marsh/getPaymentBreakdown?numPoliza='+ result.message +'&type=P',null).subscribe(
+                this.caller.doCallService('afnty/getPaymentBreakdown?numPoliza='+ result.message +'&type=P',null).subscribe(
                 paymentBreakdown => {
                   this.marsh.premiumBreakdown = paymentBreakdown;
                   this.getCoverages(result.message, this.marsh, "techControl");
@@ -416,7 +416,7 @@ export class RiskMotorComponent implements OnInit {
                 let formData = this.common.assignFormDataUpload(this.marsh);
                 formData.append('numPoliza',this.marsh.policyNumber);
                 formData.append('fullName',this.marsh.riskDetails.firstName + " " + (this.marsh.riskDetails.firstName) ? this.marsh.riskDetails.firstName : "");
-                this.caller.doCallService("/marsh/uploadFile", formData).subscribe(
+                this.caller.doCallService("afnty/uploadFile", formData).subscribe(
                   resultado => {
 
                 });
