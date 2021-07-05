@@ -404,7 +404,7 @@ export class MotorComponent implements OnInit {
     this.spinner.show();
     this.title = description;
 
-    this.caller.doCallService("/marsh/coverage/getCoverageDescriptions", type).subscribe(
+    this.caller.doCallService("marsh/coverage/getCoverageDescriptions", type).subscribe(
       result => {
         this.coverageList = [];
         let coverageHolder = result;

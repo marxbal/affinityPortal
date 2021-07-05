@@ -29,6 +29,15 @@ import {
 import {
   ProductList
 } from 'src/app/objects/product-list';
+import {
+  NgxSpinnerService
+} from 'ngx-spinner';
+import {
+  AuthService
+} from 'src/app/services/auth.service';
+import {
+  MarshCoverages
+} from 'src/app/objects/marsh-coverages';
 
 @Component({
   selector: 'app-landingpage',
@@ -37,10 +46,18 @@ import {
 })
 export class LandingpageComponent implements OnInit, ComponentCanDeactivate {
 
-  constructor(private auth: AuthenticationService, private router: Router) {}
+  constructor(
+    private auth: AuthenticationService,
+    private router: Router,
+    private spinner: NgxSpinnerService,
+    private caller: AuthService ) {}
 
   partnerPath: string = "";
   products: ProductLine[] = [];
+
+  coverageList: MarshCoverages[] = [];
+  coverage: MarshCoverages = new MarshCoverages();
+  title: String = "";
 
   isDirty: boolean = false;
   @HostListener('window:beforeunload')
@@ -125,6 +142,8 @@ export class LandingpageComponent implements OnInit, ComponentCanDeactivate {
 
     l2.products = [p3, p4];
     this.products.push(l2);
+
+    console.log(this.products);
   }
 
   loadPolicy(issue, type, numPoliza) {
@@ -175,6 +194,28 @@ export class LandingpageComponent implements OnInit, ComponentCanDeactivate {
       product,
       description
     });
+  }
+
+  viewCoverage(type, description) {
+    this.spinner.show();
+    this.title = description;
+
+    this.caller.doCallService("marsh/coverage/getCoverageDescriptions", type).subscribe(
+      result => {
+        this.coverageList = [];
+        let coverageHolder = result;
+        for (let c in coverageHolder) {
+          for (let d in coverageHolder[c]) {
+            this.coverage.benefit = coverageHolder[c][d].split(":=:")[1];
+            this.coverage.coverages.push(coverageHolder[c][d].split(":=:")[2]);
+          }
+          this.coverageList.push(this.coverage);
+          this.coverage = new MarshCoverages();
+
+        }
+        this.spinner.hide();
+        this.marsh.coverages = this.coverageList;
+      });
   }
 
 }

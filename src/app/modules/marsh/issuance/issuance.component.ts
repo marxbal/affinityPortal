@@ -98,7 +98,7 @@ export class IssuanceComponent implements OnInit {
 
     this.line = "";
     this.templateRouter = "initialize";
-    this.caller.doCallService('/marsh/retrieveTransactions', this.marsh.clientId).subscribe(
+    this.caller.doCallService('marsh/retrieveTransactions', this.marsh.clientId).subscribe(
       result => {
         console.log(result);
 

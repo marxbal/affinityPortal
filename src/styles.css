@@ -537,12 +537,12 @@ form .form-group.input-error .multiselect-dropdown {
 .mercer .footer-bottom {
   background-color: #243472;
 }
-.mercer .btn-primary {
+.mercer .btn-primary, .mercer .btn-mapfre {
   background-color: #243472 !important;
   border-color: #161f45 !important;
 }
 
-.mercer .btn-primary:hover {
+.mercer .btn-primary:hover, .mercer .btn-mapfre:hover {
   color: #243472 !important;
   background-color: #f6f6f6 !important;
   border-color: #161f45 !important;
