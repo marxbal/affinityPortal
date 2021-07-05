@@ -1,5 +1,5 @@
 import {AddressDetails} from './address-details';
-import {MarshCoverages} from './marsh-coverages';
+import {Coverages} from './coverages';
 
 export class Risk {
 
@@ -57,6 +57,6 @@ export class Risk {
   officeAddress: AddressDetails = new AddressDetails();
   billingAddress: AddressDetails = new AddressDetails();
   mailingAddress: AddressDetails = new AddressDetails();
-  coveragesValue: MarshCoverages[] = [];
+  coveragesValue: Coverages[] = [];
   
 }

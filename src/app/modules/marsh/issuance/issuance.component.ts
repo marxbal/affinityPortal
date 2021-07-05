@@ -25,8 +25,8 @@ import {
   AuthService
 } from '../../../services/auth.service';
 import {
-  MarshCoverages
-} from '../../../objects/marsh-coverages';
+  Coverages
+} from '../../../objects/coverages';
 import {
   NgxSpinnerService
 } from 'ngx-spinner';
@@ -71,8 +71,8 @@ export class IssuanceComponent implements OnInit {
   line: String;
   backButton: String;
   marsh: Marsh;
-  coverageList: MarshCoverages[] = [];
-  coverage: MarshCoverages = new MarshCoverages();
+  coverageList: Coverages[] = [];
+  coverage: Coverages = new Coverages();
 
   product: number;
   description: String;
@@ -381,7 +381,7 @@ export class IssuanceComponent implements OnInit {
             this.coverage.coverages.push(coverageHolder[c][d].split(":=:")[2]);
           }
           this.coverageList.push(this.coverage);
-          this.coverage = new MarshCoverages();
+          this.coverage = new Coverages();
         }
 
         this.marsh.coverages = this.coverageList;

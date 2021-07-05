@@ -54,8 +54,8 @@ import {
   A2000260
 } from '../../../objects/a2000260';
 import {
-  MarshCoverages
-} from '../../../objects/marsh-coverages';
+  Coverages
+} from '../../../objects/coverages';
 // import {
 //   TransactionDTO
 // } from '../../../objects/transaction-DTO';
@@ -110,8 +110,8 @@ export class PersonalComponent implements OnInit {
   p2000031: P2000031 = new P2000031();
   p2000031List: P2000031[] = [];
   p1001331: P1001331 = new P1001331();
-  coverageList: MarshCoverages[] = [];
-  coverage: MarshCoverages = new MarshCoverages();
+  coverageList: Coverages[] = [];
+  coverage: Coverages = new Coverages();
   title: String = "";
 
   addFamily: string = "";
@@ -229,7 +229,7 @@ export class PersonalComponent implements OnInit {
             this.coverage.coverages.push(coverageHolder[c][d].split(":=:")[2]);
           }
           this.coverageList.push(this.coverage);
-          this.coverage = new MarshCoverages();
+          this.coverage = new Coverages();
 
         }
         this.spinner.hide();

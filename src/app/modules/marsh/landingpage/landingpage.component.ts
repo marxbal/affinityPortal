@@ -36,8 +36,8 @@ import {
   AuthService
 } from 'src/app/services/auth.service';
 import {
-  MarshCoverages
-} from 'src/app/objects/marsh-coverages';
+  Coverages
+} from 'src/app/objects/coverages';
 
 @Component({
   selector: 'app-landingpage',
@@ -55,8 +55,8 @@ export class LandingpageComponent implements OnInit, ComponentCanDeactivate {
   partnerPath: string = "";
   products: ProductLine[] = [];
 
-  coverageList: MarshCoverages[] = [];
-  coverage: MarshCoverages = new MarshCoverages();
+  coverageList: Coverages[] = [];
+  coverage: Coverages = new Coverages();
   title: String = "";
 
   isDirty: boolean = false;
@@ -210,7 +210,7 @@ export class LandingpageComponent implements OnInit, ComponentCanDeactivate {
             this.coverage.coverages.push(coverageHolder[c][d].split(":=:")[2]);
           }
           this.coverageList.push(this.coverage);
-          this.coverage = new MarshCoverages();
+          this.coverage = new Coverages();
 
         }
         this.spinner.hide();

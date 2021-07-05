@@ -6,7 +6,7 @@ import {BehaviorSubject} from 'rxjs/internal/BehaviorSubject';
 import { AuthService } from '../services/auth.service';
 import {CommonService} from '../services/common.service';
 import {Marsh} from '../objects/marsh';
-import {MarshCoverages} from '../objects/marsh-coverages';
+import {Coverages} from '../objects/coverages';
 import * as _ from 'lodash';
 
 @Injectable({
@@ -19,8 +19,8 @@ export class MotorIssuanceService {
     private commonService : CommonService) { }
 
   motorMarsh: Marsh = new Marsh();
-  coverageList: MarshCoverages[] = [];
-  coverage: MarshCoverages = new MarshCoverages();
+  coverageList: Coverages[] = [];
+  coverage: Coverages = new Coverages();
 
   formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -142,7 +142,7 @@ export class MotorIssuanceService {
               this.coverage.coverages.push(coverageHolder[c][d].split(":=:")[2]);
             }
             this.coverageList.push(this.coverage);
-            this.coverage = new MarshCoverages();
+            this.coverage = new Coverages();
           }
 
           this.motorMarsh.coverages = this.coverageList;
@@ -295,7 +295,7 @@ export class MotorIssuanceService {
               this.coverage.coverages.push(coverageHolder[c][d].split(":=:")[2]);
             }
             this.coverageList.push(this.coverage);
-            this.coverage = new MarshCoverages();
+            this.coverage = new Coverages();
           }
 
           this.motorMarsh.coverages = this.coverageList;

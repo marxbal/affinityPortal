@@ -5,7 +5,7 @@ import {Router} from '@angular/router';
 import {IsRequired} from '../../../guard/is-required';
 import {ComponentCanDeactivate} from '../../../guard/component-can-deactivate';
 import {Marsh} from '../../../objects/marsh';
-import {MarshCoverages} from '../../../objects/marsh-coverages';
+import {Coverages} from '../../../objects/coverages';
 import {Property} from '../../../objects/property';
 import {AuthService} from '../../../services/auth.service';
 import {CommonService} from '../../../services/common.service';
@@ -32,8 +32,8 @@ export class PropertyComponent implements OnInit {
 
   tempWOA: Property = new Property();
   showAll : String = "0";
-  coverageList: MarshCoverages[] = [];
-  coverage: MarshCoverages = new MarshCoverages();
+  coverageList: Coverages[] = [];
+  coverage: Coverages = new Coverages();
   title: String = "";
 
   formatter = new Intl.NumberFormat('en-US', {
@@ -199,7 +199,7 @@ export class PropertyComponent implements OnInit {
             this.coverage.coverages.push(coverageHolder[c][d].split(":=:")[2]);
           }
           this.coverageList.push(this.coverage);
-          this.coverage = new MarshCoverages();
+          this.coverage = new Coverages();
           
         }
         this.spinner.hide();

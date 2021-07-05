@@ -6,7 +6,7 @@ import {BehaviorSubject} from 'rxjs/internal/BehaviorSubject';
 import { AuthService } from '../services/auth.service';
 import {CommonService} from '../services/common.service';
 import {Marsh} from '../objects/marsh';
-import {MarshCoverages} from '../objects/marsh-coverages';
+import {Coverages} from '../objects/coverages';
 import {Property} from '../objects/property';
 import {A6009908_MPH} from '../objects/a6009908_mph';
 import * as _ from 'lodash';
@@ -21,8 +21,8 @@ export class PropertyIssuanceService {
     private commonService : CommonService) { }
 
   propertyMarsh: Marsh = new Marsh();
-  coverageList: MarshCoverages[] = [];
-  coverage: MarshCoverages = new MarshCoverages();
+  coverageList: Coverages[] = [];
+  coverage: Coverages = new Coverages();
 
   formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -144,7 +144,7 @@ export class PropertyIssuanceService {
               this.coverage.coverages.push(coverageHolder[c][d].split(":=:")[2]);
             }
             this.coverageList.push(this.coverage);
-            this.coverage = new MarshCoverages();
+            this.coverage = new Coverages();
           }
 
           this.propertyMarsh.coverages = this.coverageList;
@@ -288,7 +288,7 @@ export class PropertyIssuanceService {
               this.coverage.coverages.push(coverageHolder[c][d].split(":=:")[2]);
             }
             this.coverageList.push(this.coverage);
-            this.coverage = new MarshCoverages();
+            this.coverage = new Coverages();
           }
  
           this.propertyMarsh.coverages = this.coverageList;

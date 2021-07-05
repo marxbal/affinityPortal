@@ -25,8 +25,8 @@ import {
   MotorAccessories
 } from '../../../objects/motor-accessories';
 import {
-  MarshCoverages
-} from '../../../objects/marsh-coverages';
+  Coverages
+} from '../../../objects/coverages';
 import * as m from 'moment';
 import {
   AuthService
@@ -63,8 +63,8 @@ export class MotorComponent implements OnInit {
   @Input() description: String;
 
   accessory: MotorAccessories;
-  coverageList: MarshCoverages[] = [];
-  coverage: MarshCoverages = new MarshCoverages();
+  coverageList: Coverages[] = [];
+  coverage: Coverages = new Coverages();
   title: String = "";
 
   formatter = new Intl.NumberFormat('en-US', {
@@ -414,7 +414,7 @@ export class MotorComponent implements OnInit {
             this.coverage.coverages.push(coverageHolder[c][d].split(":=:")[2]);
           }
           this.coverageList.push(this.coverage);
-          this.coverage = new MarshCoverages();
+          this.coverage = new Coverages();
 
         }
         this.spinner.hide();

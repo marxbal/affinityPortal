@@ -1,4 +1,4 @@
-export class MarshCoverages {
+export class Coverages {
 
   benefit: string;
   coverages: string[] = [];
@@ -6,5 +6,5 @@ export class MarshCoverages {
   nomCob: string;
   sumaAseg: string;
   totalPremium: string;
-  
+
 }
