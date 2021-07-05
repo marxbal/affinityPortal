@@ -5,7 +5,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import {BehaviorSubject} from 'rxjs/internal/BehaviorSubject';
 import { AuthService } from '../services/auth.service';
 import {CommonService} from '../services/common.service';
-import {Marsh} from '../objects/marsh';
+import {Affinity} from '../objects/affinity';
 import {Risk} from '../objects/risk';
 import {Coverages} from '../objects/coverages';
 import * as _ from 'lodash';
@@ -19,7 +19,7 @@ export class PersonalAccidentIssuanceService {
     private spinner : NgxSpinnerService,
     private commonService : CommonService) { }
 
-  paMarsh: Marsh = new Marsh();
+  paAff: Affinity = new Affinity();
   coverageList: Coverages[] = [];
   coverage: Coverages = new Coverages();
 
@@ -28,15 +28,15 @@ export class PersonalAccidentIssuanceService {
     currency: 'PHP',
   });
 
-  mapRetrieveQuote(marsh: Marsh, result){
-  	this.paMarsh = new Marsh();
+  mapRetrieveQuote(affinity: Affinity, result){
+  	this.paAff = new Affinity();
 
-  	this.paMarsh = marsh;
+  	this.paAff = affinity;
 
-  	this.paMarsh.quotationNumber = result.p2000030.numPoliza;
+  	this.paAff.quotationNumber = result.p2000030.numPoliza;
     this.generalMapping(result);
 	
-  	this.paMarsh.productId= this.commonService.getP20Value(result.p2000020List,'COD_MODALIDAD');
+  	this.paAff.productId= this.commonService.getP20Value(result.p2000020List,'COD_MODALIDAD');
 
   	let fisico = "1";
 
@@ -44,14 +44,14 @@ export class PersonalAccidentIssuanceService {
   	fisico = "2";
   	}
 
-  	this.paMarsh.motorDetails.isCorporate = fisico;
+  	this.paAff.motorDetails.isCorporate = fisico;
 
     this.mapP2025Primary(result.p2000025List);
 
-  	this.commonService.getCoverageByPolicy("P",this.paMarsh.quotationNumber,this.paMarsh.lineId
+  	this.commonService.getCoverageByPolicy("P",this.paAff.quotationNumber,this.paAff.lineId
         ).subscribe(
     (resulta) => {
-      // this.paMarsh.coveragesValue = resulta;
+      // this.paAff.coveragesValue = resulta;
 
       this.mapP2025Insured(result.p2000025List,resulta);
 
@@ -61,12 +61,12 @@ export class PersonalAccidentIssuanceService {
           // resulta[i].sumaAseg = this.formatter.format(parseFloat(resulta[i].sumaAseg));
          resulta[i].numSecu = parseInt(resulta[i].numSecu) + 0;
          resulta[i].totalPremium = ((resulta[i].totalPremium) ? this.formatter.format(parseFloat(resulta[i].totalPremium)) : "INCL");
-         this.paMarsh.coveragesValue.push(resulta[i]);
+         this.paAff.coveragesValue.push(resulta[i]);
         }
         
       }
 
-      this.paMarsh.coveragesValue = _.orderBy(this.paMarsh.coveragesValue,'numSecu','asc');
+      this.paAff.coveragesValue = _.orderBy(this.paAff.coveragesValue,'numSecu','asc');
 
     });
 
@@ -83,31 +83,31 @@ export class PersonalAccidentIssuanceService {
           this.coverage = new Coverages();
         }
 
-        this.paMarsh.coverages = this.coverageList;
+        this.paAff.coverages = this.coverageList;
     });
 
     let ret : any = new BehaviorSubject<any>([]);
 
-    this.caller.doCallService('/afnty/getPaymentBreakdown?numPoliza='+ this.paMarsh.quotationNumber +'&type=C',null).subscribe(
+    this.caller.doCallService('/afnty/getPaymentBreakdown?numPoliza='+ this.paAff.quotationNumber +'&type=C',null).subscribe(
 		paymentBreakdown => {
       console.log(paymentBreakdown);
-		  this.paMarsh.premiumBreakdown = paymentBreakdown;
+		  this.paAff.premiumBreakdown = paymentBreakdown;
 
-		  ret.next(this.paMarsh);
+		  ret.next(this.paAff);
 		});
 
   	return ret.asObservable();
   }
 
-  mapRetrievePolicy(marsh: Marsh, result){
-    this.paMarsh = new Marsh();
+  mapRetrievePolicy(affinity: Affinity, result){
+    this.paAff = new Affinity();
 
-    this.paMarsh = marsh;
+    this.paAff = affinity;
 
-    this.paMarsh.policyNumber = result.p2000030.numPoliza;
+    this.paAff.policyNumber = result.p2000030.numPoliza;
     this.generalMapping(result);
 
-    this.paMarsh.productId= this.commonService.getP20Value(result.a2000020List,'COD_MODALIDAD');
+    this.paAff.productId= this.commonService.getP20Value(result.a2000020List,'COD_MODALIDAD');
 
     let fisico = "1";
 
@@ -115,11 +115,11 @@ export class PersonalAccidentIssuanceService {
     fisico = "2";
     }
 
-    this.paMarsh.motorDetails.isCorporate = fisico;
+    this.paAff.motorDetails.isCorporate = fisico;
 
     // this.mapP2025Primary(result.p2000025List);
 
-    this.commonService.getCoverageByPolicy("A",this.paMarsh.policyNumber,this.paMarsh.lineId
+    this.commonService.getCoverageByPolicy("A",this.paAff.policyNumber,this.paAff.lineId
         ).subscribe(
         (resulta) => {
           console.log(resulta);
@@ -132,12 +132,12 @@ export class PersonalAccidentIssuanceService {
               // resulta[i].sumaAseg = this.formatter.format(parseFloat(resulta[i].sumaAseg));
               resulta[i].numSecu = parseInt(resulta[i].numSecu) + 0;
               resulta[i].totalPremium = ((resulta[i].totalPremium) ? this.formatter.format(parseFloat(resulta[i].totalPremium)) : "INCL");
-              this.paMarsh.coveragesValue.push(resulta[i]);
+              this.paAff.coveragesValue.push(resulta[i]);
             }
             
           }
 
-          this.paMarsh.coveragesValue = _.orderBy(this.paMarsh.coveragesValue,'numSecu','asc');
+          this.paAff.coveragesValue = _.orderBy(this.paAff.coveragesValue,'numSecu','asc');
 
         });
 
@@ -154,39 +154,39 @@ export class PersonalAccidentIssuanceService {
               this.coverage = new Coverages();
             }
 
-            this.paMarsh.coverages = this.coverageList;
+            this.paAff.coverages = this.coverageList;
         });
 
         let ret : any = new BehaviorSubject<any>([]);
 
-        this.caller.doCallService('/afnty/getPaymentBreakdown?numPoliza='+ this.paMarsh.policyNumber +'&type=P',null).subscribe(
+        this.caller.doCallService('/afnty/getPaymentBreakdown?numPoliza='+ this.paAff.policyNumber +'&type=P',null).subscribe(
       paymentBreakdown => {
-        this.paMarsh.premiumBreakdown = paymentBreakdown;
-        ret.next(this.paMarsh);
+        this.paAff.premiumBreakdown = paymentBreakdown;
+        ret.next(this.paAff);
       });
 
     return ret.asObservable();
   }
 
   generalMapping(result){
-    this.paMarsh.riskDetails.firstName= result.fName;
-    this.paMarsh.riskDetails.middleName= result.mName;
-    this.paMarsh.riskDetails.lastName= result.lName;
+    this.paAff.riskDetails.firstName= result.fName;
+    this.paAff.riskDetails.middleName= result.mName;
+    this.paAff.riskDetails.lastName= result.lName;
 
-    this.paMarsh.riskDetails.fullName = this.paMarsh.riskDetails.lastName + ", " + this.paMarsh.riskDetails.firstName + " " + this.paMarsh.riskDetails.middleName;
+    this.paAff.riskDetails.fullName = this.paAff.riskDetails.lastName + ", " + this.paAff.riskDetails.firstName + " " + this.paAff.riskDetails.middleName;
 
-    this.paMarsh.riskDetails.validIDValue= result.codDoc;
-    this.paMarsh.riskDetails.validID= result.tipDoc;
-    this.paMarsh.riskDetails.phoneNumber= result.mobileNumber;
-    this.paMarsh.riskDetails.emailAddress= result.email;
-    this.paMarsh.riskDetails.birthDate= m(result.birthdate).format('YYYY-MM-DD');
-    this.paMarsh.riskDetails.suffix= result.suffix;
-    this.paMarsh.riskDetails.gender= result.p1001331.mcaSexo;
-    this.paMarsh.riskDetails.nationality= result.p1001331.codPais;
-    this.paMarsh.riskDetails.civilStatus= result.p1001331.codEstCivil;
-    this.paMarsh.lineId= result.p2000030.codRamo;
-    this.paMarsh.motorDetails.policyPeriodFrom= m(result.inceptionDate).format('YYYY-MM-DD');
-    this.paMarsh.motorDetails.policyPeriodTo= m(result.expiryDate).format('YYYY-MM-DD');
+    this.paAff.riskDetails.validIDValue= result.codDoc;
+    this.paAff.riskDetails.validID= result.tipDoc;
+    this.paAff.riskDetails.phoneNumber= result.mobileNumber;
+    this.paAff.riskDetails.emailAddress= result.email;
+    this.paAff.riskDetails.birthDate= m(result.birthdate).format('YYYY-MM-DD');
+    this.paAff.riskDetails.suffix= result.suffix;
+    this.paAff.riskDetails.gender= result.p1001331.mcaSexo;
+    this.paAff.riskDetails.nationality= result.p1001331.codPais;
+    this.paAff.riskDetails.civilStatus= result.p1001331.codEstCivil;
+    this.paAff.lineId= result.p2000030.codRamo;
+    this.paAff.motorDetails.policyPeriodFrom= m(result.inceptionDate).format('YYYY-MM-DD');
+    this.paAff.motorDetails.policyPeriodTo= m(result.expiryDate).format('YYYY-MM-DD');
 
 
 
@@ -200,21 +200,21 @@ export class PersonalAccidentIssuanceService {
 
         switch(p2025[i].codCampo){
           case "COD_OCCUPATIONAL_CLASS":
-            this.paMarsh.riskDetails.occupationalClass = p2025[i].valCampo + ":=:" + p2025[i].txtCampo;
+            this.paAff.riskDetails.occupationalClass = p2025[i].valCampo + ":=:" + p2025[i].txtCampo;
             this.chooseOccupationalClass(p2025[i].valCampo);
           break;
           case "TXT_OCCUPATION":
-            this.paMarsh.riskDetails.occupation = p2025[i].valCampo + ":=:" + p2025[i].txtCampo;
+            this.paAff.riskDetails.occupation = p2025[i].valCampo + ":=:" + p2025[i].txtCampo;
           break;
           case "TXT_HEALTH_DECLARA":
             let healthDec = true;
             if(p2025[i].valCampo == "N"){
               healthDec = false;
             }
-            this.paMarsh.riskDetails.healthDeclaration = healthDec;
+            this.paAff.riskDetails.healthDeclaration = healthDec;
           break;
           case "NOM_RELIGION":
-            this.paMarsh.riskDetails.religion = p2025[i].valCampo;
+            this.paAff.riskDetails.religion = p2025[i].valCampo;
           break;
         }
 
@@ -225,7 +225,7 @@ export class PersonalAccidentIssuanceService {
   }
 
   mapP2025Insured(p2025,p2040){
-    this.paMarsh.paDetails.familyMembers = [];
+    this.paAff.paDetails.familyMembers = [];
     for(let x = 1; x < (_.maxBy(p2025,'numRiesgo')).numRiesgo; x++){
 
       let riskTemp : Risk = new Risk();
@@ -297,7 +297,7 @@ export class PersonalAccidentIssuanceService {
 
       riskTemp.fullName = riskTemp.lastName + ", " + riskTemp.firstName + " " + (riskTemp.middleName ? riskTemp.middleName : "");
 
-      this.paMarsh.paDetails.familyMembers.push(riskTemp);
+      this.paAff.paDetails.familyMembers.push(riskTemp);
 
     }
 
@@ -307,7 +307,7 @@ export class PersonalAccidentIssuanceService {
     this.caller.getLOV("G2990006","13","COD_RAMO~337|COD_CAMPO~TXT_OCCUPATION|FEC_VALIDEZ~01012020|DVCOD_OCCUPATIONAL_CLASS~"+occClass+"|COD_IDIOMA~EN").subscribe(
       result => {
         console.log(result);
-        this.paMarsh.lov.occupationLOV = result;
+        this.paAff.lov.occupationLOV = result;
     });
   }
 

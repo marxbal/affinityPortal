@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AuthService } from '../services/auth.service';
-import {Marsh} from '../objects/marsh';
+import {Affinity} from '../objects/affinity';
 import {P2000030} from '../objects/p2000030';
 import {P2000031} from '../objects/p2000031';
 import {P1001331} from '../objects/p1001331';
@@ -223,16 +223,16 @@ export class CommonService {
 
   }
 
-  assignP2100610(marsh: Marsh){
+  assignP2100610(affinity: Affinity){
     let p2161 : P2100610[] = [];
 
-    for(let i = 0; i < marsh.motorDetails.accessories.length; i++){
+    for(let i = 0; i < affinity.motorDetails.accessories.length; i++){
       let p2161temp = new P2100610();
       p2161temp.codCia = '1';
-      p2161temp.codAccesorio = marsh.motorDetails.accessories[i].accessoryId;
-      p2161temp.nomAccesorio = marsh.motorDetails.accessories[i].accessoryName;
-      p2161temp.impAccesorio = marsh.motorDetails.accessories[i].accessoryValue;
-      p2161temp.txtAccesorio = marsh.motorDetails.accessories[i].accessoryDescription;
+      p2161temp.codAccesorio = affinity.motorDetails.accessories[i].accessoryId;
+      p2161temp.nomAccesorio = affinity.motorDetails.accessories[i].accessoryName;
+      p2161temp.impAccesorio = affinity.motorDetails.accessories[i].accessoryValue;
+      p2161temp.txtAccesorio = affinity.motorDetails.accessories[i].accessoryDescription;
       p2161.push(p2161temp);
     }
 
@@ -251,48 +251,48 @@ export class CommonService {
     return ret;
   }
 
-  assignFormDataUpload(marsh: Marsh): FormData{
+  assignFormDataUpload(affinity: Affinity): FormData{
     let formData = new FormData();
     
-    for(let i = 0; i < marsh.motorDetails.vehiclePhotos.length ; i++){
-      formData.append('file',marsh.motorDetails.vehiclePhotos[i],marsh.motorDetails.vehiclePhotos[i].name);
+    for(let i = 0; i < affinity.motorDetails.vehiclePhotos.length ; i++){
+      formData.append('file',affinity.motorDetails.vehiclePhotos[i],affinity.motorDetails.vehiclePhotos[i].name);
     }
 
     return formData;
   }
 
-  assignP2000025(marsh: Marsh){
+  assignP2000025(affinity: Affinity){
     let p2025 : P2000025[] = [];
 
 
 
-    if(marsh.lineId == "337"){
+    if(affinity.lineId == "337"){
 
       let gender = "MALE";
 
-      if(marsh.riskDetails.gender == "2"){
+      if(affinity.riskDetails.gender == "2"){
         gender = "FEMALE";
       }
 
       let healthDeclaration = "YES";
 
-      if(!marsh.riskDetails.healthDeclaration){
+      if(!affinity.riskDetails.healthDeclaration){
         healthDeclaration = "NO";
       }
  
       let vars1 = [
-                    ['TXT_LAST_NAME',marsh.riskDetails.lastName.toUpperCase(),'1',null,'N','S','S'],
-                    ['TXT_FIRST_NAME',((marsh.riskDetails.firstName) ? marsh.riskDetails.firstName.toUpperCase() : ""),'1',null,'N','S','S'],
-                    ['TXT_MIDDLE_INITIAL',((marsh.riskDetails.middleName) ? marsh.riskDetails.middleName.toUpperCase() : ""),'1',null,'N','S','S'],
-                    ['TXT_SUFFIX',marsh.riskDetails.suffix,'1',null,'N','S','S'],
+                    ['TXT_LAST_NAME',affinity.riskDetails.lastName.toUpperCase(),'1',null,'N','S','S'],
+                    ['TXT_FIRST_NAME',((affinity.riskDetails.firstName) ? affinity.riskDetails.firstName.toUpperCase() : ""),'1',null,'N','S','S'],
+                    ['TXT_MIDDLE_INITIAL',((affinity.riskDetails.middleName) ? affinity.riskDetails.middleName.toUpperCase() : ""),'1',null,'N','S','S'],
+                    ['TXT_SUFFIX',affinity.riskDetails.suffix,'1',null,'N','S','S'],
                     ['MCA_SEXO_ASEG',gender.charAt(0),'1',gender,'N','S','S'],
                     ['RELATIONSHIP','P','1','PRIMARY','N','S','S'],
-                    ['BIRTHDATE',m(marsh.riskDetails.birthDate).format('DDMMYYYY'),'1',null,'N','S','S'],
-                    ['COD_OCCUPATIONAL_CLASS',marsh.riskDetails.occupationalClass.split(':=:')[0],'1',marsh.riskDetails.occupationalClass.split(':=:')[1],'N','S','S'],
-                    ['TXT_OCCUPATION',marsh.riskDetails.occupation.split(':=:')[0],'1',marsh.riskDetails.occupation.split(':=:')[1],'N','S','S'],
+                    ['BIRTHDATE',m(affinity.riskDetails.birthDate).format('DDMMYYYY'),'1',null,'N','S','S'],
+                    ['COD_OCCUPATIONAL_CLASS',affinity.riskDetails.occupationalClass.split(':=:')[0],'1',affinity.riskDetails.occupationalClass.split(':=:')[1],'N','S','S'],
+                    ['TXT_OCCUPATION',affinity.riskDetails.occupation.split(':=:')[0],'1',affinity.riskDetails.occupation.split(':=:')[1],'N','S','S'],
                     ['TXT_HEALTH_DECLARA',healthDeclaration.charAt(0),'1',healthDeclaration,'N','S','S'],
-                    ['TXT_HEALTH_DECLARA_EXIST',((marsh.riskDetails.preExistingIllness) ? marsh.riskDetails.preExistingIllness.toUpperCase() : ""),'1',null,'N','S','S'],
-                    ['NOM_RELIGION',((marsh.riskDetails.religion) ? marsh.riskDetails.religion.toUpperCase() : ""),'1',null,'N','S','S']
+                    ['TXT_HEALTH_DECLARA_EXIST',((affinity.riskDetails.preExistingIllness) ? affinity.riskDetails.preExistingIllness.toUpperCase() : ""),'1',null,'N','S','S'],
+                    ['NOM_RELIGION',((affinity.riskDetails.religion) ? affinity.riskDetails.religion.toUpperCase() : ""),'1',null,'N','S','S']
                   ];
 
       for(let x = 0; x < vars1.length; x++){
@@ -309,7 +309,7 @@ export class CommonService {
         p2025.push(tempP25a);
       }
       let riesgo = 2;
-      marsh.paDetails.familyMembers.forEach(function(insured){
+      affinity.paDetails.familyMembers.forEach(function(insured){
 
         let gender = "MALE";
 
@@ -358,7 +358,7 @@ export class CommonService {
 
     }
 
-    if(marsh.lineId == "251"){
+    if(affinity.lineId == "251"){
 
         let vars = [
                     ['TXT_OTHER_EXT_PERIL_7513','REPLACEMENT OF LOCKS AND KEYS','1',null,'N','S','S','1'],
@@ -373,12 +373,12 @@ export class CommonService {
                     ['VAL_RISK_7219','2060000','2',null,'N','S','S','2']
                   ];
 
-        if(marsh.propertyDetails.workOfArtsList.length > 0){
+        if(affinity.propertyDetails.workOfArtsList.length > 0){
 
-          for(let i = 0; i < marsh.propertyDetails.workOfArtsList.length; i++){
+          for(let i = 0; i < affinity.propertyDetails.workOfArtsList.length; i++){
 
-            let kog = ['TXT_DESCRIPTION_PROPERTY_7104',marsh.propertyDetails.workOfArtsList[i].workOfArtsValues,(i+1).toString(),null,'N','S','S','1'];
-            let kogg = ['VAL_RISK_7105',marsh.propertyDetails.workOfArtsList[i].workOfArtsAmount,(i+1).toString(),null,'N','S','S','2'];
+            let kog = ['TXT_DESCRIPTION_PROPERTY_7104',affinity.propertyDetails.workOfArtsList[i].workOfArtsValues,(i+1).toString(),null,'N','S','S','1'];
+            let kogg = ['VAL_RISK_7105',affinity.propertyDetails.workOfArtsList[i].workOfArtsAmount,(i+1).toString(),null,'N','S','S','2'];
 
             vars.push(kog);
             vars.push(kogg);
@@ -402,9 +402,9 @@ export class CommonService {
         }
     }
 
-    if(marsh.alternativeHolders.length > 0){
+    if(affinity.alternativeHolders.length > 0){
 
-      marsh.alternativeHolders.forEach(function(alt){
+      affinity.alternativeHolders.forEach(function(alt){
         
         let fullName = alt.firstName + " " 
                   + ((alt.middleName) ? alt.middleName : null) + " "
@@ -434,11 +434,11 @@ export class CommonService {
     return p2025;
   }
 
-  identifyTechControl(marsh: Marsh){
+  identifyTechControl(affinity: Affinity){
     let techControlLevel = "1";
 
-    for(let i = 0; i < marsh.techControl.length; i++){
-      let level = marsh.techControl[i].split("@")[1];
+    for(let i = 0; i < affinity.techControl.length; i++){
+      let level = affinity.techControl[i].split("@")[1];
       console.log(level);
       if(level){
 
@@ -454,34 +454,34 @@ export class CommonService {
       }
 
     }
-    marsh.techControlLevel = techControlLevel;
-    return marsh;
+    affinity.techControlLevel = techControlLevel;
+    return affinity;
   }
 
-  assignP2000060(marsh: Marsh, status){
+  assignP2000060(affinity: Affinity, status){
     let p2060 : P2000060[] = [];
 
     let vars = [];
 
-    if(marsh.productId == '10002' || marsh.productId == '10001'){
+    if(affinity.productId == '10002' || affinity.productId == '10001'){
 
       vars = [
-                  ['1','1','4',marsh.riskDetails.validID,marsh.riskDetails.validIDValue.toUpperCase()],
-                  ['1','1','3',marsh.riskDetails.validID,marsh.riskDetails.validIDValue.toUpperCase()]
+                  ['1','1','4',affinity.riskDetails.validID,affinity.riskDetails.validIDValue.toUpperCase()],
+                  ['1','1','3',affinity.riskDetails.validID,affinity.riskDetails.validIDValue.toUpperCase()]
                 ];
 
     }
 
-    if(status == "policy" && marsh.motorDetails.isMortgaged == true){
-        let kog = ['1','1','8',marsh.motorDetails.mortgageeId,marsh.motorDetails.mortgagee]; 
+    if(status == "policy" && affinity.motorDetails.isMortgaged == true){
+        let kog = ['1','1','8',affinity.motorDetails.mortgageeId,affinity.motorDetails.mortgagee]; 
         vars.push(kog);
     }
 
-    if(marsh.alternativeHolders.length > 0){
+    if(affinity.alternativeHolders.length > 0){
 
-      console.log(marsh.alternativeHolders);
+      console.log(affinity.alternativeHolders);
 
-      marsh.alternativeHolders.forEach(function(alt){
+      affinity.alternativeHolders.forEach(function(alt){
         
         let kog = ['1','1','1',alt.validID,alt.validIDValue.toUpperCase()]; 
         vars.push(kog);
@@ -505,33 +505,33 @@ export class CommonService {
     return p2060;
   }
 
-  assignP2000040(marsh: Marsh){
+  assignP2000040(affinity: Affinity){
     let p2040 : P2000040[] = [];
     let vars = [];
-    if(marsh.productId == '10001' || marsh.productId == '10002'){
+    if(affinity.productId == '10001' || affinity.productId == '10002'){
 
-      let fmv = parseInt(marsh.motorDetails.FMV);
+      let fmv = parseInt(affinity.motorDetails.FMV);
 
-      for(let i = 0;i < marsh.motorDetails.accessories.length; i++){
-        fmv = fmv + parseInt(marsh.motorDetails.accessories[i].accessoryValue) + 0;
+      for(let i = 0;i < affinity.motorDetails.accessories.length; i++){
+        fmv = fmv + parseInt(affinity.motorDetails.accessories[i].accessoryValue) + 0;
       }
 
       vars = [
                 // [1001,100000], //COMP. THIRD PAR. LIAB.
-                [1004,parseInt(marsh.motorDetails.bodilyInjuryLimit)], //Bodily injury
-                [1005,parseInt(marsh.motorDetails.propertyDamageLimit)], //Property Damage
+                [1004,parseInt(affinity.motorDetails.bodilyInjuryLimit)], //Bodily injury
+                [1005,parseInt(affinity.motorDetails.propertyDamageLimit)], //Property Damage
                 [1007,100000], //UNNAMED PASS. P.A.
                 [1008,fmv], // AoN
                 [1020,fmv] // strikes and riots
               ];
 
-      if(marsh.productId == '10002'){
+      if(affinity.productId == '10002'){
         vars = [[1001,100000]]
       }
 
     }
 
-    if(marsh.lineId == "337"){
+    if(affinity.lineId == "337"){
       vars = [
         // [1001,100000], //COMP. THIRD PAR. LIAB.
         [341,1000000], //Accidental Death Benefit
@@ -545,21 +545,21 @@ export class CommonService {
       ];
     }
 
-    if(marsh.lineId == "251"){
+    if(affinity.lineId == "251"){
       vars = [
-        [7373,marsh.propertyDetails.EVImprovements],
-        [7386,marsh.propertyDetails.EVFurnishing],
+        [7373,affinity.propertyDetails.EVImprovements],
+        [7386,affinity.propertyDetails.EVFurnishing],
         [7326,0],
         [7513,0],
-        [7219,marsh.propertyDetails.EVImprovements],
+        [7219,affinity.propertyDetails.EVImprovements],
         [7514,120000]
       ];
  
-      if(marsh.propertyDetails.workOfArtsAmount){
-        let kogg = [7104,parseFloat(marsh.propertyDetails.workOfArtsAmount)]; 
+      if(affinity.propertyDetails.workOfArtsAmount){
+        let kogg = [7104,parseFloat(affinity.propertyDetails.workOfArtsAmount)]; 
         vars.push(kogg); 
 
-        let kog = [7105,parseFloat(marsh.propertyDetails.workOfArtsAmount)]; 
+        let kog = [7105,parseFloat(affinity.propertyDetails.workOfArtsAmount)]; 
         vars.push(kog); 
 
         
@@ -579,27 +579,27 @@ export class CommonService {
     return p2040;
   }
 
-  assignA1000131_MPH(marsh: Marsh){
+  assignA1000131_MPH(affinity: Affinity){
     let a131 : A1000131_MPH[] = [];
 
     let vars = [
-                ['NOM_NACIMIENTO','1',marsh.riskDetails.validIDValue.toUpperCase(),marsh.riskDetails.validID,((marsh.KYC.NOM_NACIMIENTO) ? marsh.KYC.NOM_NACIMIENTO : null)],
-                ['NUM_SSS_GSIS','2',marsh.riskDetails.validIDValue.toUpperCase(),marsh.riskDetails.validID,((marsh.KYC.NUM_SSS_GSIS) ? marsh.KYC.NUM_SSS_GSIS : null)],
-                ['NUM_TIN','3',marsh.riskDetails.validIDValue.toUpperCase(),marsh.riskDetails.validID,((marsh.KYC.NUM_TIN) ? marsh.KYC.NUM_TIN : null)],
-                ['NOM_FUENTO_FONDO','5',marsh.riskDetails.validIDValue.toUpperCase(),marsh.riskDetails.validID,((marsh.KYC.NOM_FUENTO_FONDO) ? marsh.KYC.NOM_FUENTO_FONDO : null)],
-                ['NUM_INGRESOS_NETOS','6',marsh.riskDetails.validIDValue.toUpperCase(),marsh.riskDetails.validID,((marsh.KYC.NUM_INGRESOS_NETOS) ? marsh.KYC.NUM_INGRESOS_NETOS : null)],
-                ['NOM_NEGOCIO','7',marsh.riskDetails.validIDValue.toUpperCase(),marsh.riskDetails.validID,((marsh.KYC.NOM_NEGOCIO) ? marsh.KYC.NOM_NEGOCIO : null)],
-                ['NOM_EMP_BUS_ANIO_SINGKO','8',marsh.riskDetails.validIDValue.toUpperCase(),marsh.riskDetails.validID,((marsh.KYC.NOM_EMP_BUS_ANIO_SINGKO) ? marsh.KYC.NOM_EMP_BUS_ANIO_SINGKO : null)],
-                ['NUM_EMP_BUS_ANIO_SINGKO','9',marsh.riskDetails.validIDValue.toUpperCase(),marsh.riskDetails.validID,((marsh.KYC.NUM_EMP_BUS_ANIO_SINGKO) ? marsh.KYC.NUM_EMP_BUS_ANIO_SINGKO : null)],
-                ['NOM_CASA_OWN','10',marsh.riskDetails.validIDValue.toUpperCase(),marsh.riskDetails.validID,((marsh.KYC.NOM_CASA_OWN) ? marsh.KYC.NOM_CASA_OWN : null)],
-                ['NOM_CASE_RENT','11',marsh.riskDetails.validIDValue.toUpperCase(),marsh.riskDetails.validID,((marsh.KYC.NOM_CASE_RENT) ? marsh.KYC.NOM_CASE_RENT : null)],
-                ['NOM_BENEFICIARIO','12',marsh.riskDetails.validIDValue.toUpperCase(),marsh.riskDetails.validID,((marsh.KYC.NOM_BENEFICIARIO) ? marsh.KYC.NOM_BENEFICIARIO : null)],
-                ['NUM_NINOS','13',marsh.riskDetails.validIDValue.toUpperCase(),marsh.riskDetails.validID,((marsh.KYC.NUM_NINOS) ? marsh.KYC.NUM_NINOS : null)],
-                ['NOM_COCHE','14',marsh.riskDetails.validIDValue.toUpperCase(),marsh.riskDetails.validID,((marsh.KYC.NOM_COCHE) ? marsh.KYC.NOM_COCHE : null)],
-                ['NOM_BANCO','25',marsh.riskDetails.validIDValue.toUpperCase(),marsh.riskDetails.validID,((marsh.KYC.NOM_BANCO) ? marsh.KYC.NOM_BANCO : null)],
-                ['TIP_BANCO_ACCT','26',marsh.riskDetails.validIDValue.toUpperCase(),marsh.riskDetails.validID,((marsh.KYC.TIP_BANCO_ACCT) ? marsh.KYC.TIP_BANCO_ACCT : null)],
-                ['COD_EMP_CLASS','27',marsh.riskDetails.validIDValue.toUpperCase(),marsh.riskDetails.validID,((marsh.KYC.COD_EMP_CLASS) ? marsh.KYC.COD_EMP_CLASS : null)],
-                ['NOM_OTHER_ASSETS','98',marsh.riskDetails.validIDValue.toUpperCase(),marsh.riskDetails.validID,((marsh.KYC.COD_EMP_CLASS) ? marsh.KYC.COD_EMP_CLASS : null)]
+                ['NOM_NACIMIENTO','1',affinity.riskDetails.validIDValue.toUpperCase(),affinity.riskDetails.validID,((affinity.KYC.NOM_NACIMIENTO) ? affinity.KYC.NOM_NACIMIENTO : null)],
+                ['NUM_SSS_GSIS','2',affinity.riskDetails.validIDValue.toUpperCase(),affinity.riskDetails.validID,((affinity.KYC.NUM_SSS_GSIS) ? affinity.KYC.NUM_SSS_GSIS : null)],
+                ['NUM_TIN','3',affinity.riskDetails.validIDValue.toUpperCase(),affinity.riskDetails.validID,((affinity.KYC.NUM_TIN) ? affinity.KYC.NUM_TIN : null)],
+                ['NOM_FUENTO_FONDO','5',affinity.riskDetails.validIDValue.toUpperCase(),affinity.riskDetails.validID,((affinity.KYC.NOM_FUENTO_FONDO) ? affinity.KYC.NOM_FUENTO_FONDO : null)],
+                ['NUM_INGRESOS_NETOS','6',affinity.riskDetails.validIDValue.toUpperCase(),affinity.riskDetails.validID,((affinity.KYC.NUM_INGRESOS_NETOS) ? affinity.KYC.NUM_INGRESOS_NETOS : null)],
+                ['NOM_NEGOCIO','7',affinity.riskDetails.validIDValue.toUpperCase(),affinity.riskDetails.validID,((affinity.KYC.NOM_NEGOCIO) ? affinity.KYC.NOM_NEGOCIO : null)],
+                ['NOM_EMP_BUS_ANIO_SINGKO','8',affinity.riskDetails.validIDValue.toUpperCase(),affinity.riskDetails.validID,((affinity.KYC.NOM_EMP_BUS_ANIO_SINGKO) ? affinity.KYC.NOM_EMP_BUS_ANIO_SINGKO : null)],
+                ['NUM_EMP_BUS_ANIO_SINGKO','9',affinity.riskDetails.validIDValue.toUpperCase(),affinity.riskDetails.validID,((affinity.KYC.NUM_EMP_BUS_ANIO_SINGKO) ? affinity.KYC.NUM_EMP_BUS_ANIO_SINGKO : null)],
+                ['NOM_CASA_OWN','10',affinity.riskDetails.validIDValue.toUpperCase(),affinity.riskDetails.validID,((affinity.KYC.NOM_CASA_OWN) ? affinity.KYC.NOM_CASA_OWN : null)],
+                ['NOM_CASE_RENT','11',affinity.riskDetails.validIDValue.toUpperCase(),affinity.riskDetails.validID,((affinity.KYC.NOM_CASE_RENT) ? affinity.KYC.NOM_CASE_RENT : null)],
+                ['NOM_BENEFICIARIO','12',affinity.riskDetails.validIDValue.toUpperCase(),affinity.riskDetails.validID,((affinity.KYC.NOM_BENEFICIARIO) ? affinity.KYC.NOM_BENEFICIARIO : null)],
+                ['NUM_NINOS','13',affinity.riskDetails.validIDValue.toUpperCase(),affinity.riskDetails.validID,((affinity.KYC.NUM_NINOS) ? affinity.KYC.NUM_NINOS : null)],
+                ['NOM_COCHE','14',affinity.riskDetails.validIDValue.toUpperCase(),affinity.riskDetails.validID,((affinity.KYC.NOM_COCHE) ? affinity.KYC.NOM_COCHE : null)],
+                ['NOM_BANCO','25',affinity.riskDetails.validIDValue.toUpperCase(),affinity.riskDetails.validID,((affinity.KYC.NOM_BANCO) ? affinity.KYC.NOM_BANCO : null)],
+                ['TIP_BANCO_ACCT','26',affinity.riskDetails.validIDValue.toUpperCase(),affinity.riskDetails.validID,((affinity.KYC.TIP_BANCO_ACCT) ? affinity.KYC.TIP_BANCO_ACCT : null)],
+                ['COD_EMP_CLASS','27',affinity.riskDetails.validIDValue.toUpperCase(),affinity.riskDetails.validID,((affinity.KYC.COD_EMP_CLASS) ? affinity.KYC.COD_EMP_CLASS : null)],
+                ['NOM_OTHER_ASSETS','98',affinity.riskDetails.validIDValue.toUpperCase(),affinity.riskDetails.validID,((affinity.KYC.COD_EMP_CLASS) ? affinity.KYC.COD_EMP_CLASS : null)]
               ];
 
     for(let i = 0; i < vars.length; i++){
@@ -615,7 +615,7 @@ export class CommonService {
     return a131;
   }
 
-  assignA2000260(marsh: Marsh){
+  assignA2000260(affinity: Affinity){
     let a260 : A2000260[] = [];
 
     let vars = [
@@ -700,12 +700,12 @@ export class CommonService {
                 ['FRM_SUPPCB','29','ALTERNATIVE ACCOMMODATION/LOSS OF RENT - PHP25,000 PER MONTH, UP TO 6 MONTHS AND PHP150,000 IN AGGREGATE']
               ];
 
-    if(marsh.propertyDetails.workOfArtsList.length > 0){
+    if(affinity.propertyDetails.workOfArtsList.length > 0){
       let kog = ['FRM_OTHCON','1','LIST OF ITEMS UNDER WORKS OF ART'];
       vars.push(kog);
 
-      for(let c = 0; c < marsh.propertyDetails.workOfArtsList.length; c++){
-        let kogg = ['FRM_OTHCON',(c + 2).toString(),marsh.propertyDetails.workOfArtsList[c].workOfArtsDescription + " - " + marsh.propertyDetails.workOfArtsList[c].workOfArtsAmount];
+      for(let c = 0; c < affinity.propertyDetails.workOfArtsList.length; c++){
+        let kogg = ['FRM_OTHCON',(c + 2).toString(),affinity.propertyDetails.workOfArtsList[c].workOfArtsDescription + " - " + affinity.propertyDetails.workOfArtsList[c].workOfArtsAmount];
         vars.push(kogg);
       }
 
@@ -722,7 +722,7 @@ export class CommonService {
     return a260;
   }
 
-  assignP2000260(marsh: Marsh){
+  assignP2000260(affinity: Affinity){
     let p260 : A2000260[] = [];
 
     let vars = [['FRM_CLAUOT','1','ALTERATIONS AND REPAIRS'],
@@ -805,10 +805,10 @@ export class CommonService {
                 ['FRM_SUPPCB','28','FREEZER CONTENTS - PHP5,000 AGGREGATE'],
                 ['FRM_SUPPCB','29','ALTERNATIVE ACCOMMODATION/LOSS OF RENT - PHP25,000 PER MONTH, UP TO 6 MONTHS AND PHP150,000 IN AGGREGATE']];
 
-    if(marsh.propertyDetails.workOfArtsList.length > 0){
+    if(affinity.propertyDetails.workOfArtsList.length > 0){
 
-      for(let c = 0; c < marsh.propertyDetails.workOfArtsList.length; c++){
-        let kogg = ['FRM_OTHCON',(c + 1).toString(),marsh.propertyDetails.workOfArtsList[c].workOfArtsValues + ":=:" + marsh.propertyDetails.workOfArtsList[c].workOfArtsDescription + ":=:" + marsh.propertyDetails.workOfArtsList[c].workOfArtsAmount];
+      for(let c = 0; c < affinity.propertyDetails.workOfArtsList.length; c++){
+        let kogg = ['FRM_OTHCON',(c + 1).toString(),affinity.propertyDetails.workOfArtsList[c].workOfArtsValues + ":=:" + affinity.propertyDetails.workOfArtsList[c].workOfArtsDescription + ":=:" + affinity.propertyDetails.workOfArtsList[c].workOfArtsAmount];
         vars.push(kogg);
       }
 
@@ -825,27 +825,27 @@ export class CommonService {
     return p260;
   }
 
-  assignP2000020(marsh: Marsh){
+  assignP2000020(affinity: Affinity){
     let p2020 : P2000020[] = [];
 
     let vars = [
-                ['COD_MARCA',marsh.motorDetails.manufacturerId],
-                ['COD_MODELO',marsh.motorDetails.modelId],
-                ['NUM_MOTOR',((marsh.motorDetails.motorNumber) ? marsh.motorDetails.motorNumber.toUpperCase() : "")],
-                ['COD_TIP_VEHI',marsh.motorDetails.vehicleTypeId],
-                ['ANIO_SUB_MODELO',marsh.motorDetails.modelYear],
-                ['COD_SUB_MODELO',marsh.motorDetails.subModelId],
-                ['COD_USO_VEHI',marsh.motorDetails.vehicleUsedId],
-                ['NUM_SERIAL',((marsh.motorDetails.serialNumber) ? marsh.motorDetails.serialNumber.toUpperCase() : "")],
-                ['COD_AREA_USAGE',marsh.motorDetails.usageAreaId],
-                ['COD_COLOR',marsh.motorDetails.colorId],
-                ['NUM_MATRICULA',((marsh.motorDetails.plateNumber) ? marsh.motorDetails.plateNumber.toUpperCase() : "")],
-                ['NUM_CONDUCTION',((marsh.motorDetails.conductionNumber) ? marsh.motorDetails.conductionNumber.toUpperCase():"")],
-                ['NUM_MV_FILE',((marsh.motorDetails.MVFileNumber) ? marsh.motorDetails.MVFileNumber.toUpperCase() : "")],
-                ['VAL_SUB_MODELO',marsh.motorDetails.FMV],
+                ['COD_MARCA',affinity.motorDetails.manufacturerId],
+                ['COD_MODELO',affinity.motorDetails.modelId],
+                ['NUM_MOTOR',((affinity.motorDetails.motorNumber) ? affinity.motorDetails.motorNumber.toUpperCase() : "")],
+                ['COD_TIP_VEHI',affinity.motorDetails.vehicleTypeId],
+                ['ANIO_SUB_MODELO',affinity.motorDetails.modelYear],
+                ['COD_SUB_MODELO',affinity.motorDetails.subModelId],
+                ['COD_USO_VEHI',affinity.motorDetails.vehicleUsedId],
+                ['NUM_SERIAL',((affinity.motorDetails.serialNumber) ? affinity.motorDetails.serialNumber.toUpperCase() : "")],
+                ['COD_AREA_USAGE',affinity.motorDetails.usageAreaId],
+                ['COD_COLOR',affinity.motorDetails.colorId],
+                ['NUM_MATRICULA',((affinity.motorDetails.plateNumber) ? affinity.motorDetails.plateNumber.toUpperCase() : "")],
+                ['NUM_CONDUCTION',((affinity.motorDetails.conductionNumber) ? affinity.motorDetails.conductionNumber.toUpperCase():"")],
+                ['NUM_MV_FILE',((affinity.motorDetails.MVFileNumber) ? affinity.motorDetails.MVFileNumber.toUpperCase() : "")],
+                ['VAL_SUB_MODELO',affinity.motorDetails.FMV],
                 ['NOM_RECEIVED_BY','TPL01101'],
                 ['FEC_RECEIVED',m().format('M/D/YYYY')],
-                ['COD_MODALIDAD',marsh.productId],
+                ['COD_MODALIDAD',affinity.productId],
                 ['MCA_COVER_NOTE','N'],
                 ['MCA_OWNER','S'],
                 ['MCA_DRIVER','S'],
@@ -858,14 +858,14 @@ export class CommonService {
 
     
 
-    if(marsh.productId == "10002"){
+    if(affinity.productId == "10002"){
         let tep1 = ['TIP_COCAF_REGISTRATION','R'];
         let tep2 = ['MCA_AUTO_REGISTRO','N'];
         vars.push(tep1); 
         vars.push(tep2); 
     }
 
-    if(marsh.motorDetails.isMortgaged){
+    if(affinity.motorDetails.isMortgaged){
         let tep1 = ['TIP_MORT_CLAUSE','1'];
         let tep2 = ['MCA_MORTGAGED','S'];
         
@@ -878,15 +878,15 @@ export class CommonService {
         vars.push(tep2); 
     }
 
-    if(marsh.lineId == "337"){
+    if(affinity.lineId == "337"){
       vars = [
-              ['COD_MODALIDAD',marsh.productId],
+              ['COD_MODALIDAD',affinity.productId],
               ['NUM_INSURED', '1']
               ];
     }
 
-    if(marsh.lineId == "251"){
-      let building = marsh.propertyDetails.buildingDetails;
+    if(affinity.lineId == "251"){
+      let building = affinity.propertyDetails.buildingDetails;
 
       vars = [
               ['COD_ATC_CONST','3'],
@@ -907,7 +907,7 @@ export class CommonService {
               ['MCA_VIOLADO','S'],
               ['NUM_BLOCK_DISTRICT',building.numBlockDistrict],
               ['NUM_ZIPCODE',building.numZipcode],
-              ['NUM_HOUSE_LOCATION',marsh.propertyDetails.unitNumber],
+              ['NUM_HOUSE_LOCATION',affinity.propertyDetails.unitNumber],
               ['PCT_DISCOUNT','0'],
               ['TIP_CONSTRUCTION','A'],
               ['TXT_BOUNDARY_DESC1',building.txtBoundaryDesc1.slice(0,79)],
@@ -930,10 +930,10 @@ export class CommonService {
               ['TXT_BARANGAY',building.txtBarangay],
               ['NUM_OTHERS_7326','2'],
               ['NUM_OTHERS_7513','3'],
-              ['NUM_OTHERS_7104',marsh.propertyDetails.workOfArtsList.length.toString()]
+              ['NUM_OTHERS_7104',affinity.propertyDetails.workOfArtsList.length.toString()]
               ];
 
-      if(marsh.riskDetails.underTaking){
+      if(affinity.riskDetails.underTaking){
         let tep1 = ['MCA_WARR_NO_LOSS','S'];
         vars.push(tep1); 
       }else{
@@ -943,12 +943,12 @@ export class CommonService {
 
     }
 
-    if(marsh.alternativeHolders.length > 0){
+    if(affinity.alternativeHolders.length > 0){
 
         let kogg = ['NUM_ASEG_ALT','1']; 
         vars.push(kogg);
 
-      marsh.alternativeHolders.forEach(function(alt){
+      affinity.alternativeHolders.forEach(function(alt){
         // let kog = ['TIP_ASEG_PREF','0'];
         if(alt.prefix){
           let kog = ['TIP_ASEG_PREF',alt.prefix]; 
@@ -971,46 +971,46 @@ export class CommonService {
     return p2020;
   }
 
-  assignP1001331(marsh: Marsh){
+  assignP1001331(affinity: Affinity){
     let p1331 : P1001331 = new P1001331();
 
-    p1331.nomTercero = marsh.riskDetails.firstName.toUpperCase();
-    p1331.nom2Tercero = ((marsh.riskDetails.middleName) ? marsh.riskDetails.middleName.toUpperCase() : null);
-    p1331.ape2Tercero = ((marsh.riskDetails.lastName) ? marsh.riskDetails.lastName.toUpperCase() : null);
-    p1331.mcaSexo = ((marsh.riskDetails.gender) ? marsh.riskDetails.gender : null);
+    p1331.nomTercero = affinity.riskDetails.firstName.toUpperCase();
+    p1331.nom2Tercero = ((affinity.riskDetails.middleName) ? affinity.riskDetails.middleName.toUpperCase() : null);
+    p1331.ape2Tercero = ((affinity.riskDetails.lastName) ? affinity.riskDetails.lastName.toUpperCase() : null);
+    p1331.mcaSexo = ((affinity.riskDetails.gender) ? affinity.riskDetails.gender : null);
     p1331.codPais = ("PHL");
     p1331.codPaisCom = ("PHL");
 
-    p1331.codProv =  ((marsh.riskDetails.homeAddress.provinceDetailId) ? marsh.riskDetails.homeAddress.provinceDetailId : null);
-    p1331.codProvCom = ((marsh.riskDetails.officeAddress.provinceDetailId) ? marsh.riskDetails.officeAddress.provinceDetailId : null);
-    p1331.codProvEtiqueta = ((marsh.riskDetails.correspondentAddress.provinceDetailId) ? marsh.riskDetails.correspondentAddress.provinceDetailId : null);
+    p1331.codProv =  ((affinity.riskDetails.homeAddress.provinceDetailId) ? affinity.riskDetails.homeAddress.provinceDetailId : null);
+    p1331.codProvCom = ((affinity.riskDetails.officeAddress.provinceDetailId) ? affinity.riskDetails.officeAddress.provinceDetailId : null);
+    p1331.codProvEtiqueta = ((affinity.riskDetails.correspondentAddress.provinceDetailId) ? affinity.riskDetails.correspondentAddress.provinceDetailId : null);
 
-    p1331.codLocalidad = ((marsh.riskDetails.homeAddress.municipalityDetailId) ? marsh.riskDetails.homeAddress.municipalityDetailId : null);
-    p1331.codLocalidadCom = ((marsh.riskDetails.officeAddress.municipalityDetailId) ? marsh.riskDetails.officeAddress.municipalityDetailId : null);
-    p1331.codLocalidadEtiqueta = ((marsh.riskDetails.correspondentAddress.municipalityDetailId) ? marsh.riskDetails.correspondentAddress.municipalityDetailId : null);
+    p1331.codLocalidad = ((affinity.riskDetails.homeAddress.municipalityDetailId) ? affinity.riskDetails.homeAddress.municipalityDetailId : null);
+    p1331.codLocalidadCom = ((affinity.riskDetails.officeAddress.municipalityDetailId) ? affinity.riskDetails.officeAddress.municipalityDetailId : null);
+    p1331.codLocalidadEtiqueta = ((affinity.riskDetails.correspondentAddress.municipalityDetailId) ? affinity.riskDetails.correspondentAddress.municipalityDetailId : null);
 
-    p1331.nomDomicilio1 = ((marsh.riskDetails.homeAddress.addressDetails) ? marsh.riskDetails.homeAddress.addressDetails.slice(0,39) : null);
-    p1331.nomDomicilio2 = ((marsh.riskDetails.homeAddress.addressDetails) ? marsh.riskDetails.homeAddress.addressDetails.slice(39,78) : null);
-    p1331.nomDomicilio3 = ((marsh.riskDetails.homeAddress.addressDetails) ? marsh.riskDetails.homeAddress.addressDetails.slice(78) : null);
-    p1331.nomDomicilio1Com = ((marsh.riskDetails.officeAddress.addressDetails) ? marsh.riskDetails.officeAddress.addressDetails : null);
+    p1331.nomDomicilio1 = ((affinity.riskDetails.homeAddress.addressDetails) ? affinity.riskDetails.homeAddress.addressDetails.slice(0,39) : null);
+    p1331.nomDomicilio2 = ((affinity.riskDetails.homeAddress.addressDetails) ? affinity.riskDetails.homeAddress.addressDetails.slice(39,78) : null);
+    p1331.nomDomicilio3 = ((affinity.riskDetails.homeAddress.addressDetails) ? affinity.riskDetails.homeAddress.addressDetails.slice(78) : null);
+    p1331.nomDomicilio1Com = ((affinity.riskDetails.officeAddress.addressDetails) ? affinity.riskDetails.officeAddress.addressDetails : null);
 
-    p1331.codPostal = ((marsh.riskDetails.homeAddress.zipCode) ? marsh.riskDetails.homeAddress.zipCode : null);
-    p1331.codPostalCom = ((marsh.riskDetails.officeAddress.zipCode) ? marsh.riskDetails.officeAddress.zipCode : null);
-    p1331.codPostalEtiqueta = ((marsh.riskDetails.correspondentAddress.zipCode) ? marsh.riskDetails.correspondentAddress.zipCode : null);
+    p1331.codPostal = ((affinity.riskDetails.homeAddress.zipCode) ? affinity.riskDetails.homeAddress.zipCode : null);
+    p1331.codPostalCom = ((affinity.riskDetails.officeAddress.zipCode) ? affinity.riskDetails.officeAddress.zipCode : null);
+    p1331.codPostalEtiqueta = ((affinity.riskDetails.correspondentAddress.zipCode) ? affinity.riskDetails.correspondentAddress.zipCode : null);
 
-    p1331.tipEtiqueta = marsh.riskDetails.mailingAddressId; 
-    p1331.tlfMovil = marsh.riskDetails.phoneNumber; 
-    p1331.txtEmail = ((marsh.riskDetails.emailAddress) ? marsh.riskDetails.emailAddress.toUpperCase() : "");
-    p1331.codDocum = marsh.riskDetails.validIDValue.toUpperCase();
-    p1331.tipDocum = marsh.riskDetails.validID;
+    p1331.tipEtiqueta = affinity.riskDetails.mailingAddressId; 
+    p1331.tlfMovil = affinity.riskDetails.phoneNumber; 
+    p1331.txtEmail = ((affinity.riskDetails.emailAddress) ? affinity.riskDetails.emailAddress.toUpperCase() : "");
+    p1331.codDocum = affinity.riskDetails.validIDValue.toUpperCase();
+    p1331.tipDocum = affinity.riskDetails.validID;
     // p1331.tipEtiqueta = '2';
-    p1331.fecNacimiento = m(marsh.riskDetails.birthDate).format('M/D/YYYY');
-    p1331.tipSufijoNombre = marsh.riskDetails.suffix;
-    p1331.codEstCivil = marsh.riskDetails.civilStatus;
-    p1331.codNacionalidad = marsh.riskDetails.nationality;
+    p1331.fecNacimiento = m(affinity.riskDetails.birthDate).format('M/D/YYYY');
+    p1331.tipSufijoNombre = affinity.riskDetails.suffix;
+    p1331.codEstCivil = affinity.riskDetails.civilStatus;
+    p1331.codNacionalidad = affinity.riskDetails.nationality;
 
     let fisico = "S";
-    if(marsh.motorDetails.isCorporate == "2"){
+    if(affinity.motorDetails.isCorporate == "2"){
       fisico = "N";
     }
 
@@ -1019,11 +1019,11 @@ export class CommonService {
     return p1331;
   }
 
-  assignP2000031PA(marsh: Marsh, p2030: P2000030){
+  assignP2000031PA(affinity: Affinity, p2030: P2000030){
 
     let p2031final : P2000031[] = [];
 
-    for(let i = 0; i < marsh.paDetails.familyMembers.length + 1; i++){
+    for(let i = 0; i < affinity.paDetails.familyMembers.length + 1; i++){
 
       let p2031 : P2000031 = new P2000031();
 
@@ -1034,7 +1034,7 @@ export class CommonService {
       p2031.numSptoApli = p2030.numSptoApli;
       p2031.numRiesgo = (i + 1).toString();
       p2031.tipSpto = "XX";
-      p2031.codModalidad = marsh.productId;
+      p2031.codModalidad = affinity.productId;
       p2031.nomRiesgo = "XX";
       p2031.fecEfecRiesgo = p2030.fecEfecPoliza;
       p2031.fecVctoRiesgo = p2030.fecVctoPoliza;
@@ -1053,7 +1053,7 @@ export class CommonService {
 
   }
 
-  assignP2000031(marsh: Marsh, p2030: P2000030){
+  assignP2000031(affinity: Affinity, p2030: P2000030){
 
     let p2031 : P2000031 = new P2000031();
 
@@ -1064,7 +1064,7 @@ export class CommonService {
     p2031.numSptoApli = p2030.numSptoApli;
     p2031.numRiesgo = '1';
     p2031.tipSpto = "XX";
-    p2031.codModalidad = marsh.productId;
+    p2031.codModalidad = affinity.productId;
     p2031.nomRiesgo = "XX";
     p2031.fecEfecRiesgo = p2030.fecEfecPoliza;
     p2031.fecVctoRiesgo = p2030.fecVctoPoliza;
@@ -1079,7 +1079,7 @@ export class CommonService {
 
   }
 
-  assignP2000030(marsh: Marsh){
+  assignP2000030(affinity: Affinity){
 
     let p2030 : P2000030 = new P2000030();
 
@@ -1091,11 +1091,11 @@ export class CommonService {
     p2030.codCia = 1;
     p2030.codFraccPago = 1;
     p2030.codSector = 1;
-    p2030.codRamo = parseInt(marsh.lineId);
-    p2030.fecVctoPoliza = m(marsh.motorDetails.policyPeriodTo).format('M/D/YYYY');
-    p2030.fecEfecPoliza = m(marsh.motorDetails.policyPeriodFrom).format('M/D/YYYY');
-    p2030.numPoliza = marsh.quotationNumber;
-    p2030.numPresupuesto = marsh.quotationNumber;
+    p2030.codRamo = parseInt(affinity.lineId);
+    p2030.fecVctoPoliza = m(affinity.motorDetails.policyPeriodTo).format('M/D/YYYY');
+    p2030.fecEfecPoliza = m(affinity.motorDetails.policyPeriodFrom).format('M/D/YYYY');
+    p2030.numPoliza = affinity.quotationNumber;
+    p2030.numPresupuesto = affinity.quotationNumber;
     p2030.numSpto = 0;
     p2030.numApli = 0;
     p2030.numSptoApli = 0;
@@ -1111,12 +1111,12 @@ export class CommonService {
     p2030.tipSpto = ("XX");
     p2030.txtMotivoSpto = ("");
 
-    if(marsh.lineId == "251" && marsh.riskDetails.underTaking){
+    if(affinity.lineId == "251" && affinity.riskDetails.underTaking){
       p2030.txtMotivoSpto = ("WARRANTED NO LOSS");
     }
 
-    p2030.tipDocum = marsh.riskDetails.validID;
-    p2030.codDocum = ((marsh.riskDetails.validIDValue) ? marsh.riskDetails.validIDValue.toUpperCase() : "");
+    p2030.tipDocum = affinity.riskDetails.validID;
+    p2030.codDocum = ((affinity.riskDetails.validIDValue) ? affinity.riskDetails.validIDValue.toUpperCase() : "");
     p2030.codCuadroCom = 1; // function hardcoded
     p2030.pctAgt = 100;
     p2030.codCompensacion = 1;
@@ -1142,15 +1142,15 @@ export class CommonService {
     p2030.tipPolizaTr = ("N");
     p2030.tipRea = '0';
     p2030.numSecuGrupo = null;
-    p2030.fecValidez = marsh.motorDetails.validityDate;
+    p2030.fecValidez = affinity.motorDetails.validityDate;
 
-    if(marsh.lineId == "337"){
+    if(affinity.lineId == "337"){
       p2030.codSector = 3;
       p2030.numSubcontrato = 10000;
       p2030.fecValidez = '01012020';
     }
 
-    if(marsh.lineId == "251"){
+    if(affinity.lineId == "251"){
       p2030.codSector = 2;
       p2030.numSubcontrato = 10000;
       p2030.fecValidez = '01012018';

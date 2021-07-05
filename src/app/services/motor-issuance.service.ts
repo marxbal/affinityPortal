@@ -5,7 +5,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import {BehaviorSubject} from 'rxjs/internal/BehaviorSubject';
 import { AuthService } from '../services/auth.service';
 import {CommonService} from '../services/common.service';
-import {Marsh} from '../objects/marsh';
+import {Affinity} from '../objects/affinity';
 import {Coverages} from '../objects/coverages';
 import * as _ from 'lodash';
 
@@ -18,7 +18,7 @@ export class MotorIssuanceService {
     private spinner : NgxSpinnerService,
     private commonService : CommonService) { }
 
-  motorMarsh: Marsh = new Marsh();
+  motorAff: Affinity = new Affinity();
   coverageList: Coverages[] = [];
   coverage: Coverages = new Coverages();
 
@@ -27,50 +27,50 @@ export class MotorIssuanceService {
     currency: 'PHP',
   });
 
-  mapRetrieveQuote(marsh: Marsh, result){
-  	this.motorMarsh = new Marsh();
+  mapRetrieveQuote(affinity: Affinity, result){
+  	this.motorAff = new Affinity();
 
-  	this.motorMarsh = marsh;
+  	this.motorAff = affinity;
 
-  	this.motorMarsh.quotationNumber = result.p2000030.numPoliza;
+  	this.motorAff.quotationNumber = result.p2000030.numPoliza;
 
-	this.motorMarsh.riskDetails.firstName= result.fName;
-	this.motorMarsh.riskDetails.middleName= result.mName;
-	this.motorMarsh.riskDetails.lastName= result.lName;
+	this.motorAff.riskDetails.firstName= result.fName;
+	this.motorAff.riskDetails.middleName= result.mName;
+	this.motorAff.riskDetails.lastName= result.lName;
 
-	this.motorMarsh.riskDetails.fullName = this.motorMarsh.riskDetails.lastName + ", " + this.motorMarsh.riskDetails.firstName + " " + this.motorMarsh.riskDetails.middleName;
+	this.motorAff.riskDetails.fullName = this.motorAff.riskDetails.lastName + ", " + this.motorAff.riskDetails.firstName + " " + this.motorAff.riskDetails.middleName;
 
-	this.motorMarsh.riskDetails.validIDValue= result.codDoc;
-	this.motorMarsh.riskDetails.validID= result.tipDoc;
-	this.motorMarsh.riskDetails.phoneNumber= result.mobileNumber;
-	this.motorMarsh.riskDetails.emailAddress= result.email;
-	this.motorMarsh.riskDetails.birthDate= m(result.birthdate).format('YYYY-MM-DD');
-	this.motorMarsh.riskDetails.suffix= result.suffix;
-	this.motorMarsh.motorDetails.manufacturerId= result.make;
-	this.motorMarsh.motorDetails.modelId= result.model;
-	this.motorMarsh.motorDetails.vehicleTypeId= result.variant;
-	this.motorMarsh.motorDetails.MVFileNumber= result.mvNumber;
-	this.motorMarsh.motorDetails.plateNumber= result.plateNumber;
-	this.motorMarsh.motorDetails.motorNumber= result.engineNumber;
-	this.motorMarsh.motorDetails.serialNumber= result.chassisNumber;
-	this.motorMarsh.motorDetails.policyPeriodFrom= m(result.inceptionDate).format('YYYY-MM-DD');
-	this.motorMarsh.motorDetails.policyPeriodTo= m(result.expiryDate).format('YYYY-MM-DD');
-	this.motorMarsh.motorDetails.colorId= result.color;
-	this.motorMarsh.motorDetails.modelYear= result.year;
-	this.motorMarsh.motorDetails.subModelId= result.subModel;
-	this.motorMarsh.motorDetails.vehicleUsedId= result.typeOfUse;
-	this.motorMarsh.motorDetails.motorTypeId= result.p2000030.codRamo;
-	this.motorMarsh.riskDetails.gender= result.p1001331.mcaSexo;
-	this.motorMarsh.riskDetails.nationality= result.p1001331.codPais;
-	this.motorMarsh.riskDetails.civilStatus= result.p1001331.codEstCivil;
-	this.motorMarsh.lineId= result.p2000030.codRamo;
+	this.motorAff.riskDetails.validIDValue= result.codDoc;
+	this.motorAff.riskDetails.validID= result.tipDoc;
+	this.motorAff.riskDetails.phoneNumber= result.mobileNumber;
+	this.motorAff.riskDetails.emailAddress= result.email;
+	this.motorAff.riskDetails.birthDate= m(result.birthdate).format('YYYY-MM-DD');
+	this.motorAff.riskDetails.suffix= result.suffix;
+	this.motorAff.motorDetails.manufacturerId= result.make;
+	this.motorAff.motorDetails.modelId= result.model;
+	this.motorAff.motorDetails.vehicleTypeId= result.variant;
+	this.motorAff.motorDetails.MVFileNumber= result.mvNumber;
+	this.motorAff.motorDetails.plateNumber= result.plateNumber;
+	this.motorAff.motorDetails.motorNumber= result.engineNumber;
+	this.motorAff.motorDetails.serialNumber= result.chassisNumber;
+	this.motorAff.motorDetails.policyPeriodFrom= m(result.inceptionDate).format('YYYY-MM-DD');
+	this.motorAff.motorDetails.policyPeriodTo= m(result.expiryDate).format('YYYY-MM-DD');
+	this.motorAff.motorDetails.colorId= result.color;
+	this.motorAff.motorDetails.modelYear= result.year;
+	this.motorAff.motorDetails.subModelId= result.subModel;
+	this.motorAff.motorDetails.vehicleUsedId= result.typeOfUse;
+	this.motorAff.motorDetails.motorTypeId= result.p2000030.codRamo;
+	this.motorAff.riskDetails.gender= result.p1001331.mcaSexo;
+	this.motorAff.riskDetails.nationality= result.p1001331.codPais;
+	this.motorAff.riskDetails.civilStatus= result.p1001331.codEstCivil;
+	this.motorAff.lineId= result.p2000030.codRamo;
 
-	this.motorMarsh.productId= this.commonService.getP20Value(result.p2000020List,'COD_MODALIDAD');
-	this.motorMarsh.motorDetails.conductionNumber= this.commonService.getP20Value(result.p2000020List,'NUM_CONDUCTION');
-  this.motorMarsh.motorDetails.usageAreaId= this.commonService.getP20Value(result.p2000020List,'COD_AREA_USAGE');
-	this.motorMarsh.motorDetails.usageArea= this.determineCodAreaUsage(this.motorMarsh.motorDetails.usageAreaId);
-	this.motorMarsh.motorDetails.usageAreaIdHolder= this.motorMarsh.motorDetails.usageAreaId + '-' + this.motorMarsh.motorDetails.usageArea;
-	this.motorMarsh.motorDetails.FMV = '0';
+	this.motorAff.productId= this.commonService.getP20Value(result.p2000020List,'COD_MODALIDAD');
+	this.motorAff.motorDetails.conductionNumber= this.commonService.getP20Value(result.p2000020List,'NUM_CONDUCTION');
+  this.motorAff.motorDetails.usageAreaId= this.commonService.getP20Value(result.p2000020List,'COD_AREA_USAGE');
+	this.motorAff.motorDetails.usageArea= this.determineCodAreaUsage(this.motorAff.motorDetails.usageAreaId);
+	this.motorAff.motorDetails.usageAreaIdHolder= this.motorAff.motorDetails.usageAreaId + '-' + this.motorAff.motorDetails.usageArea;
+	this.motorAff.motorDetails.FMV = '0';
 
 	let fisico = "1";
 
@@ -78,19 +78,19 @@ export class MotorIssuanceService {
 	fisico = "2";
 	}
 
-	this.motorMarsh.motorDetails.isCorporate = fisico;
+	this.motorAff.motorDetails.isCorporate = fisico;
 
 	let type = "motorComprehensive";
 
-	if(this.motorMarsh.productId == "10002"){
+	if(this.motorAff.productId == "10002"){
 	type = "motorCTPL";
 	}
 
-	this.commonService.getCoverageByPolicy("P",this.motorMarsh.quotationNumber,this.motorMarsh.motorDetails.motorTypeId
+	this.commonService.getCoverageByPolicy("P",this.motorAff.quotationNumber,this.motorAff.motorDetails.motorTypeId
       ).subscribe(
       (result) => {
-        // this.motorMarsh.coveragesValue = result;
-        // console.log(this.motorMarsh.coveragesValue);
+        // this.motorAff.coveragesValue = result;
+        // console.log(this.motorAff.coveragesValue);
 
         let totalLossDamagePrem = 0;
 
@@ -104,11 +104,11 @@ export class MotorIssuanceService {
 
           switch(result[i].codCob){
             case "1004":
-              this.motorMarsh.motorDetails.bodilyInjuryLimit = result[i].sumaAseg;
+              this.motorAff.motorDetails.bodilyInjuryLimit = result[i].sumaAseg;
               result[i].nomCob = "Excess Liability Insurance for Bodily Injury".toUpperCase();
             break;
             case "1005":
-              this.motorMarsh.motorDetails.propertyDamageLimit = result[i].sumaAseg;
+              this.motorAff.motorDetails.propertyDamageLimit = result[i].sumaAseg;
               result[i].nomCob = "Excess Liability Insurance for Property Damage".toUpperCase();
             break;
             case "1100":
@@ -123,12 +123,12 @@ export class MotorIssuanceService {
           result[i].totalPremium = ((result[i].totalPremium != "0") ? this.formatter.format(parseFloat(result[i].totalPremium)) : "INCL");
           
           if(result[i].codCob != "1003" && result[i].codCob != "1002"){
-            this.motorMarsh.coveragesValue.push(result[i]);
+            this.motorAff.coveragesValue.push(result[i]);
           }
 
         }
 
-        this.motorMarsh.coveragesValue = _.orderBy(this.motorMarsh.coveragesValue,'numSecu','asc');
+        this.motorAff.coveragesValue = _.orderBy(this.motorAff.coveragesValue,'numSecu','asc');
 
       });
 
@@ -145,74 +145,74 @@ export class MotorIssuanceService {
             this.coverage = new Coverages();
           }
 
-          this.motorMarsh.coverages = this.coverageList;
+          this.motorAff.coverages = this.coverageList;
       });
 
       this.loadAllLOV(
-        this.motorMarsh.motorDetails.motorTypeId,
-        this.motorMarsh.motorDetails.manufacturerId,
-        this.motorMarsh.motorDetails.modelId,
-        this.motorMarsh.motorDetails.vehicleTypeId,
-        this.motorMarsh.motorDetails.modelYear,
-        this.motorMarsh.motorDetails.subModelId,
-        this.motorMarsh.motorDetails.colorId,
-        this.motorMarsh.motorDetails.vehicleUsedId,
+        this.motorAff.motorDetails.motorTypeId,
+        this.motorAff.motorDetails.manufacturerId,
+        this.motorAff.motorDetails.modelId,
+        this.motorAff.motorDetails.vehicleTypeId,
+        this.motorAff.motorDetails.modelYear,
+        this.motorAff.motorDetails.subModelId,
+        this.motorAff.motorDetails.colorId,
+        this.motorAff.motorDetails.vehicleUsedId,
         result.p2100610List
       );
 
       let ret : any = new BehaviorSubject<any>([]);
 
-      this.caller.doCallService('/afnty/getPaymentBreakdown?numPoliza='+ this.motorMarsh.quotationNumber +'&type=C',null).subscribe(
+      this.caller.doCallService('/afnty/getPaymentBreakdown?numPoliza='+ this.motorAff.quotationNumber +'&type=C',null).subscribe(
 		paymentBreakdown => {
-		  this.motorMarsh.premiumBreakdown = paymentBreakdown;
-		  ret.next(this.motorMarsh);
+		  this.motorAff.premiumBreakdown = paymentBreakdown;
+		  ret.next(this.motorAff);
 		});
 
 	return ret.asObservable();
   }
 
-  mapRetrievePolicy(marsh: Marsh, result){
+  mapRetrievePolicy(affinity: Affinity, result){
 
-  	this.motorMarsh = new Marsh();
+  	this.motorAff = new Affinity();
 
-  	this.motorMarsh = marsh;
+  	this.motorAff = affinity;
 
-  	this.motorMarsh.policyNumber = result.p2000030.numPoliza;
+  	this.motorAff.policyNumber = result.p2000030.numPoliza;
 
-	this.motorMarsh.riskDetails.firstName= result.fName;
-	this.motorMarsh.riskDetails.middleName= result.mName;
-	this.motorMarsh.riskDetails.lastName= result.lName;
+	this.motorAff.riskDetails.firstName= result.fName;
+	this.motorAff.riskDetails.middleName= result.mName;
+	this.motorAff.riskDetails.lastName= result.lName;
 
-	this.motorMarsh.riskDetails.fullName = this.motorMarsh.riskDetails.lastName + ", " + this.motorMarsh.riskDetails.firstName + " " + this.motorMarsh.riskDetails.middleName;
+	this.motorAff.riskDetails.fullName = this.motorAff.riskDetails.lastName + ", " + this.motorAff.riskDetails.firstName + " " + this.motorAff.riskDetails.middleName;
 
-	this.motorMarsh.riskDetails.validIDValue= result.codDoc;
-	this.motorMarsh.riskDetails.validID= result.tipDoc;
-	this.motorMarsh.riskDetails.phoneNumber= result.mobileNumber;
-	this.motorMarsh.riskDetails.emailAddress= result.email;
-	this.motorMarsh.riskDetails.birthDate= m(result.birthdate).format('YYYY-MM-DD');
-	this.motorMarsh.riskDetails.suffix= result.suffix;
-	this.motorMarsh.motorDetails.manufacturerId= result.make;
-	this.motorMarsh.motorDetails.modelId= result.model;
-	this.motorMarsh.motorDetails.vehicleTypeId= result.variant;
-	this.motorMarsh.motorDetails.MVFileNumber= result.mvNumber;
-	this.motorMarsh.motorDetails.plateNumber= result.plateNumber;
-	this.motorMarsh.motorDetails.motorNumber= result.engineNumber;
-	this.motorMarsh.motorDetails.serialNumber= result.chassisNumber;
-	this.motorMarsh.motorDetails.policyPeriodFrom= m(result.inceptionDate).format('YYYY-MM-DD');
-	this.motorMarsh.motorDetails.policyPeriodTo= m(result.expiryDate).format('YYYY-MM-DD');
-	this.motorMarsh.motorDetails.colorId= result.color;
-	this.motorMarsh.motorDetails.modelYear= result.year;
-	this.motorMarsh.motorDetails.subModelId= result.subModel;
-	this.motorMarsh.motorDetails.vehicleUsedId= result.typeOfUse;
-	this.motorMarsh.motorDetails.motorTypeId= result.p2000030.codRamo;
-  this.motorMarsh.lineId= result.p2000030.codRamo;
+	this.motorAff.riskDetails.validIDValue= result.codDoc;
+	this.motorAff.riskDetails.validID= result.tipDoc;
+	this.motorAff.riskDetails.phoneNumber= result.mobileNumber;
+	this.motorAff.riskDetails.emailAddress= result.email;
+	this.motorAff.riskDetails.birthDate= m(result.birthdate).format('YYYY-MM-DD');
+	this.motorAff.riskDetails.suffix= result.suffix;
+	this.motorAff.motorDetails.manufacturerId= result.make;
+	this.motorAff.motorDetails.modelId= result.model;
+	this.motorAff.motorDetails.vehicleTypeId= result.variant;
+	this.motorAff.motorDetails.MVFileNumber= result.mvNumber;
+	this.motorAff.motorDetails.plateNumber= result.plateNumber;
+	this.motorAff.motorDetails.motorNumber= result.engineNumber;
+	this.motorAff.motorDetails.serialNumber= result.chassisNumber;
+	this.motorAff.motorDetails.policyPeriodFrom= m(result.inceptionDate).format('YYYY-MM-DD');
+	this.motorAff.motorDetails.policyPeriodTo= m(result.expiryDate).format('YYYY-MM-DD');
+	this.motorAff.motorDetails.colorId= result.color;
+	this.motorAff.motorDetails.modelYear= result.year;
+	this.motorAff.motorDetails.subModelId= result.subModel;
+	this.motorAff.motorDetails.vehicleUsedId= result.typeOfUse;
+	this.motorAff.motorDetails.motorTypeId= result.p2000030.codRamo;
+  this.motorAff.lineId= result.p2000030.codRamo;
 
-	marsh.productId= this.commonService.getP20Value(result.a2000020List,'COD_MODALIDAD');
-  this.motorMarsh.motorDetails.conductionNumber= this.commonService.getP20Value(result.a2000020List,'NUM_CONDUCTION');
-	this.motorMarsh.motorDetails.usageAreaId= this.commonService.getP20Value(result.a2000020List,'COD_AREA_USAGE');
-	this.motorMarsh.motorDetails.usageArea= this.determineCodAreaUsage(this.motorMarsh.motorDetails.usageAreaId);
-	this.motorMarsh.motorDetails.usageAreaIdHolder= this.motorMarsh.motorDetails.usageAreaId + '-' + this.motorMarsh.motorDetails.usageArea;
-	this.motorMarsh.motorDetails.FMV = '0';
+	affinity.productId= this.commonService.getP20Value(result.a2000020List,'COD_MODALIDAD');
+  this.motorAff.motorDetails.conductionNumber= this.commonService.getP20Value(result.a2000020List,'NUM_CONDUCTION');
+	this.motorAff.motorDetails.usageAreaId= this.commonService.getP20Value(result.a2000020List,'COD_AREA_USAGE');
+	this.motorAff.motorDetails.usageArea= this.determineCodAreaUsage(this.motorAff.motorDetails.usageAreaId);
+	this.motorAff.motorDetails.usageAreaIdHolder= this.motorAff.motorDetails.usageAreaId + '-' + this.motorAff.motorDetails.usageArea;
+	this.motorAff.motorDetails.FMV = '0';
 
 	let fisico = "1";
 
@@ -220,9 +220,9 @@ export class MotorIssuanceService {
 	fisico = "2";
 	}
 
-	this.motorMarsh.motorDetails.isCorporate = fisico;
+	this.motorAff.motorDetails.isCorporate = fisico;
 
-	this.commonService.getCoverageByPolicy("A",this.motorMarsh.policyNumber,this.motorMarsh.motorDetails.motorTypeId
+	this.commonService.getCoverageByPolicy("A",this.motorAff.policyNumber,this.motorAff.motorDetails.motorTypeId
       ).subscribe(
       (result) => {
         let totalLossDamagePrem = 0;
@@ -237,11 +237,11 @@ export class MotorIssuanceService {
 
           switch(result[i].codCob){
             case "1004":
-              this.motorMarsh.motorDetails.bodilyInjuryLimit = result[i].sumaAseg;
+              this.motorAff.motorDetails.bodilyInjuryLimit = result[i].sumaAseg;
               result[i].nomCob = "Excess Liability Insurance for Bodily Injury".toUpperCase();
             break;
             case "1005":
-              this.motorMarsh.motorDetails.propertyDamageLimit = result[i].sumaAseg;
+              this.motorAff.motorDetails.propertyDamageLimit = result[i].sumaAseg;
               result[i].nomCob = "Excess Liability Insurance for Property Damage".toUpperCase();
             break;
             case "1100":
@@ -256,30 +256,30 @@ export class MotorIssuanceService {
           result[i].totalPremium = ((result[i].totalPremium != "0") ? this.formatter.format(parseFloat(result[i].totalPremium)) : "INCL");
           
           if(result[i].codCob != "1003" && result[i].codCob != "1002"){
-            this.motorMarsh.coveragesValue.push(result[i]);
+            this.motorAff.coveragesValue.push(result[i]);
           }
 
         }
 
-        this.motorMarsh.coveragesValue = _.orderBy(this.motorMarsh.coveragesValue,'numSecu','asc');
+        this.motorAff.coveragesValue = _.orderBy(this.motorAff.coveragesValue,'numSecu','asc');
 
       });
 
       let type = "motorComprehensive";
 
-      if(this.motorMarsh.productId == "10002"){
+      if(this.motorAff.productId == "10002"){
         type = "motorCTPL";
       }
 
       this.loadAllLOV(
-        this.motorMarsh.motorDetails.motorTypeId,
-        this.motorMarsh.motorDetails.manufacturerId,
-        this.motorMarsh.motorDetails.modelId,
-        this.motorMarsh.motorDetails.vehicleTypeId,
-        this.motorMarsh.motorDetails.modelYear,
-        this.motorMarsh.motorDetails.subModelId,
-        this.motorMarsh.motorDetails.colorId,
-        this.motorMarsh.motorDetails.vehicleUsedId,
+        this.motorAff.motorDetails.motorTypeId,
+        this.motorAff.motorDetails.manufacturerId,
+        this.motorAff.motorDetails.modelId,
+        this.motorAff.motorDetails.vehicleTypeId,
+        this.motorAff.motorDetails.modelYear,
+        this.motorAff.motorDetails.subModelId,
+        this.motorAff.motorDetails.colorId,
+        this.motorAff.motorDetails.vehicleUsedId,
         result.p2100610List
       );
 
@@ -298,13 +298,13 @@ export class MotorIssuanceService {
             this.coverage = new Coverages();
           }
 
-          this.motorMarsh.coverages = this.coverageList;
+          this.motorAff.coverages = this.coverageList;
 
-          this.caller.doCallService('/afnty/getPaymentBreakdown?numPoliza='+ this.motorMarsh.policyNumber +'&type=P',null).subscribe(
+          this.caller.doCallService('/afnty/getPaymentBreakdown?numPoliza='+ this.motorAff.policyNumber +'&type=P',null).subscribe(
             paymentBreakdown => {
-                this.motorMarsh.premiumBreakdown = paymentBreakdown;
-                console.log(this.motorMarsh.premiumBreakdown);
-                ret.next(this.motorMarsh);
+                this.motorAff.premiumBreakdown = paymentBreakdown;
+                console.log(this.motorAff.premiumBreakdown);
+                ret.next(this.motorAff);
           });
 
       });
@@ -342,9 +342,9 @@ export class MotorIssuanceService {
       motorTypeId
     ).subscribe(
     (result) => {
-      this.motorMarsh.lov.makeLOV = result;
-      this.motorMarsh.motorDetails.manufacturer = this.getLabel(manufacturerId,result,'COD_MARCA','NOM_MARCA');
-      this.motorMarsh.motorDetails.manufacturerIdHolder = manufacturerId + '-' + this.motorMarsh.motorDetails.manufacturer;
+      this.motorAff.lov.makeLOV = result;
+      this.motorAff.motorDetails.manufacturer = this.getLabel(manufacturerId,result,'COD_MARCA','NOM_MARCA');
+      this.motorAff.motorDetails.manufacturerIdHolder = manufacturerId + '-' + this.motorAff.motorDetails.manufacturer;
     });
 
     this.commonService.chooseMake(
@@ -352,9 +352,9 @@ export class MotorIssuanceService {
       manufacturerId
     ).subscribe( 
     (result) => {
-      this.motorMarsh.lov.modelLOV = result;
-      this.motorMarsh.motorDetails.model = this.getLabel(modelId,result,'COD_MODELO','NOM_MODELO');
-      this.motorMarsh.motorDetails.modelIdHolder = modelId + '-' + this.motorMarsh.motorDetails.model;
+      this.motorAff.lov.modelLOV = result;
+      this.motorAff.motorDetails.model = this.getLabel(modelId,result,'COD_MODELO','NOM_MODELO');
+      this.motorAff.motorDetails.modelIdHolder = modelId + '-' + this.motorAff.motorDetails.model;
     });
 
     this.commonService.chooseModel(
@@ -362,9 +362,9 @@ export class MotorIssuanceService {
       modelId
     ).subscribe( 
     (result) => {
-      this.motorMarsh.lov.variantLOV = result;
-      this.motorMarsh.motorDetails.vehicleType = this.getLabel(vehicleTypeId,result,'COD_TIP_VEHI','NOM_TIP_VEHI');
-      this.motorMarsh.motorDetails.vehicleTypeIdHolder = vehicleTypeId + '-' + this.motorMarsh.motorDetails.vehicleType;
+      this.motorAff.lov.variantLOV = result;
+      this.motorAff.motorDetails.vehicleType = this.getLabel(vehicleTypeId,result,'COD_TIP_VEHI','NOM_TIP_VEHI');
+      this.motorAff.motorDetails.vehicleTypeIdHolder = vehicleTypeId + '-' + this.motorAff.motorDetails.vehicleType;
     });
 
     this.commonService.chooseVariant(
@@ -373,20 +373,20 @@ export class MotorIssuanceService {
       vehicleTypeId
     ).subscribe( 
     (result) => {
-      this.motorMarsh.lov.yearList = result;
+      this.motorAff.lov.yearList = result;
     });
 
-    this.motorMarsh.lineId = this.commonService.selectSubline(vehicleTypeId).split("-")[1];
-    this.motorMarsh.motorDetails.motorTypeId = this.commonService.selectSubline(vehicleTypeId).split("-")[1];
-    this.motorMarsh.motorDetails.subline = this.commonService.selectSubline(vehicleTypeId).split("-")[1];
-    this.motorMarsh.motorDetails.validityDate = this.commonService.selectSubline(vehicleTypeId).split("-")[0];
+    this.motorAff.lineId = this.commonService.selectSubline(vehicleTypeId).split("-")[1];
+    this.motorAff.motorDetails.motorTypeId = this.commonService.selectSubline(vehicleTypeId).split("-")[1];
+    this.motorAff.motorDetails.subline = this.commonService.selectSubline(vehicleTypeId).split("-")[1];
+    this.motorAff.motorDetails.validityDate = this.commonService.selectSubline(vehicleTypeId).split("-")[0];
 
     this.commonService.loadAccessories(
       vehicleTypeId,
-      this.motorMarsh.motorDetails.validityDate
+      this.motorAff.motorDetails.validityDate
     ).subscribe( 
     (result) => {
-      this.motorMarsh.lov.accessoryLOV = result
+      this.motorAff.lov.accessoryLOV = result
     });   
 
     this.commonService.chooseModelYear(
@@ -396,9 +396,9 @@ export class MotorIssuanceService {
       modelYear
     ).subscribe( 
     (result) => {
-      this.motorMarsh.lov.subModelLOV = result;
-      this.motorMarsh.motorDetails.subModel = this.getLabel(subModelId,result,'COD_SUB_MODELO','NOM_SUB_MODELO');
-      this.motorMarsh.motorDetails.subModelIdHolder = subModelId + '-' + this.motorMarsh.motorDetails.subModel;
+      this.motorAff.lov.subModelLOV = result;
+      this.motorAff.motorDetails.subModel = this.getLabel(subModelId,result,'COD_SUB_MODELO','NOM_SUB_MODELO');
+      this.motorAff.motorDetails.subModelIdHolder = subModelId + '-' + this.motorAff.motorDetails.subModel;
     });   
 
     this.commonService.chooseSubModel(
@@ -409,9 +409,9 @@ export class MotorIssuanceService {
       modelYear
     ).subscribe( 
     (result) => {
-      this.motorMarsh.lov.typeOfUseLOV = result;
-      this.motorMarsh.motorDetails.vehicleUsed = this.getLabel(vehicleUsedId,result,'COD_USO_VEHI','NOM_USO_VEHI');
-      this.motorMarsh.motorDetails.vehicleUsedIdHolder = vehicleUsedId + '-' + this.motorMarsh.motorDetails.vehicleUsed;
+      this.motorAff.lov.typeOfUseLOV = result;
+      this.motorAff.motorDetails.vehicleUsed = this.getLabel(vehicleUsedId,result,'COD_USO_VEHI','NOM_USO_VEHI');
+      this.motorAff.motorDetails.vehicleUsedIdHolder = vehicleUsedId + '-' + this.motorAff.motorDetails.vehicleUsed;
     });    
 
     this.commonService.loadFMV(
@@ -422,14 +422,14 @@ export class MotorIssuanceService {
     ).subscribe( 
     (resultFMV) => { 
       console.log(resultFMV);
-      this.motorMarsh.motorDetails.FMV = resultFMV;
+      this.motorAff.motorDetails.FMV = resultFMV;
     });
 
     this.caller.getLOV("A2100800","1",'').subscribe(
       result => {
-        this.motorMarsh.lov.colorLOV = result;
-        this.motorMarsh.motorDetails.color = this.getLabel(colorId,result,'COD_COLOR','NOM_COLOR');
-        this.motorMarsh.motorDetails.colorIdHolder = colorId + '-' + this.motorMarsh.motorDetails.color;
+        this.motorAff.lov.colorLOV = result;
+        this.motorAff.motorDetails.color = this.getLabel(colorId,result,'COD_COLOR','NOM_COLOR');
+        this.motorAff.motorDetails.colorIdHolder = colorId + '-' + this.motorAff.motorDetails.color;
     });
 
 

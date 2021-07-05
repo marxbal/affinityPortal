@@ -60,10 +60,10 @@ import {
 } from '../modules/others/configuration/configuration.component';
 import {
   LandingpageComponent
-} from '../modules/marsh/landingpage/landingpage.component';
+} from '../modules/affinity/landingpage/landingpage.component';
 import {
   IssuanceComponent
-} from '../modules/marsh/issuance/issuance.component';
+} from '../modules/affinity/issuance/issuance.component';
 import {
   RouterModule,
   Routes

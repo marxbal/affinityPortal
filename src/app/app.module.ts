@@ -32,26 +32,26 @@ import { InboxManagementComponent } from './modules/inbox/inbox-management/inbox
 import { ConfigurationComponent } from './modules/others/configuration/configuration.component';
 import { Ng2CompleterModule } from 'ng2-completer';
 import { PasswordManagementComponent } from './modules/user/password-management/password-management.component';
-import { LandingpageComponent } from './modules/marsh/landingpage/landingpage.component';
-import { IssuanceComponent } from './modules/marsh/issuance/issuance.component';
-import { PropertyComponent } from './modules/marsh/property/property.component';
-import { PersonalComponent } from './modules/marsh/personal/personal.component';
-import { QuotationComponent } from './modules/marsh/quotation/quotation.component';
-import { FooterComponent } from './modules/marsh/footer/footer.component';
-import { PolicyComponent } from './modules/marsh/policy/policy.component';
-import { RiskComponent } from './modules/marsh/risk/risk.component';
-import { MotorComponent } from './modules/marsh/motor/motor.component';
-import { MotorPolicyComponent } from './modules/marsh/motor-policy/motor-policy.component';
-import { PaymentComponent } from './modules/marsh/payment/payment.component';
+import { LandingpageComponent } from './modules/affinity/landingpage/landingpage.component';
+import { IssuanceComponent } from './modules/affinity/issuance/issuance.component';
+import { PropertyComponent } from './modules/affinity/property/property.component';
+import { PersonalComponent } from './modules/affinity/personal/personal.component';
+import { QuotationComponent } from './modules/affinity/quotation/quotation.component';
+import { FooterComponent } from './modules/affinity/footer/footer.component';
+import { PolicyComponent } from './modules/affinity/policy/policy.component';
+import { RiskComponent } from './modules/affinity/risk/risk.component';
+import { MotorComponent } from './modules/affinity/motor/motor.component';
+import { MotorPolicyComponent } from './modules/affinity/motor-policy/motor-policy.component';
+import { PaymentComponent } from './modules/affinity/payment/payment.component';
 import { NgxDropzoneModule } from 'ngx-dropzone';
-import { AccidentComponent } from './modules/marsh/accident/accident.component';
-import { RiskMotorComponent } from './modules/marsh/risk-motor/risk-motor.component';
-import { RiskHouseholdComponent } from './modules/marsh/risk-household/risk-household.component';
-import { RiskAccidentComponent } from './modules/marsh/risk-accident/risk-accident.component';
-import { AddressComponent } from './modules/marsh/address/address.component';
-import { TechnicalControlComponent } from './modules/marsh/technical-control/technical-control.component';
-import { AlternativeHolderComponent } from './modules/marsh/risk-motor/alternative-holder/alternative-holder.component';
-import { InsuredDetailsComponent } from './modules/marsh/personal/insured-details/insured-details.component';
+import { AccidentComponent } from './modules/affinity/accident/accident.component';
+import { RiskMotorComponent } from './modules/affinity/risk-motor/risk-motor.component';
+import { RiskHouseholdComponent } from './modules/affinity/risk-household/risk-household.component';
+import { RiskAccidentComponent } from './modules/affinity/risk-accident/risk-accident.component';
+import { AddressComponent } from './modules/affinity/address/address.component';
+import { TechnicalControlComponent } from './modules/affinity/technical-control/technical-control.component';
+import { AlternativeHolderComponent } from './modules/affinity/risk-motor/alternative-holder/alternative-holder.component';
+import { InsuredDetailsComponent } from './modules/affinity/personal/insured-details/insured-details.component';
 
 @NgModule({
   declarations: [

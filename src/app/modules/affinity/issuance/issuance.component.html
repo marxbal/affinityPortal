@@ -1,0 +1,78 @@
+<app-landingpage
+  *ngIf="this.templateRouter == 'initialize'"
+  [affinity]="this.affinity"
+  (issuanceType)="nextStepActionQuoteIssuance($event)"
+  (backButton)="backButtonAction($event)"
+  (productDetails)="productDetails($event)"></app-landingpage>
+
+<div class="container issuance-container">
+
+  <app-motor *ngIf="this.templateRouter == 'motorQuotationIssuance'"
+    (nextStep)="nextStepAction($event)"
+    (affinityOutput)="affinityOutput($event)"
+    (backButton)="backButtonAction($event)"
+    [affinity]="this.affinity"
+    [product]="this.product"
+    [description]="this.description"></app-motor>
+
+  <app-personal
+    *ngIf="this.templateRouter == 'personalInformation'"
+    (nextStep)="nextStepAction($event)"
+    (affinityOutput)="affinityOutput($event)"
+    [backButton]="this.backButton"
+    [affinity]="this.affinity"
+    [product]="this.product"
+    [description]="this.description"></app-personal>
+
+  <app-property
+    *ngIf="this.templateRouter == 'householdQuotationIssuance'"
+    (nextStep)="nextStepAction($event)"
+    (affinityOutput)="affinityOutput($event)"
+    (backButton)="backButtonAction($event)"
+    [affinity]="this.affinity"></app-property>
+
+  <app-quotation
+    *ngIf="this.templateRouter == 'issueQuotation'"
+    [affinity]="this.affinity"
+    [line]="this.line"
+    (nextStep)="nextStepAction($event)"></app-quotation>
+
+  <app-technical-control
+    *ngIf="this.templateRouter == 'techControl'"
+    [affinity]="this.affinity"
+    [line]="this.line"
+    (nextStep)="nextStepAction($event)"></app-technical-control>
+
+  <app-risk *ngIf="this.templateRouter == 'riskInformation'"
+    (nextStep)="nextStepAction($event)"
+    (affinityOutput)="affinityOutput($event)"
+    [affinity]="this.affinity"
+    [line]="this.line"></app-risk>
+
+  <app-accident *ngIf="this.templateRouter == 'PAQuotationIssuance'"
+    (nextStep)="nextStepAction($event)"
+    (affinityOutput)="affinityOutput($event)"
+    (backButton)="backButtonAction($event)"
+    [affinity]="this.affinity"></app-accident>
+
+  <app-motor-policy
+    *ngIf="this.templateRouter == 'motorPolicyIssuance'"
+    (nextStep)="nextStepAction($event)"
+    (affinityOutput)="affinityOutput($event)"
+    [affinity]="this.affinity"></app-motor-policy>
+
+  <app-payment
+    *ngIf="this.templateRouter == 'payment'"
+    (nextStep)="nextStepAction($event)"
+    (affinityOutput)="affinityOutput($event)"
+    [affinity]="this.affinity"></app-payment>
+
+  <app-policy
+    *ngIf="this.templateRouter == 'policy'"
+    (nextStep)="nextStepAction($event)"
+    (affinityOutput)="affinityOutput($event)"
+    [affinity]="this.affinity"></app-policy>
+
+</div>
+
+<app-footer class="footer"></app-footer>

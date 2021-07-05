@@ -1,0 +1,458 @@
+<div *ngIf="this.affinity.motorDetails.isCorporate">
+    <h5 *ngIf="this.affinity.motorDetails.isCorporate == '1'">Personal Details</h5>
+    <div class="row" *ngIf="this.affinity.motorDetails.isCorporate == '1'">
+        <div class="col-md-4">
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <label for="firstName" class="col-form-label affinity-label">FIRST NAME <span class="text-mapfre text-heavy">*</span></label>
+                    <input type="text" id="firstName" [(ngModel)]="this.affinity.riskDetails.firstName" class="form-control required pa-personal to-uppercase" placeholder="First Name" name="First Name">
+                </div>
+            </div>
+            
+        </div>
+        <div class="col-md-4">
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <label for="middleName" class="affinity-label">MIDDLE NAME</label>
+                    <input type="text" id="middleName" [(ngModel)]="this.affinity.riskDetails.middleName" class="form-control to-uppercase" placeholder="Middle Name">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <label for="lastName" class="affinity-label">LAST NAME <span class="text-mapfre text-heavy">*</span></label>
+                    <input type="text" id="lastName" [(ngModel)]="this.affinity.riskDetails.lastName" class="form-control required pa-personal to-uppercase" name="Last Name" placeholder="Last Name">
+                </div>
+            </div>
+        </div>
+       <div class="col-md-4">
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <label for="civilStatus" class="affinity-label">CIVIL STATUS <span class="text-mapfre text-heavy">*</span></label>
+                    <select class="form-control required pa-personal" name="Civil Status" id="civilStatus" [(ngModel)]="this.affinity.riskDetails.civilStatus">
+                    <option value="0" disabled="disabled">Please choose Civil Status</option>
+                    <option *ngFor="let civil of this.affinity.lov.civilStatusLOV" value="{{civil.COD_EST_CIVIL}}">{{civil.NOM_VALOR}}</option>
+                </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <label for="nationality" class="affinity-label">NATIONALITY <span class="text-mapfre text-heavy">*</span></label>
+                    <select class="form-control" id="nationality" [(ngModel)]="this.affinity.riskDetails.nationality">
+                        <option value="0" disabled="disabled">Please choose Nationality</option>
+                        <option *ngFor="let nat of this.affinity.lov.nationalityLOV" value="{{nat.COD_PAIS}}">{{nat.NOM_PAIS}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <label for="birthDate" class="affinity-label">DATE OF BIRTH <span class="text-mapfre text-heavy">*</span></label>
+                    <input type="date" id="birthDate" [(ngModel)]="this.affinity.riskDetails.birthDate" class="form-control required pa-personal" name="Birthdate">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <label for="gender" class="affinity-label">GENDER <span class="text-mapfre text-heavy">*</span></label>
+                    <select class="form-control required pa-personal" name="Gender" id="gender" [(ngModel)]="this.affinity.riskDetails.gender">
+                        <option disabled="disabled">Please choose Gender</option>
+                        <option value="1">Male</option>
+                        <option value="0">Female</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <label for="religion" class="affinity-label">RELIGION</label>
+                    <input type="text" id="religion" [(ngModel)]="this.affinity.riskDetails.religion" class="form-control to-uppercase" placeholder="Religion" name="Religion">
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="row" style="display: none;">
+        <div class="col-md-8" *ngIf="this.affinity.lineId == '337'">
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" [(ngModel)]="this.affinity.riskDetails.healthDeclaration" >
+                      <label class="form-check-label" for="defaultCheck1">
+                        With Health Declaration
+                      </label>
+                    </div>
+                </div>
+                <div class="col-md-12" *ngIf="this.affinity.riskDetails.healthDeclaration == true">
+                    <label for="preExistingIllness" class="affinity-label">DECLARE PRE-EXISTING ILLNESS <span class="text-mapfre text-heavy">*</span></label>
+                   <input type="text" id="preExistingIllness" [(ngModel)]="this.affinity.riskDetails.preExistingIllness" class="form-control required motor-personal to-uppercase" placeholder="Pre Existing Illness" name="Pre Existing Illness">
+                </div>
+            </div>
+        </div> 
+
+    </div>
+    <br />
+    <h5>Contact Details</h5>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <label for="email" class="affinity-label">EMAIL <span class="text-mapfre text-heavy">*</span></label>
+                    <input type="email" id="email" class="form-control required pa-personal to-uppercase" name="Email" placeholder="Email" [(ngModel)]="this.affinity.riskDetails.emailAddress">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <label for="phoneNumber" class="affinity-label">MOBILE/PHONE NUMBER <span class="text-mapfre text-heavy">*</span></label>
+                    <input type="text" id="phoneNumber" maxlength="12" class="form-control required pa-personal to-uppercase" name="Phone Number" placeholder="Phone Number" [(ngModel)]="this.affinity.riskDetails.phoneNumber">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<h5>Mailing Address</h5>
+<div class="row" *ngIf="this.addAddress == '' && this.affinity.lov.addressLOV.length > 0">
+    <div class="col-md-4"><button type="button" class="btn btn-mapfre" (click)="openAddress()">Add Address</button></div>
+</div>
+<app-address *ngIf="this.addAddress == 'add'" [title]="this.presentAddressTitle" [affinity]="this.affinity" (addressDetailsOutput)="catchAddress($event)"></app-address>
+<!-- 
+<app-address *ngIf="this.affinity.motorDetails.isCorporate == '2'" [title]="this.pbAddressTitle" [affinity]="this.affinity" (addressDetailsOutput)="catchPresentAddress($event)"></app-address> -->
+
+<div class="row mt-5" *ngIf="this.tempAddresses.length > 0">
+    <div class="col-md-12">
+        <table class="table table-small table-hover table-condensed">
+            <thead>
+                <tr>
+                    <td>Type</td>
+                    <td>Full Address</td>
+                    <td>Mailing Address</td>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let address of this.tempAddresses">
+                    <td>{{address.addressType}}</td>
+                    <td>{{address.addressDetails}} {{address.municipalityDetail}}  {{address.provinceDetail}} {{address.zipCode}}</td>
+                    <td><h3><i class="fa fa-check-circle text-success" *ngIf="address.mailingAddress == '1'"></i></h3></td>
+                    <td><button type="button" class="btn btn-mapfre mr-3" (click)="setCorrespondent(address)" ><i class="fa fa-envelope"></i> Set Mailing Address</button><button type="button" class="btn btn-mapfre" (click)="removeAddressList(address)" ><i class="fa fa-times"></i> Remove</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<br />
+<h5>Valid Government IDs</h5>
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group row">
+            <div class="col-md-12">
+                <label for="validID" class="affinity-label">GOVERNMENT ID <span class="text-mapfre text-heavy">*</span></label>
+                <select class="form-control required pa-personal" name="Government ID" id="validID" [(ngModel)]="this.affinity.riskDetails.validID">
+                    <option value="0" disabled="disabled">Please choose ID</option>
+                    <option *ngFor="let cod of this.affinity.lov.documentLOV" value="{{cod.TIP_DOCUM}}">{{cod.NOM_DOCUM}}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group row">
+            <div class="col-md-12">
+                <label for="validIDValue" class="affinity-label">ID NUMBER <span class="text-mapfre text-heavy">*</span></label>
+                <input type="text" id="validIDValue" class="form-control required pa-personal to-uppercase" name="ID Number" placeholder="ID Number" [(ngModel)]="this.affinity.riskDetails.validIDValue">
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<h5>Employment Details</h5>
+<div class="row">
+        <div class="col-md-4">
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <label for="occupationalClass" class="affinity-label">OCCUPATIONAL CLASS <span class="text-mapfre text-heavy">*</span></label>
+                    <select class="form-control required pa-personal" id="occupationalClass" name="Occupational Class" [(ngModel)]="this.affinity.riskDetails.occupationalClass" (change)="chooseOccupationalClass()">
+                        <option value="0" disabled="disabled">Please choose Occupational Class</option>
+                        <option *ngFor="let ocl of this.affinity.lov.occupationalClassLOV" value="{{ocl.COD_VALOR}}:=:{{ocl.NOM_VALOR}}">{{ocl.NOM_VALOR}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <label for="occupation" class="affinity-label">OCCUPATION <span class="text-mapfre text-heavy">*</span></label>
+                    <select class="form-control required pa-personal" id="occupation" name="Occupation" [(ngModel)]="this.affinity.riskDetails.occupation">
+                        <option value="0" disabled="disabled">Please choose Occupation</option>
+                        <option *ngFor="let ol of this.affinity.lov.occupationLOV" value="{{ol.COD_VALOR}}:=:{{ol.NOM_VALOR}}">{{ol.NOM_VALOR}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div *ngIf="this.affinity.riskDetails.civilStatus !== '' && this.affinity.riskDetails.civilStatus !== 'S'">
+        <h5>Family Members</h5>
+        <small>You may also provide your family members protection against bodily injury, death, or disablement arising from accidental or external causes. 
+Please tap Add Family Member below for each family member you wish to insure under our Family Personal Accident product.</small>
+        <div class="row">
+            <div class="col-md-4">
+                <button class="btn btn-mapfre mt-3 mb-3" *ngIf="this.showAddButton == '1'" (click)="openModalFamilyMember()" data-toggle="modal" data-target="#familyMemberModal" ><b>Add Family Member</b></button>
+            </div>
+        </div>
+        <div class="row" *ngIf="this.affinity.paDetails.familyMembers.length > 0">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-condensed table-hover table-small">
+                        <thead>
+                            <td>Member's Name</td>
+                            <td>Relationship</td>
+                            <td></td>
+                        </thead>
+                        <tbody>
+                            <tr  *ngFor="let member of this.affinity.paDetails.familyMembers">
+                                <td>{{member.fullName}}</td>
+                                <td>{{member.relationship.split(":=:")[1]}}</td>
+                                <td><button class="btn btn-mapfre btn-sm"  (click)="editFamilyMember(member)" data-toggle="modal" data-target="#familyMemberModal" ><i class="fa fa-pencil"></i></button><button class="btn btn-mapfre btn-sm" (click)="removeFamilyMember(member)"><i class="fa fa-times"></i></button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+<br />
+<h5>KYC Fields</h5>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <button class="btn btn-mapfre btn-block"  data-toggle="collapse" href="#kycFieldHolder" role="button" aria-expanded="false" aria-controls="kycFieldHolder"><b>Show all Fields</b></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row collapse" id="kycFieldHolder">
+        <div class="col-md-4">
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <label for="birthPlace" class="affinity-label">PLACE OF BIRTH</label>
+                    <input type="text" id="birthPlace" class="form-control to-uppercase" placeholder="Place of Birth" [(ngModel)]="this.affinity.KYC.NOM_NACIMIENTO">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <label for="sssGSIS" class="affinity-label">SSS/GSIS NUMBER</label>
+                    <input type="text" id="sssGSIS" class="form-control to-uppercase" placeholder="SSS/GSIS Number" [(ngModel)]="this.affinity.KYC.NUM_SSS_GSIS">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <label for="numTIN" class="affinity-label">TIN</label>
+                    <input type="text" id="numTIN" class="form-control to-uppercase" placeholder="TIN" [(ngModel)]="this.affinity.KYC.NUM_TIN">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <label for="sourceOfFunds" class="affinity-label">SOURCE OF FUNDS</label>
+                    <input type="text" id="sourceOfFunds" class="form-control to-uppercase" placeholder="Source of Funds" [(ngModel)]="this.affinity.KYC.NOM_FUENTO_FONDO">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <label for="netIncome" class="affinity-label">NET INCOME</label>
+                    <input type="text" id="netIncome" class="form-control to-uppercase" placeholder="Net Income" [(ngModel)]="this.affinity.KYC.NUM_INGRESOS_NETOS">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <label for="businessNature" class="affinity-label">NAME OF BUSINESS/SELF EMPLOYMENT</label>
+                    <input type="text" id="businessNature" class="form-control to-uppercase" placeholder="Nature of Business" [(ngModel)]="this.affinity.KYC.NOM_NEGOCIO">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <label for="empBusName" class="affinity-label">EMPLOYER'S/BUSINESS NAME</label>
+                    <input type="text" id="empBusName" class="form-control to-uppercase" placeholder="Employer's Business Name" [(ngModel)]="this.affinity.KYC.NOM_EMP_BUS_ANIO_SINGKO">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <label for="houseOwnName" class="affinity-label">HOUSE OWNER'S NAME</label>
+                    <input type="text" id="houseOwnName" class="form-control to-uppercase" placeholder="House Owner's Name" [(ngModel)]="this.affinity.KYC.NOM_CASA_OWN">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <label for="houseRentName" class="affinity-label">HOUSE LESSEE'S NAME</label>
+                    <input type="text" id="houseRentName" class="form-control to-uppercase" placeholder="House Lessee's Name" [(ngModel)]="this.affinity.KYC.NOM_CASE_RENT">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <label for="benef" class="affinity-label">BENEFICIARIES</label>
+                    <input type="text" id="benef" class="form-control to-uppercase" placeholder="Beneficiaries" [(ngModel)]="this.affinity.KYC.NOM_BENEFICIARIO">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <label for="numChild" class="affinity-label">NO. OF CHILDREN W/ SUPPORT</label>
+                    <input type="text" id="numChild" class="form-control to-uppercase" placeholder="Number of Children w/ Support" [(ngModel)]="this.affinity.KYC.NUM_NINOS">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <label for="carOwn" class="affinity-label">CAR'S OWNED</label>
+                    <input type="text" id="carOwn" class="form-control to-uppercase" placeholder="Car's Owned" [(ngModel)]="this.affinity.KYC.NOM_COCHE">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <label for="banksList" class="affinity-label">LIST OF BANKS</label>
+                    <input type="text" id="banksList" class="form-control to-uppercase" placeholder="List of Banks" [(ngModel)]="this.affinity.KYC.NOM_BANCO">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <label for="banksAcctTypes" class="affinity-label">TYPE OF BANK ACCOUNTS</label>
+                    <input type="text" id="banksAcctTypes" class="form-control to-uppercase" placeholder="Type of Bank Accounts" [(ngModel)]="this.affinity.KYC.TIP_BANCO_ACCT">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <label for="seniorOfficer" class="affinity-label">SENIOR OFFICER</label>
+                    <input type="text" id="seniorOfficer" class="form-control to-uppercase" placeholder="Senior Officer" [(ngModel)]="this.affinity.KYC.COD_EMP_CLASS">
+                </div>
+            </div>
+        </div>
+    </div>
+<h5 *ngIf="this.affinity.lineId == '337'">Policy Period</h5>
+<div class="row" *ngIf="this.affinity.lineId == '337'">
+    <div class="col-md-4">
+        <div class="form-group row">
+            <div class="col-md-12">
+                <label for="policyPeriodFrom" class="affinity-label">EFFECTIVITY <span class="text-mapfre text-heavy">*</span></label>
+                <input type="date" id="policyPeriodFrom" class="form-control  required motor-quote" name="Effectivity Date" [(ngModel)]="this.affinity.motorDetails.policyPeriodFrom"   min="{{this.affinity.motorDetails.policyPeriodFrom}}" (change)="chooseEffectivityDate()">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group row">
+            <div class="col-md-12">
+                <label for="policyPeriodTo" class="affinity-label">EXPIRY <span class="text-mapfre text-heavy">*</span></label>
+                <input type="date" id="policyPeriodTo" readonly="readonly" class="form-control required motor-quote" name="Expiry Date" [(ngModel)]="this.affinity.motorDetails.policyPeriodTo">
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<div class="form-check goodHealth"> 
+    <input type="checkbox" class="form-check-input" [(ngModel)]="this.affinity.riskDetails.underTaking" id="exampleCheck1">
+    <label class="form-check-label" for="exampleCheck1">Agree to <a  data-toggle="modal" data-target="#goodHealthDeclaration" href="#">Declaration of Good Health</a></label>
+</div> 
+<br />
+<br />
+<h5>Payment Option</h5>
+<div class="row">
+    <div class="col-md-3">
+        <div class="custom-control custom-radio custom-control-inline">
+          <input type="radio" id="customRadioInline1" name="customRadioInline1" [(ngModel)]="this.affinity.paymentOption" class="custom-control-input" value="cc">
+          <label class="custom-control-label" for="customRadioInline1">Pay using Credit Card</label> 
+        </div>
+        <br />
+        <img class="logo-collection" src="assets/images/authProgram_SC.gif" />
+        <img class="logo-collection" src="assets/images/authProgram_VBV.gif" />
+    </div>
+    <div class="col-md-3">
+        <div class="custom-control custom-radio custom-control-inline">
+          <input type="radio" id="customRadioInline2" name="customRadioInline1" [(ngModel)]="this.affinity.paymentOption" class="custom-control-input" value="co">
+          <label class="custom-control-label" for="customRadioInline2">Pay via OTC/GCash</label>
+        </div>
+    </div>
+</div>
+<br />
+<div class="row" *ngIf="this.affinity.paymentOption">
+    <div class="col-md-3">
+        <!-- <button class="btn btn-mapfre mr-3 mt-3" (click)="backButtonAction()"><b>Back</b></button> -->
+        <button class="btn btn-mapfre mt-3" (click)="nextStepAction('payment')"><b>Proceed to Payment</b></button>
+    </div>
+</div>
+<div class="modal fade" id="goodHealthDeclaration" tabindex="-1" role="dialog" aria-labelledby="goodHealthDeclaration" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Declaration of Good Health</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h3>Declaration of Good Health</h3>
+        <div>I hereby certify that I am in good health and entirely free from any mental or physical impairments or deformities, and that within the last two (2) years, I have no application for any life insurance which has been declined or accepted on a basis other than that applied for, nor have I been diagnosed as suffering from diabetes, cancer, cardio-vascular diseases or HIV-related disease, nor have I been advised to have hospital treatment or surgery.
+    I hereby declare that the above information and statements are true. I agree that these shall be the basis of the issuance of my insurance coverage and that the insurers shall not be liable for any claim on account of illness, injury or death, the cause of which occurred prior to the approval of my request for insurance coverage and withheld or concealed in the above information and statements.
+    I attest to the truth and completeness of my declarations and representations above and I understand that these will be the bases for the evaluation of my application.</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="familyMemberModal" tabindex="-1" role="dialog" aria-labelledby="familyMemberModal" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Insure Family Member</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+            
+            <app-insured-details *ngIf="this.addFamily == 'add'" [loadType]="this.loadType" [editInsured]="this.familyMember" [existing]="this.affinity.paDetails.familyMembers"  [effectivity]="this.affinity.motorDetails.policyPeriodFrom" [civilStatus]="this.affinity.riskDetails.civilStatus" (newInsured)="addFamilyMember($event)"></app-insured-details>
+
+        </div>
+      <div class="modal-footer">
+        <button type="button" style="display: none" class="btn btn-secondary" data-dismiss="modal" id="closeModal">Close</button>
+        <!-- <button type="button" class="btn btn-mapfre" (click)="addFamilyMember()">Add Member</button> -->
+      </div>
+    </div>
+  </div>
+</div>

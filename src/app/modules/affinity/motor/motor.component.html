@@ -1,0 +1,396 @@
+
+<!-- <div class="row">
+	<div class="col-md-12">
+		<br>
+		<h3>Let's start by choosing a Product</h3>
+	</div>
+</div>
+<br /> -->
+<!-- 
+<div class="row">
+	<div class="col-md-4">
+		<div class="card" id="compreCard">
+		  <div class="card-body text-center">
+		  	<img class="card-img-top" src="assets/images/comprehensive.jpg" alt="Card image cap">
+		    <h5 class="card-title mt-3"><b>Comprehensive Insurance</b></h5>
+		    
+			<div class="card-footer text-center">
+				<button type="button" data-toggle="modal" data-target="#compreModal" class="btn btn-mapfre btn-block" (click)="viewCoverage('motorComprehensive','Comprehensive')">View Coverages</button>
+				<button type="button" class="btn btn-mapfre btn-block" (click)="selectProduct('10001','motorComprehensive')">Apply</button>
+			</div>
+
+		  </div>
+		</div>
+	</div>
+	<div class="col-md-4">
+		<div class="card" id="ctplCard">
+		  <div class="card-body text-center">
+		  	<img class="card-img-top" src="assets/images/ctpl.jpg" alt="Card image cap">
+		    <h5 class="card-title mt-3"><b>CTPL Insurance</b></h5>
+		    
+			<div class="card-footer text-center">
+				<button type="button" data-toggle="modal" data-target="#compreModal" class="btn btn-mapfre btn-block" (click)="viewCoverage('motorCTPL','CTPL')">View Coverages</button>
+				<button type="button" class="btn btn-mapfre btn-block" (click)="selectProduct('10002','motorCTPL')">Apply</button>
+			</div>
+
+		  </div>
+		</div>
+	</div> -->
+	<!--  <div class="col-md-12">
+        <div class="form-group row">
+            <div class="col-md-12">
+                <label for="productId" class="affinity-label">PLEASE CHOOSE A PRODUCT</label>
+                <select class="form-control" id="productId" [(ngModel)]="this.affinity.motorDetails.productId">
+	                <option value="0" disabled="disabled">Please choose Product Type</option>
+	                <option value="1">COMPREHENSIVE</option>
+	                <option value="2">CTPL</option>
+	            </select>
+            </div>
+        </div>
+	</div> -->
+<!-- </div> -->
+<!-- <hr /> -->
+<br />
+<br />
+<div *ngIf="this.affinity.motorDetails.productId" id="tellUsVehicle">
+	<div class="row">
+		<div class="col-md-12">
+			<h1  data-toggle="tooltip" data-placement="top" title="Tooltip on top" id="test">Tell us about your vehicle</h1>
+			<small><i>(<span class="text-mapfre">*</span>) - required fields</i></small>
+		</div>
+	</div>
+	<br />
+	<div class="row" style="display: none;">
+		<div class="col-md-4">
+			<div class="form-group row">
+	            <div class="col-md-12">
+	                <label for="motorTypeId" class="col-form-label affinity-label">TYPE <span class="text-mapfre text-heavy">*</span></label>
+	                <select class="form-control" id="motorTypeId" [(ngModel)]="this.affinity.motorDetails.motorTypeIdHolder" (change)="chooseType()">
+	                    <option value="0" disabled="disabled">Please choose Type</option>
+	                    <option value="100-PRIVATE CAR">PRIVATE CAR</option>
+	                    <option value="120-MOTORCYCLE">MOTORCYCLE</option>
+	                </select>
+	            </div>
+	        </div>
+		</div>
+	</div>
+	<br />
+	<div *ngIf="this.affinity.motorDetails.motorTypeIdHolder">
+		<h5>Insured Vehicle</h5>
+		<div class="row">
+			<div class="col-md-4">
+				<div class="form-group row">
+		            <div class="col-md-12">
+		                <label for="manufacturerId" class="col-form-label affinity-label">MAKE/MANUFACTURER <span class="text-mapfre text-heavy">*</span></label>
+		                <select class="form-control required motor-quote" name="Make/Manufacturer" id="manufacturerId" [(ngModel)]="this.affinity.motorDetails.manufacturerIdHolder" (change)="chooseMake()">
+		                    <option value="0" disabled="disabled">Please choose Manufacturer</option>
+		                    <option *ngFor="let make of this.affinity.lov.makeLOV" value="{{make.COD_MARCA}}-{{make.NOM_MARCA}}">{{make.NOM_MARCA}}</option>
+		                </select>
+		            </div>
+		        </div>
+			</div>
+			<div class="col-md-4">
+				<div class="form-group row">
+		            <div class="col-md-12">
+		                <label for="modelId" class="col-form-label affinity-label">MODEL <span class="text-mapfre text-heavy">*</span></label>
+		                <select class="form-control required motor-quote" name="Model" id="modelId" [(ngModel)]="this.affinity.motorDetails.modelIdHolder" (change)="chooseModel()">
+		                    <option value="0" disabled="disabled">Please choose Model</option>
+		                    <option *ngFor="let model of this.affinity.lov.modelLOV" value="{{model.COD_MODELO}}-{{model.NOM_MODELO}}">{{model.NOM_MODELO}}</option>
+		                </select>
+		            </div>
+		        </div>
+			</div>
+			<div class="col-md-4">
+				<div class="form-group row">
+		            <div class="col-md-12">
+		                <label for="vehicleTypeId" class="affinity-label">VEHICLE TYPE <span class="text-mapfre text-heavy">*</span></label>
+		                <select class="form-control required motor-quote" name="Vehicle Type" id="vehicleTypeId" [(ngModel)]="this.affinity.motorDetails.vehicleTypeIdHolder" (change)="chooseVariant()">
+		                    <option value="0" disabled="disabled">Please choose Vehicle Type</option>
+		                    <option *ngFor="let variant of this.affinity.lov.variantLOV" value="{{variant.COD_TIP_VEHI}}-{{variant.NOM_TIP_VEHI}}">{{variant.NOM_TIP_VEHI}}</option>
+		                </select>
+		            </div>
+		        </div>
+			</div>
+			<div class="col-md-4">
+				<div class="form-group row">
+		            <div class="col-md-12">
+		                <label for="modelYear" class="affinity-label">MODEL YEAR <span class="text-mapfre text-heavy">*</span></label>
+		                <select class="form-control required motor-quote" name="Model Year" id="modelYear" [(ngModel)]="this.affinity.motorDetails.modelYear" (change)="chooseModelYear()">
+		                    <option value="0" disabled="disabled">Please choose Model Year</option>
+		                    <option *ngFor="let year of this.affinity.lov.yearList" value="{{year.ANIO_SUB_MODELO}}">{{year.ANIO_SUB_MODELO}}</option>
+		                </select>
+		            </div>
+		        </div>
+			</div>
+			<div class="col-md-4">
+				<div class="form-group row">
+		            <div class="col-md-12">
+		                <label for="subModelId" class="col-form-label affinity-label">SUB-MODEL <span class="text-mapfre text-heavy">*</span></label>
+		                <select class="form-control required motor-quote" name="Sub-Model" id="subModelId" [(ngModel)]="this.affinity.motorDetails.subModelIdHolder" (change)="chooseSubModel()">
+		                    <option value="0" disabled="disabled">Please choose Sub-Model</option>
+		                    <option *ngFor="let subModel of this.affinity.lov.subModelLOV" value="{{subModel.COD_SUB_MODELO}}-{{subModel.NOM_SUB_MODELO}}">{{subModel.NOM_SUB_MODELO}}</option>
+		                </select>
+		            </div>
+		        </div>
+			</div>
+			<div class="col-md-4">
+				<div class="form-group row">
+		            <div class="col-md-12">
+		                <label for="motorNumber" class="affinity-label">FAIR MARKET VALUE </label>
+		                <input type="number" id="FMV" class="form-control number required motor-quote" name="FMV"  placeholder="0.00" [(ngModel)]="this.affinity.motorDetails.FMV">
+		            </div>
+		        </div>
+			</div>
+
+		</div>
+		<br />
+		<h5>Vehicle Identification</h5>
+		<div class="row">
+			<div class="col-md-4">
+				<div class="form-group row">
+		            <div class="col-md-12">
+		                <label for="motorNumber" class="affinity-label">ENGINE NUMBER <span class="text-mapfre text-heavy">*</span></label>
+		                <input type="text" id="motorNumber" class="form-control required motor-quote to-uppercase" name="Motor Number"  placeholder="Motor Number/Engine Number" (change)="validateEngine()" [(ngModel)]="this.affinity.motorDetails.motorNumber">
+		            </div>
+		        </div>
+			</div>
+			<div class="col-md-4">
+				<div class="form-group row">
+		            <div class="col-md-12">
+		                <label for="serialNumber" class="affinity-label">CHASSIS NUMBER <span class="text-mapfre text-heavy">*</span></label>
+		                <input type="text" id="serialNumber" class="form-control required motor-quote to-uppercase" name="Serial Number"  placeholder="Serial Number/Chassis Number" (change)="validateChassis()" [(ngModel)]="this.affinity.motorDetails.serialNumber">
+		            </div>
+		        </div>
+			</div>
+			<div class="col-md-4">
+				<div class="form-group row">
+		            <div class="col-md-12">
+		                <label for="plateNumber" class="affinity-label">PLATE NUMBER</label>
+		                <input type="text" id="plateNumber" class="form-control motor-quote to-uppercase" name="Plate Number"  placeholder="Plate Number" (change)="changePlateNumber()" [(ngModel)]="this.affinity.motorDetails.plateNumber">
+		            </div>
+		        </div>
+			</div>
+			<div class="col-md-4">
+				<div class="form-group row">
+		            <div class="col-md-12">
+		                <label for="conductionNumber" class="affinity-label">CONDUCTION STICKER NUMBER</label>
+		                <input type="text" id="conductionNumber" class="form-control to-uppercase" name="Conduction Sticker"  placeholder="Conduction Number" (change)="validateConduction()" [(ngModel)]="this.affinity.motorDetails.conductionNumber">
+		            </div>
+		        </div>
+			</div>
+			<div class="col-md-4">
+				<div class="form-group row">
+		            <div class="col-md-12">
+		                <label for="MVFileNumber" class="affinity-label">MV FILE NUMBER <span class="text-mapfre text-heavy">*</span></label>
+		                <input type="text" id="MVFileNumber" class="form-control required motor-quote to-uppercase" name="MV File Number"  placeholder="MV File Number" [(ngModel)]="this.affinity.motorDetails.MVFileNumber">
+		            </div>
+		        </div>
+			</div>
+			
+		</div>
+		<br />
+		<h5>Other Vehicle Details</h5>
+		<div class="row">
+			<div class="col-md-4">
+		        <div class="form-group row">
+		            <div class="col-md-12">
+		                <label for="vehicleUsedId" class="affinity-label">USE OF THE INSURED VEHICLE <span class="text-mapfre text-heavy">*</span></label>
+		                <select class="form-control required motor-quote" name="Vehicle Use"  id="vehicleUsedId" [(ngModel)]="this.affinity.motorDetails.vehicleUsedIdHolder">
+			                <option value="0" disabled="disabled">Please choose Type of Use</option>
+			                <option *ngFor="let typeOfUse of this.affinity.lov.typeOfUseLOV" value="{{typeOfUse.COD_USO_VEHI}}-{{typeOfUse.NOM_USO_VEHI}}">{{typeOfUse.NOM_USO_VEHI}}</option>
+			            </select>
+		            </div>
+		        </div>
+			</div>
+			<div class="col-md-4">
+		        <div class="form-group row">
+		            <div class="col-md-12">
+		                <label for="colorId" class="affinity-label">COLOR <span class="text-mapfre text-heavy">*</span></label>
+		                <select class="form-control required motor-quote" name="Color"  id="colorId" [(ngModel)]="this.affinity.motorDetails.colorIdHolder">
+			                <option value="0" disabled="disabled">Please choose Type of Use</option>
+			                <option *ngFor="let color of this.affinity.lov.colorLOV" value="{{color.COD_COLOR}}-{{color.NOM_COLOR}}">{{color.NOM_COLOR}}</option>
+			            </select>
+		            </div>
+		        </div>
+			</div>
+			<div class="col-md-4">
+				<div class="form-group row">
+		            <div class="col-md-12">
+		                <label for="usageAreaId" class="affinity-label">AREA OF USAGE <span class="text-mapfre text-heavy">*</span></label>
+		                <select class="form-control required motor-quote" name="Usage Area"  id="usageAreaId" [(ngModel)]="this.affinity.motorDetails.usageAreaIdHolder">
+			                <option value="0" disabled="disabled">Please choose Area of Usage</option>
+			                <option value="1-LUZON">LUZON</option>
+			                <option value="2-VIZMIN">VIZMIN</option>
+			                <option value="3-NATIONWIDE">NATIONWIDE</option>
+			            </select>
+		            </div>
+		        </div>
+		    </div>
+		    
+		</div>
+		<br />
+		<h5 *ngIf="this.affinity.productId == '10001'">Declaration of non-standard Accessories</h5>
+		<div class="row" *ngIf="this.affinity.productId == '10001'">
+			<div class="col-md-3">
+		        <div class="form-group row">
+		            <div class="col-md-12">
+		                <label for="accessoryId" class="affinity-label">ACCESSORY</label>
+		                <select class="form-control" id="accessoryId" [(ngModel)]="this.accessory.accessoryIdHolder"     (change)="chooseAccessory()">
+			                <option value="0" disabled="disabled">Please choose Type of Use</option>
+			                <option *ngFor="let accesory of this.affinity.lov.accessoryLOV" value="{{accesory.COD_ACCESORIO}}-{{accesory.NOM_ACCESORIO}} ({{accesory.ABR_AGRUP_ACCESORIO}})-{{accesory.IMP_ACCESORIO}}">{{accesory.NOM_ACCESORIO}} ({{accesory.ABR_AGRUP_ACCESORIO}})</option>
+			            </select>
+		            </div>
+		        </div>
+			</div>
+			<div class="col-md-3">
+		        <div class="form-group row">
+		            <div class="col-md-12">
+		                <label for="accessoryValue" class="affinity-label">VALUE</label>
+		                <input type="text" id="accessoryValue" class="form-control to-uppercase" [(ngModel)]="this.accessory.accessoryValue">
+		            </div>
+		        </div>
+			</div>
+			<div class="col-md-3">
+		        <div class="form-group row">
+		            <div class="col-md-12">
+		                <label for="accessoryDescription" class="affinity-label">DESCRIPTION</label>
+		                <input type="text" id="accessoryDescription" class="form-control to-uppercase" [(ngModel)]="this.accessory.accessoryDescription">
+		            </div>
+		        </div>
+			</div>
+			<div class="col-md-3">
+				<div class="form-group row">
+		            <div class="col-md-12">
+		                <label for="vehicleUsedId" class="affinity-label">&nbsp;</label>
+						<button  *ngIf="this.accessory.accessoryDescription" class="btn btn-mapfre btn-block" (click)="addAccessory()"><b>Add Accessory</b></button>
+		                
+		            </div>
+		        </div>
+			</div>
+		</div>
+		<div class="row" *ngIf="this.affinity.motorDetails.accessories.length > 0">
+			<div class="col-md-6">
+				<div class="table-responsive">
+					<table class="table table-condensed table-hover table-small">
+						<thead>
+							<td>Accessory</td>
+							<td>Value</td>
+							<td></td>
+						</thead>
+						<tbody>
+							<tr  *ngFor="let accessory of this.affinity.motorDetails.accessories">
+								<td>{{accessory.accessoryName}}</td>
+								<td>{{accessory.accessoryValue}}</td>
+								<td><button class="btn btn-mapfre btn-sm" (click)="removeAccessory(accessory)"><i class="fa fa-times"></i></button></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				
+			</div>
+		</div>
+		<br />
+		<h5  *ngIf="this.affinity.productId == '10001'">Coverages</h5>
+		<div class="row" *ngIf="this.affinity.productId == '10001'">
+			<div class="col-md-4">
+		        <div class="form-group row">
+		            <div class="col-md-12">
+		                <label for="bodilyInjuryLimit" class="affinity-label">EXCESS LIABILITY INSURANCE FOR BODILY INJURY</label>
+		                <select class="form-control" id="bodilyInjuryLimit" [(ngModel)]="this.affinity.motorDetails.bodilyInjuryLimit" (change)="chooseVTPL()">
+			                <option *ngFor="let bodily of this.affinity.lov.bodilyInjuryLOV" value="{{bodily.impLimite}}">{{bodily.impLimiteFormatted}}</option>
+			            </select>
+			            <small><i>*Covers legal liabilities of the insured or authorized driver due to death of or bodily injury to third parties in excess of the limits provided by the CTPL coverage, arising out of the use of the insured unit.</i></small>
+		            </div>
+		        </div>
+			</div>
+			<div class="col-md-4">
+		        <div class="form-group row">
+		            <div class="col-md-12">
+		                <label for="propertyDamageLimit" class="affinity-label">EXCESS LIABILITY INSURANCE FOR PROPERTY DAMAGE</label>
+		                <select class="form-control" id="propertyDamageLimit" [(ngModel)]="this.affinity.motorDetails.propertyDamageLimit">
+			                <option *ngFor="let property of this.affinity.lov.propertyDamageLOV" value="{{property.impLimite}}">{{property.impLimiteFormatted}}</option>
+			            </select>
+			            <small><i>*Covers the insured or authorized driver against liabilities to third parties for actual physical damage to properties of third parties arising out of the use of the insured vehicle</i></small>
+		            </div>
+		        </div>
+			</div>
+			<br />
+		</div>
+		
+		<h5>Policy Period</h5>
+		<div class="row">
+			<div class="col-md-4">
+				<div class="form-group row">
+		            <div class="col-md-12">
+		                <label for="policyPeriodFrom" class="affinity-label">EFFECTIVITY <span class="text-mapfre text-heavy">*</span></label>
+		                <input type="date" id="policyPeriodFrom" min="{{this.minRetro}}" class="form-control  required motor-quote" name="Effectivity Date" [(ngModel)]="this.affinity.motorDetails.policyPeriodFrom" (change)="chooseEffectivityDate()">
+		            </div>
+		        </div>
+		    </div>
+		    <div class="col-md-4">
+				<div class="form-group row">
+		            <div class="col-md-12">
+		                <label for="policyPeriodTo" class="affinity-label">EXPIRY <span class="text-mapfre text-heavy">*</span></label>
+		                <input type="date" id="policyPeriodTo" class="form-control required motor-quote" name="Expiry Date" [(ngModel)]="this.affinity.motorDetails.policyPeriodTo">
+		            </div>
+		        </div>
+		    </div>
+		</div>
+		<br />
+		<div id="vehiclePhotosContainer" class="hidden">
+			<h5>Vehicle Photos</h5>
+			<div class="row">
+				<div class="col-md-12">
+					<ngx-dropzone (change)="onSelect($event)">
+					    <ngx-dropzone-label>Drop photos here</ngx-dropzone-label>
+					    <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of this.affinity.motorDetails.vehiclePhotos" [removable]="true" (removed)="onRemove(f)" [file]="f">
+					    </ngx-dropzone-image-preview>
+					</ngx-dropzone>
+			    </div>
+			</div>
+		</div>
+		<br />
+		<br />
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-6">
+		<button class="btn btn-mapfre mr-3 mt-3" (click)="backButtonAction()"><b>Back to Homepage</b></button>
+		<button  *ngIf="this.affinity.motorDetails.motorTypeIdHolder" class="btn btn-mapfre mt-3" (click)="nextStepAction()"><b>Proceed to Next step</b></button>
+	</div>
+</div>
+
+<!-- <div class="modal fade" id="compreModal" tabindex="-1" role="dialog" aria-labelledby="compreModal" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{this.title}} Insurance Coverages</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="table table-sm table-bordered">
+	    	<thead>
+	    		<td>Coverage</td>
+	    		<td>Description</td>
+	    	</thead>
+	    	<tbody>
+	    		<tr *ngFor="let coverage of this.coverageList">
+	    			<td style="min-width: 300px;">{{coverage.benefit}}</td>
+	    			<td style="text-align: justify;">
+	    				<span *ngFor="let coverages of coverage.coverages">
+	    					{{coverages}}<br /><br />
+	    				</span>
+	    			</td>
+	    		</tr>
+	    	</tbody>
+	    	
+	    </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div> -->

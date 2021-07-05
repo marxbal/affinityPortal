@@ -40,7 +40,7 @@ import {
   providedIn: 'root'
 })
 export class OTPService {
-  private map: string = 'otp/';
+  private map: string = '/otp/';
 
   constructor(
     private auth: AuthenticationService,

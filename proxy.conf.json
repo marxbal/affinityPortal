@@ -35,7 +35,7 @@
 		"target": "http://104.248.156.42:8084",
 		"secure": false
 	},
-	"/microsite/marsh/*": {
+	"/microsite/afnty/*": {
 		"target": "http://localhost:8080",
 		"secure": false,
 		"timeout" : 360000
