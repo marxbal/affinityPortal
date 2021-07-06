@@ -13,7 +13,8 @@ import {
 import * as c from '../../../objects/const';
 import * as _ from 'lodash';
 import {
-  ActivatedRoute
+  ActivatedRoute,
+  Router
 } from "@angular/router";
 import {
   FormBuilder,
@@ -26,6 +27,7 @@ import {
 import {
   CURRENT_USER,
   EMAIL,
+  LOGGED_IN,
   LOGIN_MSG
 } from 'src/app/constants/local.storage';
 
@@ -55,6 +57,7 @@ export class LoginComponent implements OnInit {
     private route: ActivatedRoute,
     private fb: FormBuilder,
     private otp: OTPService,
+    private router: Router,
   ) {
     this.currentUserSubject = new BehaviorSubject < Users > (
       JSON.parse(localStorage.getItem(CURRENT_USER))
@@ -63,7 +66,11 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.route.queryParams
+    const isLoggedIn = localStorage.getItem(LOGGED_IN);
+    if (isLoggedIn === 'true') {
+      this.router.navigate(['issuance']);
+    } else {
+      this.route.queryParams
       .subscribe(params => {
         var err = params.error;
         var resend = params.resend == 'true';
@@ -95,10 +102,11 @@ export class LoginComponent implements OnInit {
         }
       });
 
-    this.createForm();
+      this.createForm();
 
-    var body = document.querySelector("body");
-    body.setAttribute("style", "background-image: url('./assets/images/bg.jpg'); background-size: cover; background-repeat: no-repeat; background-position: fixed;");
+      var body = document.querySelector("body");
+      body.setAttribute("style", "background-image: url('./assets/images/bg.jpg'); background-size: cover; background-repeat: no-repeat; background-position: fixed;");
+    }
   }
 
   createForm() {

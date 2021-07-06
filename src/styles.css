@@ -11,6 +11,15 @@ body {
   font-family: 'Numans', sans-serif;
 }
 
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 20px !important;
+  margin-bottom: .5rem;
+}
+
+#routerOutlet {
+  margin-top: 80px;
+}
+
 .requiredClass {
   border: 1px solid red !important;
 }

@@ -89,72 +89,72 @@ export class IssuanceComponent implements OnInit {
 
     if (this.affinity.clientId === null) {
       this.router.navigate(['login']);
-    }
+    } else {
+      // this.affinity.clientId = localStorage.getItem("userCardId");
 
-    // this.affinity.clientId = localStorage.getItem("userCardId");
+      let numPoliza = this.route.snapshot.paramMap.get("numPoliza");
+      let type = this.route.snapshot.paramMap.get("type");
 
-    let numPoliza = this.route.snapshot.paramMap.get("numPoliza");
-    let type = this.route.snapshot.paramMap.get("type");
+      this.line = "";
+      this.templateRouter = "initialize";
+      this.caller.doCallService('/afnty/retrieveTransactions', this.affinity.clientId).subscribe(
+        result => {
+          console.log(result);
 
-    this.line = "";
-    this.templateRouter = "initialize";
-    this.caller.doCallService('/afnty/retrieveTransactions', this.affinity.clientId).subscribe(
-      result => {
-        console.log(result);
+          let newResult = _.orderBy(result, ['transactionNumber'], ['desc']);
 
-        let newResult = _.orderBy(result, ['transactionNumber'], ['desc']);
+          this.affinity.previousIssuances = newResult;
 
-        this.affinity.previousIssuances = newResult;
+          for (let i = 0; i < this.affinity.previousIssuances.length; i++) {
+            if (this.affinity.previousIssuances[i].policyNumber) {
 
-        for (let i = 0; i < this.affinity.previousIssuances.length; i++) {
-          if (this.affinity.previousIssuances[i].policyNumber) {
-
-            for (let x = 0; x < this.affinity.previousIssuances[i].iDTO.a2000020List.length; x++) {
-              switch (this.affinity.previousIssuances[i].iDTO.a2000020List[x].codCampo) {
-                case "COD_MODALIDAD":
-                  this.affinity.previousIssuances[i].productId = this.affinity.previousIssuances[i].iDTO.a2000020List[x].valCampo;
-                  break;
-                default:
-                  break;
+              for (let x = 0; x < this.affinity.previousIssuances[i].iDTO.a2000020List.length; x++) {
+                switch (this.affinity.previousIssuances[i].iDTO.a2000020List[x].codCampo) {
+                  case "COD_MODALIDAD":
+                    this.affinity.previousIssuances[i].productId = this.affinity.previousIssuances[i].iDTO.a2000020List[x].valCampo;
+                    break;
+                  default:
+                    break;
+                }
               }
-            }
-          } else {
-            for (let x = 0; x < this.affinity.previousIssuances[i].iDTO.p2000020List.length; x++) {
-              switch (this.affinity.previousIssuances[i].iDTO.p2000020List[x].codCampo) {
-                case "COD_MODALIDAD":
-                  this.affinity.previousIssuances[i].productId = this.affinity.previousIssuances[i].iDTO.p2000020List[x].valCampo;
-                  break;
-                default:
-                  break;
+            } else {
+              for (let x = 0; x < this.affinity.previousIssuances[i].iDTO.p2000020List.length; x++) {
+                switch (this.affinity.previousIssuances[i].iDTO.p2000020List[x].codCampo) {
+                  case "COD_MODALIDAD":
+                    this.affinity.previousIssuances[i].productId = this.affinity.previousIssuances[i].iDTO.p2000020List[x].valCampo;
+                    break;
+                  default:
+                    break;
+                }
               }
             }
           }
+          console.log(this.affinity.previousIssuances);
+        });
+
+      if (numPoliza) {
+        switch (type) {
+          case "988fd738de9c6d177440c5dcf69e73ce":
+            this.router.navigate([], {
+              queryParams: {
+                numPoliza: numPoliza,
+                clientId: this.affinity.clientId
+              },
+              queryParamsHandling: 'merge',
+            });
+
+            this.processPayment(numPoliza);
+            break;
+          case "51359e8b51c63b87d50cb1bab73380e2":
+            this.returnPayment(numPoliza, "policy");
+            break;
+          case "c453a4b8e8d98e82f35b67f433e3b4da":
+            this.returnPayment(numPoliza, "payment");
+            break;
+          default:
+            this.retrieveQuote(numPoliza, type);
+            break;
         }
-        console.log(this.affinity.previousIssuances);
-      });
-
-    if (numPoliza) {
-      switch (type) {
-        case "988fd738de9c6d177440c5dcf69e73ce":
-          this.router.navigate([], {
-            queryParams: {
-              numPoliza: numPoliza,
-              clientId: this.affinity.clientId
-            },
-            queryParamsHandling: 'merge',
-          });
-
-          this.processPayment(numPoliza);
-          break;
-        case "51359e8b51c63b87d50cb1bab73380e2":
-          this.returnPayment(numPoliza, "policy");
-          break;
-        case "c453a4b8e8d98e82f35b67f433e3b4da":
-          this.returnPayment(numPoliza, "payment");
-          break;
-        default:
-          this.retrieveQuote(numPoliza, type);
-          break;
       }
     }
   }
