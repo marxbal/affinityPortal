@@ -68,11 +68,13 @@ export class InterceptorService implements HttpInterceptor {
   performFinalRequest(finalRequest: HttpRequest < any > , next: HttpHandler) {
     const token = localStorage.getItem(TOKEN);
 
-    finalRequest = finalRequest.clone({
-      setHeaders: {
-        Authorization: token
-      }
-    });
+    if (token) {
+      finalRequest = finalRequest.clone({
+        setHeaders: {
+          Authorization: token
+        }
+      });
+    }
 
     let ic = this;
     return next.handle(finalRequest).pipe(
