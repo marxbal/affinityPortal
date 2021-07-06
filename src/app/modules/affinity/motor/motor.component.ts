@@ -59,7 +59,7 @@ export class MotorComponent implements OnInit {
   @Output() affinityOutput = new EventEmitter();
   @Output() backButton = new EventEmitter();
 
-  @Input() product: number;
+  @Input() product: string;
   @Input() description: String;
 
   accessory: MotorAccessories;

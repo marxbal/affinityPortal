@@ -109,12 +109,12 @@ export class LandingpageComponent implements OnInit, ComponentCanDeactivate {
 
     const p1 = new ProductList;
     p1.description = 'motorComprehensive';
-    p1.productId = 10001;
+    p1.productId = "10001";
     p1.name = 'Comprehensive';
 
     const p2 = new ProductList;
     p2.description = 'motorCTPL';
-    p2.productId = 10002;
+    p2.productId = "10002";
     p2.name = 'CTPL';
 
     l1.products = [p1, p2];
@@ -132,12 +132,12 @@ export class LandingpageComponent implements OnInit, ComponentCanDeactivate {
 
     const p3 = new ProductList;
     p3.description = 'personalAccident';
-    p3.productId = 33701;
+    p3.productId = "33701";
     p3.name = 'Individual Personal';
 
     const p4 = new ProductList;
     p4.description = 'personalFamilyAccident';
-    p4.productId = 33702;
+    p4.productId = "33702";
     p4.name = 'Personal Family';
 
     l2.products = [p3, p4];
@@ -187,7 +187,7 @@ export class LandingpageComponent implements OnInit, ComponentCanDeactivate {
   //   this.backButton.emit("initialize");
   // }
 
-  issuance(product: number, description: String, issuanceType: String) {
+  issuance(product: string, description: String, issuanceType: String) {
     this.issuanceType.emit(issuanceType);
     this.backButton.emit("initialize");
     this.productDetails.emit({

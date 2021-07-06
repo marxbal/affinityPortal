@@ -95,7 +95,7 @@ export class PersonalComponent implements OnInit {
   @Output() nextStep = new EventEmitter();
   @Output() affinityOutput = new EventEmitter();
 
-  @Input() product: number;
+  @Input() product: string;
   @Input() description: String;
 
   familyMember: Risk = new Risk();

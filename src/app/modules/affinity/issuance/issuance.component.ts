@@ -74,7 +74,7 @@ export class IssuanceComponent implements OnInit {
   coverageList: Coverages[] = [];
   coverage: Coverages = new Coverages();
 
-  product: number;
+  product: string;
   description: String;
 
   formatter = new Intl.NumberFormat('en-US', {
@@ -321,7 +321,7 @@ export class IssuanceComponent implements OnInit {
     return new Promise((resolve) => setTimeout(resolve, time));
   }
 
-  applyProduct(product: number, description: String ) {
+  applyProduct(product: string, description: String ) {
     this.product = product;
     this.description = description;
   }

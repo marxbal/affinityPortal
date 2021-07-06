@@ -1,7 +1,7 @@
 export class ProductList {
 
   name: string;
-  productId: number;
+  productId: string;
   description: string;
 
 }
