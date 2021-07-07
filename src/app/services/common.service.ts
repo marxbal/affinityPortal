@@ -29,6 +29,7 @@ export class CommonService {
     let ret : any = new BehaviorSubject<any>([]);
 
     this.spinner.show();
+    // this.caller.getLOV("A2100400","3","COD_CIA~1").subscribe(
     this.caller.getLOV("A2100400","5",'COD_CIA~1|COD_RAMO~' + motorTypeId).subscribe(
       result => {
         this.spinner.hide();
@@ -50,10 +51,12 @@ export class CommonService {
   }
 
   chooseMake(motorTypeId, manufacturerId){
-
     let ret : any = new BehaviorSubject<any>([]);
 
     this.spinner.show();
+
+    // this.caller.getLOV('A2100410', '3', 'COD_RAMO~' + motorTypeId 
+    //   + '|COD_MARCA~' + manufacturerId + '|COD_CIA~1').subscribe(
     this.caller.getLOV('A2100410', '5', 'COD_RAMO~' + motorTypeId 
       + '|COD_MARCA~' + manufacturerId + '|COD_CIA~1').subscribe(
       result => {

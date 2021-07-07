@@ -226,6 +226,13 @@ export class MotorComponent implements OnInit {
   }
 
   chooseType() {
+    this.affinity.motorDetails.motorTypeId = this.affinity.motorDetails.motorTypeIdHolder.split("-")[0];
+    this.affinity.motorDetails.motorType = this.affinity.motorDetails.motorTypeIdHolder.split("-")[1];
+
+    alert(this.affinity.motorDetails.motorTypeIdHolder);
+    alert(this.affinity.motorDetails.motorTypeId);
+    alert(this.affinity.motorDetails.motorType);
+
     this.commonService.chooseType(
       this.affinity.motorDetails.motorTypeId
     ).subscribe(
@@ -380,12 +387,14 @@ export class MotorComponent implements OnInit {
   selectProduct(product, description) {
     this.affinity.motorDetails.productId = product;
     this.affinity.productId = product;
-    this.affinity.motorDetails.motorTypeIdHolder = "100-PRIVATE CAR";
-    this.affinity.motorDetails.motorTypeId = "100";
-    this.affinity.motorDetails.motorType = "PRIVATE CAR";
-    this.viewCoverage(description, '');
-    this.chooseType();
 
+    // this.affinity.motorDetails.motorTypeIdHolder = "100-PRIVATE CAR";
+    // this.affinity.motorDetails.motorTypeId = "100";
+    // this.affinity.motorDetails.motorType = "PRIVATE CAR";
+    // this.chooseType();
+
+    this.viewCoverage(description, '');
+    
     this.commonService.sleep(1000).then(() => {
       this.commonService.scrollToElement("tellUsVehicle", 500);
     });
