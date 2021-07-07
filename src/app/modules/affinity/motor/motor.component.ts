@@ -229,15 +229,21 @@ export class MotorComponent implements OnInit {
     this.affinity.motorDetails.motorTypeId = this.affinity.motorDetails.motorTypeIdHolder.split("-")[0];
     this.affinity.motorDetails.motorType = this.affinity.motorDetails.motorTypeIdHolder.split("-")[1];
 
-    alert(this.affinity.motorDetails.motorTypeIdHolder);
-    alert(this.affinity.motorDetails.motorTypeId);
-    alert(this.affinity.motorDetails.motorType);
-
     this.commonService.chooseType(
       this.affinity.motorDetails.motorTypeId
     ).subscribe(
       (result) => {
-        this.affinity.lov.makeLOV = result
+        this.affinity.lov.makeLOV = result;
+        this.affinity.motorDetails.modelIdHolder = "";
+        this.affinity.motorDetails.vehicleTypeIdHolder = "";
+        this.affinity.motorDetails.modelYear = "";
+        this.affinity.motorDetails.subModelIdHolder = "";
+        this.affinity.motorDetails.FMV = "";
+
+        this.affinity.lov.modelLOV = [];
+        this.affinity.lov.variantLOV = [];
+        this.affinity.lov.yearList = [];
+        this.affinity.lov.subModelLOV = [];
       });
   }
 
@@ -387,11 +393,6 @@ export class MotorComponent implements OnInit {
   selectProduct(product, description) {
     this.affinity.motorDetails.productId = product;
     this.affinity.productId = product;
-
-    // this.affinity.motorDetails.motorTypeIdHolder = "100-PRIVATE CAR";
-    // this.affinity.motorDetails.motorTypeId = "100";
-    // this.affinity.motorDetails.motorType = "PRIVATE CAR";
-    // this.chooseType();
 
     this.viewCoverage(description, '');
     
@@ -591,19 +592,23 @@ export class MotorComponent implements OnInit {
   }
 
   validateConduction() {
+    this.affinity.motorDetails.conductionNumber = this.affinity.motorDetails.conductionNumber.toUpperCase();
 
     const userKeyRegExpConduction = /^[A-Z]{2}[0-9]{4}?$/;
 
-    this.affinity.motorDetails.conductionNumber = this.affinity.motorDetails.conductionNumber.toUpperCase();
-
     let validCond = userKeyRegExpConduction.test(this.affinity.motorDetails.conductionNumber);
-
     if (!validCond) {
-      Swal.fire({
-        type: 'error',
-        title: 'Policy Issuance',
-        text: "Invalid Conduction Number format, please make sure you follow the format AB1234."
-      });
+      //new conduction number format
+      const userKeyRegExpConduction2 = /^[A-Z]{1}[0-9]{1}[A-Z]{1}[0-9]{3}?$/;
+      validCond = userKeyRegExpConduction2.test(this.affinity.motorDetails.conductionNumber);
+
+      if (!validCond) {
+        Swal.fire({
+          type: 'error',
+          title: 'Policy Issuance',
+          text: "Invalid Conduction Number format, please make sure you follow the format ( AB1234 / A1B234 )"
+        });
+      }
     }
 
     return validCond;
