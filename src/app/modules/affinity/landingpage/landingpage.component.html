@@ -24,19 +24,28 @@
 <div class="container-fluid height-860 landing-container">
   <div class="container">
     <div class="row height-860 flex">
-      <div class="col-md-6 d-flex align-items-center">
+      <div class="col-md-5 d-flex align-items-center">
         <div>
-          <h1>GET YOUR <strong>POLICY</strong> TODAY</h1>
-          <p>Exclusive insurance coverage that protects your home, car and family.</p>
-          <div class="btn-group">
-            <button (click)="scroll('issuance')" class="btn btn-outline-primary">Get Started</button>
+          <h1><strong>Be Insured.</strong></h1>
+          <h1>Get your policy today!</h1>
+          
+          <button (click)="scroll('issuance')" class="btn get-started-btn btn-outline-primary">Get Started</button>
+
+          <!-- <div class="btn-group">
+            <button (click)="scroll('issuance')" class="btn form-control btn-outline-primary">Get Started</button>
             <button (click)="scroll('previousTransaction')" class="btn btn-outline-primary">Previous
               Transaction</button>
-          </div>
+          </div> -->
+
+          <p>Exclusive insurance coverage
+            <br />that protects your home, car
+            <br />and family.
+          </p>
+
         </div>
       </div>
-      <div class="col-md-6 d-flex align-items-center">
-        <img class="landing-img-family d-none d-md-block" src="assets/images/insured-family.png" />
+      <div class="col-md-7 d-flex align-items-center">
+        <!-- <img class="landing-img-family d-none d-md-block" src="assets/images/insured-family.png" /> -->
       </div>
     </div>
   </div>
@@ -103,17 +112,18 @@
     <div *ngFor="let product of products;let i=index;" class="col-md-12">
       <div class="card">
         <div class="row">
-          <div *ngIf="(i + 1) % 2 != 0" class="col-md-6 d-none d-md-block">
+          <!-- <div *ngIf="(i + 1) % 2 != 0" class="col-md-6 d-none d-md-block"> -->
+          <div class="col-md-6 d-none d-md-block">
             <img class="card-img-top" src="assets/images/product_line/{{product.thumbnail}}.jpg" alt="{{product.name}}">
           </div>
           <div class="col-md-6">
             <div class="card">
 
               <h1 class="card-title">
-                <span class="fa-stack fa-md">
+                <!-- <span class="fa-stack fa-md">
                   <i class="fa fa-circle fa-stack-2x"></i>
                   <i class="fa fa-inverse {{product.badge}} fa-stack-1x"></i>
-                </span>
+                </span> -->
                 <strong>{{product.name}}</strong> Insurance
               </h1>
 
@@ -140,9 +150,9 @@
 
             </div>
           </div>
-          <div *ngIf="(i + 1) % 2 == 0" class="col-md-6 d-none d-md-block">
+          <!-- <div *ngIf="(i + 1) % 2 == 0" class="col-md-6 d-none d-md-block">
             <img class="card-img-top" src="assets/images/product_line/{{product.thumbnail}}.jpg" alt="{{product.name}}">
-          </div>
+          </div> -->
         </div>
       </div>
     </div>

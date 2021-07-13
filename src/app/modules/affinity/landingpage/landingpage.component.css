@@ -22,6 +22,7 @@
 
 .card img {
   padding: 0.5rem;
+  margin-top: 45px;
 }
 
 .card-title {
@@ -30,7 +31,14 @@
 }
 
 .landing-container {
-  background-image: url('/assets/images/landing-bg-white.jpg');
+  background-image: url('/assets/images/landing-page.jpg');
+  background-size: 100%;
+  width: 100%;
+  color: #fff;
+}
+
+.landing-container p{
+  color: #fff !important;
 }
 
 .height-860 {
@@ -39,6 +47,15 @@
 
 .landing-img-family {
   max-width: 600px;
+}
+
+.get-started-btn {
+  background-color: #fff !important;
+  border: #fff;
+  color: #ce2b2c !important;
+  width: 100%;
+  padding: 10px;
+  margin: 40px 0;
 }
 
 .card-text {
