@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "fopm": {
+    "affinity": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/fopm",
+            "outputPath": "dist/affinity",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -77,19 +77,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "fopm:build",
-            "proxyConfig": "proxy.conf.json"
+            "browserTarget": "affinity:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "fopm:build:production"
+              "browserTarget": "affinity:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "fopm:build"
+            "browserTarget": "affinity:build"
           }
         },
         "test": {
@@ -124,7 +123,7 @@
         }
       }
     },
-    "fopm-e2e": {
+    "affinity-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "architect": {
@@ -132,11 +131,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "fopm:serve"
+            "devServerTarget": "affinity:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "fopm:serve:production"
+              "devServerTarget": "affinity:serve:production"
             }
           }
         },
@@ -152,5 +151,5 @@
       }
     }
   },
-  "defaultProject": "fopm"
+  "defaultProject": "affinity"
 }

@@ -13,7 +13,7 @@
 }
 
 .card {
-  margin-top: 70px;
+  margin-top: 150px;
   background-color: white !important;
 }
 
@@ -87,7 +87,6 @@ input:focus {
 }
 
 @media(max-width: 1024px) {
-
   .form-control::-webkit-input-placeholder {
     font-size: 0.7rem;
   }

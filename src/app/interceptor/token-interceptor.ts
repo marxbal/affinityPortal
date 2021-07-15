@@ -21,9 +21,6 @@ import {
   Router
 } from '@angular/router';
 import {
-  Base64
-} from 'js-base64';
-import {
   EMAIL,
   LOGIN_MSG,
   TOKEN

@@ -1,23 +1,11 @@
 import {
   Component,
-  OnInit,
-  // HostListener,
-  // AfterViewInit,
-  // Input,
-  // Output,
-  // EventEmitter
+  OnInit
 } from '@angular/core';
-// import * as $ from 'jquery/dist/jquery.min';
-// import {
-//   AuthenticationService
-// } from '../../../services/authentication.service';
 import {
   Router,
   ActivatedRoute
 } from '@angular/router';
-// import {
-//   ComponentCanDeactivate
-// } from '../../../guard/component-can-deactivate';
 import {
   Affinity
 } from '../../../objects/affinity';
@@ -45,7 +33,6 @@ import {
 import {
   MotorAccessories
 } from '../../../objects/motor-accessories';
-// import * as m from 'moment';
 import * as _ from 'lodash';
 import {
   EMAIL
@@ -58,7 +45,8 @@ import {
 })
 export class IssuanceComponent implements OnInit {
 
-  constructor(private caller: AuthService,
+  constructor(
+    private caller: AuthService,
     private route: ActivatedRoute,
     private router: Router,
     private spinner: NgxSpinnerService,
@@ -399,7 +387,7 @@ export class IssuanceComponent implements OnInit {
     let scrollToTop = window.setInterval(() => {
       let pos = window.pageYOffset;
       if (pos > 0) {
-        window.scrollTo(0, pos - 100); // how far to scroll on each step
+        window.scrollTo(0, pos - 50); // how far to scroll on each step
       } else {
         window.clearInterval(scrollToTop);
       }

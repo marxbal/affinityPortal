@@ -10,129 +10,49 @@ import {
 import {
   LOGGED_IN,
   PARTNER,
-  ALL_SCREEN,
   USER,
-  ROLES,
-  LANDING_PAGE,
-  ACCESSIBLE_SCREENS
+  LANDING_PAGE
 } from '../constants/local.storage';
+import {
+  UserDetail
+} from '../objects/userDetail';
+import {
+  Partner
+} from '../objects/partner';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
 
-  public pageChecker = new BehaviorSubject < string > (localStorage.getItem(LOGGED_IN) || "false");
-  public loginChecker = new BehaviorSubject < string > (localStorage.getItem(LOGGED_IN) || "false");
-
-  public screenList = new BehaviorSubject < any > (JSON.parse(localStorage.getItem(ALL_SCREEN) || "[]"));
-  public userDetails = new BehaviorSubject < any > (JSON.parse(localStorage.getItem(USER) || "[]"));
-  public userRoles = new BehaviorSubject < any > (JSON.parse(localStorage.getItem(ROLES) || "[]"));
-
+  public loggedIn = new BehaviorSubject < boolean > (localStorage.getItem(LOGGED_IN) == "true" || false);
+  public userDetails = new BehaviorSubject < UserDetail > (JSON.parse(localStorage.getItem(USER) || "{}"));
   public initialLandingPage = new BehaviorSubject < string > (localStorage.getItem(LANDING_PAGE) || "login");
-  public accessibleScreens = new BehaviorSubject < any > (JSON.parse(localStorage.getItem(ACCESSIBLE_SCREENS) || "[]"));
-  public partner = new BehaviorSubject < any > (JSON.parse(localStorage.getItem(PARTNER) || "[]"));
+  public partner = new BehaviorSubject < Partner > (JSON.parse(localStorage.getItem(PARTNER) || "{}"));
 
   constructor(private router: Router) {}
 
-  get page() {
-    return this.pageChecker.asObservable();
-  }
-
-  getPageValue() {
-    return this.pageChecker.getValue();
-  }
-
-  setPage(valPage: string) {
-    this.pageChecker.next(valPage);
-  }
+  // *** LOGGED IN ***
 
   get login() {
-    return this.loginChecker.asObservable();
+    return this.loggedIn.asObservable();
   }
 
   getLoginVal() {
-    return this.loginChecker.getValue();
+    return this.loggedIn.getValue();
   }
 
-  setLogin(logged: string) {
-    localStorage.setItem(LOGGED_IN, logged);
-    this.loginChecker.next(localStorage.getItem(LOGGED_IN));
-  }
-
-  get ScreenList() {
-    return this.screenList.asObservable();
-  }
-
-  getScreens() {
-    return this.screenList.getValue();
-  }
-
-  setScreens(screens: any) {
-    localStorage.setItem(ALL_SCREEN, JSON.stringify(screens));
-    let screenList = JSON.parse(localStorage.getItem(ALL_SCREEN) || "[]");
-
-    this.screenList.next(screenList);
-  }
-
-  setActiveScreen(url: any) {
-    var n = url.split("/");
-    let currentPage = n[n.length - 1];
-    let isPrime = false;
-
-    for (let i = 0; i < this.screenList.getValue().length; i++) {
-      if (this.screenList.getValue()[i].routeLink == currentPage) {
-        if (this.screenList.getValue()[i].subLink.length > 0) {
-          for (let x = 0; x < this.screenList.getValue()[i].subLink.length; x++) {
-            if (this.screenList.getValue()[i].subLink[x].routeLink === currentPage) {
-              isPrime = false;
-              break;
-            } else {
-              isPrime = true;
-            }
-          }
-        } else {
-          isPrime = true;
-          break;
-        }
-        break;
-      }
-    }
-
-    if (isPrime) {
-      for (let i = 0; i < this.screenList.getValue().length; i++) {
-        this.screenList.getValue()[i].isActive = "";
-      }
-
-      for (let i = 0; i < this.screenList.getValue().length; i++) {
-        if (this.screenList.getValue()[i].routeLink == currentPage) {
-          this.screenList.getValue()[i].isActive = "active";
-        } else {
-          this.screenList.getValue()[i].isActive = "";
-        }
-
-        for (let x = 0; x < this.screenList.getValue()[i].subLink.length; x++) {
-          this.screenList.getValue()[i].subLink[x].isActive = "";
-        }
-      }
+  setLogin(loggedIn: boolean) {
+    if (loggedIn != null) {
+      localStorage.setItem(LOGGED_IN, loggedIn.toString());
     } else {
-      for (let i = 0; i < this.screenList.getValue().length; i++) {
-        this.screenList.getValue()[i].isActive = "";
-      }
-
-      for (let i = 0; i < this.screenList.getValue().length; i++) {
-        this.screenList.getValue()[i].isActive = "";
-        for (let x = 0; x < this.screenList.getValue()[i].subLink.length; x++) {
-          if (this.screenList.getValue()[i].subLink[x].routeLink == currentPage) {
-            this.screenList.getValue()[i].subLink[x].isActive = "active";
-            this.screenList.getValue()[i].isActive = "active show";
-          } else {
-            this.screenList.getValue()[i].subLink[x].isActive = "";
-          }
-        }
-      }
+      localStorage.removeItem(LOGGED_IN);
     }
+    
+    this.loggedIn.next(loggedIn);
   }
+
+  // *** USER DETAIL ***
 
   get userDetail() {
     return this.userDetails.asObservable();
@@ -142,84 +62,19 @@ export class AuthenticationService {
     return this.userDetails.getValue();
   }
 
-  setUserDetails(userDetails: any) {
-    localStorage.setItem(USER, JSON.stringify(userDetails));
-    let details = JSON.parse(localStorage.getItem(USER) || "[]");
+  setUserDetails(userDetails: UserDetail) {
+    let details = null;
+    if (userDetails != null) {
+      localStorage.setItem(USER, JSON.stringify(userDetails));
+      details = JSON.parse(localStorage.getItem(USER) || "{}");
+    } else {
+      localStorage.removeItem(USER);
+    }
 
     this.userDetails.next(details);
   }
 
-  getUserRoles() {
-    return this.userRoles.getValue();
-  }
-
-  setUserRoles(userRoles: any) {
-    localStorage.setItem(ROLES, JSON.stringify(userRoles));
-    let details = JSON.parse(localStorage.getItem(ROLES) || "[]");
-
-    this.userRoles.next(details);
-  }
-
-  getUserType() {
-
-    let userType = "";
-    for (let i = 0; i < this.userRoles.getValue().length; i++) {
-      if (this.userRoles.getValue()[i].roleId == 3 || this.userRoles.getValue()[i].roleId == 6) {
-        userType = "MA";
-        break;
-      }
-
-      if (this.userRoles.getValue()[i].roleId == 4 || this.userRoles.getValue()[i].roleId == 5) {
-        userType = "IC";
-        break;
-      }
-
-      if (this.userRoles.getValue()[i].roleId == 1) {
-        userType = "SA";
-        break;
-      }
-
-      if (this.userRoles.getValue()[i].roleId == 2) {
-        userType = "UW";
-        break;
-      }
-
-      if (this.userRoles.getValue()[i].roleId == 7) {
-        userType = "ICA";
-        break;
-      }
-
-      if (this.userRoles.getValue()[i].roleId == 8) {
-        userType = "ICASH";
-        break;
-      }
-
-      if (this.userRoles.getValue()[i].roleId == 9) {
-        userType = "ICSS";
-        break;
-      }
-    }
-
-    return userType;
-  }
-
-  getUserRole() {
-    let userRoleId = "";
-    for (let i = 0; i < this.userRoles.getValue().length; i++) {
-      userRoleId = this.userRoles.getValue()[i].roleId;
-      break;
-    }
-
-    return userRoleId;
-  }
-
-  setDateFormat(datee: string) {
-    localStorage.setItem("dateFormat", datee);
-  }
-
-  getDateFormat() {
-    return localStorage.getItem("dateFormat");
-  }
+  // *** LANDING PAGE ***
 
   get landingPage() {
     return this.initialLandingPage.asObservable();
@@ -230,23 +85,16 @@ export class AuthenticationService {
   }
 
   setLandingPage(initialPage: string) {
-    localStorage.setItem(LANDING_PAGE, initialPage);
+    if (initialPage != null) {
+      localStorage.setItem(LANDING_PAGE, initialPage);
+    } else {
+      localStorage.removeItem(LANDING_PAGE);
+    }
+
     this.initialLandingPage.next(localStorage.getItem(LANDING_PAGE));
   }
 
-  get AccessibleScreen() {
-    return this.accessibleScreens.asObservable();
-  }
-
-  getAccessibleScreen() {
-    return this.accessibleScreens.getValue();
-  }
-
-  setAccessibleScreen(screens: any) {
-    localStorage.setItem(ACCESSIBLE_SCREENS, JSON.stringify(screens));
-    let accessibleScreen = JSON.parse(localStorage.getItem(ACCESSIBLE_SCREENS) || "[]");
-    this.accessibleScreens.next(accessibleScreen);
-  }
+  // *** PARTNER ***
 
   get Partner() {
     return this.partner.asObservable();
@@ -256,9 +104,35 @@ export class AuthenticationService {
     return this.partner.getValue();
   }
 
-  setPartner(details: any) {
-    localStorage.setItem(PARTNER, JSON.stringify(details));
-    let partner = JSON.parse(localStorage.getItem(PARTNER) || "[]");
+  setPartner(details: Partner) {
+    let partner = null;
+    if (details != null) {
+      localStorage.setItem(PARTNER, JSON.stringify(details));
+      details = JSON.parse(localStorage.getItem(PARTNER) || "{}");
+    } else {
+      localStorage.removeItem(PARTNER);
+    }
+
     this.partner.next(partner);
+  }
+
+  // *** DATE FORMAT ***
+
+  setDateFormat(datee: string) {
+    localStorage.setItem("dateFormat", datee);
+  }
+
+  getDateFormat() {
+    return localStorage.getItem("dateFormat");
+  }
+
+  // *** CLEAR ALL AUTHENTICATION ***
+
+  clearAuth() {
+    this.setUserDetails(null);
+    this.setLogin(null);
+    this.setLandingPage(null);
+    this.setPartner(null);
+    localStorage.clear();
   }
 }

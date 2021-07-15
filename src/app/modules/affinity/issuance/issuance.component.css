@@ -1,4 +1,8 @@
-.issuance-container{
-	margin-top: 50px;
-	font-family: Montserrat, sans-serif;
+.issuance-container {
+  margin-top: 50px;
+  font-family: Montserrat, sans-serif;
+}
+
+.wrap-issuance {
+  padding-top: 80px;
 }

@@ -1,22 +1,52 @@
-import { Component, OnInit, HostListener, Input, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter
+} from '@angular/core';
 import * as $ from 'jquery/dist/jquery.min';
-import {AuthenticationService} from '../../../services/authentication.service';
-import {Router} from '@angular/router';
-import {ComponentCanDeactivate} from '../../../guard/component-can-deactivate';
-import {Affinity} from '../../../objects/affinity';
-import {AuthService} from '../../../services/auth.service';
-import {P2000020} from '../../../objects/p2000020';
-import {P2000025} from '../../../objects/p2000025';
-import {P2000030} from '../../../objects/p2000030';
-import {P2000040} from '../../../objects/p2000040';
-import {P2000031} from '../../../objects/p2000031';
-import {P1001331} from '../../../objects/p1001331';
-import {P2100610} from '../../../objects/p2100610';
-import {P2000060} from '../../../objects/p2000060';
-import {CommonService} from '../../../services/common.service';
+import {
+  Router
+} from '@angular/router';
+import {
+  Affinity
+} from '../../../objects/affinity';
+import {
+  AuthService
+} from '../../../services/auth.service';
+import {
+  P2000020
+} from '../../../objects/p2000020';
+import {
+  P2000025
+} from '../../../objects/p2000025';
+import {
+  P2000030
+} from '../../../objects/p2000030';
+import {
+  P2000040
+} from '../../../objects/p2000040';
+import {
+  P2000031
+} from '../../../objects/p2000031';
+import {
+  P1001331
+} from '../../../objects/p1001331';
+import {
+  P2100610
+} from '../../../objects/p2100610';
+import {
+  P2000060
+} from '../../../objects/p2000060';
+import {
+  CommonService
+} from '../../../services/common.service';
 import * as m from 'moment';
 import Swal from 'sweetalert2';
-import { NgxSpinnerService } from 'ngx-spinner';
+import {
+  NgxSpinnerService
+} from 'ngx-spinner';
 
 @Component({
   selector: 'app-quotation',
@@ -25,9 +55,11 @@ import { NgxSpinnerService } from 'ngx-spinner';
 })
 export class QuotationComponent implements OnInit {
 
-  constructor(private caller: AuthService, private common : CommonService,
-    private spinner : NgxSpinnerService,
-    private router : Router) { }
+  constructor(
+    private caller: AuthService,
+    private common: CommonService,
+    private spinner: NgxSpinnerService,
+    private router: Router) {}
 
   @Input() affinity: Affinity;
   @Input() line: String;
@@ -44,7 +76,7 @@ export class QuotationComponent implements OnInit {
   p1001331: P1001331 = new P1001331();
 
   title: String;
-  buyNowStep : String;
+  buyNowStep: String;
   emailSend: String;
 
   formatter = new Intl.NumberFormat('en-US', {
@@ -53,16 +85,15 @@ export class QuotationComponent implements OnInit {
   });
 
   ngOnInit() {
-
-  	console.log(this.affinity);
+    console.log(this.affinity);
     console.log(this.line);
 
     this.title = "Household";
     this.buyNowStep = "riskInformation";
-    if(this.line == "motorQuotationIssuance"){
+    if (this.line == "motorQuotationIssuance") {
       this.title = "Motor";
       this.buyNowStep = "motorPolicyIssuance";
-    }else if(this.line == "personalInformation"){
+    } else if (this.line == "personalInformation") {
       this.title = "Personal Accident";
       this.buyNowStep = "riskInformation";
     }
@@ -71,28 +102,28 @@ export class QuotationComponent implements OnInit {
       result => {
         this.affinity.lov.bodilyInjuryLOV = result;
 
-        for(let i = 0; i < this.affinity.lov.bodilyInjuryLOV.length; i++){
+        for (let i = 0; i < this.affinity.lov.bodilyInjuryLOV.length; i++) {
           this.affinity.lov.bodilyInjuryLOV[i].impLimiteFormatted = this.formatter.format(parseFloat(this.affinity.lov.bodilyInjuryLOV[i].impLimite));
         }
 
-        this.affinity.lov.bodilyInjuryLOV.splice(-1,1);
-        this.affinity.lov.bodilyInjuryLOV.splice(-1,1);
+        this.affinity.lov.bodilyInjuryLOV.splice(-1, 1);
+        this.affinity.lov.bodilyInjuryLOV.splice(-1, 1);
 
-    });
+      });
 
     this.caller.doCallService("/afnty/getCoverageLimits?codRamo=100&codCob=1005", null).subscribe(
       result => {
         this.affinity.lov.propertyDamageLOV = result;
 
-        for(let i = 0; i < this.affinity.lov.propertyDamageLOV.length; i++){
+        for (let i = 0; i < this.affinity.lov.propertyDamageLOV.length; i++) {
           this.affinity.lov.propertyDamageLOV[i].impLimiteFormatted = this.formatter.format(parseFloat(this.affinity.lov.propertyDamageLOV[i].impLimite));
         }
 
-        this.affinity.lov.propertyDamageLOV.splice(-1,1);
-        this.affinity.lov.propertyDamageLOV.splice(-1,1);
-        
+        this.affinity.lov.propertyDamageLOV.splice(-1, 1);
+        this.affinity.lov.propertyDamageLOV.splice(-1, 1);
+
         this.spinner.hide();
-    });
+      });
 
     console.log(this.buyNowStep);
 
@@ -100,25 +131,23 @@ export class QuotationComponent implements OnInit {
 
     document.body.scrollTop = 0; // For Safari
     document.documentElement.scrollTop = 0;
-
   }
 
-  printQuotation(){
+  printQuotation() {
     this.spinner.show();
-    this.caller.generatePDFTW("/afnty/printPolicy?numPoliza="+this.affinity.quotationNumber+"&printType=Q", null).subscribe(
+    this.caller.generatePDFTW("/afnty/printPolicy?numPoliza=" + this.affinity.quotationNumber + "&printType=Q", null).subscribe(
       result => {
         this.spinner.hide();
-    });
+      });
   }
 
-  submitSendEmail(){
-
+  submitSendEmail() {
     let emailTemp = this.emailSend.split(";");
     let emailFinal = "";
 
-    for(let i = 0; i < emailTemp.length; i++){
-      
-      if(!this.validateEmail(emailTemp[i].trim())){
+    for (let i = 0; i < emailTemp.length; i++) {
+
+      if (!this.validateEmail(emailTemp[i].trim())) {
         Swal.fire({
           type: 'error',
           title: 'Invalid Email Address',
@@ -128,7 +157,6 @@ export class QuotationComponent implements OnInit {
       }
 
       emailFinal += emailTemp[i].trim() + ";";
-
     }
 
     Swal.fire({
@@ -142,13 +170,13 @@ export class QuotationComponent implements OnInit {
     }).then((result) => {
       if (result.value) {
 
-        this.caller.doCallService("/afnty/sendEmail?email="+ emailFinal.slice(0, -1) +"&numPoliza=" 
-          + this.affinity.quotationNumber + "&subject=MAPFRE Online Quotation Number " + this.affinity.quotationNumber + "&type=Q" , null).subscribe(
+        this.caller.doCallService("/afnty/sendEmail?email=" + emailFinal.slice(0, -1) + "&numPoliza=" +
+          this.affinity.quotationNumber + "&subject=MAPFRE Online Quotation Number " + this.affinity.quotationNumber + "&type=Q", null).subscribe(
           resulta => {
-            
+
             console.log(resulta);
 
-            if(resulta.status == 1){
+            if (resulta.status == 1) {
               Swal.fire({
                 type: 'success',
                 title: 'Email Sent!',
@@ -157,7 +185,7 @@ export class QuotationComponent implements OnInit {
 
               $("#emailModalClose").click();
 
-            }else{
+            } else {
               Swal.fire({
                 type: 'error',
                 title: 'Unable to proceed.',
@@ -165,25 +193,21 @@ export class QuotationComponent implements OnInit {
               });
             }
 
-        });
-
+          });
       }
-
     });
   }
 
   validateEmail(email) {
-      const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      return re.test(String(email).toLowerCase());
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
   }
 
-  sendEmail(){
-
+  sendEmail() {
     this.emailSend = this.affinity.riskDetails.emailAddress.toLowerCase();
-
   }
 
-  formatAmount(){
+  formatAmount() {
     this.affinity.premiumBreakdown.grossPrem = this.formatter.format(parseFloat(this.affinity.premiumBreakdown.grossPrem));
     this.affinity.premiumBreakdown.netPrem = this.formatter.format(parseFloat(this.affinity.premiumBreakdown.netPrem));
     this.affinity.premiumBreakdown.docStamp = this.formatter.format(parseFloat(this.affinity.premiumBreakdown.docStamp));
@@ -194,8 +218,7 @@ export class QuotationComponent implements OnInit {
     this.affinity.premiumBreakdown.fireTax = this.formatter.format(parseFloat(this.affinity.premiumBreakdown.fireTax));
   }
 
-  reSubmitQuote(){
-
+  reSubmitQuote() {
     Swal.fire({
       title: 'Quotation Issuance',
       text: "You're about to request another computation of premium for this Quotation, Proceed?",
@@ -205,8 +228,7 @@ export class QuotationComponent implements OnInit {
       cancelButtonColor: '#d33',
       confirmButtonText: 'Proceed'
     }).then((result) => {
-
-       if(!result.value){
+      if (!result.value) {
         return null;
       }
 
@@ -214,7 +236,7 @@ export class QuotationComponent implements OnInit {
 
       this.spinner.show();
       this.p2000030 = this.common.assignP2000030(this.affinity);
-      this.p2000031 = this.common.assignP2000031(this.affinity,this.p2000030);
+      this.p2000031 = this.common.assignP2000031(this.affinity, this.p2000030);
       this.p1001331 = this.common.assignP1001331(this.affinity);
       this.p1001331List.push(this.common.assignP1001331(this.affinity));
       this.p2000020 = this.common.assignP2000020(this.affinity);
@@ -239,7 +261,7 @@ export class QuotationComponent implements OnInit {
         "mvNumber": this.affinity.motorDetails.MVFileNumber,
         "plateNumber": this.affinity.motorDetails.plateNumber,
         "engineNumber": this.affinity.motorDetails.motorNumber,
-        "chassisNumber":  this.affinity.motorDetails.serialNumber,
+        "chassisNumber": this.affinity.motorDetails.serialNumber,
         "inceptionDate": m(this.affinity.motorDetails.policyPeriodFrom).format('M/D/YYYY'),
         "expiryDate": m(this.affinity.motorDetails.policyPeriodTo).format('M/D/YYYY'),
         "color": this.affinity.motorDetails.colorId,
@@ -250,85 +272,78 @@ export class QuotationComponent implements OnInit {
         "reCompute": "1",
         "codRamo": this.affinity.motorDetails.motorTypeId,
         "codModalidad": this.affinity.productId,
-        "clientId" : this.affinity.clientId,
-        "p2000030" : this.p2000030,
-        "p2000031" : this.p2000031,
-        "p1001331" : this.p1001331,
-        "p1001331List" : this.p1001331List,
-        "p2000020List" : this.p2000020,
-        "p2000040List" : this.p2000040,
-        "p2000060List" : this.p2000060,
-        "p2100610List" : this.p2100610,
-        "p2000025List" : this.p2000025
+        "clientId": this.affinity.clientId,
+        "p2000030": this.p2000030,
+        "p2000031": this.p2000031,
+        "p1001331": this.p1001331,
+        "p1001331List": this.p1001331List,
+        "p2000020List": this.p2000020,
+        "p2000040List": this.p2000040,
+        "p2000060List": this.p2000060,
+        "p2100610List": this.p2100610,
+        "p2000025List": this.p2000025
       };
       console.log(param);
-      this.caller.doCallService('/afnty/issueQuote',param).subscribe(
+      this.caller.doCallService('/afnty/issueQuote', param).subscribe(
         result => {
           console.log(result);
 
-          switch(result.status) {
+          switch (result.status) {
             case 0:
-            this.spinner.hide();
+              this.spinner.hide();
               Swal.fire({
-                  type: 'error',
-                  title: 'Quotation Issuance',
-                  text: result.message
-                });
+                type: 'error',
+                title: 'Quotation Issuance',
+                text: result.message
+              });
 
               break;
 
             default:
               this.affinity.quotationNumber = result.message;
 
-              this.caller.doCallService('/afnty/getPaymentBreakdown?numPoliza='+ result.message +'&type=C',null).subscribe(
+              this.caller.doCallService('/afnty/getPaymentBreakdown?numPoliza=' + result.message + '&type=C', null).subscribe(
                 resultpb => {
                   console.log(resultpb);
                   this.affinity.premiumBreakdown = resultpb;
-                  this.router.navigate(['issuance/73015b3208cdee70a4497235463b63d7/'+ result.message ]);
+                  this.router.navigate(['issuance/73015b3208cdee70a4497235463b63d7/' + result.message]);
                   this.formatAmount();
-                  this.common.scrollToElement("toppest",100);
+                  this.common.scrollToElement("toppest", 100);
                   this.spinner.hide();
-              });
+                });
               break;
           }
-          
-      });
-    
+        });
     });
   }
 
-  nextStepAction(){
-
-    if(this.affinity.productId == "10002"){
-
+  nextStepAction() {
+    if (this.affinity.productId == "10002") {
       this.caller.checkWsdl()
-       .subscribe(data => {
-         console.log(data);
-        var error = data;
-            if(error != ""){
-               Swal.fire({
-                  type: 'error',
-                  title: 'LTO Authentication system',
-                  text: 'There has been a problem connecting with LTO Authentication system. Please try again later.'
-                });
-            }else{
+        .subscribe(data => {
+            console.log(data);
+            var error = data;
+            if (error != "") {
+              Swal.fire({
+                type: 'error',
+                title: 'LTO Authentication system',
+                text: 'There has been a problem connecting with LTO Authentication system. Please try again later.'
+              });
+            } else {
               this.nextStep.emit(this.buyNowStep);
             }
-       },
-       err => {
-           Swal.fire({
+          },
+          err => {
+            Swal.fire({
               type: 'error',
               title: 'LTO Authentication system',
               text: 'There has been a problem connecting with LTO Authentication system. Please try again later.'
             });
-       }
-       );
-
-    }else{
+          }
+        );
+    } else {
       this.nextStep.emit(this.buyNowStep);
     }
-
-  	
   }
 
 }

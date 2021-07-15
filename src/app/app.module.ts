@@ -1,79 +1,119 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { HttpClientModule, HttpClient, HttpHeaders} from '@angular/common/http';
-import { HttpInterceptor, HttpHandler, HttpRequest, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { FileSelectDirective } from 'ng2-file-upload';
-
-import { AppComponent } from './app.component';
-import { HomeComponent } from './modules/home/home.component';
-import { AppRoutingModule } from './app-routing/app-routing.module';
-import { LoginComponent } from './modules/user/login/login.component';
-import { RegisterComponent } from './modules/register/register.component';
-import { InterceptorService } from './interceptor/interceptor.service';
-import { TokenInterceptor } from './interceptor/token-interceptor';
-import { UserManagementComponent } from './modules/user/user-management/user-management.component';
-import { CustomerManagementComponent } from './modules/customer/customer-management/customer-management.component';
-import { PolicyManagementComponent } from './modules/policy/policy-management/policy-management.component';
-import { PolicyCoveragesManagementComponent } from './modules/product/policy-coverages-management/policy-coverages-management.component';
-import { AddNewCustomerComponent } from './modules/customer/add-new-customer/add-new-customer.component';
-import { ProductManagementComponent } from './modules/product/product-management/product-management.component';
-import { LineSublineManagementComponent } from './modules/product/line-subline-management/line-subline-management.component';
-import { PendingChangesGuard } from './guard/pending-changes-guard';
-import { IsRequired } from './guard/is-required';
-import { FileUploadModule } from 'ng2-file-upload/ng2-file-upload';
-import { NgxSpinnerModule } from 'ngx-spinner';
-import { PremiumAmountSetupComponent } from './modules/product/premium-amount-setup/premium-amount-setup.component';
-import { PaymentManagementComponent } from './modules/payment/payment-management/payment-management.component';
-import { ExchangeRateSetupComponent } from './modules/payment/exchange-rate-setup/exchange-rate-setup.component';
-import { ReportManagementComponent } from './modules/report/report-management/report-management.component';
-import { SoaManagementComponent } from './modules/payment/soa-management/soa-management.component';
-import { InboxManagementComponent } from './modules/inbox/inbox-management/inbox-management.component';
-import { ConfigurationComponent } from './modules/others/configuration/configuration.component';
-import { Ng2CompleterModule } from 'ng2-completer';
-import { PasswordManagementComponent } from './modules/user/password-management/password-management.component';
-import { LandingpageComponent } from './modules/affinity/landingpage/landingpage.component';
-import { IssuanceComponent } from './modules/affinity/issuance/issuance.component';
-import { PropertyComponent } from './modules/affinity/property/property.component';
-import { PersonalComponent } from './modules/affinity/personal/personal.component';
-import { QuotationComponent } from './modules/affinity/quotation/quotation.component';
-import { FooterComponent } from './modules/affinity/footer/footer.component';
-import { PolicyComponent } from './modules/affinity/policy/policy.component';
-import { RiskComponent } from './modules/affinity/risk/risk.component';
-import { MotorComponent } from './modules/affinity/motor/motor.component';
-import { MotorPolicyComponent } from './modules/affinity/motor-policy/motor-policy.component';
-import { PaymentComponent } from './modules/affinity/payment/payment.component';
-import { NgxDropzoneModule } from 'ngx-dropzone';
-import { AccidentComponent } from './modules/affinity/accident/accident.component';
-import { RiskMotorComponent } from './modules/affinity/risk-motor/risk-motor.component';
-import { RiskHouseholdComponent } from './modules/affinity/risk-household/risk-household.component';
-import { RiskAccidentComponent } from './modules/affinity/risk-accident/risk-accident.component';
-import { AddressComponent } from './modules/affinity/address/address.component';
-import { TechnicalControlComponent } from './modules/affinity/technical-control/technical-control.component';
-import { AlternativeHolderComponent } from './modules/affinity/risk-motor/alternative-holder/alternative-holder.component';
-import { InsuredDetailsComponent } from './modules/affinity/personal/insured-details/insured-details.component';
+import {
+  BrowserModule
+} from '@angular/platform-browser';
+import {
+  NgModule
+} from '@angular/core';
+import {
+  FormsModule,
+  ReactiveFormsModule
+} from '@angular/forms';
+import {
+  HttpClientModule,
+} from '@angular/common/http';
+import {
+  HTTP_INTERCEPTORS
+} from '@angular/common/http';
+import {
+  AppComponent
+} from './app.component';
+import {
+  AppRoutingModule
+} from './app-routing/app-routing.module';
+import {
+  LoginComponent
+} from './modules/user/login/login.component';
+import {
+  InterceptorService
+} from './interceptor/interceptor.service';
+import {
+  IsRequired
+} from './guard/is-required';
+import {
+  FileUploadModule
+} from 'ng2-file-upload/ng2-file-upload';
+import {
+  NgxSpinnerModule
+} from 'ngx-spinner';
+import {
+  Ng2CompleterModule
+} from 'ng2-completer';
+import {
+  LandingpageComponent
+} from './modules/affinity/landingpage/landingpage.component';
+import {
+  IssuanceComponent
+} from './modules/affinity/issuance/issuance.component';
+import {
+  PropertyComponent
+} from './modules/affinity/property/property.component';
+import {
+  PersonalComponent
+} from './modules/affinity/personal/personal.component';
+import {
+  QuotationComponent
+} from './modules/affinity/quotation/quotation.component';
+import {
+  FooterComponent
+} from './modules/affinity/footer/footer.component';
+import {
+  PolicyComponent
+} from './modules/affinity/policy/policy.component';
+import {
+  RiskComponent
+} from './modules/affinity/risk/risk.component';
+import {
+  MotorComponent
+} from './modules/affinity/motor/motor.component';
+import {
+  MotorPolicyComponent
+} from './modules/affinity/motor-policy/motor-policy.component';
+import {
+  PaymentComponent
+} from './modules/affinity/payment/payment.component';
+import {
+  NgxDropzoneModule
+} from 'ngx-dropzone';
+import {
+  AccidentComponent
+} from './modules/affinity/accident/accident.component';
+import {
+  RiskMotorComponent
+} from './modules/affinity/risk-motor/risk-motor.component';
+import {
+  RiskHouseholdComponent
+} from './modules/affinity/risk-household/risk-household.component';
+import {
+  RiskAccidentComponent
+} from './modules/affinity/risk-accident/risk-accident.component';
+import {
+  AddressComponent
+} from './modules/affinity/address/address.component';
+import {
+  TechnicalControlComponent
+} from './modules/affinity/technical-control/technical-control.component';
+import {
+  AlternativeHolderComponent
+} from './modules/affinity/risk-motor/alternative-holder/alternative-holder.component';
+import {
+  InsuredDetailsComponent
+} from './modules/affinity/personal/insured-details/insured-details.component';
+import { DashboardComponent } from './modules/admin/dashboard/dashboard.component';
+import { HeaderComponent } from './modules/affinity/header/header.component';
+import { SidebarComponent } from './modules/admin/sidebar/sidebar.component';
+import { AdminHeaderComponent } from './modules/admin/admin-header/admin-header.component';
+import { AdminFooterComponent } from './modules/admin/admin-footer/admin-footer.component';
+import { PartnersComponent } from './modules/admin/partners/partners.component';
+import { ProductsComponent } from './modules/admin/products/products.component';
+import { ProductListComponent } from './modules/admin/product-list/product-list.component';
+import { PartnerListComponent } from './modules/admin/partner-list/partner-list.component';
+import { ProductComponent } from './modules/admin/product/product.component';
+import { PartnerComponent } from './modules/admin/partner/partner.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
     LoginComponent,
-    RegisterComponent,
-    UserManagementComponent,
-    CustomerManagementComponent,
-    PolicyManagementComponent,
-    PolicyCoveragesManagementComponent,
-    AddNewCustomerComponent,
-    ProductManagementComponent,
-    LineSublineManagementComponent,
-    PremiumAmountSetupComponent,
-    PaymentManagementComponent,
-    ExchangeRateSetupComponent,
-    ReportManagementComponent,
-    SoaManagementComponent,
-    InboxManagementComponent,
-    ConfigurationComponent,
-    PasswordManagementComponent,
     LandingpageComponent,
     IssuanceComponent,
     PropertyComponent,
@@ -92,7 +132,18 @@ import { InsuredDetailsComponent } from './modules/affinity/personal/insured-det
     AddressComponent,
     TechnicalControlComponent,
     AlternativeHolderComponent,
-    InsuredDetailsComponent
+    InsuredDetailsComponent,
+    DashboardComponent,
+    HeaderComponent,
+    SidebarComponent,
+    AdminHeaderComponent,
+    AdminFooterComponent,
+    PartnersComponent,
+    ProductsComponent,
+    ProductListComponent,
+    PartnerListComponent,
+    ProductComponent,
+    PartnerComponent
   ],
   imports: [
     FormsModule,
@@ -103,17 +154,15 @@ import { InsuredDetailsComponent } from './modules/affinity/personal/insured-det
     FileUploadModule,
     NgxSpinnerModule,
     Ng2CompleterModule,
-    NgxDropzoneModule 
+    NgxDropzoneModule
   ],
-  providers: [
-    {
+  providers: [{
       provide: HTTP_INTERCEPTORS,
       useClass: InterceptorService,
       multi: true
     },
-    PendingChangesGuard,
     IsRequired
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

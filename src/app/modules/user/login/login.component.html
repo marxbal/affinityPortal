@@ -18,7 +18,10 @@
               <div class="clearfix"></div>
 
               <div class="col-md-12">
-                <p class="version">{{version}}</p>
+                
+                <p *ngIf="isAdmin" class="version">* You are logging in as an Admin.</p>
+                <p *ngIf="!isAdmin" class="version">{{version}}</p>
+
                 <div class="form-group" [ngClass]="{'input-error': loginForm.controls['email'].invalid 
                   && (loginForm.controls['email'].dirty 
                   || loginForm.controls['email'].touched)}">
@@ -60,6 +63,7 @@
                   </div>
                 </div>
 
+                
               </div>
 
             </form>

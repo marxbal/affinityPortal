@@ -1,23 +1,11 @@
 import {
   Component,
   OnInit,
-  // HostListener,
-  // AfterViewInit,
   Input,
   Output,
   EventEmitter
 } from '@angular/core';
 import * as $ from 'jquery/dist/jquery.min';
-// import * as dz from 'dropzone/dist/dropzone.js';
-// import {
-//   AuthenticationService
-// } from '../../../services/authentication.service';
-// import {
-//   Router
-// } from '@angular/router';
-// import {
-//   ComponentCanDeactivate
-// } from '../../../guard/component-can-deactivate';
 import {
   Affinity
 } from '../../../objects/affinity';
@@ -49,7 +37,8 @@ import Swal from 'sweetalert2';
 })
 export class MotorComponent implements OnInit {
 
-  constructor(private caller: AuthService,
+  constructor(
+    private caller: AuthService,
     private spinner: NgxSpinnerService,
     private commonService: CommonService,
     private checker: IsRequired) {}

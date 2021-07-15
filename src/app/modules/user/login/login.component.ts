@@ -51,13 +51,15 @@ export class LoginComponent implements OnInit {
   showSubmitBtn: boolean = false;
   email: string = "";
 
+  isAdmin: boolean = false;
+
   version: string = c.VER;
 
   constructor(
     private route: ActivatedRoute,
     private fb: FormBuilder,
     private otp: OTPService,
-    private router: Router
+    private router: Router,
   ) {
     this.currentUserSubject = new BehaviorSubject < Users > (
       JSON.parse(localStorage.getItem(CURRENT_USER))
@@ -70,6 +72,8 @@ export class LoginComponent implements OnInit {
     if (isLoggedIn === 'true') {
       this.router.navigate(['issuance']);
     } else {
+      this.isAdmin = "/admin" === this.router.url;
+
       this.route.queryParams
       .subscribe(params => {
         var err = params.error;
@@ -121,17 +125,30 @@ export class LoginComponent implements OnInit {
     this.otp.requestOTP(email, resend);
   }
 
+  requestAdminOTP(resend: boolean) {
+    var email = this.loginForm.value.email;
+    this.otp.requestAdminOTP(email, resend);
+  }
+
   request() {
-    this.requestOTP(false);
+    if (this.isAdmin) {
+      this.requestAdminOTP(false);
+    } else {
+      this.requestOTP(false);
+    }
   }
 
   resend() {
-    this.requestOTP(true);
+    if (this.isAdmin) {
+      this.requestAdminOTP(false);
+    } else {
+      this.requestOTP(false);
+    }
   }
 
   verifyOTP() {
     var email = this.loginForm.value.email;
     var otp = this.loginForm.value.otp;
-    this.otp.verifyOTP(email, otp);
+    this.otp.verifyOTP(email, otp, this.isAdmin);
   }
 }

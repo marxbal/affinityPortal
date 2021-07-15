@@ -1,13 +1,25 @@
-import { Component, OnInit, HostListener, AfterViewInit, Input, Output, EventEmitter } from '@angular/core';
-import * as $ from 'jquery/dist/jquery.min';
-import {AuthenticationService} from '../../../services/authentication.service';
-import {Router,ActivatedRoute} from '@angular/router';
-import {ComponentCanDeactivate} from '../../../guard/component-can-deactivate';
-import {Affinity} from '../../../objects/affinity';
-import {Payment} from '../../../objects/payment';
-import {Items} from '../../../objects/items';
-import { NgxSpinnerService } from 'ngx-spinner';
-import {AuthService} from '../../../services/auth.service';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter
+} from '@angular/core';
+import {
+  ActivatedRoute
+} from '@angular/router';
+import {
+  Affinity
+} from '../../../objects/affinity';
+import {
+  Payment
+} from '../../../objects/payment';
+import {
+  NgxSpinnerService
+} from 'ngx-spinner';
+import {
+  AuthService
+} from '../../../services/auth.service';
 
 @Component({
   selector: 'app-payment',
@@ -16,10 +28,10 @@ import {AuthService} from '../../../services/auth.service';
 })
 export class PaymentComponent implements OnInit {
 
-  
-  constructor(private spinner: NgxSpinnerService,
-    private caller : AuthService, 
-    private route : ActivatedRoute) { }
+  constructor(
+    private spinner: NgxSpinnerService,
+    private caller: AuthService,
+    private route: ActivatedRoute) {}
 
   @Input() line: String;
   @Input() affinity: Affinity;
@@ -30,10 +42,10 @@ export class PaymentComponent implements OnInit {
     style: 'currency',
     currency: 'PHP',
   });
-  grossPremSend : string;
+  grossPremSend: string;
   retStatus = "";
-  ngOnInit() {
 
+  ngOnInit() {
     console.log(this.affinity);
     this.grossPremSend = this.affinity.premiumBreakdown.grossPrem;
     this.affinity.premiumBreakdown.grossPrem = this.formatter.format(parseFloat(this.affinity.premiumBreakdown.grossPrem));
@@ -51,21 +63,20 @@ export class PaymentComponent implements OnInit {
     console.log(this.affinity);
 
     this.route.queryParams.subscribe(params => {
-        if(params.s){
-          this.retStatus = "failed";
-        }
+      if (params.s) {
+        this.retStatus = "failed";
+      }
     });
-
   }
 
-  requestPayment(){
+  requestPayment() {
     this.spinner.show();
-    let pDTO : Payment = new Payment();
+    let pDTO: Payment = new Payment();
     pDTO.numPoliza = this.affinity.policyNumber;
     pDTO.grossPrem = this.grossPremSend;
     pDTO.numRecibo = this.affinity.premiumBreakdown.numRecibo;
     console.log(pDTO);
-    this.caller.doCallService('/afnty/Payment/Request',pDTO).subscribe(
+    this.caller.doCallService('/afnty/Payment/Request', pDTO).subscribe(
       response => {
         var mapForm = document.createElement("form");
         mapForm.method = "POST"; // or "post" if appropriate
@@ -85,15 +96,15 @@ export class PaymentComponent implements OnInit {
 
         document.body.appendChild(mapForm);
         mapForm.submit();
-    });
+      });
   }
 
-  sleep (time) {
+  sleep(time) {
     return new Promise((resolve) => setTimeout(resolve, time));
   }
 
-  nextStepAction(nextStep){
-  	this.nextStep.emit(nextStep);
+  nextStepAction(nextStep) {
+    this.nextStep.emit(nextStep);
     this.affinityOutput.emit(this.affinity);
   }
 

@@ -1,0 +1,46 @@
+<div class="wrapper">
+  <!-- Sidebar -->
+  <app-sidebar></app-sidebar>
+  <div class="main-panel">
+    <!-- Navbar -->
+    <app-admin-header></app-admin-header>
+    <div class="content">
+      <div class="container-fluid">
+        <div class="row">
+
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header ">
+                <h4 class="card-title">Products</h4>
+                <p class="card-category">List of products available for Affinity Portal Microstie</p>
+              </div>
+              <div class="card-body">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th scope="col">Product ID</th>
+                      <th scope="col">Product</th>
+                      <th scope="col">Business Line</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let product of products; index as i">
+                      <th scope="row">{{product.productId}}</th>
+                      <td>
+                        {{ product.name }}
+                      </td>
+                      <td>{{ product.businessLine }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <!-- Footer -->
+    <app-admin-footer></app-admin-footer>
+  </div>
+</div>

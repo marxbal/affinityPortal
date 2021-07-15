@@ -2,12 +2,10 @@ import {
   Injectable
 } from '@angular/core';
 import {
-  HttpHeaders,
   HttpRequest,
   HttpHandler,
   HttpEvent,
   HttpInterceptor,
-  HttpResponse,
   HttpErrorResponse,
   HttpClient
 } from '@angular/common/http';
@@ -20,12 +18,6 @@ import {
   catchError
 } from 'rxjs/operators';
 import {
-  switchMap
-} from 'rxjs/operators';
-import {
-  LogService
-} from '../services/log.service';
-import {
   AuthenticationService
 } from '../services/authentication.service';
 import {
@@ -36,10 +28,7 @@ import {
   Router
 } from '@angular/router';
 import {
-  Base64
-} from 'js-base64';
-import {
-  EMAIL,
+  LOGIN_MSG,
   TOKEN
 } from '../constants/local.storage';
 
@@ -50,7 +39,8 @@ export const InterceptorSkipHeader = 'X-Skip-Interceptor';
 })
 export class InterceptorService implements HttpInterceptor {
 
-  constructor(private oauth: AuthService, private auth: AuthenticationService, private ls: LogService, private router: Router, private http: HttpClient) {}
+  constructor(
+    private router: Router) {}
 
   intercept(request: HttpRequest < any > , next: HttpHandler): Observable < HttpEvent < any >> {
     let finalRequest = _.cloneDeep(request);
@@ -84,7 +74,8 @@ export class InterceptorService implements HttpInterceptor {
       catchError((error: HttpErrorResponse) => {
         if (error.status === 401) {
           // window.location.reload();
-          ic.router.navigateByUrl('/login/?error=4');
+          localStorage.setItem(LOGIN_MSG, "Error! Token already expired. Please log in again.")
+          ic.router.navigateByUrl('/login/?error=true');
         }
         return throwError(error);
       }));

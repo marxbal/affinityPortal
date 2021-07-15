@@ -1,26 +1,44 @@
-import { Component, OnInit, HostListener, AfterViewInit, Input, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter
+} from '@angular/core';
 import * as $ from 'jquery/dist/jquery.min';
-import * as dz from 'dropzone/dist/dropzone.js';
-import {AuthenticationService} from '../../../services/authentication.service';
-import {Router} from '@angular/router';
-import {ComponentCanDeactivate} from '../../../guard/component-can-deactivate';
-import {Affinity} from '../../../objects/affinity';
+import {
+  Affinity
+} from '../../../objects/affinity';
 import * as m from 'moment';
-import {IsRequired} from '../../../guard/is-required';
-import {MotorAccessories} from '../../../objects/motor-accessories';
-import {AuthService} from '../../../services/auth.service';
-import {CommonService} from '../../../services/common.service';
+import {
+  IsRequired
+} from '../../../guard/is-required';
+import {
+  MotorAccessories
+} from '../../../objects/motor-accessories';
+import {
+  AuthService
+} from '../../../services/auth.service';
+import {
+  CommonService
+} from '../../../services/common.service';
 import Swal from 'sweetalert2';
-import { NgxSpinnerService } from 'ngx-spinner';
+import {
+  NgxSpinnerService
+} from 'ngx-spinner';
 
 @Component({
   selector: 'app-motor-policy',
   templateUrl: './motor-policy.component.html',
   styleUrls: ['./motor-policy.component.css']
 })
-export class MotorPolicyComponent  implements OnInit {
+export class MotorPolicyComponent implements OnInit {
 
-  constructor(private caller : AuthService, private checker : IsRequired, private commonService : CommonService, private spinner : NgxSpinnerService) { }
+  constructor(
+    private caller: AuthService,
+    private checker: IsRequired,
+    private commonService: CommonService,
+    private spinner: NgxSpinnerService) {}
 
   @Input() affinity: Affinity;
   @Output() nextStep = new EventEmitter();
@@ -33,11 +51,11 @@ export class MotorPolicyComponent  implements OnInit {
     currency: 'PHP',
   });
 
-  minRetro : String = m().subtract(6 , 'month').format('YYYY-MM-DD');
+  minRetro: String = m().subtract(6, 'month').format('YYYY-MM-DD');
 
   ngOnInit() {
 
-  	if(!this.affinity){
+    if (!this.affinity) {
       this.affinity = new Affinity();
     }
 
@@ -45,69 +63,71 @@ export class MotorPolicyComponent  implements OnInit {
 
     // this.chooseModelYear();
 
-    this.caller.getLOV("A2100800","1",'').subscribe(
+    this.caller.getLOV("A2100800", "1", '').subscribe(
       result => {
         this.affinity.lov.colorLOV = result;
-    });
+      });
 
-    this.caller.doCallService('/afnty/getMortgagees',null).subscribe(
+    this.caller.doCallService('/afnty/getMortgagees', null).subscribe(
       result => {
         this.affinity.lov.mortgageeLOV = result;
-    });
+      });
 
   }
 
-  validateEngine(){
+  validateEngine() {
     let valid = this.validateEngineChassis(this.affinity.motorDetails.motorNumber);
-   if(!valid){
-    Swal.fire({
-      type: 'error',
-      title: 'Policy Issuance',
-      text: "Invalid Engine Number format, please make sure Engine Number includes number and alphabet characters."
-    });
+    if (!valid) {
+      Swal.fire({
+        type: 'error',
+        title: 'Policy Issuance',
+        text: "Invalid Engine Number format, please make sure Engine Number includes number and alphabet characters."
+      });
 
-   }
-   return valid;
+    }
+    return valid;
   }
 
-  validateChassis(){
+  validateChassis() {
     let valid = this.validateEngineChassis(this.affinity.motorDetails.serialNumber);
-   if(!valid){
-    Swal.fire({
-      type: 'error',
-      title: 'Policy Issuance',
-      text: "Invalid Chassis Number format, please make sure Chassis Number includes number and alphabet characters."
-    });
-   }
-   return valid;
+    if (!valid) {
+      Swal.fire({
+        type: 'error',
+        title: 'Policy Issuance',
+        text: "Invalid Chassis Number format, please make sure Chassis Number includes number and alphabet characters."
+      });
+    }
+    return valid;
   }
 
-  validateEngineChassis(numb){
+  validateEngineChassis(numb) {
     const alphaNumeric = /^(?=.*[a-zA-Z])(?=.*[0-9])[A-Za-z0-9]+$/;
 
-    if(numb.length < 5){ return false; }
-    if(!alphaNumeric.test(numb)){ return false; }
+    if (numb.length < 5) {
+      return false;
+    }
+    if (!alphaNumeric.test(numb)) {
+      return false;
+    }
 
     return true;
-
   }
 
-  changePlateNumber(){
-
-    if(this.affinity.productId == "10002"){
+  changePlateNumber() {
+    if (this.affinity.productId == "10002") {
       this.affinity.motorDetails.policyPeriodFrom = m("2020-" + this.getMonthBasedOnPlate(this.affinity.motorDetails.plateNumber) + "-01").format('YYYY-MM-DD');
-      this.affinity.motorDetails.policyPeriodTo = m(this.affinity.motorDetails.policyPeriodFrom).add(1 , 'year').format('YYYY-MM-DD');
+      this.affinity.motorDetails.policyPeriodTo = m(this.affinity.motorDetails.policyPeriodFrom).add(1, 'year').format('YYYY-MM-DD');
     }
 
     this.validatePlateNumber();
   }
 
-  getMonthBasedOnPlate(plate:string){
-    var lastDigitPlate = plate.charAt(plate.length-1);
+  getMonthBasedOnPlate(plate: string) {
+    var lastDigitPlate = plate.charAt(plate.length - 1);
     let monthValue = "";
     switch (lastDigitPlate) {
       case "1":
-        monthValue = "02"//FEBRUARY 1 ending plate 1
+        monthValue = "02" //FEBRUARY 1 ending plate 1
         break;
       case "2":
         monthValue = "03" //MARCH 1 ending plate 2
@@ -135,7 +155,7 @@ export class MotorPolicyComponent  implements OnInit {
         break;
       case "0":
         monthValue = "11" //NOVEMBER 1 ending plate 0
-        break;                
+        break;
       default:
         monthValue = "01"
         break;
@@ -144,62 +164,59 @@ export class MotorPolicyComponent  implements OnInit {
     return monthValue;
   }
 
-  validatePlateNumber(){
-    if(this.affinity.productId == "10002"){
+  validatePlateNumber() {
+    if (this.affinity.productId == "10002") {
       return true;
     }
     const userKeyRegExpPlate = /^[A-Z]{3}[0-9]{4}?$/;
 
     this.affinity.motorDetails.plateNumber = this.affinity.motorDetails.plateNumber.toUpperCase();
 
-      let valid = userKeyRegExpPlate.test(this.affinity.motorDetails.plateNumber);
+    let valid = userKeyRegExpPlate.test(this.affinity.motorDetails.plateNumber);
 
-      if(!valid){
-        Swal.fire({
-          type: 'error',
-          title: 'Policy Issuance',
-          text: "Invalid Plate Number format, please make sure you follow the format ABC1234."
-        });
-        
-      }
+    if (!valid) {
+      Swal.fire({
+        type: 'error',
+        title: 'Policy Issuance',
+        text: "Invalid Plate Number format, please make sure you follow the format ABC1234."
+      });
 
-      return valid;
+    }
+
+    return valid;
   }
 
-  validateConduction(){
+  validateConduction() {
     const userKeyRegExpConduction = /^[A-Z]{2}[0-9]{4}?$/;
 
     this.affinity.motorDetails.conductionNumber = this.affinity.motorDetails.conductionNumber.toUpperCase();
 
-      let validCond = userKeyRegExpConduction.test(this.affinity.motorDetails.conductionNumber);
+    let validCond = userKeyRegExpConduction.test(this.affinity.motorDetails.conductionNumber);
 
-      if(!validCond){
-        Swal.fire({
-          type: 'error',
-          title: 'Policy Issuance',
-          text: "Invalid Conduction Number format, please make sure you follow the format AB1234."
-        });
-        
-      }
+    if (!validCond) {
+      Swal.fire({
+        type: 'error',
+        title: 'Policy Issuance',
+        text: "Invalid Conduction Number format, please make sure you follow the format AB1234."
+      });
 
-      return validCond;
+    }
+
+    return validCond;
   }
 
-  chooseVTPL(){
+  chooseVTPL() {
     this.affinity.motorDetails.propertyDamageLimit = this.affinity.motorDetails.bodilyInjuryLimit;
   }
 
-  chooseType(){
-
-    this.caller.getLOV("A2100400","5",'COD_CIA~1|COD_RAMO~' + this.affinity.motorDetails.motorTypeId).subscribe(
+  chooseType() {
+    this.caller.getLOV("A2100400", "5", 'COD_CIA~1|COD_RAMO~' + this.affinity.motorDetails.motorTypeId).subscribe(
       result => {
         this.affinity.lov.makeLOV = result;
-    });
-
+      });
   }
 
-  chooseMake(){
-
+  chooseMake() {
     this.caller.getLOV('A2100410', '5', 'COD_RAMO~' + this.affinity.motorDetails.motorTypeId + '|COD_MARCA~' + this.affinity.motorDetails.manufacturerId + '|COD_CIA~1').subscribe(
       result => {
         console.log(result);
@@ -213,37 +230,35 @@ export class MotorPolicyComponent  implements OnInit {
         this.affinity.lov.variantLOV = [];
         this.affinity.lov.yearList = [];
         this.affinity.lov.subModelLOV = [];
-    });
-
+      });
   }
 
-  chooseModel(){
-    
-    this.caller.getLOV('A2100100','4','NUM_COTIZACION~1|COD_MARCA~' + this.affinity.motorDetails.manufacturerId +'|COD_MODELO~' + this.affinity.motorDetails.modelId +'|COD_CIA~1').subscribe(
-    result => {
-      console.log(result);
-      this.affinity.lov.variantLOV = result;
-      this.affinity.motorDetails.vehicleTypeIdHolder = "";
-      this.affinity.motorDetails.modelYear = "";
-      this.affinity.motorDetails.subModelIdHolder = "";
-      this.affinity.motorDetails.FMV = "";
+  chooseModel() {
+    this.caller.getLOV('A2100100', '4', 'NUM_COTIZACION~1|COD_MARCA~' + this.affinity.motorDetails.manufacturerId + '|COD_MODELO~' + this.affinity.motorDetails.modelId + '|COD_CIA~1').subscribe(
+      result => {
+        console.log(result);
+        this.affinity.lov.variantLOV = result;
+        this.affinity.motorDetails.vehicleTypeIdHolder = "";
+        this.affinity.motorDetails.modelYear = "";
+        this.affinity.motorDetails.subModelIdHolder = "";
+        this.affinity.motorDetails.FMV = "";
 
-      this.affinity.lov.yearList = [];
-      this.affinity.lov.subModelLOV = [];
-    });
+        this.affinity.lov.yearList = [];
+        this.affinity.lov.subModelLOV = [];
+      });
   }
 
-  chooseEffectivityDate(){
+  chooseEffectivityDate() {
     this.spinner.show();
-    this.affinity.motorDetails.policyPeriodTo = m(this.affinity.motorDetails.policyPeriodFrom).add(1 , 'year').format('YYYY-MM-DD');
-    this.spinner.hide(); 
+    this.affinity.motorDetails.policyPeriodTo = m(this.affinity.motorDetails.policyPeriodFrom).add(1, 'year').format('YYYY-MM-DD');
+    this.spinner.hide();
 
     let isRetro = m().isAfter(this.affinity.motorDetails.policyPeriodFrom, 'day');
-    let isBelowSix = m(this.affinity.motorDetails.policyPeriodFrom).isBefore(m().subtract(6 , 'month'));
+    let isBelowSix = m(this.affinity.motorDetails.policyPeriodFrom).isBefore(m().subtract(6, 'month'));
 
     $("#vehiclePhotosContainer").addClass("hidden");
 
-    if(!isRetro){
+    if (!isRetro) {
       return null;
     }
 
@@ -255,59 +270,56 @@ export class MotorPolicyComponent  implements OnInit {
       text: "Submission of current pictures of all sides of the motor vehicle is required for evaluation of acceptance of MAPFRE Insurance  prior to the issuance of the Policy."
     });
 
-    if(isBelowSix){
+    if (isBelowSix) {
       Swal.fire({
         type: 'error',
         title: 'Policy Issuance',
         text: "Effectivity date should not below Six (6) months from current date."
       });
       this.affinity.motorDetails.policyPeriodFrom = m().subtract(6, 'month').format('YYYY-MM-DD');
-      this.affinity.motorDetails.policyPeriodTo = m(this.affinity.motorDetails.policyPeriodFrom).add(1 , 'year').format('YYYY-MM-DD');
-      return null; 
+      this.affinity.motorDetails.policyPeriodTo = m(this.affinity.motorDetails.policyPeriodFrom).add(1, 'year').format('YYYY-MM-DD');
+      return null;
     }
-    
   }
 
-  chooseVariant(){
+  chooseVariant() {
+    this.caller.getLOV('A2100430', '4', 'NUM_COTIZACION~1|COD_MARCA~' + this.affinity.motorDetails.manufacturerId + '|COD_MODELO~' + this.affinity.motorDetails.modelId + '|COD_TIP_VEHI~' + this.affinity.motorDetails.vehicleTypeId + '|COD_CIA~1').subscribe(
+      result => {
+        console.log(result);
+        this.affinity.lov.yearList = result;
+        this.affinity.motorDetails.modelYear = "";
+        this.affinity.motorDetails.subModelIdHolder = "";
+        this.affinity.motorDetails.FMV = "";
 
-    this.caller.getLOV('A2100430','4','NUM_COTIZACION~1|COD_MARCA~' + this.affinity.motorDetails.manufacturerId +'|COD_MODELO~' + this.affinity.motorDetails.modelId +'|COD_TIP_VEHI~' + this.affinity.motorDetails.vehicleTypeId + '|COD_CIA~1').subscribe(
-    result => {
-      console.log(result);
-      this.affinity.lov.yearList = result;
-      this.affinity.motorDetails.modelYear = "";
-      this.affinity.motorDetails.subModelIdHolder = "";
-      this.affinity.motorDetails.FMV = "";
-
-      this.affinity.lov.subModelLOV = [];
-    });
+        this.affinity.lov.subModelLOV = [];
+      });
 
     this.affinity.lineId = this.commonService.selectSubline($("#vehicleTypeId").val().split("-")[0]).split("-")[1];
     this.affinity.motorDetails.motorTypeId = this.commonService.selectSubline($("#vehicleTypeId").val().split("-")[0]).split("-")[1];
     this.affinity.motorDetails.subline = this.commonService.selectSubline($("#vehicleTypeId").val().split("-")[0]).split("-")[1];
     this.affinity.motorDetails.validityDate = this.commonService.selectSubline($("#vehicleTypeId").val().split("-")[0]).split("-")[0];
 
-    this.caller.getLOV('A2100601','2','COD_CIA~1|cod_tip_vehi~'+
-      $("#vehicleTypeId").val().split("-")[0]+'|fec_validez~' + 
-      this.affinity.motorDetails.validityDate ).subscribe(
-    result => {
-      for(let i = 0; i < result.length; i++){
-        let accesoryType = "Additional";
-        if(result[i].ABR_AGRUP_ACCESORIO == "B"){
-          accesoryType = "Built-in";
-        }else if(result[i].ABR_AGRUP_ACCESORIO == "F"){
-          accesoryType = "Free";
+    this.caller.getLOV('A2100601', '2', 'COD_CIA~1|cod_tip_vehi~' +
+      $("#vehicleTypeId").val().split("-")[0] + '|fec_validez~' +
+      this.affinity.motorDetails.validityDate).subscribe(
+      result => {
+        for (let i = 0; i < result.length; i++) {
+          let accesoryType = "Additional";
+          if (result[i].ABR_AGRUP_ACCESORIO == "B") {
+            accesoryType = "Built-in";
+          } else if (result[i].ABR_AGRUP_ACCESORIO == "F") {
+            accesoryType = "Free";
 
+          }
+          result[i].ABR_AGRUP_ACCESORIO = accesoryType;
         }
-        result[i].ABR_AGRUP_ACCESORIO = accesoryType;
-      }
-      this.affinity.lov.accessoryLOV = result;
-    });
-
+        this.affinity.lov.accessoryLOV = result;
+      });
   }
 
-  chooseModelYear(){
+  chooseModelYear() {
     $("#vehiclePhotosContainer").addClass("hidden");
-    if((m().year() - parseInt(this.affinity.motorDetails.modelYear)) > 8 ){
+    if ((m().year() - parseInt(this.affinity.motorDetails.modelYear)) > 8) {
       $("#vehiclePhotosContainer").removeClass("hidden");
 
       Swal.fire({
@@ -318,55 +330,53 @@ export class MotorPolicyComponent  implements OnInit {
 
     }
 
-    this.caller.getLOV('A2100420','4','NUM_COTIZACION~1|COD_MARCA~' + 
-      this.affinity.motorDetails.manufacturerId +'|COD_MODELO~' +
-       this.affinity.motorDetails.modelId +'|COD_TIP_VEHI~' +
-        this.affinity.motorDetails.vehicleTypeId + '|ANIO_SUB_MODELO~' + this.affinity.motorDetails.modelYear).subscribe(
-    result => {
-      console.log(result);
-      this.affinity.lov.subModelLOV = result;
-      this.affinity.motorDetails.subModelIdHolder = "";
-      this.affinity.motorDetails.FMV = "";
-    });
+    this.caller.getLOV('A2100420', '4', 'NUM_COTIZACION~1|COD_MARCA~' +
+      this.affinity.motorDetails.manufacturerId + '|COD_MODELO~' +
+      this.affinity.motorDetails.modelId + '|COD_TIP_VEHI~' +
+      this.affinity.motorDetails.vehicleTypeId + '|ANIO_SUB_MODELO~' + this.affinity.motorDetails.modelYear).subscribe(
+      result => {
+        console.log(result);
+        this.affinity.lov.subModelLOV = result;
+        this.affinity.motorDetails.subModelIdHolder = "";
+        this.affinity.motorDetails.FMV = "";
+      });
   }
 
-  chooseSubModel(){
-    
-    this.caller.getLOV('A2100200','5','NUM_COTIZACION~1' + 
-      '|COD_RAMO~' + this.affinity.motorDetails.motorTypeId + 
+  chooseSubModel() {
+    this.caller.getLOV('A2100200', '5', 'NUM_COTIZACION~1' +
+      '|COD_RAMO~' + this.affinity.motorDetails.motorTypeId +
       '|COD_MARCA~' + this.affinity.motorDetails.manufacturerId +
-      '|COD_MODELO~' + this.affinity.motorDetails.modelId + 
-      '|COD_TIP_VEHI~' + this.affinity.motorDetails.vehicleTypeId + 
+      '|COD_MODELO~' + this.affinity.motorDetails.modelId +
+      '|COD_TIP_VEHI~' + this.affinity.motorDetails.vehicleTypeId +
       '|ANIO_SUB_MODELO~' + this.affinity.motorDetails.modelYear).subscribe(
-    result => {
-      console.log(result);
-      this.affinity.lov.typeOfUseLOV = result;
+      result => {
+        console.log(result);
+        this.affinity.lov.typeOfUseLOV = result;
 
-      this.caller.doCallService('/afnty/getFMV?codCia=1&codMarca='+ 
-                                  this.affinity.motorDetails.manufacturerId + '&codModelo=' +
-                                  this.affinity.motorDetails.modelId + '&codSubModelo=' +
-                                  this.affinity.motorDetails.subModelId + '&anioSubModelo='+
-                                  this.affinity.motorDetails.modelYear,null).subscribe(
-        resulta => {
-          console.log(resulta);
-          this.affinity.motorDetails.FMV = resulta;
+        this.caller.doCallService('/afnty/getFMV?codCia=1&codMarca=' +
+          this.affinity.motorDetails.manufacturerId + '&codModelo=' +
+          this.affinity.motorDetails.modelId + '&codSubModelo=' +
+          this.affinity.motorDetails.subModelId + '&anioSubModelo=' +
+          this.affinity.motorDetails.modelYear, null).subscribe(
+          resulta => {
+            console.log(resulta);
+            this.affinity.motorDetails.FMV = resulta;
+          });
+
       });
-
-    });
-
   }
 
   onSelect(event) {
     console.log(event);
     this.affinity.motorDetails.vehiclePhotos.push(...event.addedFiles);
   }
-   
+
   onRemove(event) {
     console.log(event);
     this.affinity.motorDetails.vehiclePhotos.splice(this.affinity.motorDetails.vehiclePhotos.indexOf(event), 1);
   }
 
-  addAccessory(){
+  addAccessory() {
     let accessoryy = this.accessory.accessoryIdHolder;
     this.accessory.accessoryId = accessoryy.split("-")[0];
     this.accessory.accessoryName = accessoryy.split("-")[1];
@@ -377,7 +387,7 @@ export class MotorPolicyComponent  implements OnInit {
     this.accessory = new MotorAccessories();
   }
 
-  removeAccessory(accessory: MotorAccessories){
+  removeAccessory(accessory: MotorAccessories) {
     const index: number = this.affinity.motorDetails.accessories.indexOf(accessory);
 
     // this.affinity.motorDetails.FMV = (parseInt(this.affinity.motorDetails.FMV) - parseInt(this.accessory.accessoryValue)).toString();
@@ -387,46 +397,45 @@ export class MotorPolicyComponent  implements OnInit {
     }
   }
 
-  nextStepAction(){
-
-    if(this.checker.checkIfRequired('motor-policy-issuance') == "0"){
+  nextStepAction() {
+    if (this.checker.checkIfRequired('motor-policy-issuance') == "0") {
       return null;
     }
 
-    if(!this.affinity.motorDetails.plateNumber && !this.affinity.motorDetails.conductionNumber){
-        Swal.fire({
-          type: 'error',
-          title: 'Quotation Issuance',
-          text: "Conduction Sticker No. or Plate No. is required"
-        });
+    if (!this.affinity.motorDetails.plateNumber && !this.affinity.motorDetails.conductionNumber) {
+      Swal.fire({
+        type: 'error',
+        title: 'Quotation Issuance',
+        text: "Conduction Sticker No. or Plate No. is required"
+      });
+      return null;
+    }
+
+    let pass = "0";
+
+    if (this.affinity.motorDetails.plateNumber) {
+      if (!this.validatePlateNumber()) {
         return null;
       }
 
-      let pass = "0";
+      pass = "1";
+    }
 
-      if(this.affinity.motorDetails.plateNumber){
-        if(!this.validatePlateNumber()){
-          return null;
-        }
-
-        pass = "1";
-      }
-
-      if(this.affinity.motorDetails.conductionNumber || pass == "0"){
-        if(!this.validateConduction()){
-          return null;
-        }
-      }
-
-      if(!this.validateEngine()){
+    if (this.affinity.motorDetails.conductionNumber || pass == "0") {
+      if (!this.validateConduction()) {
         return null;
       }
+    }
 
-      if(!this.validateChassis()){
-        return null;
-      }
+    if (!this.validateEngine()) {
+      return null;
+    }
 
-    if(((m().year() - parseInt(this.affinity.motorDetails.modelYear)) > 8)  && this.affinity.motorDetails.vehiclePhotos.length < 1 ){
+    if (!this.validateChassis()) {
+      return null;
+    }
+
+    if (((m().year() - parseInt(this.affinity.motorDetails.modelYear)) > 8) && this.affinity.motorDetails.vehiclePhotos.length < 1) {
 
       Swal.fire({
         type: 'warning',
@@ -439,13 +448,13 @@ export class MotorPolicyComponent  implements OnInit {
 
     }
 
-    if(this.affinity.productId == "10002"){
+    if (this.affinity.productId == "10002") {
       let currentYearDiff = (m().year() - parseInt(this.affinity.motorDetails.modelYear));
       let incepExpiryDiff = m(new Date(this.affinity.motorDetails.policyPeriodTo)).diff(new Date(this.affinity.motorDetails.policyPeriodFrom), 'months', true);
-      
 
-      if(currentYearDiff <= 2){
-        if(incepExpiryDiff != 36){
+
+      if (currentYearDiff <= 2) {
+        if (incepExpiryDiff != 36) {
           Swal.fire({
             type: 'error',
             title: 'Policy Issuance',
@@ -453,8 +462,8 @@ export class MotorPolicyComponent  implements OnInit {
           });
           return null;
         }
-      }else{
-        if(incepExpiryDiff < 12 || incepExpiryDiff > 23){
+      } else {
+        if (incepExpiryDiff < 12 || incepExpiryDiff > 23) {
           Swal.fire({
             type: 'error',
             title: 'Policy Issuance',
@@ -463,12 +472,12 @@ export class MotorPolicyComponent  implements OnInit {
           return null;
         }
       }
-      
+
     }
 
     let isRetro = m().isAfter(this.affinity.motorDetails.policyPeriodFrom, 'day');
 
-    if(isRetro && this.affinity.motorDetails.vehiclePhotos.length < 1){
+    if (isRetro && this.affinity.motorDetails.vehiclePhotos.length < 1) {
       Swal.fire({
         type: 'error',
         title: 'Policy Issuance',
@@ -479,31 +488,31 @@ export class MotorPolicyComponent  implements OnInit {
     }
 
     let totalCheck = 0;
-      if(this.affinity.motorDetails.accessories.length > 0){
-        for(let i = 0; i < this.affinity.motorDetails.accessories.length; i++){
-          totalCheck = totalCheck + parseFloat(this.affinity.motorDetails.accessories[i].accessoryValue);
-        }
+    if (this.affinity.motorDetails.accessories.length > 0) {
+      for (let i = 0; i < this.affinity.motorDetails.accessories.length; i++) {
+        totalCheck = totalCheck + parseFloat(this.affinity.motorDetails.accessories[i].accessoryValue);
       }
-      totalCheck = totalCheck + parseFloat(this.affinity.motorDetails.FMV);
+    }
+    totalCheck = totalCheck + parseFloat(this.affinity.motorDetails.FMV);
 
-      if(totalCheck > 5000000){
+    if (totalCheck > 5000000) {
 
       Swal.fire({
-      title: 'Policy Issuance',
-      text: "Motor vehicle with more than 5 million total sum insured requires underwriting approval.",
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#d31d29',
-      cancelButtonColor: '#d33',
-      cancelButtonText: 'Revise Values',
-      confirmButtonText: 'Proceed to Next Step'
+        title: 'Policy Issuance',
+        text: "Motor vehicle with more than 5 million total sum insured requires underwriting approval.",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d31d29',
+        cancelButtonColor: '#d33',
+        cancelButtonText: 'Revise Values',
+        confirmButtonText: 'Proceed to Next Step'
       }).then((result) => {
 
-         if(!result.value){
+        if (!result.value) {
           return null;
         }
 
-        if(this.affinity.motorDetails.isMortgaged){
+        if (this.affinity.motorDetails.isMortgaged) {
           this.affinity.motorDetails.mortgageeId = this.affinity.motorDetails.mortgageeIdHolder.split(":=:")[0];
           this.affinity.motorDetails.mortgagee = this.affinity.motorDetails.mortgageeIdHolder.split(":=:")[1];
         }
@@ -513,18 +522,13 @@ export class MotorPolicyComponent  implements OnInit {
 
       });
 
-    }else{
-      if(this.affinity.motorDetails.isMortgaged){
+    } else {
+      if (this.affinity.motorDetails.isMortgaged) {
         this.affinity.motorDetails.mortgageeId = this.affinity.motorDetails.mortgageeIdHolder.split(":=:")[0];
         this.affinity.motorDetails.mortgagee = this.affinity.motorDetails.mortgageeIdHolder.split(":=:")[1];
       }
       this.nextStep.emit("riskInformation");
       this.affinityOutput.emit(this.affinity);
     }
-
-    
-
-  	
   }
-
 }

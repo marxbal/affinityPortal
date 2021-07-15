@@ -1,25 +1,14 @@
 import {
   Component,
   OnInit,
-  // HostListener,
-  // AfterViewInit,
   Input,
   Output,
   EventEmitter
 } from '@angular/core';
 import * as $ from 'jquery/dist/jquery.min';
-// import {
-//   AuthenticationService
-// } from '../../../services/authentication.service';
-// import {
-//   Router
-// } from '@angular/router';
 import {
   IsRequired
 } from '../../../guard/is-required';
-// import {
-//   ComponentCanDeactivate
-// } from '../../../guard/component-can-deactivate';
 import {
   Affinity
 } from '../../../objects/affinity';
@@ -56,9 +45,6 @@ import {
 import {
   Coverages
 } from '../../../objects/coverages';
-// import {
-//   TransactionDTO
-// } from '../../../objects/transaction-DTO';
 import {
   AuthService
 } from '../../../services/auth.service';
@@ -71,9 +57,6 @@ import {
   NgxSpinnerService
 } from 'ngx-spinner';
 import * as _ from 'lodash';
-// import {
-//   PersonalAccidentIssuanceService
-// } from '../../../services/personal-accident-issuance.service';
 
 @Component({
   selector: 'app-personal',
@@ -88,7 +71,7 @@ export class PersonalComponent implements OnInit {
     private common: CommonService,
     private spinner: NgxSpinnerService,
     // private paSvc: PersonalAccidentIssuanceService
-    ) {}
+  ) {}
 
   @Input() affinity: Affinity;
   @Input() backButton: String;
@@ -125,8 +108,6 @@ export class PersonalComponent implements OnInit {
   });
 
   ngOnInit() {
-    // console.log(this.affinity);
-    // console.log(this.backButton);
     this.selectProduct(this.product, this.description);
 
     this.affinity.motorDetails.reCompute = "0";
@@ -322,7 +303,7 @@ export class PersonalComponent implements OnInit {
 
     if (!this.affinity.riskDetails.validIDValue) {
       this.affinity.riskDetails.validID = "DRI";
-      this.affinity.riskDetails.validIDValue = "FOPM-" + this.getTempID();
+      this.affinity.riskDetails.validIDValue = "AFFINITY-" + this.getTempID();
     }
 
     for (let i = 0; i < this.affinity.lov.buildingsLOV.length; i++) {
@@ -497,7 +478,7 @@ export class PersonalComponent implements OnInit {
 
     if (!this.affinity.riskDetails.validIDValue) {
       this.affinity.riskDetails.validID = "DRI";
-      this.affinity.riskDetails.validIDValue = "FOPM-" + this.getTempID();
+      this.affinity.riskDetails.validIDValue = "AFFINITY-" + this.getTempID();
     }
 
     if (this.affinity.riskDetails.emailAddress) {

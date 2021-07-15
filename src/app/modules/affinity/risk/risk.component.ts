@@ -1,10 +1,16 @@
-import { Component, OnInit, HostListener, AfterViewInit, Input, Output, EventEmitter } from '@angular/core';
-import * as $ from 'jquery/dist/jquery.min';
-import {AuthenticationService} from '../../../services/authentication.service';
-import {Router} from '@angular/router';
-import {ComponentCanDeactivate} from '../../../guard/component-can-deactivate';
-import {Affinity} from '../../../objects/affinity';
-import {Risk} from '../../../objects/risk';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter
+} from '@angular/core';
+import {
+  Affinity
+} from '../../../objects/affinity';
+import {
+  Risk
+} from '../../../objects/risk';
 
 @Component({
   selector: 'app-risk',
@@ -13,7 +19,7 @@ import {Risk} from '../../../objects/risk';
 })
 export class RiskComponent implements OnInit {
 
-  constructor() { }
+  constructor() {}
 
   @Input() line: String;
   @Input() affinity: Affinity;
@@ -25,18 +31,15 @@ export class RiskComponent implements OnInit {
   beneficiary: Risk;
 
   ngOnInit() {
-
     console.log(this.line);
     console.log(this.affinity.motorDetails.isCorporate);
 
     this.director = new Risk();
     this.stockholder = new Risk();
     this.beneficiary = new Risk();
-
-
   }
 
-  addCompanyDetail(type){
+  addCompanyDetail(type) {
     switch (type) {
       case "director":
         this.affinity.motorDetails.directors.push(this.director);
@@ -46,7 +49,7 @@ export class RiskComponent implements OnInit {
         this.affinity.motorDetails.stockholders.push(this.stockholder);
         this.stockholder = new Risk();
         break;
-      
+
       default:
         this.affinity.motorDetails.beneficiaries.push(this.beneficiary);
         this.beneficiary = new Risk();
@@ -54,7 +57,7 @@ export class RiskComponent implements OnInit {
     }
   }
 
-  removeCompanyDetail(detail: Risk, type){
+  removeCompanyDetail(detail: Risk, type) {
     switch (type) {
       case "director":
         let index1: number = this.affinity.motorDetails.directors.indexOf(detail);
@@ -70,7 +73,7 @@ export class RiskComponent implements OnInit {
           this.affinity.motorDetails.stockholders.splice(index2, 1);
         }
         break;
-      
+
       default:
         let index: number = this.affinity.motorDetails.beneficiaries.indexOf(detail);
 
@@ -81,17 +84,17 @@ export class RiskComponent implements OnInit {
     }
   }
 
-  nextStepAction(nextStep){
-  	this.nextStep.emit(nextStep);
+  nextStepAction(nextStep) {
+    this.nextStep.emit(nextStep);
     this.affinityOutput.emit(this.affinity);
   }
 
-  backButtonAction(){
+  backButtonAction() {
     this.nextStep.emit("initialize");
     this.affinityOutput.emit(this.affinity);
   }
 
-  affinityOutput2(affinityOutput){
+  affinityOutput2(affinityOutput) {
     this.affinity = affinityOutput;
   }
 

@@ -16,9 +16,9 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: .5rem;
 }
 
-#routerOutlet {
-  margin-top: 80px;
-}
+/* #routerOutlet {
+  padding-top: 80px;
+} */
 
 .requiredClass {
   border: 1px solid red !important;
@@ -202,11 +202,11 @@ li.nav-item a.nav-link.link:hover {
     SIDEBAR STYLE
 ----------------------------------------------------- */
 
-.wrapper {
+/* .wrapper {
   display: flex;
   width: 100%;
-}
-
+} */
+/* 
 #sidebar {
   width: 250px;
   position: fixed;
@@ -252,9 +252,9 @@ li.nav-item a.nav-link.link:hover {
 a[aria-expanded="true"] {
   color: #fff;
   background: #6d7fcc;
-}
+} */
 
-a[data-toggle="collapse"] {
+/* a[data-toggle="collapse"] {
   position: relative;
 }
 
@@ -293,7 +293,7 @@ a.article,
 a.article:hover {
   background: #6d7fcc !important;
   color: #fff !important;
-}
+} */
 
 /* ---------------------------------------------------
     CONTENT STYLE
@@ -344,6 +344,10 @@ a.article:hover {
 
 .table-small thead td {
   padding: 0.75rem;
+}
+
+.table td, .table th {
+  padding: 5px 10px !important;
 }
 
 .navbar {
@@ -423,10 +427,6 @@ a.article:hover {
   border-bottom: 0;
 }
 
-.digi-label {
-  font-size: 12px;
-}
-
 .affinity-label {
   font-size: 12px !important;
 }
@@ -489,10 +489,10 @@ a.article:hover {
   overflow: auto;
 }
 
-.table th,
+/* .table th,
 .table td {
   padding-left: 0 !important;
-}
+} */
 
 .payment-date {
   padding: .375rem .25rem;

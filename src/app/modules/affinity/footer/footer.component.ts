@@ -17,7 +17,8 @@ import {
 })
 export class FooterComponent implements OnInit {
 
-  constructor(private auth: AuthenticationService) {}
+  constructor(
+    private auth: AuthenticationService) {}
 
   partnerPath: string = "";
 

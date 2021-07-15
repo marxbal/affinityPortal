@@ -1,11 +1,7 @@
 import {
-  Injectable,
-  // Input
+  Injectable
 } from '@angular/core';
 import * as c from './../objects/const';
-// import {
-//   HttpClient
-// } from '@angular/common/http';
 import {
   NgxSpinnerService
 } from 'ngx-spinner';
@@ -35,6 +31,9 @@ import {
 import {
   AuthenticationService
 } from './authentication.service';
+import {
+  UserDetail
+} from '../objects/userDetail';
 
 @Injectable({
   providedIn: 'root'
@@ -47,8 +46,7 @@ export class OTPService {
     private caller: AuthService,
     private spinner: NgxSpinnerService,
     private app: AppService,
-    private router: Router) {
-  }
+    private router: Router) {}
 
   requestOTP(email: string, resend: boolean) {
     var otp = new OTP();
@@ -67,7 +65,24 @@ export class OTPService {
       }));
   }
 
-  verifyOTP(email: string, requestOTP: string) {
+  requestAdminOTP(email: string, resend: boolean) {
+    var otp = new OTP();
+    otp.email = email;
+    this.app.post(otp, this.map + 'requestAdmin')
+      .pipe(first())
+      .subscribe((res => {
+        this.spinner.hide();
+        var r = res as Return;
+
+        localStorage.setItem(LOGIN_MSG, r.message);
+        this.router.navigateByUrl(
+          r.status ?
+          '?email=' + email + '&resend=' + resend :
+          '?error=true');
+      }));
+  }
+
+  verifyOTP(email: string, requestOTP: string, isAdmin: boolean) {
     var otp = new OTP();
     otp.email = email;
     otp.otp = requestOTP;
@@ -79,31 +94,34 @@ export class OTPService {
 
         localStorage.setItem(LOGIN_MSG, r.message);
         if (r.status) {
-          this.login(email);
+          this.login(email, isAdmin);
         } else {
           this.router.navigateByUrl('?error=true');
         }
       }));
   }
 
-  login(email: string) {
+  login(email: string, isAdmin: boolean) {
     this.caller.loginUser(c.LOGIN_EMAIL, c.LOGIN_PWD).subscribe(
       result => {
         localStorage.setItem(TOKEN, "Bearer " + result.access_token);
         localStorage.setItem(EMAIL, email);
 
-        //TODO
-        //to be removed soon
-        // localStorage.setItem("userCardId", this.user.accountNumber);
-        // localStorage.setItem("userCardId", email);
+        this.auth.setLogin(true);
 
-        this.auth.setLogin("true");
-        this.auth.setLandingPage("issuance");
+        const userDetails = new UserDetail();
+        userDetails.email = email;
 
-        //TODO
-        var body = document.querySelector("body");
-        body.setAttribute("style", "background: nothing;");
-        
+        if (isAdmin) {
+          userDetails.roleId = 1;
+          this.auth.setLandingPage("issuance");
+        } else {
+          userDetails.roleId = 2;
+          this.auth.setLandingPage("partners");
+        }
+
+        this.auth.setUserDetails(userDetails);
+
         this.router.navigate([this.auth.getLandingPage()]);
         setTimeout(function () {
           window.location.reload();

@@ -19,11 +19,12 @@ import Swal from 'sweetalert2';
 import {
   NgxSpinnerService
 } from 'ngx-spinner';
-
 import {
   environment
 } from '../../environments/environment';
-import { TOKEN } from '../constants/local.storage';
+import {
+  TOKEN
+} from '../constants/local.storage';
 
 export const InterceptorSkipHeader = 'X-Skip-Interceptor';
 
@@ -36,7 +37,9 @@ export class AuthService {
   private dataSubject: BehaviorSubject < any > = new BehaviorSubject({});
   data$: Observable < any > = this.dataSubject.asObservable();
 
-  constructor(private http: HttpClient, private spinner: NgxSpinnerService) {}
+  constructor(
+    private http: HttpClient,
+    private spinner: NgxSpinnerService) {}
 
   refreshToken() {
     const as = this;
@@ -98,7 +101,6 @@ export class AuthService {
   }
 
   callNonAuth(action: string, param: any) {
-
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json');
     headers = headers.set(InterceptorSkipHeader, '');
@@ -123,7 +125,6 @@ export class AuthService {
   }
 
   callNonAuthPaginated(action: string, param: any, page: string, size: string) {
-
     let mainAction = action + '?page=' + page + '&size=' + size;
 
     let headers = new HttpHeaders();
@@ -242,7 +243,6 @@ export class AuthService {
   }
 
   doCallServiceGet(action: string, param: any): Observable < any > {
-
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/x-www-form-urlencoded;charset=utf-8');
     headers = headers.set('Authorization', 'Basic ' + btoa(c.CLIENT + ':' + c.SECRET));
@@ -360,7 +360,6 @@ export class AuthService {
   }
 
   generatePDFTW(url, param: any): Observable < any > {
-
     let tempAct = url;
     if (url.includes("/afnty/")) {
       url = this.apiUrl + tempAct;

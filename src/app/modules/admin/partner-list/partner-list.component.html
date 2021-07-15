@@ -1,0 +1,50 @@
+<div class="wrapper">
+  <!-- Sidebar -->
+  <app-sidebar></app-sidebar>
+  <div class="main-panel">
+    <!-- Navbar -->
+    <app-admin-header></app-admin-header>
+    <div class="content">
+      <div class="container-fluid">
+        <div class="row">
+
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header ">
+                <h4 class="card-title">Partners</h4>
+                <p class="card-category">List of partners for Affinity Portal Microstie</p>
+              </div>
+              <div class="card-body">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th scope="col">Partner ID</th>
+                      <th scope="col">Partner</th>
+                      <th scope="col">Group Policy</th>
+                      <th scope="col">Contract</th>
+                      <th scope="col">Sub Contract</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let partner of partners; index as i">
+                      <th scope="row">{{partner.partnerId}}</th>
+                      <td>
+                        {{ partner.name }}
+                      </td>
+                      <td>{{ partner.groupPolicy }}</td>
+                      <td>{{ partner.contract }}</td>
+                      <td>{{ partner.subContract }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <!-- Footer -->
+    <app-admin-footer></app-admin-footer>
+  </div>
+</div>

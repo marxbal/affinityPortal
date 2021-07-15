@@ -15,9 +15,6 @@ import {
   Router
 } from '@angular/router';
 import {
-  ComponentCanDeactivate
-} from '../../../guard/component-can-deactivate';
-import {
   Affinity
 } from '../../../objects/affinity';
 import {
@@ -44,7 +41,7 @@ import {
   templateUrl: './landingpage.component.html',
   styleUrls: ['./landingpage.component.css']
 })
-export class LandingpageComponent implements OnInit, ComponentCanDeactivate {
+export class LandingpageComponent implements OnInit {
 
   constructor(
     private auth: AuthenticationService,

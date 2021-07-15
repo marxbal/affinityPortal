@@ -31,7 +31,9 @@
 }
 
 .landing-container {
+  background: #d52529;
   background-image: url('/assets/images/landing-page.jpg');
+  background-repeat: no-repeat;
   background-size: 100%;
   width: 100%;
   color: #fff;
@@ -89,17 +91,9 @@
   border: 0;
 }
 
-.logo-collection-fopm {
-  width: 5%;
-}
-
 .logo-collection {
   width: 10%;
   margin-left: 20px;
-}
-
-.logo-collection-fopm-1 {
-  width: 8%;
 }
 
 .partner-logo,
@@ -153,4 +147,23 @@
   width: 100%;
   max-width: none;
   padding: 0;
+}
+
+@media (max-width: 768px) {
+  .landing-container {
+    background: #d52529;
+    background-image: url('/assets/images/landing-page.jpg');
+    background-repeat: no-repeat;
+    background-size: 100%;
+    width: 100%;
+    color: #fff;
+  }
+  
+  .height-860 {
+    height: 380px;
+  }
+
+  h1, h2, h3 {
+    font-size: 25px;
+  }
 }
