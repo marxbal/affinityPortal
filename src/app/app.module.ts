@@ -98,17 +98,33 @@ import {
 import {
   InsuredDetailsComponent
 } from './modules/affinity/personal/insured-details/insured-details.component';
-import { DashboardComponent } from './modules/admin/dashboard/dashboard.component';
-import { HeaderComponent } from './modules/affinity/header/header.component';
-import { SidebarComponent } from './modules/admin/sidebar/sidebar.component';
-import { AdminHeaderComponent } from './modules/admin/admin-header/admin-header.component';
-import { AdminFooterComponent } from './modules/admin/admin-footer/admin-footer.component';
-import { PartnersComponent } from './modules/admin/partners/partners.component';
-import { ProductsComponent } from './modules/admin/products/products.component';
-import { ProductListComponent } from './modules/admin/product-list/product-list.component';
-import { PartnerListComponent } from './modules/admin/partner-list/partner-list.component';
-import { ProductComponent } from './modules/admin/product/product.component';
-import { PartnerComponent } from './modules/admin/partner/partner.component';
+import {
+  DashboardComponent
+} from './modules/admin/dashboard/dashboard.component';
+import {
+  HeaderComponent
+} from './modules/affinity/header/header.component';
+import {
+  SidebarComponent
+} from './modules/admin/sidebar/sidebar.component';
+import {
+  AdminHeaderComponent
+} from './modules/admin/admin-header/admin-header.component';
+import {
+  AdminFooterComponent
+} from './modules/admin/admin-footer/admin-footer.component';
+import {
+  ProductListComponent
+} from './modules/admin/product-list/product-list.component';
+import {
+  PartnerListComponent
+} from './modules/admin/partner-list/partner-list.component';
+import {
+  ProductComponent
+} from './modules/admin/product/product.component';
+import {
+  PartnerComponent
+} from './modules/admin/partner/partner.component';
 
 @NgModule({
   declarations: [
@@ -138,8 +154,6 @@ import { PartnerComponent } from './modules/admin/partner/partner.component';
     SidebarComponent,
     AdminHeaderComponent,
     AdminFooterComponent,
-    PartnersComponent,
-    ProductsComponent,
     ProductListComponent,
     PartnerListComponent,
     ProductComponent,
