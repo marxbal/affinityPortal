@@ -77,7 +77,7 @@ export class OTPService {
         localStorage.setItem(LOGIN_MSG, r.message);
         this.router.navigateByUrl(
           r.status ?
-          '?email=' + email + '&resend=' + resend :
+          'admin?email=' + email + '&resend=' + resend :
           '?error=true');
       }));
   }
@@ -114,10 +114,10 @@ export class OTPService {
 
         if (isAdmin) {
           userDetails.roleId = 1;
-          this.auth.setLandingPage("issuance");
+          this.auth.setLandingPage("dashboard");
         } else {
           userDetails.roleId = 2;
-          this.auth.setLandingPage("partners");
+          this.auth.setLandingPage("issuance");
         }
 
         this.auth.setUserDetails(userDetails);
