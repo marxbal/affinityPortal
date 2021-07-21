@@ -54,7 +54,7 @@
                     <div class="form-group row">
                       <div class="col-md-12">
                         <label for="groupPolicy">Group Policy</label>
-                        <select class="form-control required " name="groupPolicy" id="groupPolicy"
+                        <select class="form-control required " formControlName="groupPolicy" id="groupPolicy"
                           (change)="getContract()">
                           <option value="0" disabled="disabled">Please choose Policy</option>
                           <option *ngFor="let policy of groupPolicyLOV"
@@ -67,7 +67,7 @@
                     <div class="form-group row">
                       <div class="col-md-12">
                         <label for="contract">Contract</label>
-                        <select class="form-control required " name="contract" id="contract"
+                        <select class="form-control required " formControlName="contract" id="contract"
                           (change)="getSubContract()">
                           <option value="0" disabled="disabled">Please choose Contract</option>
                           <option *ngFor="let contract of contractLOV"
@@ -80,7 +80,7 @@
                     <div class="form-group row">
                       <div class="col-md-12">
                         <label for="subContract">Sub-Contract</label>
-                        <select class="form-control required " name="subContract" id="subContract">
+                        <select class="form-control required " formControlName="subContract" id="subContract">
                           <option value="0" disabled="disabled">Please choose Sub-Contract</option>
                           <option *ngFor="let subContract of subContractLOV"
                             value="{{subContract.NUM_SUBCONTRATO}}">{{subContract.NOM_SUBCONTRATO}}
