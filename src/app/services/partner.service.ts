@@ -37,13 +37,13 @@ export class PartnerService {
         if (ret.status) {
           Swal.fire({
             type: 'success',
-            title: 'Partner saved successfully.',
+            title: 'Partner contract added.',
             text: ret.message
           });
         } else {
           Swal.fire({
             type: 'error',
-            title: 'Unable to save Partner',
+            title: 'Error! unable to add contract.',
             text: ret.message
           });
         }

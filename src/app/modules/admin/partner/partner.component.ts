@@ -9,6 +9,7 @@ import {
   FormGroup,
   Validators
 } from '@angular/forms';
+import { RouteConfigLoadStart } from '@angular/router';
 import {
   Partner
 } from 'src/app/objects/partner';
@@ -18,6 +19,7 @@ import {
 import {
   PartnerService
 } from 'src/app/services/partner.service';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-partner',
@@ -69,6 +71,10 @@ export class PartnerComponent implements OnInit {
   groupPolicyLOV: [] = [];
   contractLOV: [] = [];
   subContractLOV: [] = [];
+  sublineProducts = [];
+
+  showInfo: boolean = false;
+  showSubline: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -79,14 +85,12 @@ export class PartnerComponent implements OnInit {
 
   ngOnInit() {
     this.createForm();
-
-    // this.getGroupPolicy();
-    
   }
 
   createForm() {
     this.partnerForm = this.fb.group({
       agentCode: ["", Validators.required],
+      subline: ["", Validators.required],
       partnerName: ["", Validators.required],
       domain: ["", Validators.required],
       groupPolicy: ["", Validators.required],
@@ -96,12 +100,19 @@ export class PartnerComponent implements OnInit {
     });
 
     this.partnerForm.get("products");
-
-    console.log(this.partnerForm.get("products"))
   }
 
   get control() {
     return this.partnerForm.get('products') as FormArray;
+  }
+
+  toggleSubline() {
+    const agentCode = this.partnerForm.get("agentCode").value;
+    this.showSubline = !_.isEmpty(agentCode);
+    if (!this.showSubline) {
+      this.showInfo = false;
+      this.partnerForm.get("subline").setValue("");
+    }
   }
 
   onCheckChange(event) {
@@ -127,8 +138,11 @@ export class PartnerComponent implements OnInit {
   }
 
   getGroupPolicy() {
+    this.getProducts();
+
     const agentCode = this.partnerForm.get("agentCode").value;
-    const subline = 100;
+    const subline = this.partnerForm.get("subline").value;
+    this.showInfo = !_.isEmpty(subline);
 
     this.auth.getLOV(
       "A2000010",
@@ -140,9 +154,20 @@ export class PartnerComponent implements OnInit {
       });
   }
 
+  getProducts() {
+    const subline = this.partnerForm.get("subline").value;
+    this.sublineProducts = [];
+
+    this.products.forEach((product) => {
+      if (product.subline == subline) {
+        this.sublineProducts.push(product);
+      }
+    });
+  }
+
   getContract() {
     const agentCode = this.partnerForm.get("agentCode").value;
-    const subline = 100;
+    const subline = this.partnerForm.get("subline").value;
     const groupPolicy = this.partnerForm.get("groupPolicy").value;
 
     this.partnerForm.get('contract').setValue("");
@@ -151,7 +176,7 @@ export class PartnerComponent implements OnInit {
       "G2990001",
       "7",
       'COD_CIA~1|COD_AGT~' + agentCode +
-      '|COD_RAMO~' + subline + 
+      '|COD_RAMO~' + subline +
       '|NUM_POLIZA_GRUPO~' + groupPolicy).subscribe(
       result => {
         this.contractLOV = result;
@@ -160,7 +185,7 @@ export class PartnerComponent implements OnInit {
 
   getSubContract() {
     const agentCode = this.partnerForm.get("agentCode").value;
-    const subline = 100;
+    const subline = this.partnerForm.get("subline").value;
     const contract = this.partnerForm.get("contract").value;
 
     this.partnerForm.get('subContract').setValue("");
@@ -168,7 +193,7 @@ export class PartnerComponent implements OnInit {
       "G2990022",
       "2",
       'COD_CIA~1|COD_AGT~' + agentCode +
-      '|COD_RAMO~' + subline + 
+      '|COD_RAMO~' + subline +
       '|NUM_CONTRATO~' + contract).subscribe(
       result => {
         this.subContractLOV = result;
@@ -177,7 +202,6 @@ export class PartnerComponent implements OnInit {
 
   save() {
     const partner = this.partnerForm.value as Partner;
-    partner.subline = 100;
     partner.active = true;
     partner.product = 10001;
     this.pService.insertContract(partner);

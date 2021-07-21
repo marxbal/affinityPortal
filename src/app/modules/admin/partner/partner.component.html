@@ -20,71 +20,21 @@
                     <div class="form-group row">
                       <div class="col-md-12">
                         <label for="agentCode">AGENT CODE </label>
-                        <input type="text" class="form-control required" formControlName="agentCode" (change)="getGroupPolicy();">
+                        <input type="text" class="form-control required" formControlName="agentCode" (change)="toggleSubline()">
                       </div>
                     </div>
                   </div>
-                </div>
-                <!-- .row -->
 
-                <h5>Basic Information</h5>
-                <div class="row">
-                  <div class="col-md-4">
+                  <div class="col-md-4" *ngIf="showSubline">
                     <div class="form-group row">
                       <div class="col-md-12">
-                        <label for="partnerName">PARTNER NAME </label>
-                        <input type="text" class="form-control number required" formControlName="partnerName">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-4">
-                    <div class="form-group row">
-                      <div class="col-md-12">
-                        <label for="partnerName">DOMAIN </label>
-                        <input type="text" class="form-control number required" formControlName="domain">
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <!-- .row -->
-
-                <h5>Policy</h5>
-                <div class="row">
-                  <div class="col-md-4">
-                    <div class="form-group row">
-                      <div class="col-md-12">
-                        <label for="groupPolicy">Group Policy</label>
-                        <select class="form-control required " formControlName="groupPolicy" id="groupPolicy"
-                          (change)="getContract()">
-                          <option value="0" disabled="disabled">Please choose Policy</option>
-                          <option *ngFor="let policy of groupPolicyLOV"
-                            value="{{policy.NUM_POLIZA}}">{{policy.NOM_POLIZA}}</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-4">
-                    <div class="form-group row">
-                      <div class="col-md-12">
-                        <label for="contract">Contract</label>
-                        <select class="form-control required " formControlName="contract" id="contract"
-                          (change)="getSubContract()">
-                          <option value="0" disabled="disabled">Please choose Contract</option>
-                          <option *ngFor="let contract of contractLOV"
-                            value="{{contract.NUM_CONTRATO}}">{{contract.NOM_CONTRATO}}</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-4">
-                    <div class="form-group row">
-                      <div class="col-md-12">
-                        <label for="subContract">Sub-Contract</label>
-                        <select class="form-control required " formControlName="subContract" id="subContract">
-                          <option value="0" disabled="disabled">Please choose Sub-Contract</option>
-                          <option *ngFor="let subContract of subContractLOV"
-                            value="{{subContract.NUM_SUBCONTRATO}}">{{subContract.NOM_SUBCONTRATO}}
-                          </option>
+                        <label for="subline">SUBLINE</label>
+                        <select class="form-control required " formControlName="subline" id="subline"
+                          (change)="getGroupPolicy()">
+                          <option value="0" disabled="disabled">Please choose Subline</option>
+                          <option value="100">Car</option>
+                          <option value="120">Motor</option>
+                          <option value="320">Accident</option>
                         </select>
                       </div>
                     </div>
@@ -92,29 +42,97 @@
                 </div>
                 <!-- .row -->
 
-                <div class="row">
-
-                  <div class="col-md-4">
-                    <div class="form-group row">
-                      <div class="col-md-12" formArrayName="products">
-                        <h5>Products</h5>
-                        <div *ngFor="let product of products">
-
-                          <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="{{product.name}}" [value]="product.id + ';' + product.subline"
-                              (change)="onCheckChange($event)">
-                            <label class="form-check-label" for="{{product.name}}">
-                              {{product.name}}
-                            </label>
-                          </div>
-
+                <div *ngIf="showInfo">
+                  <h5>Basic Information</h5>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="form-group row">
+                        <div class="col-md-12">
+                          <label for="partnerName">PARTNER NAME </label>
+                          <input type="text" class="form-control number required" formControlName="partnerName">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group row">
+                        <div class="col-md-12">
+                          <label for="partnerName">DOMAIN </label>
+                          <input type="text" class="form-control number required" formControlName="domain">
                         </div>
                       </div>
                     </div>
                   </div>
-
+                  <!-- .row -->
+  
+                  <h5>Policy</h5>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="form-group row">
+                        <div class="col-md-12">
+                          <label for="groupPolicy">Group Policy</label>
+                          <select class="form-control required " formControlName="groupPolicy" id="groupPolicy"
+                            (change)="getContract()">
+                            <option value="0" disabled="disabled">Please choose Policy</option>
+                            <option *ngFor="let policy of groupPolicyLOV"
+                              value="{{policy.NUM_POLIZA}}">{{policy.NOM_POLIZA}}</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group row">
+                        <div class="col-md-12">
+                          <label for="contract">Contract</label>
+                          <select class="form-control required " formControlName="contract" id="contract"
+                            (change)="getSubContract()">
+                            <option value="0" disabled="disabled">Please choose Contract</option>
+                            <option *ngFor="let contract of contractLOV"
+                              value="{{contract.NUM_CONTRATO}}">{{contract.NOM_CONTRATO}}</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group row">
+                        <div class="col-md-12">
+                          <label for="subContract">Sub-Contract</label>
+                          <select class="form-control required " formControlName="subContract" id="subContract">
+                            <option value="0" disabled="disabled">Please choose Sub-Contract</option>
+                            <option *ngFor="let subContract of subContractLOV"
+                              value="{{subContract.NUM_SUBCONTRATO}}">{{subContract.NOM_SUBCONTRATO}}
+                            </option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- .row -->
+  
+                  <h5>Products</h5>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="form-group row">
+                        <div class="col-md-12" formArrayName="products">
+                          
+                          <div *ngFor="let product of sublineProducts">
+  
+                            <div class="form-check">
+                              <input class="form-check-input" type="checkbox" id="{{product.name}}" [value]="product.id"
+                                (change)="onCheckChange($event)">
+                              <label class="form-check-label" for="{{product.name}}">
+                                {{product.name}}
+                              </label>
+                            </div>
+  
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- .row -->
                 </div>
-                <!-- .row -->
+
+                
 
                 <br />
                 <br />
