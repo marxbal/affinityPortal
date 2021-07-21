@@ -11,14 +11,14 @@
           <div class="col-md-12">
             <div class="card">
               <div class="card-header ">
-                <h4 class="card-title">Partners</h4>
+                <h1 class="card-title">Partners</h1>
                 <p class="card-category">List of partners for Affinity Portal Microstie</p>
               </div>
               <div class="card-body">
                 <table class="table table-striped">
                   <thead>
                     <tr>
-                      <th scope="col">Partner ID</th>
+                      <th scope="col">Agent Code</th>
                       <th scope="col">Partner</th>
                       <th scope="col">Group Policy</th>
                       <th scope="col">Contract</th>
@@ -26,11 +26,9 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let partner of partners; index as i">
-                      <th scope="row">{{partner.partnerId}}</th>
-                      <td>
-                        {{ partner.name }}
-                      </td>
+                    <tr *ngFor="let partner of partners; index as i" (click)="edit(partner.agentCode)" >
+                      <th scope="row">{{partner.agentCode}}</th>
+                      <td>{{ partner.partnerName }}</td>
                       <td>{{ partner.groupPolicy }}</td>
                       <td>{{ partner.contract }}</td>
                       <td>{{ partner.subContract }}</td>

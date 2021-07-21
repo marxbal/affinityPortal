@@ -11,15 +11,8 @@ import {
   AuthenticationService
 } from './services/authentication.service';
 import {
-  environment
-}
-from '../environments/environment';
-import {
   Partner
 } from './objects/partner';
-import {
-  EMAIL
-} from './constants/local.storage';
 
 @Component({
   selector: 'app-root',
@@ -38,7 +31,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     const partner = this.auth.getPartner() as Partner;
     if (!_.isEmpty(partner)) {
-      this.partnerName = partner.name;
+      this.partnerName = partner.partnerName;
     }
   }
 }

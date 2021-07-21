@@ -74,7 +74,7 @@ export class LandingpageComponent implements OnInit {
     console.log(partner);
 
     if (!_.isEmpty(partner)) {
-      this.partnerPath = partner.name;
+      this.partnerPath = partner.partnerName;
     }
 
     this.getProducts();

@@ -2,29 +2,30 @@ import {
   Component,
   OnInit
 } from '@angular/core';
+import {
+  Router
+} from '@angular/router';
+import { Partner } from 'src/app/objects/partner';
 
-interface Partner {
-  partnerId: number;
-  name: string;
-  groupPolicy: number;
-  contract: number;
-  subContract: number;
-}
+// interface Partner {
+//   partnerId: number;
+//   name: string;
+//   agentCode: number;
+//   groupPolicy: number;
+//   contract: number;
+//   subContract: number;
+// }
 
 const PARTNER: Partner[] = [{
-    partnerId: 1,
-    name: "Mercer",
+    agentCode: 1069,
+    partnerName: "Mercury",
     groupPolicy: 1023,
     contract: 12202,
     subContract: 23233,
-  },
-  {
-    partnerId: 2,
-    name: "Marsh",
-    groupPolicy: 1024,
-    contract: 13202,
-    subContract: 23234,
-  },
+    domain: '',
+    primaryColor: '',
+    products: [1]
+  }
 ];
 
 @Component({
@@ -36,8 +37,12 @@ export class PartnerListComponent implements OnInit {
 
   partners = PARTNER;
 
-  constructor() {}
+  constructor(
+    private router: Router) {}
 
   ngOnInit() {}
 
+  edit(agentCode: number) {
+    this.router.navigateByUrl("/partner?agentCode=" + agentCode);
+  }
 }

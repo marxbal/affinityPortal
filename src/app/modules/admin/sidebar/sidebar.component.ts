@@ -5,6 +5,9 @@ import {
 import {
   Router
 } from '@angular/router';
+import {
+  VER
+} from 'src/app/objects/const';
 
 @Component({
   selector: 'app-sidebar',
@@ -14,6 +17,8 @@ import {
 export class SidebarComponent implements OnInit {
 
   constructor(private router: Router) {}
+
+  version: string = VER;
 
   dashboard: boolean = false;
   partners: boolean = false;

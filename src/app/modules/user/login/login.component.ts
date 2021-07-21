@@ -140,9 +140,9 @@ export class LoginComponent implements OnInit {
 
   resend() {
     if (this.isAdmin) {
-      this.requestAdminOTP(false);
+      this.requestAdminOTP(true);
     } else {
-      this.requestOTP(false);
+      this.requestOTP(true);
     }
   }
 

@@ -78,7 +78,7 @@ export class OTPService {
         this.router.navigateByUrl(
           r.status ?
           'admin?email=' + email + '&resend=' + resend :
-          '?error=true');
+          'admin?error=true');
       }));
   }
 
@@ -96,7 +96,8 @@ export class OTPService {
         if (r.status) {
           this.login(email, isAdmin);
         } else {
-          this.router.navigateByUrl('?error=true');
+          var url = isAdmin ? 'admin' : '' +  '?error=true';
+          this.router.navigateByUrl(url);
         }
       }));
   }
@@ -128,8 +129,9 @@ export class OTPService {
         }, 10);
       }, error => {
         this.spinner.hide();
-        localStorage.setItem(LOGIN_MSG, "Error! Unable to Login.")
-        this.router.navigateByUrl('?error=true');
+        localStorage.setItem(LOGIN_MSG, "Error! Unable to Login.");
+        var url = isAdmin ? 'admin' : '' +  '?error=true';
+        this.router.navigateByUrl(url);
       }
     );
   }

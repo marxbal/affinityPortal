@@ -24,6 +24,9 @@ import {
   PartnerListComponent
 } from '../modules/admin/partner-list/partner-list.component';
 import {
+  PartnerComponent
+} from '../modules/admin/partner/partner.component';
+import {
   ProductListComponent
 } from '../modules/admin/product-list/product-list.component';
 
@@ -43,13 +46,19 @@ const routes: Routes = [{
   {
     path: 'dashboard',
     component: DashboardComponent,
-    canActivate: [AuthGuardAdmin],
+    // canActivate: [AuthGuardAdmin],
   },
   {
     path: 'partner-list',
     component: PartnerListComponent,
-    canActivate: [AuthGuardAdmin],
+    // canActivate: [AuthGuardAdmin],
   },
+  {
+    path: 'partner',
+    component: PartnerComponent,
+    // canActivate: [AuthGuardAdmin],
+  },
+
   {
     path: 'product-list',
     component: ProductListComponent,

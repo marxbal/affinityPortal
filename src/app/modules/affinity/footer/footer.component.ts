@@ -25,7 +25,7 @@ export class FooterComponent implements OnInit {
   ngOnInit() {
     const partner = this.auth.getPartner() as Partner;
     if (!_.isEmpty(partner)) {
-      this.partnerPath = partner.name;
+      this.partnerPath = partner.partnerName;
     }
   }
 
