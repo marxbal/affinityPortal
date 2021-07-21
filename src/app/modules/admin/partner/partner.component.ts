@@ -10,9 +10,6 @@ import {
   Validators
 } from '@angular/forms';
 import {
-  BehaviorSubject
-} from 'rxjs';
-import {
   Partner
 } from 'src/app/objects/partner';
 import {
@@ -31,13 +28,16 @@ export class PartnerComponent implements OnInit {
 
   partner: Partner = {
     agentCode: 1069,
+    subline: 100,
     partnerName: "FOPM",
     domain: "fopm.com.ph",
     groupPolicy: 100,
     contract: 1001,
     subContract: 10001,
     products: [10001, 10003],
-    primaryColor: "1233"
+    primaryColor: "1233",
+    product: 10001,
+    active: true
   };
 
   products = [{
@@ -129,7 +129,7 @@ export class PartnerComponent implements OnInit {
   getGroupPolicy() {
     const agentCode = this.partnerForm.get("agentCode").value;
     const subline = 100;
-    
+
     this.auth.getLOV(
       "A2000010",
       "4",
@@ -176,8 +176,11 @@ export class PartnerComponent implements OnInit {
   }
 
   save() {
-    const details = this.partnerForm.value as Partner;
-    this.pService.insertContract(details);
+    const partner = this.partnerForm.value as Partner;
+    partner.subline = 100;
+    partner.active = true;
+    partner.product = 10001;
+    this.pService.insertContract(partner);
     console.log(this.partnerForm.value);
   }
 
