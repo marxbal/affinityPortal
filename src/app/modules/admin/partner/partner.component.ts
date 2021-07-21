@@ -43,20 +43,24 @@ export class PartnerComponent implements OnInit {
   products = [{
       name: 'Comprehensive',
       id: 10001,
+      subline: 100,
       group: 'Car'
     },
     {
       name: 'CTPL',
+      subline: 100,
       id: 10002,
       group: 'Car'
     },
     {
       name: 'Family',
+      subline: 320,
       id: 10003,
       group: 'Accident'
     },
     {
       name: 'Individual',
+      subline: 320,
       id: 10004,
       group: 'Accident'
     },
@@ -76,7 +80,8 @@ export class PartnerComponent implements OnInit {
   ngOnInit() {
     this.createForm();
 
-    this.getGroupPolicy();
+    // this.getGroupPolicy();
+    
   }
 
   createForm() {
@@ -89,6 +94,10 @@ export class PartnerComponent implements OnInit {
       subContract: ["", Validators.required],
       products: this.fb.array([])
     });
+
+    this.partnerForm.get("products");
+
+    console.log(this.partnerForm.get("products"))
   }
 
   get control() {
@@ -120,7 +129,7 @@ export class PartnerComponent implements OnInit {
   getGroupPolicy() {
     const agentCode = this.partnerForm.get("agentCode").value;
     const subline = 100;
-
+    
     this.auth.getLOV(
       "A2000010",
       "4",
@@ -169,8 +178,7 @@ export class PartnerComponent implements OnInit {
   save() {
     const details = this.partnerForm.value as Partner;
     this.pService.insertContract(details);
-
-    console.log(this.partnerForm);
+    console.log(this.partnerForm.value);
   }
 
 }
