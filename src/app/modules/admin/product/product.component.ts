@@ -30,55 +30,53 @@ import {
 })
 export class ProductComponent implements OnInit {
 
-  // partner: Partner = {
-  //   agentCode: 1069,
-  //   subline: 100,
-  //   partnerName: "FOPM",
-  //   domain: "fopm.com.ph",
-  //   groupPolicy: 100,
-  //   contract: 1001,
-  //   subContract: 10001,
-  //   products: [10001, 10003],
-  //   primaryColor: "1233",
-  //   product: 10001,
-  //   active: true
-  // };
-
   products = [{
       name: 'Comprehensive',
       id: 10001,
       subline: 100,
-      group: 'Car'
+      group: 'Private Car'
     },
     {
       name: 'CTPL',
       subline: 100,
       id: 10002,
-      group: 'Car'
+      group: 'Private Car'
     },
     {
       name: 'Comprehensive',
       id: 12001,
       subline: 120,
-      group: 'Motor'
+      group: 'Motorcycle'
     },
     {
       name: 'CTPL',
       subline: 120,
       id: 12002,
-      group: 'Motor'
+      group: 'Motorcycle'
+    },
+    {
+      name: 'Comprehensive',
+      id: 10501,
+      subline: 105,
+      group: 'Private Vehicle'
+    },
+    {
+      name: 'CTPL',
+      subline: 105,
+      id: 10502,
+      group: 'Private Vehicle'
     },
     {
       name: 'Individual Personal',
       subline: 337,
       id: 33701,
-      group: 'Accident'
+      group: 'Personal Accident'
     },
     {
-      name: 'Individual',
+      name: 'Personal Family',
       subline: 337,
       id: 33702,
-      group: 'Personal Family'
+      group: 'Personal Accident'
     },
   ];
 
@@ -86,6 +84,7 @@ export class ProductComponent implements OnInit {
   contractLOV: [] = [];
   subContractLOV: [] = [];
   sublineProducts = [];
+  partners = [];
 
   showInfo: boolean = false;
 
@@ -98,6 +97,7 @@ export class ProductComponent implements OnInit {
 
   ngOnInit() {
     this.createForm();
+    this.getPartners();
   }
 
   createForm() {
@@ -121,25 +121,58 @@ export class ProductComponent implements OnInit {
   }
 
   onCheckChange(event) {
-    /* Selected */
-    if (event.target.checked) {
-      // Add a new control in the arrayForm
-      this.control.push(new FormControl(event.target.value));
-    }
-    /* unselected */
-    else {
-      // find the unselected element
-      let i: number = 0;
+    // find the unselected element
+    let i: number = 0;
+    let val = ""
 
-      this.control.controls.forEach((ctrl: FormControl) => {
-        if (ctrl.value == event.target.value) {
-          // Remove the unselected element from the arrayForm
-          this.control.removeAt(i);
-          return;
-        }
-        i++;
-      });
-    }
+    this.control.controls.forEach((ctrl: FormControl) => {
+      // const isInactive = event.target.checked ? "N" : "S";
+      var ctrlVal = ctrl.value;
+      var str = _.replace(ctrlVal, ":N", "");
+      var str2 = _.replace(str, ":S", "");
+
+      if (str2 == event.target.value) {
+        // Remove the unselected element from the arrayForm
+        this.control.removeAt(i);
+
+        const isInactive = event.target.checked ? "N" : "S";
+        val = event.target.value + ":" + isInactive;
+        return;
+      }
+      i++;
+    });
+
+    this.control.push(new FormControl(val));
+    // if (event.target.checked) {
+    //   // Add a new control in the arrayForm
+    //   this.control.push(new FormControl(event.target.value));
+    // }
+    // /* unselected */
+    // else {
+    //   // find the unselected element
+    //   let i: number = 0;
+
+    //   this.control.controls.forEach((ctrl: FormControl) => {
+    //     if (ctrl.value == event.target.value) {
+    //       // Remove the unselected element from the arrayForm
+    //       this.control.removeAt(i);
+    //       return;
+    //     }
+    //     i++;
+    //   });
+    // }
+  }
+
+  getPartners() {
+    this.partners = [{
+        partnerName: "FOPM",
+        agentCode: "1069"
+      },
+      {
+        partnerName: "MARSH",
+        agentCode: "1070"
+      }
+    ]
   }
 
   getPartnerDetails(event) {
@@ -164,9 +197,20 @@ export class ProductComponent implements OnInit {
           this.getGroupPolicy(partner);
           this.getContract(partner);
           this.getSubContract(partner);
-          this.getProducts(partner.subline)
+          this.getProducts(partner.subline);
         }
       });
+  }
+  
+  getProducts(subline: number) {
+    this.sublineProducts = [];
+
+    this.products.forEach((product) => {
+      if (product.subline == subline) {
+        this.sublineProducts.push(product);
+        this.control.push(new FormControl(product.id + ":S"));
+      }
+    });
   }
 
   getGroupPolicy(partner: Partner) {
@@ -178,16 +222,6 @@ export class ProductComponent implements OnInit {
       result => {
         this.groupPolicyLOV = result;
       });
-  }
-
-  getProducts(subline: number) {
-    this.sublineProducts = [];
-
-    this.products.forEach((product) => {
-      if (product.subline == subline) {
-        this.sublineProducts.push(product);
-      }
-    });
   }
 
   getContract(partner: Partner) {

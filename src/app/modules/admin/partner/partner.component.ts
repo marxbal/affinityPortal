@@ -5,13 +5,11 @@ import {
 import {
   FormArray,
   FormBuilder,
-  FormControl,
   FormGroup,
   Validators
 } from '@angular/forms';
 import {
-  ActivatedRoute,
-  RouteConfigLoadStart
+  ActivatedRoute
 } from '@angular/router';
 import {
   Partner
@@ -122,28 +120,6 @@ export class PartnerComponent implements OnInit {
     return this.partner;
   }
 
-  onCheckChange(event) {
-    /* Selected */
-    if (event.target.checked) {
-      // Add a new control in the arrayForm
-      this.control.push(new FormControl(event.target.value));
-    }
-    /* unselected */
-    else {
-      // find the unselected element
-      let i: number = 0;
-
-      this.control.controls.forEach((ctrl: FormControl) => {
-        if (ctrl.value == event.target.value) {
-          // Remove the unselected element from the arrayForm
-          this.control.removeAt(i);
-          return;
-        }
-        i++;
-      });
-    }
-  }
-
   getGroupPolicy() {
     const agentCode = this.partnerForm.get("agentCode").value;
     const subline = this.partnerForm.get("subline").value;
@@ -199,7 +175,6 @@ export class PartnerComponent implements OnInit {
     partner.active = true;
     partner.product = 10001;
     this.pService.insertContract(partner);
-    console.log(this.partnerForm.value);
   }
 
 }
