@@ -29,7 +29,7 @@ export class PartnerService {
     private app: AppService) {}
 
   getPartnerDetails(partnerId: number) {
-    return this.app.post(partnerId, this.map + 'partnerDetails')
+    return this.app.post(partnerId, this.map + 'getPartnerDetails')
       .pipe(first())
       .subscribe((res => {
         this.spinner.hide();
