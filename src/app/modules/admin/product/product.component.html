@@ -22,7 +22,7 @@
                       <div class="col-md-12">
                         <label for="partner">PARTNER</label>
                         <select class="form-control required " formControlName="partner" id="partner"
-                          (change)="getPartnerDetails()">
+                          (change)="getPartnerDetails($event)">
                           <option value="0" disabled="disabled">Please choose Partner</option>
                           <option value="1069">FOPM</option>
                           <!-- <option value="100">Private Car</option>
@@ -35,7 +35,7 @@
                   </div>
                 </div>
 
-                <div>
+                <div *ngIf="showInfo">
                   <h5>Agent Information</h5>
                   <div class="row">
                     <div class="col-md-4">

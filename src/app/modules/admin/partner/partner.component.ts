@@ -10,6 +10,7 @@ import {
   Validators
 } from '@angular/forms';
 import {
+  ActivatedRoute,
   RouteConfigLoadStart
 } from '@angular/router';
 import {
@@ -30,57 +31,19 @@ import * as _ from 'lodash';
 })
 export class PartnerComponent implements OnInit {
 
-  // partner: Partner = {
-  //   agentCode: 1069,
-  //   subline: 100,
-  //   partnerName: "FOPM",
-  //   domain: "fopm.com.ph",
-  //   groupPolicy: 100,
-  //   contract: 1001,
-  //   subContract: 10001,
-  //   products: [10001, 10003],
-  //   primaryColor: "1233",
-  //   product: 10001,
-  //   active: true
-  // };
-
-  // products = [{
-  //     name: 'Comprehensive',
-  //     id: 10001,
-  //     subline: 100,
-  //     group: 'Car'
-  //   },
-  //   {
-  //     name: 'CTPL',
-  //     subline: 100,
-  //     id: 10002,
-  //     group: 'Car'
-  //   },
-  //   {
-  //     name: 'Comprehensive',
-  //     id: 12001,
-  //     subline: 120,
-  //     group: 'Motor'
-  //   },
-  //   {
-  //     name: 'CTPL',
-  //     subline: 120,
-  //     id: 12002,
-  //     group: 'Motor'
-  //   },
-  //   {
-  //     name: 'Individual Personal',
-  //     subline: 337,
-  //     id: 33701,
-  //     group: 'Accident'
-  //   },
-  //   {
-  //     name: 'Individual',
-  //     subline: 337,
-  //     id: 33702,
-  //     group: 'Personal Family'
-  //   },
-  // ];
+  partner: Partner = {
+    agentCode: 1069,
+    subline: 100,
+    partnerName: "FOPM",
+    domain: "fopm.com.ph",
+    groupPolicy: 100,
+    contract: 1001,
+    subContract: 10001,
+    products: [10001, 10003],
+    primaryColor: "1233",
+    product: 10001,
+    active: true
+  };
 
   groupPolicyLOV: [] = [];
   contractLOV: [] = [];
@@ -91,6 +54,7 @@ export class PartnerComponent implements OnInit {
   showSubline: boolean = false;
 
   constructor(
+    private route: ActivatedRoute,
     private fb: FormBuilder,
     private auth: AuthService,
     private pService: PartnerService) {}
@@ -99,6 +63,14 @@ export class PartnerComponent implements OnInit {
 
   ngOnInit() {
     this.createForm();
+
+    this.route.queryParams
+      .subscribe(params => {
+        var agentCode = params.agentCode;
+        if (!_.isEmpty(agentCode)) {
+          this.setPartnerDetails(agentCode);
+        }
+      });
   }
 
   createForm() {
@@ -120,6 +92,23 @@ export class PartnerComponent implements OnInit {
     return this.partnerForm.get('products') as FormArray;
   }
 
+  setPartnerDetails(agentCode) {
+    this.partnerForm.get("agentCode").setValue(agentCode);
+    this.toggleSubline();
+    this.showInfo = true;
+
+    const partner = this.getPartnerDetails();
+
+    this.partnerForm.get("subline").setValue(partner.subline);
+
+    this.partnerForm.get("partnerName").setValue(partner.partnerName);
+    this.partnerForm.get("domain").setValue(partner.domain);
+
+    this.partnerForm.get("groupPolicy").setValue(partner.groupPolicy);
+    this.partnerForm.get("contract").setValue(partner.contract);
+    this.partnerForm.get("subContract").setValue(partner.subContract);
+  }
+
   toggleSubline() {
     const agentCode = this.partnerForm.get("agentCode").value;
     this.showSubline = !_.isEmpty(agentCode);
@@ -127,6 +116,10 @@ export class PartnerComponent implements OnInit {
       this.showInfo = false;
       this.partnerForm.get("subline").setValue("");
     }
+  }
+
+  getPartnerDetails() {
+    return this.partner;
   }
 
   onCheckChange(event) {
@@ -152,8 +145,6 @@ export class PartnerComponent implements OnInit {
   }
 
   getGroupPolicy() {
-    // this.getProducts();
-
     const agentCode = this.partnerForm.get("agentCode").value;
     const subline = this.partnerForm.get("subline").value;
     this.showInfo = !_.isEmpty(subline);
@@ -167,17 +158,6 @@ export class PartnerComponent implements OnInit {
         this.groupPolicyLOV = result;
       });
   }
-
-  // getProducts() {
-  //   const subline = this.partnerForm.get("subline").value;
-  //   this.sublineProducts = [];
-
-  //   this.products.forEach((product) => {
-  //     if (product.subline == subline) {
-  //       this.sublineProducts.push(product);
-  //     }
-  //   });
-  // }
 
   getContract() {
     const agentCode = this.partnerForm.get("agentCode").value;

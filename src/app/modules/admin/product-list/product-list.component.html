@@ -24,7 +24,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let product of products; index as i">
+                    <tr *ngFor="let product of products; index as i" (click)="edit(product.productId)">
                       <th scope="row">{{product.productId}}</th>
                       <td>
                         {{ product.name }}
@@ -33,6 +33,10 @@
                     </tr>
                   </tbody>
                 </table>
+
+                <div class="btn-group">
+                  <button class="btn btn-success" type="button" (click)="addProduct()">ADD PRODUCT</button>
+                </div>
               </div>
             </div>
           </div>

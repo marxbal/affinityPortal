@@ -2,6 +2,9 @@ import {
   Component,
   OnInit
 } from '@angular/core';
+import {
+  Router
+} from '@angular/router';
 
 interface Product {
   productId: number;
@@ -40,8 +43,17 @@ export class ProductListComponent implements OnInit {
 
   products = PRODUCT;
 
-  constructor() {}
+  constructor(
+    private router: Router) {}
 
   ngOnInit() {}
+
+  edit(productId: number) {
+    this.router.navigateByUrl("/product?productId=" + productId);
+  }
+
+  addProduct() {
+    this.router.navigateByUrl("/product");
+  }
 
 }

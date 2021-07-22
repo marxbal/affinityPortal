@@ -65,7 +65,7 @@ const routes: Routes = [{
   {
     path: 'product-list',
     component: ProductListComponent,
-    canActivate: [AuthGuardAdmin],
+    // canActivate: [AuthGuardAdmin],
   },
   {
     path: 'product',

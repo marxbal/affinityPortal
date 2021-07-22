@@ -120,11 +120,6 @@ export class ProductComponent implements OnInit {
     return this.partnerForm.get('products') as FormArray;
   }
 
-  toggleInfo() {
-    const partner = this.partnerForm.get("partner").value;
-    this.showInfo = !_.isEmpty(partner);
-  }
-
   onCheckChange(event) {
     /* Selected */
     if (event.target.checked) {
@@ -147,8 +142,11 @@ export class ProductComponent implements OnInit {
     }
   }
 
-  getPartnerDetails(partnerId: number) {
-    this.pService.getPartnerDetails(partnerId).subscribe(
+  getPartnerDetails(event) {
+    const partner = event.target.value;
+    this.showInfo = !_.isEmpty(partner);
+
+    this.pService.getPartnerDetails(event.target.value).subscribe(
       (result: any) => {
         const ret = result as Return;
         if (ret.status) {

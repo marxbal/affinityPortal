@@ -8,6 +8,7 @@ import {
 import {
   VER
 } from 'src/app/objects/const';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-sidebar',
@@ -19,6 +20,7 @@ export class SidebarComponent implements OnInit {
   constructor(private router: Router) {}
 
   version: string = VER;
+  redirectUrl: string = environment.redirectUrl;
 
   dashboard: boolean = false;
   partners: boolean = false;

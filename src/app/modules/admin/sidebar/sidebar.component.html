@@ -5,21 +5,21 @@
     </div>
     <ul class="nav">
       <li class="nav-item" [ngClass]="{'active': dashboard}">
-        <a class="nav-link" href="/affinity/dashboard">
+        <a class="nav-link" href="{{redirectUrl}}/dashboard">
           <i class="fa fa-windows"></i>
           <p>Dashboard</p>
         </a>
       </li>
 
       <li class="nav-item" [ngClass]="{'active': partners}">
-        <a class="nav-link" href="/affinity/partner-list">
+        <a class="nav-link" href="{{redirectUrl}}/partner-list">
           <i class="fa fa-users"></i>
           <p>Partners</p>
         </a>
       </li>
 
       <li class="nav-item" [ngClass]="{'active': products}">
-        <a class="nav-link" href="/affinity/product-list">
+        <a class="nav-link" href="{{redirectUrl}}/product-list">
           <i class="fa fa-shopping-cart"></i>
           <p>Products</p>
         </a>
