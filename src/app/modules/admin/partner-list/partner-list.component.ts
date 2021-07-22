@@ -24,7 +24,10 @@ const PARTNER: Partner[] = [{
     subContract: 23233,
     domain: '',
     primaryColor: '',
-    products: [1]
+    products: [1],
+    product: 1001,
+    active: true,
+    subline: 300
   }
 ];
 

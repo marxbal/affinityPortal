@@ -20,7 +20,8 @@
                     <div class="form-group row">
                       <div class="col-md-12">
                         <label for="agentCode">AGENT CODE </label>
-                        <input type="text" class="form-control required" formControlName="agentCode" (change)="toggleSubline()">
+                        <input type="text" class="form-control required" formControlName="agentCode"
+                          (change)="toggleSubline()">
                       </div>
                     </div>
                   </div>
@@ -32,9 +33,10 @@
                         <select class="form-control required " formControlName="subline" id="subline"
                           (change)="getGroupPolicy()">
                           <option value="0" disabled="disabled">Please choose Subline</option>
-                          <option value="100">Car</option>
-                          <option value="120">Motor</option>
-                          <option value="320">Accident</option>
+                          <option value="100">Private Car</option>
+                          <option value="120">Motorcycle</option>
+                          <option value="337">Personal Accident</option>
+                          <!-- <option value="251">Household</option> -->
                         </select>
                       </div>
                     </div>
@@ -63,7 +65,7 @@
                     </div>
                   </div>
                   <!-- .row -->
-  
+
                   <h5>Policy</h5>
                   <div class="row">
                     <div class="col-md-4">
@@ -73,8 +75,8 @@
                           <select class="form-control required " formControlName="groupPolicy" id="groupPolicy"
                             (change)="getContract()">
                             <option value="0" disabled="disabled">Please choose Policy</option>
-                            <option *ngFor="let policy of groupPolicyLOV"
-                              value="{{policy.NUM_POLIZA}}">{{policy.NOM_POLIZA}}</option>
+                            <option *ngFor="let policy of groupPolicyLOV" value="{{policy.NUM_POLIZA}}">
+                              {{policy.NOM_POLIZA}}</option>
                           </select>
                         </div>
                       </div>
@@ -86,8 +88,8 @@
                           <select class="form-control required " formControlName="contract" id="contract"
                             (change)="getSubContract()">
                             <option value="0" disabled="disabled">Please choose Contract</option>
-                            <option *ngFor="let contract of contractLOV"
-                              value="{{contract.NUM_CONTRATO}}">{{contract.NOM_CONTRATO}}</option>
+                            <option *ngFor="let contract of contractLOV" value="{{contract.NUM_CONTRATO}}">
+                              {{contract.NOM_CONTRATO}}</option>
                           </select>
                         </div>
                       </div>
@@ -98,8 +100,8 @@
                           <label for="subContract">Sub-Contract</label>
                           <select class="form-control required " formControlName="subContract" id="subContract">
                             <option value="0" disabled="disabled">Please choose Sub-Contract</option>
-                            <option *ngFor="let subContract of subContractLOV"
-                              value="{{subContract.NUM_SUBCONTRATO}}">{{subContract.NOM_SUBCONTRATO}}
+                            <option *ngFor="let subContract of subContractLOV" value="{{subContract.NUM_SUBCONTRATO}}">
+                              {{subContract.NOM_SUBCONTRATO}}
                             </option>
                           </select>
                         </div>
@@ -107,15 +109,15 @@
                     </div>
                   </div>
                   <!-- .row -->
-  
+
                   <h5>Products</h5>
                   <div class="row">
                     <div class="col-md-4">
                       <div class="form-group row">
                         <div class="col-md-12" formArrayName="products">
-                          
+
                           <div *ngFor="let product of sublineProducts">
-  
+
                             <div class="form-check">
                               <input class="form-check-input" type="checkbox" id="{{product.name}}" [value]="product.id"
                                 (change)="onCheckChange($event)">
@@ -123,7 +125,7 @@
                                 {{product.name}}
                               </label>
                             </div>
-  
+
                           </div>
                         </div>
                       </div>
@@ -131,8 +133,6 @@
                   </div>
                   <!-- .row -->
                 </div>
-
-                
 
                 <br />
                 <br />

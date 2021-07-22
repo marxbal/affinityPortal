@@ -9,7 +9,9 @@ import {
   FormGroup,
   Validators
 } from '@angular/forms';
-import { RouteConfigLoadStart } from '@angular/router';
+import {
+  RouteConfigLoadStart
+} from '@angular/router';
 import {
   Partner
 } from 'src/app/objects/partner';
@@ -55,18 +57,30 @@ export class PartnerComponent implements OnInit {
       group: 'Car'
     },
     {
-      name: 'Family',
-      subline: 320,
-      id: 10003,
+      name: 'Comprehensive',
+      id: 12001,
+      subline: 120,
+      group: 'Motor'
+    },
+    {
+      name: 'CTPL',
+      subline: 120,
+      id: 12002,
+      group: 'Motor'
+    },
+    {
+      name: 'Individual Personal',
+      subline: 337,
+      id: 33701,
       group: 'Accident'
     },
     {
       name: 'Individual',
-      subline: 320,
-      id: 10004,
-      group: 'Accident'
+      subline: 337,
+      id: 33702,
+      group: 'Personal Family'
     },
-  ]
+  ];
 
   groupPolicyLOV: [] = [];
   contractLOV: [] = [];

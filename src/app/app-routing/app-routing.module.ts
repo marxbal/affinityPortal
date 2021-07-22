@@ -29,6 +29,9 @@ import {
 import {
   ProductListComponent
 } from '../modules/admin/product-list/product-list.component';
+import {
+  ProductComponent
+} from '../modules/admin/product/product.component';
 
 const routes: Routes = [{
     path: '',
@@ -63,6 +66,11 @@ const routes: Routes = [{
     path: 'product-list',
     component: ProductListComponent,
     canActivate: [AuthGuardAdmin],
+  },
+  {
+    path: 'product',
+    component: ProductComponent,
+    // canActivate: [AuthGuardAdmin],
   },
 
   {

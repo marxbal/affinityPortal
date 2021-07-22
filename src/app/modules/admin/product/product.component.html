@@ -7,218 +7,172 @@
     <div class="content">
       <div class="container-fluid">
         <div class="row">
-          <div class="col-md-4">
-            <div class="card ">
+          <div class="col-md-12">
+            <div class="card">
               <div class="card-header ">
-                <h4 class="card-title">Email Statistics</h4>
-                <p class="card-category">Last Campaign Performance</p>
+                <h1 class="card-title">Product</h1>
               </div>
-              <div class="card-body ">
-                <div id="chartPreferences" class="ct-chart ct-perfect-fourth"></div>
-                <div class="legend">
-                  <i class="fa fa-circle text-info"></i> Open
-                  <i class="fa fa-circle text-danger"></i> Bounce
-                  <i class="fa fa-circle text-warning"></i> Unsubscribe
+              <!-- .card-header -->
+              <form class="card-body" [formGroup]="partnerForm">
+
+                <h5>Partner</h5>
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group row">
+                      <div class="col-md-12">
+                        <label for="partner">PARTNER</label>
+                        <select class="form-control required " formControlName="partner" id="partner"
+                          (change)="getPartnerDetails()">
+                          <option value="0" disabled="disabled">Please choose Partner</option>
+                          <!-- <option value="100">Private Car</option>
+                          <option value="120">Motorcycle</option>
+                          <option value="337">Personal Accident</option> -->
+                          <!-- <option value="251">Household</option> -->
+                        </select>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <hr>
-                <div class="stats">
-                  <i class="fa fa-clock-o"></i> Campaign sent 2 days ago
+
+                <div>
+                  <h5>Agent Information</h5>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="form-group row">
+                        <div class="col-md-12">
+                          <label for="agentCode">AGENT CODE </label>
+                          <input type="text" class="form-control required" formControlName="agentCode" disabled>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-4">
+                      <div class="form-group row">
+                        <div class="col-md-12">
+                          <label for="subline">SUBLINE</label>
+                          <select class="form-control required " formControlName="subline" id="subline"
+                            (change)="getGroupPolicy()" disabled>
+                            <option value="0" disabled="disabled">Please choose Subline</option>
+                            <option value="100">Private Car</option>
+                            <option value="120">Motorcycle</option>
+                            <option value="337">Personal Accident</option>
+                            <!-- <option value="251">Household</option> -->
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- .row -->
+
+
+                  <h5>Basic Information</h5>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="form-group row">
+                        <div class="col-md-12">
+                          <label for="partnerName">PARTNER NAME </label>
+                          <input type="text" class="form-control number required" formControlName="partnerName" disabled>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group row">
+                        <div class="col-md-12">
+                          <label for="partnerName">DOMAIN </label>
+                          <input type="text" class="form-control number required" formControlName="domain" disabled>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- .row -->
+
+                  <h5>Policy</h5>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="form-group row">
+                        <div class="col-md-12">
+                          <label for="groupPolicy">Group Policy</label>
+                          <select class="form-control required " formControlName="groupPolicy" id="groupPolicy" disabled>
+                            <option value="0" disabled="disabled">Please choose Policy</option>
+                            <option *ngFor="let policy of groupPolicyLOV" value="{{policy.NUM_POLIZA}}">
+                              {{policy.NOM_POLIZA}}</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group row">
+                        <div class="col-md-12">
+                          <label for="contract">Contract</label>
+                          <select class="form-control required " formControlName="contract" id="contract" disabled>
+                            <option value="0" disabled="disabled">Please choose Contract</option>
+                            <option *ngFor="let contract of contractLOV" value="{{contract.NUM_CONTRATO}}">
+                              {{contract.NOM_CONTRATO}}</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group row">
+                        <div class="col-md-12">
+                          <label for="subContract">Sub-Contract</label>
+                          <select class="form-control required " formControlName="subContract" id="subContract" disabled>
+                            <option value="0" disabled="disabled">Please choose Sub-Contract</option>
+                            <option *ngFor="let subContract of subContractLOV" value="{{subContract.NUM_SUBCONTRATO}}">
+                              {{subContract.NOM_SUBCONTRATO}}
+                            </option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- .row -->
+
+                  <h5>Products</h5>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="form-group row">
+                        <div class="col-md-12" formArrayName="products">
+
+                          <div *ngFor="let product of sublineProducts">
+
+                            <div class="form-check">
+                              <input class="form-check-input" type="checkbox" id="{{product.name}}" [value]="product.id"
+                                (change)="onCheckChange($event)">
+                              <label class="form-check-label" for="{{product.name}}">
+                                {{product.name}}
+                              </label>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- .row -->
                 </div>
-              </div>
+
+                <br />
+                <br />
+
+                <div class="btn-group">
+                  <button class="btn btn-success" (click)="save()">SAVE</button>
+                  <button class="btn btn-secondary">CANCEL</button>
+                </div>
+
+              </form>
+              <!-- .card-body -->
             </div>
+            <!-- .card -->
           </div>
-          <div class="col-md-8">
-            <div class="card ">
-              <div class="card-header ">
-                <h4 class="card-title">Users Behavior</h4>
-                <p class="card-category">24 Hours performance</p>
-              </div>
-              <div class="card-body ">
-                <div id="chartHours" class="ct-chart"></div>
-              </div>
-              <div class="card-footer ">
-                <div class="legend">
-                  <i class="fa fa-circle text-info"></i> Open
-                  <i class="fa fa-circle text-danger"></i> Click
-                  <i class="fa fa-circle text-warning"></i> Click Second Time
-                </div>
-                <hr>
-                <div class="stats">
-                  <i class="fa fa-history"></i> Updated 3 minutes ago
-                </div>
-              </div>
-            </div>
-          </div>
+          <!-- .col-md-12 -->
         </div>
-        <div class="row">
-          <div class="col-md-6">
-            <div class="card ">
-              <div class="card-header ">
-                <h4 class="card-title">2017 Sales</h4>
-                <p class="card-category">All products including Taxes</p>
-              </div>
-              <div class="card-body ">
-                <div id="chartActivity" class="ct-chart"></div>
-              </div>
-              <div class="card-footer ">
-                <div class="legend">
-                  <i class="fa fa-circle text-info"></i> Tesla Model S
-                  <i class="fa fa-circle text-danger"></i> BMW 5 Series
-                </div>
-                <hr>
-                <div class="stats">
-                  <i class="fa fa-check"></i> Data information certified
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="card  card-tasks">
-              <div class="card-header ">
-                <h4 class="card-title">Tasks</h4>
-                <p class="card-category">Backend development</p>
-              </div>
-              <div class="card-body ">
-                <div class="table-full-width">
-                  <table class="table">
-                    <tbody>
-                      <tr>
-                        <td>
-                          <div class="form-check">
-                            <label class="form-check-label">
-                              <input class="form-check-input" type="checkbox" value="">
-                              <span class="form-check-sign"></span>
-                            </label>
-                          </div>
-                        </td>
-                        <td>Sign contract for "What are conference organizers afraid of?"</td>
-                        <td class="td-actions text-right">
-                          <button type="button" rel="tooltip" title="Edit Task"
-                            class="btn btn-info btn-simple btn-link">
-                            <i class="fa fa-edit"></i>
-                          </button>
-                          <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-link">
-                            <i class="fa fa-times"></i>
-                          </button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="form-check">
-                            <label class="form-check-label">
-                              <input class="form-check-input" type="checkbox" value="" checked>
-                              <span class="form-check-sign"></span>
-                            </label>
-                          </div>
-                        </td>
-                        <td>Lines From Great Russian Literature? Or E-mails From My Boss?</td>
-                        <td class="td-actions text-right">
-                          <button type="button" rel="tooltip" title="Edit Task"
-                            class="btn btn-info btn-simple btn-link">
-                            <i class="fa fa-edit"></i>
-                          </button>
-                          <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-link">
-                            <i class="fa fa-times"></i>
-                          </button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="form-check">
-                            <label class="form-check-label">
-                              <input class="form-check-input" type="checkbox" value="" checked>
-                              <span class="form-check-sign"></span>
-                            </label>
-                          </div>
-                        </td>
-                        <td>Flooded: One year later, assessing what was lost and what was found when a ravaging rain
-                          swept through metro Detroit
-                        </td>
-                        <td class="td-actions text-right">
-                          <button type="button" rel="tooltip" title="Edit Task"
-                            class="btn btn-info btn-simple btn-link">
-                            <i class="fa fa-edit"></i>
-                          </button>
-                          <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-link">
-                            <i class="fa fa-times"></i>
-                          </button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="form-check">
-                            <label class="form-check-label">
-                              <input class="form-check-input" type="checkbox" checked>
-                              <span class="form-check-sign"></span>
-                            </label>
-                          </div>
-                        </td>
-                        <td>Create 4 Invisible User Experiences you Never Knew About</td>
-                        <td class="td-actions text-right">
-                          <button type="button" rel="tooltip" title="Edit Task"
-                            class="btn btn-info btn-simple btn-link">
-                            <i class="fa fa-edit"></i>
-                          </button>
-                          <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-link">
-                            <i class="fa fa-times"></i>
-                          </button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="form-check">
-                            <label class="form-check-label">
-                              <input class="form-check-input" type="checkbox" value="">
-                              <span class="form-check-sign"></span>
-                            </label>
-                          </div>
-                        </td>
-                        <td>Read "Following makes Medium better"</td>
-                        <td class="td-actions text-right">
-                          <button type="button" rel="tooltip" title="Edit Task"
-                            class="btn btn-info btn-simple btn-link">
-                            <i class="fa fa-edit"></i>
-                          </button>
-                          <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-link">
-                            <i class="fa fa-times"></i>
-                          </button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="form-check">
-                            <label class="form-check-label">
-                              <input class="form-check-input" type="checkbox" value="" disabled>
-                              <span class="form-check-sign"></span>
-                            </label>
-                          </div>
-                        </td>
-                        <td>Unfollow 5 enemies from twitter</td>
-                        <td class="td-actions text-right">
-                          <button type="button" rel="tooltip" title="Edit Task"
-                            class="btn btn-info btn-simple btn-link">
-                            <i class="fa fa-edit"></i>
-                          </button>
-                          <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-link">
-                            <i class="fa fa-times"></i>
-                          </button>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-              <div class="card-footer ">
-                <hr>
-                <div class="stats">
-                  <i class="now-ui-icons loader_refresh spin"></i> Updated 3 minutes ago
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <!-- .row -->
       </div>
+      <!-- .container-fluid -->
     </div>
+    <!-- .content -->
+
     <!-- Footer -->
     <app-admin-footer></app-admin-footer>
   </div>

@@ -28,6 +28,15 @@ export class PartnerService {
     private spinner: NgxSpinnerService,
     private app: AppService) {}
 
+  getPartnerDetails(partnerId: number) {
+    return this.app.post(partnerId, this.map + 'partnerDetails')
+      .pipe(first())
+      .subscribe((res => {
+        this.spinner.hide();
+        return res as Return;
+      }));
+  }
+
   insertContract(partner: Partner) {
     this.app.post(partner, this.map + 'insertContract')
       .pipe(first())
