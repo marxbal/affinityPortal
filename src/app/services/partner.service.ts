@@ -17,6 +17,7 @@ import {
   Partner
 } from '../objects/partner';
 import Swal from 'sweetalert2';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -29,14 +30,18 @@ export class PartnerService {
     private app: AppService) {}
 
   getPartnerDetails(agentCode: number) {
+    let ret: any = new BehaviorSubject < any > ([]);
+
     const partner = new Partner();
     partner.agentCode = agentCode;
-    return this.app.post(partner, this.map + 'getPartnerDetails')
+    this.app.post(partner, this.map + 'getPartnerDetails')
       .pipe(first())
       .subscribe((res => {
         this.spinner.hide();
-        return res as Return;
+        ret.next(res);
       }));
+
+      return ret.asObservable();
   }
 
   insertContract(partner: Partner) {
