@@ -145,8 +145,10 @@ export class ProductComponent implements OnInit {
   }
 
   getPartnerDetails(partnerId: number) {
-    const ret = this.pService.getPartnerDetails(partnerId);
-    console.log(ret);
+    this.pService.getPartnerDetails(partnerId).subscribe(
+      (result) => {
+        console.log(result);
+      });
   }
 
   getGroupPolicy() {
