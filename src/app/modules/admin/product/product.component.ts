@@ -19,6 +19,7 @@ import {
   PartnerService
 } from 'src/app/services/partner.service';
 import * as _ from 'lodash';
+import { Return } from 'src/app/objects/return';
 
 @Component({
   selector: 'app-product',
@@ -147,6 +148,11 @@ export class ProductComponent implements OnInit {
   getPartnerDetails(partnerId: number) {
     this.pService.getPartnerDetails(partnerId).subscribe(
       (result) => {
+        const ret = result as Return;
+        if (ret.status) {
+          const partner = ret.obj as Partner;
+          this.partnerForm.get("agentCode").setValue(partner.agentCode);
+        }
         console.log(result);
       });
   }
