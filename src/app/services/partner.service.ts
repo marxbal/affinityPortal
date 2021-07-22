@@ -28,8 +28,10 @@ export class PartnerService {
     private spinner: NgxSpinnerService,
     private app: AppService) {}
 
-  getPartnerDetails(partnerId: number) {
-    return this.app.post(partnerId, this.map + 'getPartnerDetails')
+  getPartnerDetails(agentCode: number) {
+    const partner = new Partner();
+    partner.agentCode = agentCode;
+    return this.app.post(partner, this.map + 'getPartnerDetails')
       .pipe(first())
       .subscribe((res => {
         this.spinner.hide();
