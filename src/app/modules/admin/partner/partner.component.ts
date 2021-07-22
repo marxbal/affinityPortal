@@ -30,57 +30,57 @@ import * as _ from 'lodash';
 })
 export class PartnerComponent implements OnInit {
 
-  partner: Partner = {
-    agentCode: 1069,
-    subline: 100,
-    partnerName: "FOPM",
-    domain: "fopm.com.ph",
-    groupPolicy: 100,
-    contract: 1001,
-    subContract: 10001,
-    products: [10001, 10003],
-    primaryColor: "1233",
-    product: 10001,
-    active: true
-  };
+  // partner: Partner = {
+  //   agentCode: 1069,
+  //   subline: 100,
+  //   partnerName: "FOPM",
+  //   domain: "fopm.com.ph",
+  //   groupPolicy: 100,
+  //   contract: 1001,
+  //   subContract: 10001,
+  //   products: [10001, 10003],
+  //   primaryColor: "1233",
+  //   product: 10001,
+  //   active: true
+  // };
 
-  products = [{
-      name: 'Comprehensive',
-      id: 10001,
-      subline: 100,
-      group: 'Car'
-    },
-    {
-      name: 'CTPL',
-      subline: 100,
-      id: 10002,
-      group: 'Car'
-    },
-    {
-      name: 'Comprehensive',
-      id: 12001,
-      subline: 120,
-      group: 'Motor'
-    },
-    {
-      name: 'CTPL',
-      subline: 120,
-      id: 12002,
-      group: 'Motor'
-    },
-    {
-      name: 'Individual Personal',
-      subline: 337,
-      id: 33701,
-      group: 'Accident'
-    },
-    {
-      name: 'Individual',
-      subline: 337,
-      id: 33702,
-      group: 'Personal Family'
-    },
-  ];
+  // products = [{
+  //     name: 'Comprehensive',
+  //     id: 10001,
+  //     subline: 100,
+  //     group: 'Car'
+  //   },
+  //   {
+  //     name: 'CTPL',
+  //     subline: 100,
+  //     id: 10002,
+  //     group: 'Car'
+  //   },
+  //   {
+  //     name: 'Comprehensive',
+  //     id: 12001,
+  //     subline: 120,
+  //     group: 'Motor'
+  //   },
+  //   {
+  //     name: 'CTPL',
+  //     subline: 120,
+  //     id: 12002,
+  //     group: 'Motor'
+  //   },
+  //   {
+  //     name: 'Individual Personal',
+  //     subline: 337,
+  //     id: 33701,
+  //     group: 'Accident'
+  //   },
+  //   {
+  //     name: 'Individual',
+  //     subline: 337,
+  //     id: 33702,
+  //     group: 'Personal Family'
+  //   },
+  // ];
 
   groupPolicyLOV: [] = [];
   contractLOV: [] = [];
@@ -152,7 +152,7 @@ export class PartnerComponent implements OnInit {
   }
 
   getGroupPolicy() {
-    this.getProducts();
+    // this.getProducts();
 
     const agentCode = this.partnerForm.get("agentCode").value;
     const subline = this.partnerForm.get("subline").value;
@@ -168,16 +168,16 @@ export class PartnerComponent implements OnInit {
       });
   }
 
-  getProducts() {
-    const subline = this.partnerForm.get("subline").value;
-    this.sublineProducts = [];
+  // getProducts() {
+  //   const subline = this.partnerForm.get("subline").value;
+  //   this.sublineProducts = [];
 
-    this.products.forEach((product) => {
-      if (product.subline == subline) {
-        this.sublineProducts.push(product);
-      }
-    });
-  }
+  //   this.products.forEach((product) => {
+  //     if (product.subline == subline) {
+  //       this.sublineProducts.push(product);
+  //     }
+  //   });
+  // }
 
   getContract() {
     const agentCode = this.partnerForm.get("agentCode").value;

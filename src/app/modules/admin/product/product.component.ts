@@ -30,19 +30,19 @@ import {
 })
 export class ProductComponent implements OnInit {
 
-  partner: Partner = {
-    agentCode: 1069,
-    subline: 100,
-    partnerName: "FOPM",
-    domain: "fopm.com.ph",
-    groupPolicy: 100,
-    contract: 1001,
-    subContract: 10001,
-    products: [10001, 10003],
-    primaryColor: "1233",
-    product: 10001,
-    active: true
-  };
+  // partner: Partner = {
+  //   agentCode: 1069,
+  //   subline: 100,
+  //   partnerName: "FOPM",
+  //   domain: "fopm.com.ph",
+  //   groupPolicy: 100,
+  //   contract: 1001,
+  //   subContract: 10001,
+  //   products: [10001, 10003],
+  //   primaryColor: "1233",
+  //   product: 10001,
+  //   active: true
+  // };
 
   products = [{
       name: 'Comprehensive',
