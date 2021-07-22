@@ -19,7 +19,9 @@ import {
   PartnerService
 } from 'src/app/services/partner.service';
 import * as _ from 'lodash';
-import { Return } from 'src/app/objects/return';
+import {
+  Return
+} from 'src/app/objects/return';
 
 @Component({
   selector: 'app-product',
@@ -147,35 +149,40 @@ export class ProductComponent implements OnInit {
 
   getPartnerDetails(partnerId: number) {
     this.pService.getPartnerDetails(partnerId).subscribe(
-      (result) => {
+      (result: any) => {
         const ret = result as Return;
         if (ret.status) {
           const partner = ret.obj as Partner;
           this.partnerForm.get("agentCode").setValue(partner.agentCode);
+
+          this.partnerForm.get("subline").setValue(partner.subline);
+          this.partnerForm.get("partnerName").setValue(partner.partnerName);
+          this.partnerForm.get("domain").setValue(partner.domain);
+
+          this.partnerForm.get("groupPolicy").setValue(partner.groupPolicy);
+          this.partnerForm.get("contract").setValue(partner.contract);
+          this.partnerForm.get("subContract").setValue(partner.subContract);
+
+          this.getGroupPolicy(partner);
+          this.getContract(partner);
+          this.getSubContract(partner);
+          this.getProducts(partner.subline)
         }
-        console.log(result);
       });
   }
 
-  getGroupPolicy() {
-    this.getProducts();
-
-    const agentCode = this.partnerForm.get("agentCode").value;
-    const subline = this.partnerForm.get("subline").value;
-    this.showInfo = !_.isEmpty(subline);
-
+  getGroupPolicy(partner: Partner) {
     this.auth.getLOV(
       "A2000010",
       "4",
-      'COD_CIA~1|COD_AGT~' + agentCode +
-      '|COD_RAMO~' + subline).subscribe(
+      'COD_CIA~1|COD_AGT~' + partner.agentCode +
+      '|COD_RAMO~' + partner.subline).subscribe(
       result => {
         this.groupPolicyLOV = result;
       });
   }
 
-  getProducts() {
-    const subline = this.partnerForm.get("subline").value;
+  getProducts(subline: number) {
     this.sublineProducts = [];
 
     this.products.forEach((product) => {
@@ -185,36 +192,25 @@ export class ProductComponent implements OnInit {
     });
   }
 
-  getContract() {
-    const agentCode = this.partnerForm.get("agentCode").value;
-    const subline = this.partnerForm.get("subline").value;
-    const groupPolicy = this.partnerForm.get("groupPolicy").value;
-
-    this.partnerForm.get('contract').setValue("");
-    this.partnerForm.get('subContract').setValue("");
+  getContract(partner: Partner) {
     this.auth.getLOV(
       "G2990001",
       "7",
-      'COD_CIA~1|COD_AGT~' + agentCode +
-      '|COD_RAMO~' + subline +
-      '|NUM_POLIZA_GRUPO~' + groupPolicy).subscribe(
+      'COD_CIA~1|COD_AGT~' + partner.agentCode +
+      '|COD_RAMO~' + partner.subline +
+      '|NUM_POLIZA_GRUPO~' + partner.groupPolicy).subscribe(
       result => {
         this.contractLOV = result;
       });
   }
 
-  getSubContract() {
-    const agentCode = this.partnerForm.get("agentCode").value;
-    const subline = this.partnerForm.get("subline").value;
-    const contract = this.partnerForm.get("contract").value;
-
-    this.partnerForm.get('subContract').setValue("");
+  getSubContract(partner: Partner) {
     this.auth.getLOV(
       "G2990022",
       "2",
-      'COD_CIA~1|COD_AGT~' + agentCode +
-      '|COD_RAMO~' + subline +
-      '|NUM_CONTRATO~' + contract).subscribe(
+      'COD_CIA~1|COD_AGT~' + partner.agentCode +
+      '|COD_RAMO~' + partner.subline +
+      '|NUM_CONTRATO~' + partner.contract).subscribe(
       result => {
         this.subContractLOV = result;
       });
@@ -223,7 +219,7 @@ export class ProductComponent implements OnInit {
   save() {
     const partner = this.partnerForm.value as Partner;
     partner.active = true;
-    partner.product = 10001; 
+    partner.product = 10001;
     this.pService.insertContract(partner);
   }
 
