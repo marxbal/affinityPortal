@@ -23,6 +23,11 @@ import {
   Return
 } from 'src/app/objects/return';
 
+export interface Partners {
+  partnerName: string;
+  agentCode: number;  
+}
+
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
@@ -84,9 +89,10 @@ export class ProductComponent implements OnInit {
   contractLOV: [] = [];
   subContractLOV: [] = [];
   sublineProducts = [];
-  partners = [];
+  partners: Partners[] = [];
 
   showInfo: boolean = false;
+  showSaveBtn: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -97,7 +103,7 @@ export class ProductComponent implements OnInit {
 
   ngOnInit() {
     this.createForm();
-    this.getPartners();
+    this.getPartnerList();
   }
 
   createForm() {
@@ -126,7 +132,6 @@ export class ProductComponent implements OnInit {
     let val = ""
 
     this.control.controls.forEach((ctrl: FormControl) => {
-      // const isInactive = event.target.checked ? "N" : "S";
       var ctrlVal = ctrl.value;
       var str = _.replace(ctrlVal, ":N", "");
       var str2 = _.replace(str, ":S", "");
@@ -163,21 +168,28 @@ export class ProductComponent implements OnInit {
     // }
   }
 
-  getPartners() {
-    this.partners = [{
-        partnerName: "FOPM",
-        agentCode: "1069"
-      },
-      {
-        partnerName: "MARSH",
-        agentCode: "1070"
+  getPartnerList() {
+    this.pService.getPartnerList().subscribe((result: any) => {
+      const ret = result as Return;
+      if (ret.status) {
+       this.partners = ret.obj as Partners[];
       }
-    ]
+    });
+    // this.partners = [{
+    //     partnerName: "FOPM",
+    //     agentCode: 1069
+    //   },
+    //   {
+    //     partnerName: "MARSH",
+    //     agentCode: 1070
+    //   }
+    // ]
   }
 
   getPartnerDetails(event) {
     const partner = event.target.value;
     this.showInfo = !_.isEmpty(partner);
+    this.showSaveBtn = true;
 
     this.pService.getPartnerDetails(event.target.value).subscribe(
       (result: any) => {
@@ -197,18 +209,20 @@ export class ProductComponent implements OnInit {
           this.getGroupPolicy(partner);
           this.getContract(partner);
           this.getSubContract(partner);
-          this.getProducts(partner.subline);
+          this.getProducts(partner.subline, partner.products); //TODO
         }
       });
   }
-  
-  getProducts(subline: number) {
+
+  getProducts(subline: number, products: number[]) {
     this.sublineProducts = [];
 
     this.products.forEach((product) => {
       if (product.subline == subline) {
         this.sublineProducts.push(product);
-        this.control.push(new FormControl(product.id + ":S"));
+
+        const isInactive = (-1 !== _.indexOf(products, product.id)) ? "N" : "S";
+        this.control.push(new FormControl(product.id + ":" + isInactive));
       }
     });
   }

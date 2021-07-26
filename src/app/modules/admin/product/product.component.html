@@ -155,7 +155,7 @@
                 <br />
 
                 <div class="btn-group">
-                  <button class="btn btn-success" (click)="save()">SAVE</button>
+                  <button *ngIf="showSaveBtn" class="btn btn-success" (click)="save()">SAVE</button>
                   <button class="btn btn-secondary">CANCEL</button>
                 </div>
 
