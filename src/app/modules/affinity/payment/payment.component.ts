@@ -46,7 +46,6 @@ export class PaymentComponent implements OnInit {
   retStatus = "";
 
   ngOnInit() {
-    console.log(this.affinity);
     this.grossPremSend = this.affinity.premiumBreakdown.grossPrem;
     this.affinity.premiumBreakdown.grossPrem = this.formatter.format(parseFloat(this.affinity.premiumBreakdown.grossPrem));
     this.affinity.premiumBreakdown.netPrem = this.formatter.format(parseFloat(this.affinity.premiumBreakdown.netPrem));
@@ -59,8 +58,6 @@ export class PaymentComponent implements OnInit {
 
     document.body.scrollTop = 0; // For Safari
     document.documentElement.scrollTop = 0;
-
-    console.log(this.affinity);
 
     this.route.queryParams.subscribe(params => {
       if (params.s) {
@@ -75,7 +72,6 @@ export class PaymentComponent implements OnInit {
     pDTO.numPoliza = this.affinity.policyNumber;
     pDTO.grossPrem = this.grossPremSend;
     pDTO.numRecibo = this.affinity.premiumBreakdown.numRecibo;
-    console.log(pDTO);
     this.caller.doCallService('/afnty/Payment/Request', pDTO).subscribe(
       response => {
         var mapForm = document.createElement("form");

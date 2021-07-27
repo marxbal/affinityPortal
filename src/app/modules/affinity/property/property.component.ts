@@ -66,14 +66,12 @@ export class PropertyComponent implements OnInit {
 
     this.caller.doCallService('/afnty/getBuildings', null).subscribe(
       result => {
-        console.log(result);
         this.affinity.lov.buildingsLOV = result;
         this.affinity.propertyDetails.propertyId = "0";
       });
 
     this.caller.getLOV('G2990006', '5', 'cod_cia~1|cod_campo~TXT_DESCRIPTION_PROPERTY_2356|cod_ramo~200|fec_validez~15102014|DVCOD_MODALIDAD~20001').subscribe(
       result => {
-        console.log(result);
         this.affinity.lov.workOfArtsLOV = result;
       });
 
@@ -117,7 +115,6 @@ export class PropertyComponent implements OnInit {
     if (evt.target.value == "NaN") {
       evt.target.value = "";
     }
-    console.log(evt.target.value);
   }
 
   checkIfNumber(evt, type) {
@@ -200,7 +197,6 @@ export class PropertyComponent implements OnInit {
     this.caller.doCallService("/afnty/coverage/getCoverageDescriptions", type).subscribe(
       result => {
         this.coverageList = [];
-        console.log(result);
         let coverageHolder = result;
         for (let c in coverageHolder) {
           for (let d in coverageHolder[c]) {
@@ -245,7 +241,6 @@ export class PropertyComponent implements OnInit {
     tsi = parseFloat(this.affinity.propertyDetails.EVFurnishing.replace(/\,/g, '')) +
       parseFloat(this.affinity.propertyDetails.EVImprovements.replace(/\,/g, '')) +
       parseFloat(this.affinity.propertyDetails.workOfArtsAmount);
-    console.log(tsi);
 
     if (tsi >= 30000000) {
       Swal.fire({

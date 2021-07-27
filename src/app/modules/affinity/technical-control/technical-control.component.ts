@@ -70,21 +70,16 @@ export class TechnicalControlComponent implements OnInit {
     if (this.affinity.productId == "10002") {
       this.caller.doCallService("/afnty/cocaf/checkWsdl", null).subscribe(
         result => {
-          console.log(result);
           if (result != "") {
-
             Swal.fire({
               type: 'error',
               title: 'LTO Authentication system',
               text: 'There has been a problem connecting with LTO Authentication system. Please try again later.'
             });
-
           } else {
             this.nextStep.emit(this.buyNowStep);
           }
-
         });
-
     } else {
       this.nextStep.emit(this.buyNowStep);
     }

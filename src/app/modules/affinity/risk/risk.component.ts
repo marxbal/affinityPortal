@@ -6,6 +6,9 @@ import {
   EventEmitter
 } from '@angular/core';
 import {
+  Contract
+} from 'src/app/objects/contract';
+import {
   Affinity
 } from '../../../objects/affinity';
 import {
@@ -23,6 +26,7 @@ export class RiskComponent implements OnInit {
 
   @Input() line: String;
   @Input() affinity: Affinity;
+  @Input() contract: Contract;
   @Output() nextStep = new EventEmitter();
   @Output() affinityOutput = new EventEmitter();
 
@@ -31,9 +35,6 @@ export class RiskComponent implements OnInit {
   beneficiary: Risk;
 
   ngOnInit() {
-    console.log(this.line);
-    console.log(this.affinity.motorDetails.isCorporate);
-
     this.director = new Risk();
     this.stockholder = new Risk();
     this.beneficiary = new Risk();

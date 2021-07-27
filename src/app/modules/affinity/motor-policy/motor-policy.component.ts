@@ -219,7 +219,6 @@ export class MotorPolicyComponent implements OnInit {
   chooseMake() {
     this.caller.getLOV('A2100410', '5', 'COD_RAMO~' + this.affinity.motorDetails.motorTypeId + '|COD_MARCA~' + this.affinity.motorDetails.manufacturerId + '|COD_CIA~1').subscribe(
       result => {
-        console.log(result);
         this.affinity.lov.modelLOV = result;
         this.affinity.motorDetails.modelIdHolder = "";
         this.affinity.motorDetails.vehicleTypeIdHolder = "";
@@ -236,7 +235,6 @@ export class MotorPolicyComponent implements OnInit {
   chooseModel() {
     this.caller.getLOV('A2100100', '4', 'NUM_COTIZACION~1|COD_MARCA~' + this.affinity.motorDetails.manufacturerId + '|COD_MODELO~' + this.affinity.motorDetails.modelId + '|COD_CIA~1').subscribe(
       result => {
-        console.log(result);
         this.affinity.lov.variantLOV = result;
         this.affinity.motorDetails.vehicleTypeIdHolder = "";
         this.affinity.motorDetails.modelYear = "";
@@ -285,7 +283,6 @@ export class MotorPolicyComponent implements OnInit {
   chooseVariant() {
     this.caller.getLOV('A2100430', '4', 'NUM_COTIZACION~1|COD_MARCA~' + this.affinity.motorDetails.manufacturerId + '|COD_MODELO~' + this.affinity.motorDetails.modelId + '|COD_TIP_VEHI~' + this.affinity.motorDetails.vehicleTypeId + '|COD_CIA~1').subscribe(
       result => {
-        console.log(result);
         this.affinity.lov.yearList = result;
         this.affinity.motorDetails.modelYear = "";
         this.affinity.motorDetails.subModelIdHolder = "";
@@ -335,7 +332,6 @@ export class MotorPolicyComponent implements OnInit {
       this.affinity.motorDetails.modelId + '|COD_TIP_VEHI~' +
       this.affinity.motorDetails.vehicleTypeId + '|ANIO_SUB_MODELO~' + this.affinity.motorDetails.modelYear).subscribe(
       result => {
-        console.log(result);
         this.affinity.lov.subModelLOV = result;
         this.affinity.motorDetails.subModelIdHolder = "";
         this.affinity.motorDetails.FMV = "";
@@ -350,7 +346,6 @@ export class MotorPolicyComponent implements OnInit {
       '|COD_TIP_VEHI~' + this.affinity.motorDetails.vehicleTypeId +
       '|ANIO_SUB_MODELO~' + this.affinity.motorDetails.modelYear).subscribe(
       result => {
-        console.log(result);
         this.affinity.lov.typeOfUseLOV = result;
 
         this.caller.doCallService('/afnty/getFMV?codCia=1&codMarca=' +
@@ -359,7 +354,6 @@ export class MotorPolicyComponent implements OnInit {
           this.affinity.motorDetails.subModelId + '&anioSubModelo=' +
           this.affinity.motorDetails.modelYear, null).subscribe(
           resulta => {
-            console.log(resulta);
             this.affinity.motorDetails.FMV = resulta;
           });
 
@@ -367,12 +361,10 @@ export class MotorPolicyComponent implements OnInit {
   }
 
   onSelect(event) {
-    console.log(event);
     this.affinity.motorDetails.vehiclePhotos.push(...event.addedFiles);
   }
 
   onRemove(event) {
-    console.log(event);
     this.affinity.motorDetails.vehiclePhotos.splice(this.affinity.motorDetails.vehiclePhotos.indexOf(event), 1);
   }
 

@@ -36,7 +36,6 @@ export class AppService {
     this.spinner.show();
     return this.http.post(this.apiUrl + endpoint, param, this.getHeaders())
       .pipe(catchError((err: any) => {
-        console.log(err);
         this.alertErr(err.message);
         this.spinner.hide();
         return throwError(err.error);

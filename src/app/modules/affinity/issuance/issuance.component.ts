@@ -37,6 +37,9 @@ import * as _ from 'lodash';
 import {
   EMAIL
 } from 'src/app/constants/local.storage';
+import {
+  Contract
+} from 'src/app/objects/contract';
 
 @Component({
   selector: 'app-issuance',
@@ -59,6 +62,8 @@ export class IssuanceComponent implements OnInit {
   line: String;
   backButton: String;
   affinity: Affinity;
+  contract: Contract;
+
   coverageList: Coverages[] = [];
   coverage: Coverages = new Coverages();
 
@@ -87,8 +92,6 @@ export class IssuanceComponent implements OnInit {
       this.templateRouter = "initialize";
       this.caller.doCallService('/afnty/retrieveTransactions', this.affinity.clientId).subscribe(
         result => {
-          console.log(result);
-
           let newResult = _.orderBy(result, ['transactionNumber'], ['desc']);
 
           this.affinity.previousIssuances = newResult;
@@ -117,7 +120,6 @@ export class IssuanceComponent implements OnInit {
               }
             }
           }
-          console.log(this.affinity.previousIssuances);
         });
 
       if (numPoliza) {
@@ -155,14 +157,10 @@ export class IssuanceComponent implements OnInit {
 
       if (params.vpc_Message == null) {
         //for OTC transaction
-        console.log('4');
       } else if (params.vpc_Message != 'Approved') {
         window.location.href = params.AgainLink + "?s=f";
       } else {
-        console.log('10');
         if (params != null) {
-          console.log('11');
-          console.log(params);
           this.affinity.paymentConfirmed = params.vpc_Message;
           this.validateGlobalPay(JSON.stringify(params), numPoliza);
         }
@@ -174,7 +172,6 @@ export class IssuanceComponent implements OnInit {
     this.caller.doCallService('/afnty/validateGlobalPay', params).subscribe(
       result => {
         this.returnPayment(numPoliza, "policy");
-        console.log(result);
       });
   }
 
@@ -182,8 +179,6 @@ export class IssuanceComponent implements OnInit {
     this.spinner.show();
     this.caller.doCallService('/afnty/retrievePolicyDetails', numPoliza).subscribe(
       result => {
-        console.log(result);
-
         switch (result.p2000030.codRamo) {
           case 251:
 
@@ -191,8 +186,6 @@ export class IssuanceComponent implements OnInit {
               (resulta) => {
                 this.affinity = resulta;
                 this.retrivePolicyNavigate(result, action);
-                console.log("hey");
-                console.log(this.affinity);
               });
 
             break;
@@ -202,8 +195,6 @@ export class IssuanceComponent implements OnInit {
               (resulta) => {
                 this.affinity = resulta;
                 this.retrivePolicyNavigate(result, action);
-                console.log("hey");
-                console.log(this.affinity);
               });
 
             break;
@@ -213,8 +204,6 @@ export class IssuanceComponent implements OnInit {
               (resulta) => {
                 this.affinity = resulta;
                 this.retrivePolicyNavigate(result, action);
-                console.log("hey");
-                console.log(this.affinity);
               });
 
             break;
@@ -228,8 +217,6 @@ export class IssuanceComponent implements OnInit {
       if (result.p2000030.mcaProvisional == "S") {
         this.affinity.techControl = result.techControlMessage.split("~");
         this.affinity = this.commonService.identifyTechControl(this.affinity);
-
-        console.log(this.affinity);
 
         this.templateRouter = "techControl";
       } else if (result.a2990700_mph.mcaCollectMivo == null) {
@@ -246,8 +233,6 @@ export class IssuanceComponent implements OnInit {
     this.spinner.show();
     this.caller.doCallService('/afnty/retrieveQuotationDetails', numPoliza).subscribe(
       result => {
-        console.log(result);
-
         switch (result.p2000030.codRamo) {
           case 251:
 
@@ -255,8 +240,6 @@ export class IssuanceComponent implements OnInit {
               (resulta) => {
                 this.affinity = resulta;
                 this.retrieveQuoteNavigate(result, 'householdQuotationIssuance');
-                console.log("hey");
-                console.log(this.affinity);
               });
 
             // this.affinity = this.motorIssuance.mapRetrieveQuote(this.affinity, result);
@@ -267,8 +250,6 @@ export class IssuanceComponent implements OnInit {
               (resulta) => {
                 this.affinity = resulta;
                 this.retrieveQuoteNavigate(result, 'personalInformation');
-                console.log("hey");
-                console.log(this.affinity);
               });
 
             break;
@@ -278,8 +259,6 @@ export class IssuanceComponent implements OnInit {
               (resulta) => {
                 this.affinity = resulta;
                 this.retrieveQuoteNavigate(result, 'motorQuotationIssuance');
-                console.log("hey");
-                console.log(this.affinity);
               });
 
             break;
@@ -296,8 +275,6 @@ export class IssuanceComponent implements OnInit {
         this.affinity.techControl = result.techControlMessage.split("~");
         this.affinity = this.commonService.identifyTechControl(this.affinity);
 
-        console.log(this.affinity);
-
         this.templateRouter = "techControl";
       }
       this.line = route;
@@ -309,13 +286,12 @@ export class IssuanceComponent implements OnInit {
     return new Promise((resolve) => setTimeout(resolve, time));
   }
 
-  applyProduct(product: string, description: String ) {
-    this.product = product;
-    this.description = description;
-  }
+  // applyProduct(product: string, description: String) {
+  //   this.product = product;
+  //   this.description = description;
+  // }
 
   assignP2161ToAccessory(p21006100) {
-    console.log(p21006100);
     for (let i = 0; i < p21006100.length; i++) {
       let temp: MotorAccessories = new MotorAccessories();
 
@@ -337,6 +313,17 @@ export class IssuanceComponent implements OnInit {
   productDetails(param: any) {
     this.product = param.product;
     this.description = param.description;
+    this.contract = this.getContract(param.product);
+  }
+
+  getContract(product: number) {
+    const contract = new Contract();
+    contract.agentCode = 1069;
+    contract.groupPolicy = 110;
+    contract.contract = 100;
+    contract.subContract = 101;
+
+    return contract;
   }
 
   nextStepAction(nextStep) {
@@ -356,8 +343,6 @@ export class IssuanceComponent implements OnInit {
       this.affinity.productId = "33701";
       this.affinity.lineId = "337";
     }
-
-    console.log(type);
 
     this.caller.doCallService("/afnty/coverage/getCoverageDescriptions", type).subscribe(
       result => {

@@ -66,7 +66,6 @@ export class AuthService {
           return true;
         }
       })).pipe(catchError((err: any) => {
-        console.log('An error occurred:', err.error);
         return throwError(err.error);
       }));
   }
@@ -88,7 +87,6 @@ export class AuthService {
           return res;
         }
       })).pipe(catchError((err: any) => {
-        console.log('An error occurred:', err.error);
         Swal.fire({
           type: 'error',
           title: 'Unable to proceed.',
@@ -139,7 +137,6 @@ export class AuthService {
           return res;
         }
       })).pipe(catchError((err: any) => {
-        console.log('An error occurred:', err.error);
         Swal.fire({
           type: 'error',
           title: 'Unable to proceed.',
@@ -168,8 +165,6 @@ export class AuthService {
 
         }
       })).pipe(catchError((err: any) => {
-        console.log('An error occurred:', err.error);
-        // return err.error;
         Swal.fire({
           type: 'error',
           title: 'Unable to proceed.',
@@ -228,8 +223,6 @@ export class AuthService {
 
         }
       })).pipe(catchError((err: any) => {
-        console.log('An error occurred:', err.error);
-        // return err.error;
         Swal.fire({
           type: 'error',
           title: 'Unable to proceed.',
@@ -258,7 +251,6 @@ export class AuthService {
           return res;
         }
       })).pipe(catchError((err: any) => {
-        console.log('An error occurred:', err.error);
         // return err.error;
         Swal.fire({
           type: 'error',
@@ -295,7 +287,6 @@ export class AuthService {
 
         }
       })).pipe(catchError((err: any) => {
-        console.log('An error occurred:', err.error);
         // return err.error;
         Swal.fire({
           type: 'error',
@@ -323,7 +314,6 @@ export class AuthService {
 
         }
       })).pipe(catchError((err: any) => {
-        console.log('An error occurred:', err.error);
         // return err.error;
         Swal.fire({
           type: 'error',
@@ -345,7 +335,6 @@ export class AuthService {
 
         }
       })).pipe(catchError((err: any) => {
-        console.log('An error occurred:', err.error);
         // return err.error;
         Swal.fire({
           type: 'error',
@@ -384,7 +373,6 @@ export class AuthService {
           // link.click();
         }
       })).pipe(catchError((err: any) => {
-        console.log('An error occurred:', err.error);
         Swal.fire({
           type: 'error',
           title: 'Unable to proceed.',
@@ -413,7 +401,6 @@ export class AuthService {
           link.click();
         }
       })).pipe(catchError((err: any) => {
-        console.log('An error occurred:', err.error);
         Swal.fire({
           type: 'error',
           title: 'Unable to proceed.',
@@ -447,7 +434,6 @@ export class AuthService {
           link.click();
         }
       })).pipe(catchError((err: any) => {
-        console.log('An error occurred:', err.error);
         Swal.fire({
           type: 'error',
           title: 'Unable to proceed.',
@@ -476,7 +462,6 @@ export class AuthService {
           link.click();
         }
       })).pipe(catchError((err: any) => {
-        console.log('An error occurred:', err.error);
         Swal.fire({
           type: 'error',
           title: 'Unable to proceed.',

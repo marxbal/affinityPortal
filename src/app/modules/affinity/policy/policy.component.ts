@@ -50,8 +50,6 @@ export class PolicyComponent implements OnInit {
     this.affinity.premiumBreakdown.others = this.formatter.format(parseFloat(this.affinity.premiumBreakdown.others));
     this.affinity.premiumBreakdown.fireTax = this.formatter.format(parseFloat(this.affinity.premiumBreakdown.fireTax));
 
-    console.log(this.affinity);
-
     document.body.scrollTop = 0; // For Safari
     document.documentElement.scrollTop = 0;
   }
@@ -96,9 +94,6 @@ export class PolicyComponent implements OnInit {
         this.caller.doCallService("/afnty/sendEmail?email=" + emailFinal.slice(0, -1) + "&numPoliza=" +
           this.affinity.policyNumber + "&subject=MAPFRE Online Policy Number " + this.affinity.policyNumber + "&type=P", null).subscribe(
           resulta => {
-
-            console.log(resulta);
-
             if (resulta.status == 1) {
               Swal.fire({
                 type: 'success',

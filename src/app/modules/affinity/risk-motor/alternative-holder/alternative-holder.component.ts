@@ -55,7 +55,6 @@ export class AlternativeHolderComponent implements OnInit {
 
     this.caller.getOptionList('EN', 'TIP_ETIQUETA', '999').subscribe(
       result => {
-        console.log(result);
         result.splice(2, 1);
         // result.splice(1, 1);
         this.addressTypeLov = result;
@@ -64,21 +63,17 @@ export class AlternativeHolderComponent implements OnInit {
 
     this.caller.getOptionList('EN', 'TIP_ASEG_PREF', '999').subscribe(
       result => {
-        console.log(result);
         this.affinityAlternative.lov.prefixLOV = result;
       });
 
     this.caller.getOptionList('EN', 'TIP_ASEG_SEP_LOV', '999').subscribe(
       result => {
-        console.log(result);
         this.affinityAlternative.lov.separatorLOV = result;
       });
 
     this.caller.getLOV('A1002300', '3', 'COD_CIA~1').subscribe(
       result => {
-        console.log(result);
         this.affinityAlternative.lov.documentLOV = result;
-
       });
 
     this.caller.getOptionList('EN', 'COD_EST_CIVIL', '999').subscribe(
@@ -95,8 +90,6 @@ export class AlternativeHolderComponent implements OnInit {
       result => {
         this.affinityAlternative.lov.nationalityLOV = result;
       });
-
-    console.log(this.affinityAlternative);
   }
 
   addHolder() {
@@ -140,7 +133,6 @@ export class AlternativeHolderComponent implements OnInit {
     }
 
     this.affinityAlternative.lov.addressLOV.push(temp);
-    console.log(this.affinityAlternative.lov.addressLOV);
   }
 
   catchAddress(permAddress) {
@@ -149,19 +141,15 @@ export class AlternativeHolderComponent implements OnInit {
     this.tempAddresses.push(permAddress);
     if (permAddress.addressTypeId == "1") {
       this.affinityAlternative.riskDetails.homeAddress = permAddress;
-      console.log(this.affinityAlternative);
       return null;
     }
 
     this.affinityAlternative.riskDetails.officeAddress = permAddress;
-    console.log(this.affinityAlternative);
   }
 
   removeAddressType(addressTypeId) {
     let index = 0;
     for (let i = 0; i < this.affinityAlternative.lov.addressLOV.length; i++) {
-      console.log(this.affinityAlternative.lov.addressLOV[i].TIP_ETIQUETA);
-      console.log(addressTypeId);
       if (addressTypeId == this.affinityAlternative.lov.addressLOV[i].TIP_ETIQUETA) {
         index = i;
         break;

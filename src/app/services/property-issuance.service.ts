@@ -158,7 +158,6 @@ export class PropertyIssuanceService {
 
       this.caller.doCallService('/afnty/getBuildings',null).subscribe(
         result => {
-          console.log(result);
           this.propertyAff.lov.buildingsLOV = result;
 
           for(let i = 0; i < this.propertyAff.lov.buildingsLOV.length; i++){
@@ -172,10 +171,6 @@ export class PropertyIssuanceService {
           ret.next(this.propertyAff);
 
       });
-
-
-
-		  
 		});
 
 	return ret.asObservable();
@@ -296,11 +291,9 @@ export class PropertyIssuanceService {
           this.caller.doCallService('/afnty/getPaymentBreakdown?numPoliza='+ this.propertyAff.policyNumber +'&type=P',null).subscribe(
             paymentBreakdown => {
                 this.propertyAff.premiumBreakdown = paymentBreakdown;
-                console.log(this.propertyAff.premiumBreakdown);
 
                 this.caller.doCallService('/afnty/getBuildings',null).subscribe(
                   result => {
-                    console.log(result);
                     this.propertyAff.lov.buildingsLOV = result;
 
                     for(let i = 0; i < this.propertyAff.lov.buildingsLOV.length; i++){
@@ -312,14 +305,9 @@ export class PropertyIssuanceService {
                     }
 
                     ret.next(this.propertyAff);
-
                 });
-
           });
-
       });
-
-
 
   	return ret.asObservable();
   }
@@ -335,6 +323,5 @@ export class PropertyIssuanceService {
 
     return holder;
   }
-  
 
 }

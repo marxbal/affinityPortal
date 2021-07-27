@@ -60,6 +60,9 @@ import {
   IsRequired
 } from '../../../guard/is-required';
 import * as _ from 'lodash';
+import {
+  Contract
+} from 'src/app/objects/contract';
 
 @Component({
   selector: 'app-risk-accident',
@@ -76,6 +79,7 @@ export class RiskAccidentComponent implements OnInit {
     private checker: IsRequired) {}
 
   @Input() affinity: Affinity;
+  @Input() contract: Contract;
   @Output() nextStep = new EventEmitter();
   @Output() affinityOutput2 = new EventEmitter();
 
@@ -113,7 +117,6 @@ export class RiskAccidentComponent implements OnInit {
         result.splice(2, 1);
         this.addressTypeLov = result;
         this.affinity.lov.addressLOV = result;
-        console.log(result);
         this.spinner.hide();
       });
 
@@ -150,7 +153,6 @@ export class RiskAccidentComponent implements OnInit {
 
     this.caller.getLOV("G2990006", "1", "COD_CIA~1|COD_RAMO~337|COD_MODALIDAD~99999|COD_CAMPO~COD_OCCUPATIONAL_CLASS|FEC_VALIDEZ~01012020").subscribe(
       result => {
-        console.log(result);
         this.affinity.lov.occupationalClassLOV = result;
         this.affinity.lov.occupationalClassLOV.splice(this.affinity.lov.occupationalClassLOV.length - 1, 1);
       });
@@ -212,7 +214,6 @@ export class RiskAccidentComponent implements OnInit {
   chooseOccupationalClass() {
     this.caller.getLOV("G2990006", "13", "COD_CIA~1|COD_RAMO~337|COD_CAMPO~TXT_OCCUPATION|FEC_VALIDEZ~01012020|DVCOD_OCCUPATIONAL_CLASS~" + this.affinity.riskDetails.occupationalClass.split(':=:')[0] + "|COD_IDIOMA~EN").subscribe(
       result => {
-        console.log(result);
         this.affinity.lov.occupationLOV = result;
       });
   }
@@ -264,7 +265,6 @@ export class RiskAccidentComponent implements OnInit {
     }
 
     this.affinity.lov.addressLOV.push(temp);
-    console.log(this.affinity.lov.addressLOV);
   }
 
   setCorrespondent(corrAddress) {
@@ -289,19 +289,15 @@ export class RiskAccidentComponent implements OnInit {
     this.tempAddresses.push(permAddress);
     if (permAddress.addressTypeId == "1") {
       this.affinity.riskDetails.homeAddress = permAddress;
-      console.log(this.affinity);
       return null;
     }
 
     this.affinity.riskDetails.officeAddress = permAddress;
-    console.log(this.affinity);
   }
 
   removeAddressType(addressTypeId) {
     let index = 0;
     for (let i = 0; i < this.affinity.lov.addressLOV.length; i++) {
-      console.log(this.affinity.lov.addressLOV[i].TIP_ETIQUETA);
-      console.log(addressTypeId);
       if (addressTypeId == this.affinity.lov.addressLOV[i].TIP_ETIQUETA) {
         index = i;
         break;
@@ -340,7 +336,6 @@ export class RiskAccidentComponent implements OnInit {
 
     familyMember.fullName = familyMember.lastName + ", " + familyMember.firstName + " " + (familyMember.middleName ? familyMember.middleName : "");
     this.affinity.paDetails.familyMembers.push(familyMember);
-    console.log(this.affinity);
 
     let childCount = 0;
     let haveSpouse = "0";
@@ -433,7 +428,7 @@ export class RiskAccidentComponent implements OnInit {
       this.p1001331List.push(this.p1001331);
 
       this.p2000025 = this.common.assignP2000025(this.affinity);
-      this.p2000030 = this.common.assignP2000030(this.affinity);
+      this.p2000030 = this.common.assignP2000030(this.affinity, this.contract);
       this.p2000031List = this.common.assignP2000031PA(this.affinity, this.p2000030);
       this.p2000020 = this.common.assignP2000020(this.affinity);
       this.p2000040 = this.common.assignP2000040(this.affinity);
@@ -470,12 +465,10 @@ export class RiskAccidentComponent implements OnInit {
         "p2000025List": this.p2000025,
         "a1000131_mphList": this.a1000131_MPH
       };
-      console.log(param);
+
       this.spinner.show();
       this.caller.doCallService('/afnty/issuePolicy', param).subscribe(
         result => {
-          console.log(result);
-
           switch (result.status) {
             case 1:
               if (this.affinity.paymentOption == "cc") {
@@ -492,8 +485,6 @@ export class RiskAccidentComponent implements OnInit {
 
               this.affinity.techControl = result.message2.split("~");
               this.affinity = this.common.identifyTechControl(this.affinity);
-
-              console.log(this.affinity);
 
               if (this.affinity.techControlLevel == "1") {
                 window.open(result.message, "_self");

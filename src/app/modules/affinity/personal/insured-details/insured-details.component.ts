@@ -46,7 +46,6 @@ export class InsuredDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.spinner.show();
-    console.log(this.existing);
 
     if (this.loadType == "edit") {
       this.insuredAffinity.riskDetails = this.editInsured;
@@ -72,14 +71,12 @@ export class InsuredDetailsComponent implements OnInit {
 
     this.caller.getLOV("G2990006", "1", "COD_RAMO~337|COD_CAMPO~COD_OCCUPATIONAL_CLASS|FEC_VALIDEZ~01012020|COD_MODALIDAD~99999|COD_CIA~1").subscribe(
       result => {
-        console.log(result);
         this.insuredAffinity.lov.occupationalClassLOV = result;
         this.insuredAffinity.lov.occupationalClassLOV.splice(this.insuredAffinity.lov.occupationalClassLOV.length - 1, 1);
       });
 
     this.caller.getLOV("G1010031", "82", "COD_RAMO~337|COD_IDIOMA~EN|COD_CAMPO~RELATIONSHIP").subscribe(
       result => {
-        console.log(result);
         let haveSpouse = "0";
         let childCount = 0;
         for (let x = 0; x < this.existing.length; x++) {
@@ -92,7 +89,6 @@ export class InsuredDetailsComponent implements OnInit {
         if (this.civilStatus != "C") {
           haveSpouse = "1";
         }
-        console.log(haveSpouse);
         for (let i = 0; i < result.length; i++) {
           if (haveSpouse == "1") {
             this.insuredAffinity.lov.relationshipLOV = [];
@@ -127,20 +123,12 @@ export class InsuredDetailsComponent implements OnInit {
 
   chooseBirthday() {
     let ret = true;
-
-    console.log(this.effectivity);
-    console.log(this.insuredAffinity.riskDetails.birthDate);
-
     // let currentYearDiff = (m().year() - parseInt(this.affinity.riskDetails.birthDate));
     // let currentYearDiff = (m(this.effectivity,'YYYY-MM-DD').diff(m(this.insuredAffinity.riskDetails.birthDate,'YYYY-MM-DD'), 'months', true)) / 12;
 
     let dt1 = new Date(this.effectivity.replace(/-/g, '/'));
     let dt2 = new Date(this.insuredAffinity.riskDetails.birthDate.replace(/-/g, '/'));
     let currentYearDiff = this.monthDiff(dt2, dt1) / 12;
-
-    console.log(currentYearDiff);
-    console.log(dt1);
-    console.log(dt2);
 
     if (currentYearDiff > 21) {
       Swal.fire({
@@ -164,13 +152,11 @@ export class InsuredDetailsComponent implements OnInit {
   }
 
   chooseOccupationalClass() {
-    console.log(this.editInsured);
     if (!this.insuredAffinity.riskDetails.occupationalClass) {
       return null;
     }
     this.caller.getLOV("G2990006", "13", "COD_CIA~1|COD_RAMO~337|COD_CAMPO~TXT_OCCUPATION|FEC_VALIDEZ~01012020|DVCOD_OCCUPATIONAL_CLASS~" + this.insuredAffinity.riskDetails.occupationalClass.split(':=:')[0] + "|COD_IDIOMA~EN").subscribe(
       result => {
-        console.log(result);
         this.insuredAffinity.lov.occupationLOV = result;
         this.insuredAffinity.riskDetails.occupation = "";
       });

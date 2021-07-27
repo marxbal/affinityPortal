@@ -90,9 +90,7 @@ export class PersonalAccidentIssuanceService {
 
     this.caller.doCallService('/afnty/getPaymentBreakdown?numPoliza='+ this.paAff.quotationNumber +'&type=C',null).subscribe(
 		paymentBreakdown => {
-      console.log(paymentBreakdown);
 		  this.paAff.premiumBreakdown = paymentBreakdown;
-
 		  ret.next(this.paAff);
 		});
 
@@ -122,23 +120,18 @@ export class PersonalAccidentIssuanceService {
     this.commonService.getCoverageByPolicy("A",this.paAff.policyNumber,this.paAff.lineId
         ).subscribe(
         (resulta) => {
-          console.log(resulta);
-
           this.mapP2025Insured(result.a2000025List,resulta);
 
           for(let i = 0; i < resulta.length; i++){
-
             if(resulta[i].numRiesgo == "1"){
               // resulta[i].sumaAseg = this.formatter.format(parseFloat(resulta[i].sumaAseg));
               resulta[i].numSecu = parseInt(resulta[i].numSecu) + 0;
               resulta[i].totalPremium = ((resulta[i].totalPremium) ? this.formatter.format(parseFloat(resulta[i].totalPremium)) : "INCL");
               this.paAff.coveragesValue.push(resulta[i]);
             }
-            
           }
 
           this.paAff.coveragesValue = _.orderBy(this.paAff.coveragesValue,'numSecu','asc');
-
         });
 
         this.caller.doCallService("/afnty/coverage/getCoverageDescriptions", "personalAccident").subscribe(
@@ -306,7 +299,6 @@ export class PersonalAccidentIssuanceService {
   chooseOccupationalClass(occClass){
     this.caller.getLOV("G2990006","13","COD_RAMO~337|COD_CAMPO~TXT_OCCUPATION|FEC_VALIDEZ~01012020|DVCOD_OCCUPATIONAL_CLASS~"+occClass+"|COD_IDIOMA~EN").subscribe(
       result => {
-        console.log(result);
         this.paAff.lov.occupationLOV = result;
     });
   }

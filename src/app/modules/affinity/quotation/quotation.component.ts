@@ -47,6 +47,9 @@ import Swal from 'sweetalert2';
 import {
   NgxSpinnerService
 } from 'ngx-spinner';
+import {
+  Contract
+} from 'src/app/objects/contract';
 
 @Component({
   selector: 'app-quotation',
@@ -62,6 +65,7 @@ export class QuotationComponent implements OnInit {
     private router: Router) {}
 
   @Input() affinity: Affinity;
+  @Input() contract: Contract;
   @Input() line: String;
   @Output() nextStep = new EventEmitter();
 
@@ -85,9 +89,6 @@ export class QuotationComponent implements OnInit {
   });
 
   ngOnInit() {
-    console.log(this.affinity);
-    console.log(this.line);
-
     this.title = "Household";
     this.buyNowStep = "riskInformation";
     if (this.line == "motorQuotationIssuance") {
@@ -124,8 +125,6 @@ export class QuotationComponent implements OnInit {
 
         this.spinner.hide();
       });
-
-    console.log(this.buyNowStep);
 
     this.formatAmount();
 
@@ -173,9 +172,6 @@ export class QuotationComponent implements OnInit {
         this.caller.doCallService("/afnty/sendEmail?email=" + emailFinal.slice(0, -1) + "&numPoliza=" +
           this.affinity.quotationNumber + "&subject=MAPFRE Online Quotation Number " + this.affinity.quotationNumber + "&type=Q", null).subscribe(
           resulta => {
-
-            console.log(resulta);
-
             if (resulta.status == 1) {
               Swal.fire({
                 type: 'success',
@@ -235,7 +231,7 @@ export class QuotationComponent implements OnInit {
       this.affinity.motorDetails.reCompute = "1";
 
       this.spinner.show();
-      this.p2000030 = this.common.assignP2000030(this.affinity);
+      this.p2000030 = this.common.assignP2000030(this.affinity, this.contract);
       this.p2000031 = this.common.assignP2000031(this.affinity, this.p2000030);
       this.p1001331 = this.common.assignP1001331(this.affinity);
       this.p1001331List.push(this.common.assignP1001331(this.affinity));
@@ -283,11 +279,9 @@ export class QuotationComponent implements OnInit {
         "p2100610List": this.p2100610,
         "p2000025List": this.p2000025
       };
-      console.log(param);
+      
       this.caller.doCallService('/afnty/issueQuote', param).subscribe(
         result => {
-          console.log(result);
-
           switch (result.status) {
             case 0:
               this.spinner.hide();
@@ -304,7 +298,6 @@ export class QuotationComponent implements OnInit {
 
               this.caller.doCallService('/afnty/getPaymentBreakdown?numPoliza=' + result.message + '&type=C', null).subscribe(
                 resultpb => {
-                  console.log(resultpb);
                   this.affinity.premiumBreakdown = resultpb;
                   this.router.navigate(['issuance/73015b3208cdee70a4497235463b63d7/' + result.message]);
                   this.formatAmount();
@@ -321,7 +314,6 @@ export class QuotationComponent implements OnInit {
     if (this.affinity.productId == "10002") {
       this.caller.checkWsdl()
         .subscribe(data => {
-            console.log(data);
             var error = data;
             if (error != "") {
               Swal.fire({

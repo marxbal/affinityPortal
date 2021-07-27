@@ -89,9 +89,6 @@ export class MotorIssuanceService {
 	this.commonService.getCoverageByPolicy("P",this.motorAff.quotationNumber,this.motorAff.motorDetails.motorTypeId
       ).subscribe(
       (result) => {
-        // this.motorAff.coveragesValue = result;
-        // console.log(this.motorAff.coveragesValue);
-
         let totalLossDamagePrem = 0;
 
         for(let c = 0; c < result.length; c++){
@@ -303,7 +300,6 @@ export class MotorIssuanceService {
           this.caller.doCallService('/afnty/getPaymentBreakdown?numPoliza='+ this.motorAff.policyNumber +'&type=P',null).subscribe(
             paymentBreakdown => {
                 this.motorAff.premiumBreakdown = paymentBreakdown;
-                console.log(this.motorAff.premiumBreakdown);
                 ret.next(this.motorAff);
           });
 
@@ -421,7 +417,6 @@ export class MotorIssuanceService {
       modelYear
     ).subscribe( 
     (resultFMV) => { 
-      console.log(resultFMV);
       this.motorAff.motorDetails.FMV = resultFMV;
     });
 

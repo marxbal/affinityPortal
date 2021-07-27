@@ -63,6 +63,9 @@ import {
 } from 'ngx-spinner';
 import Swal from 'sweetalert2';
 import * as _ from 'lodash';
+import {
+  Contract
+} from 'src/app/objects/contract';
 
 @Component({
   selector: 'app-risk-household',
@@ -79,6 +82,7 @@ export class RiskHouseholdComponent implements OnInit {
     private router: Router) {}
 
   @Input() affinity: Affinity;
+  @Input() contract: Contract;
   @Output() nextStep = new EventEmitter();
   @Output() affinityOutput2 = new EventEmitter();
 
@@ -116,13 +120,9 @@ export class RiskHouseholdComponent implements OnInit {
   });
 
   ngOnInit() {
-    console.log(this.affinity.motorDetails.isCorporate);
-
     this.caller.getLOV('A1002300', '3', 'COD_CIA~1').subscribe(
       result => {
-        console.log(result);
         this.affinity.lov.documentLOV = result;
-
       });
 
     this.caller.doCallService('/afnty/getMortgagees', null).subscribe(
@@ -147,11 +147,9 @@ export class RiskHouseholdComponent implements OnInit {
 
     this.caller.getOptionList('EN', 'TIP_ETIQUETA', '999').subscribe(
       result => {
-
         result.splice(2, 1);
         this.addressTypeLov = result;
         this.affinity.lov.addressLOV = result;
-        console.log(result);
         this.spinner.hide();
       });
 
@@ -222,9 +220,7 @@ export class RiskHouseholdComponent implements OnInit {
   }
 
   addAlternative(alternative: Affinity) {
-    console.log(alternative);
     this.alternativeHolder.push(alternative);
-    console.log(this.alternativeHolder);
   }
 
   modalAction(action) {
@@ -255,7 +251,6 @@ export class RiskHouseholdComponent implements OnInit {
     }
 
     this.affinity.lov.addressLOV.push(temp);
-    console.log(this.affinity.lov.addressLOV);
   }
 
   removeWorkOfArt(woa) {
@@ -288,19 +283,15 @@ export class RiskHouseholdComponent implements OnInit {
     this.tempAddresses.push(permAddress);
     if (permAddress.addressTypeId == "1") {
       this.affinity.riskDetails.homeAddress = permAddress;
-      console.log(this.affinity);
       return null;
     }
 
     this.affinity.riskDetails.officeAddress = permAddress;
-    console.log(this.affinity);
   }
 
   removeAddressType(addressTypeId) {
     let index = 0;
     for (let i = 0; i < this.affinity.lov.addressLOV.length; i++) {
-      console.log(this.affinity.lov.addressLOV[i].TIP_ETIQUETA);
-      console.log(addressTypeId);
       if (addressTypeId == this.affinity.lov.addressLOV[i].TIP_ETIQUETA) {
         index = i;
         break;
@@ -401,7 +392,7 @@ export class RiskHouseholdComponent implements OnInit {
 
       this.a2000260 = this.common.assignA2000260(this.affinity);
       this.p2000025 = this.common.assignP2000025(this.affinity);
-      this.p2000030 = this.common.assignP2000030(this.affinity);
+      this.p2000030 = this.common.assignP2000030(this.affinity, this.contract);
       this.p2000031 = this.common.assignP2000031(this.affinity, this.p2000030);
       this.p2000020 = this.common.assignP2000020(this.affinity);
       this.p2000040 = this.common.assignP2000040(this.affinity);
@@ -442,11 +433,10 @@ export class RiskHouseholdComponent implements OnInit {
         "p2000025List": this.p2000025,
         "a1000131_mphList": this.a1000131_MPH
       };
-      console.log(param);
+      
       this.spinner.show();
       this.caller.doCallService('/afnty/issuePolicy', param).subscribe(
         result => {
-          console.log(result);
 
           switch (result.status) {
             case 1:
@@ -465,8 +455,6 @@ export class RiskHouseholdComponent implements OnInit {
               this.affinity.techControl = result.message2.split("~");
               this.affinity = this.common.identifyTechControl(this.affinity);
 
-              console.log(this.affinity);
-
               if (this.affinity.techControlLevel == "1") {
                 window.open(result.message, "_self");
               } else {
@@ -475,7 +463,6 @@ export class RiskHouseholdComponent implements OnInit {
                     this.affinity.premiumBreakdown = paymentBreakdown;
                     this.getCoverages(result.message, this.affinity, "techControl");
                   });
-
               }
               break;
             default:

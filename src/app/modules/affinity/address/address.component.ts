@@ -37,7 +37,6 @@ export class AddressComponent implements OnInit {
   ngOnInit() {
     this.caller.getLOV('A1000100', '9', 'COD_PAIS~PHL').subscribe(
       result => {
-        console.log(result);
         this.affinity2.lov.provinceLOV = result;
         this.address.provinceDetailId = "130000-NCR";
         this.chooseProvince();
@@ -47,7 +46,6 @@ export class AddressComponent implements OnInit {
   chooseProvince() {
     this.caller.getLOV('A1000102', '7', 'cod_pais~PHL|cod_prov~' + this.address.provinceDetailId.split("-")[0]).subscribe(
       result => {
-        console.log(result);
         this.affinity2.lov.municipalityLOV = result;
         this.address.municipalityDetailId = "0";
       });
@@ -56,7 +54,6 @@ export class AddressComponent implements OnInit {
   chooseMunicipality() {
     this.caller.getLOV('A1000103', '1', 'cod_pais~PHL|cod_prov~' + this.address.provinceDetailId.split("-")[0] + '|cod_localidad~' + this.address.municipalityDetailId.split("-")[0]).subscribe(
       result => {
-        console.log(result);
         this.affinity2.lov.zipLOV = result;
         this.address.zipCode = "0";
         this.address.addressTypeId = "0";

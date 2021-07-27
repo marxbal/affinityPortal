@@ -79,15 +79,13 @@ export class MotorComponent implements OnInit {
         this.affinity.lov.colorLOV = result;
       });
 
-    this.caller.getLOV("A1000101", "1", "").subscribe(
-      result => {
-        console.log(result);
-      });
+    // this.caller.getLOV("A1000101", "1", "").subscribe(
+    //   result => {
+    //   });
 
-    this.caller.getOptionList('EN', 'COD_NACIONALIDAD', '999').subscribe(
-      result => {
-        console.log(result);
-      });
+    // this.caller.getOptionList('EN', 'COD_NACIONALIDAD', '999').subscribe(
+    //   result => {
+    //   });
 
     this.affinity.motorDetails.bodilyInjuryLimit = "200000";
     this.affinity.motorDetails.propertyDamageLimit = "200000";
@@ -185,16 +183,12 @@ export class MotorComponent implements OnInit {
     let isRetro = m().isAfter(this.affinity.motorDetails.policyPeriodFrom, 'day');
     let isBelowSix = m(this.affinity.motorDetails.policyPeriodFrom).isBefore(m().subtract(6, 'month'));
 
-    console.log(isBelowSix);
-
     $("#vehiclePhotosContainer").addClass("hidden");
     this.spinner.hide();
 
     if (!isRetro) {
       return null;
     }
-
-    // $("#vehiclePhotosContainer").removeClass("hidden");
 
     Swal.fire({
       type: 'warning',
@@ -352,12 +346,10 @@ export class MotorComponent implements OnInit {
   }
 
   onSelect(event) {
-    console.log(event);
     this.affinity.motorDetails.vehiclePhotos.push(...event.addedFiles);
   }
 
   onRemove(event) {
-    console.log(event);
     this.affinity.motorDetails.vehiclePhotos.splice(this.affinity.motorDetails.vehiclePhotos.indexOf(event), 1);
   }
 
@@ -368,7 +360,6 @@ export class MotorComponent implements OnInit {
     // this.affinity.motorDetails.FMV = (parseInt(this.affinity.motorDetails.FMV) + parseInt(this.accessory.accessoryValue)).toString();
     this.affinity.motorDetails.accessories.push(this.accessory);
     this.accessory = new MotorAccessories();
-    console.log(this.affinity.motorDetails.accessories);
   }
 
   removeAccessory(accessory: MotorAccessories) {

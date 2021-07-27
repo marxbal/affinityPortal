@@ -68,10 +68,7 @@ export class LandingpageComponent implements OnInit {
   @Output() productDetails = new EventEmitter();
 
   ngOnInit() {
-    console.log(this.affinity);
-
     const partner = this.auth.getPartner() as Partner;
-    console.log(partner);
 
     if (!_.isEmpty(partner)) {
       this.partnerPath = partner.partnerName;
@@ -139,8 +136,6 @@ export class LandingpageComponent implements OnInit {
 
     l2.products = [p3, p4];
     this.products.push(l2);
-
-    console.log(this.products);
   }
 
   loadPolicy(issue, type, numPoliza) {

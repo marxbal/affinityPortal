@@ -57,6 +57,9 @@ import {
   NgxSpinnerService
 } from 'ngx-spinner';
 import * as _ from 'lodash';
+import {
+  Contract
+} from 'src/app/objects/contract';
 
 @Component({
   selector: 'app-personal',
@@ -74,6 +77,7 @@ export class PersonalComponent implements OnInit {
   ) {}
 
   @Input() affinity: Affinity;
+  @Input() contract: Contract;
   @Input() backButton: String;
   @Output() nextStep = new EventEmitter();
   @Output() affinityOutput = new EventEmitter();
@@ -170,7 +174,6 @@ export class PersonalComponent implements OnInit {
 
       this.caller.getLOV("G2990006", "1", "COD_RAMO~337|COD_CAMPO~COD_OCCUPATIONAL_CLASS|FEC_VALIDEZ~01012020|COD_MODALIDAD~99999|COD_CIA~1").subscribe(
         result => {
-          console.log(result);
           this.affinity.lov.occupationalClassLOV = result;
           this.affinity.lov.occupationalClassLOV.splice(this.affinity.lov.occupationalClassLOV.length - 1, 1);
 
@@ -219,14 +222,10 @@ export class PersonalComponent implements OnInit {
   }
 
   chooseBirthday() {
-
     let ret = true;
 
     if (this.affinity.lineId == "337") {
-
-      // let currentYearDiff = (m().year() - parseInt(this.affinity.riskDetails.birthDate));
       let currentYearDiff = (m(new Date(this.affinity.motorDetails.policyPeriodFrom)).diff(new Date(this.affinity.riskDetails.birthDate), 'months', true)) / 12;
-      // console.log(currentYearDiff);
       if (currentYearDiff < 18 || currentYearDiff > 70) {
         Swal.fire({
           type: 'error',
@@ -244,7 +243,6 @@ export class PersonalComponent implements OnInit {
   chooseOccupationalClass() {
     this.caller.getLOV("G2990006", "13", "COD_CIA~1|COD_RAMO~337|COD_CAMPO~TXT_OCCUPATION|FEC_VALIDEZ~01012020|DVCOD_OCCUPATIONAL_CLASS~" + this.affinity.riskDetails.occupationalClass.split(':=:')[0] + "|COD_IDIOMA~EN").subscribe(
       result => {
-        console.log(result);
         this.affinity.lov.occupationLOV = result;
 
         if (this.iOS()) {
@@ -350,7 +348,7 @@ export class PersonalComponent implements OnInit {
       this.affinity.propertyDetails.EVFurnishing = (this.affinity.propertyDetails.EVFurnishing).toString().replace(/\,/g, '');
       this.affinity.propertyDetails.EVImprovements = (this.affinity.propertyDetails.EVImprovements).toString().replace(/\,/g, '');
 
-      this.p2000030 = this.common.assignP2000030(this.affinity);
+      this.p2000030 = this.common.assignP2000030(this.affinity, this.contract);
       this.p2000031 = this.common.assignP2000031(this.affinity, this.p2000030);
       this.p1001331 = this.common.assignP1001331(this.affinity);
       this.p1001331List.push(this.common.assignP1001331(this.affinity));
@@ -388,11 +386,9 @@ export class PersonalComponent implements OnInit {
         "p2000260List": this.a2000260,
         "p2000025List": this.p2000025
       };
-      console.log(param);
+
       this.caller.doCallService('/afnty/issueQuote', param).subscribe(
         result => {
-          console.log(result);
-
           switch (result.status) {
             case 0:
               this.spinner.hide();
@@ -412,8 +408,6 @@ export class PersonalComponent implements OnInit {
                   this.affinity.techControl = result.message2.split("~");
                   this.affinity = this.common.identifyTechControl(this.affinity);
 
-                  console.log(this.affinity);
-
                   if (this.affinity.techControlLevel == "1") {
                     this.getCoverages(result.message, this.affinity, nextStep);
                   } else {
@@ -428,12 +422,9 @@ export class PersonalComponent implements OnInit {
 
               this.caller.doCallService('/afnty/getPaymentBreakdown?numPoliza=' + result.message + '&type=C', null).subscribe(
                 resultpb => {
-                  console.log(result);
                   this.affinity.premiumBreakdown = resultpb;
 
                   this.getCoverages(result.message, this.affinity, nextStep);
-
-
                 });
               break;
           }
@@ -501,12 +492,11 @@ export class PersonalComponent implements OnInit {
       cancelButtonColor: '#d33',
       confirmButtonText: 'Proceed'
     }).then((result) => {
-      console.log(result);
       if (!result.value) {
         return null;
       }
 
-      this.p2000030 = this.common.assignP2000030(this.affinity);
+      this.p2000030 = this.common.assignP2000030(this.affinity, this.contract);
       this.p2000031List = this.common.assignP2000031PA(this.affinity, this.p2000030);
       this.p1001331 = this.common.assignP1001331(this.affinity);
       this.p1001331List.push(this.common.assignP1001331(this.affinity));
@@ -556,11 +546,8 @@ export class PersonalComponent implements OnInit {
       };
 
       this.spinner.show();
-      console.log(param);
       this.caller.doCallService('/afnty/issueQuote', param).subscribe(
         result => {
-          console.log(result);
-
           switch (result.status) {
             case 0:
               this.spinner.hide();
@@ -577,12 +564,9 @@ export class PersonalComponent implements OnInit {
               this.caller.doCallService('/afnty/getPaymentBreakdown?numPoliza=' + result.message + '&type=C', null).subscribe(
                 paymentBreakdown => {
                   this.affinity.premiumBreakdown = paymentBreakdown;
-                  console.log(paymentBreakdown);
 
                   this.affinity.techControl = result.message2.split("~");
                   this.affinity = this.common.identifyTechControl(this.affinity);
-
-                  console.log(this.affinity);
 
                   if (this.affinity.techControlLevel == "1") {
                     this.getCoverages(result.message, this.affinity, nextStep);
@@ -598,12 +582,9 @@ export class PersonalComponent implements OnInit {
 
               this.caller.doCallService('/afnty/getPaymentBreakdown?numPoliza=' + result.message + '&type=C', null).subscribe(
                 resultpb => {
-                  console.log(result);
                   this.affinity.premiumBreakdown = resultpb;
 
                   this.getCoverages(result.message, this.affinity, nextStep);
-
-
                 });
               break;
           }
@@ -678,7 +659,7 @@ export class PersonalComponent implements OnInit {
         this.affinity.riskDetails.validID = "TIN";
       }
 
-      this.p2000030 = this.common.assignP2000030(this.affinity);
+      this.p2000030 = this.common.assignP2000030(this.affinity, this.contract);
       this.p2000031 = this.common.assignP2000031(this.affinity, this.p2000030);
       this.p1001331 = this.common.assignP1001331(this.affinity);
       this.p1001331List.push(this.common.assignP1001331(this.affinity));
@@ -726,11 +707,9 @@ export class PersonalComponent implements OnInit {
         "p2100610List": this.p2100610,
         "p2000025List": this.p2000025
       };
-      console.log(param);
+      
       this.caller.doCallService('/afnty/issueQuote', param).subscribe(
         result => {
-          console.log(result);
-
           switch (result.status) {
             case 0:
               this.spinner.hide();
@@ -750,8 +729,6 @@ export class PersonalComponent implements OnInit {
                   this.affinity.techControl = result.message2.split("~");
                   this.affinity = this.common.identifyTechControl(this.affinity);
 
-                  console.log(this.affinity);
-
                   if (this.affinity.techControlLevel == "1") {
                     this.getCoverages(result.message, this.affinity, nextStep);
                   } else {
@@ -766,12 +743,9 @@ export class PersonalComponent implements OnInit {
 
               this.caller.doCallService('/afnty/getPaymentBreakdown?numPoliza=' + result.message + '&type=C', null).subscribe(
                 resultpb => {
-                  console.log(result);
                   this.affinity.premiumBreakdown = resultpb;
 
                   this.getCoverages(result.message, this.affinity, nextStep);
-
-
                 });
               break;
           }
@@ -781,8 +755,6 @@ export class PersonalComponent implements OnInit {
   }
 
   getCoverages(numPoliza, affinity: Affinity, nextStep) {
-    console.log("P", numPoliza, affinity.motorDetails.motorTypeId);
-    console.log(affinity);
     this.common.getCoverageByPolicy("P", numPoliza, affinity.lineId).subscribe(
       (result) => {
         if (affinity.productId == "10002" || affinity.productId == "10001") {
@@ -882,7 +854,6 @@ export class PersonalComponent implements OnInit {
         }
 
         affinity.coveragesValue = _.orderBy(affinity.coveragesValue, 'numSecu', 'asc');
-        console.log(affinity);
         this.nextStep.emit(nextStep);
         this.affinityOutput.emit(affinity);
         this.spinner.hide();
@@ -995,7 +966,6 @@ export class PersonalComponent implements OnInit {
 
     familyMember.fullName = familyMember.lastName + ", " + familyMember.firstName + " " + ((familyMember.middleName) ? familyMember.middleName : "");
     this.affinity.paDetails.familyMembers.push(familyMember);
-    console.log(this.affinity);
 
     let childCount = 0;
     let haveSpouse = "0";

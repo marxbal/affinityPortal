@@ -45,6 +45,7 @@ import {
 import {
   BehaviorSubject
 } from 'rxjs/internal/BehaviorSubject';
+import { Contract } from '../objects/contract';
 
 @Injectable({
   providedIn: 'root'
@@ -233,7 +234,7 @@ export class CommonService {
         validity_date = '01052014-100';
       }
     }
-    console.log(validity_date);
+    
     return validity_date;
   }
 
@@ -445,7 +446,6 @@ export class CommonService {
 
     for (let i = 0; i < affinity.techControl.length; i++) {
       let level = affinity.techControl[i].split("@")[1];
-      console.log(level);
       if (level) {
 
         if (level == "3") {
@@ -481,7 +481,6 @@ export class CommonService {
     }
 
     if (affinity.alternativeHolders.length > 0) {
-      console.log(affinity.alternativeHolders);
       affinity.alternativeHolders.forEach(function (alt) {
         let kog = ['1', '1', '1', alt.validID, alt.validIDValue.toUpperCase()];
         vars.push(kog);
@@ -562,7 +561,6 @@ export class CommonService {
 
     for (let i = 0; i < vars.length; i++) {
       let p40temp = new P2000040();
-      // console.log(vars[i][0]);
       p40temp.codCob = vars[i][0];
       p40temp.sumaAseg = vars[i][1];
       p2040.push(p40temp);
@@ -1060,13 +1058,19 @@ export class CommonService {
   }
 
   //TODO
-  assignP2000030(affinity: Affinity) {
+  assignP2000030(affinity: Affinity, contract: Contract) {
     let p2030: P2000030 = new P2000030();
 
-    p2030.codAgt = 1069;
-    p2030.numPolizaGrupo = '119';
-    p2030.numContrato = 11900;
-    p2030.numSubcontrato = 11900;
+    // p2030.codAgt = 1069;
+    // p2030.numPolizaGrupo = '119';
+    // p2030.numContrato = 11900;
+    // p2030.numSubcontrato = 11900;
+
+    p2030.codAgt = contract.agentCode;
+    p2030.numPolizaGrupo = contract.groupPolicy.toString();
+    p2030.numContrato = contract.contract;
+    p2030.numSubcontrato = contract.subContract;
+
     p2030.codNivel3 = 4003;
     p2030.codCia = 1;
     p2030.codFraccPago = 1;
@@ -1091,9 +1095,9 @@ export class CommonService {
     p2030.tipSpto = ("XX");
     p2030.txtMotivoSpto = ("");
 
-    if (affinity.lineId == "251" && affinity.riskDetails.underTaking) {
-      p2030.txtMotivoSpto = ("WARRANTED NO LOSS");
-    }
+    // if (affinity.lineId == "251" && affinity.riskDetails.underTaking) {
+    //   p2030.txtMotivoSpto = ("WARRANTED NO LOSS");
+    // }
 
     p2030.tipDocum = affinity.riskDetails.validID;
     p2030.codDocum = ((affinity.riskDetails.validIDValue) ? affinity.riskDetails.validIDValue.toUpperCase() : "");
@@ -1126,16 +1130,16 @@ export class CommonService {
 
     if (affinity.lineId == "337") {
       p2030.codSector = 3;
-      p2030.numSubcontrato = 10000;
+      // p2030.numSubcontrato = 10000;
       p2030.fecValidez = '01012020';
     }
 
-    if (affinity.lineId == "251") {
-      p2030.codSector = 2;
-      p2030.numSubcontrato = 10000;
-      p2030.fecValidez = '01012018';
-      p2030.mcaReaseguroManual = 'S';
-    }
+    // if (affinity.lineId == "251") {
+    //   p2030.codSector = 2;
+    //   p2030.numSubcontrato = 10000;
+    //   p2030.fecValidez = '01012018';
+    //   p2030.mcaReaseguroManual = 'S';
+    // }
 
     return p2030;
   }
