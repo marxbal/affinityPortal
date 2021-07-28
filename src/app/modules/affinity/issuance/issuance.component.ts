@@ -40,6 +40,15 @@ import {
 import {
   Contract
 } from 'src/app/objects/contract';
+import {
+  PartnerService
+} from 'src/app/services/partner.service';
+import {
+  Product
+} from 'src/app/objects/product';
+import {
+  Return
+} from 'src/app/objects/return';
 
 @Component({
   selector: 'app-issuance',
@@ -56,7 +65,8 @@ export class IssuanceComponent implements OnInit {
     private commonService: CommonService,
     private motorIssuance: MotorIssuanceService,
     private propertyIssuance: PropertyIssuanceService,
-    private paIssuance: PersonalAccidentIssuanceService) {}
+    private paIssuance: PersonalAccidentIssuanceService,
+    private pService: PartnerService) {}
 
   templateRouter: String;
   line: String;
@@ -90,6 +100,7 @@ export class IssuanceComponent implements OnInit {
 
       this.line = "";
       this.templateRouter = "initialize";
+
       this.caller.doCallService('/afnty/retrieveTransactions', this.affinity.clientId).subscribe(
         result => {
           let newResult = _.orderBy(result, ['transactionNumber'], ['desc']);
@@ -313,17 +324,17 @@ export class IssuanceComponent implements OnInit {
   productDetails(param: any) {
     this.product = param.product;
     this.description = param.description;
-    this.contract = this.getContract(param.product);
+    this.getContract(param.product);
   }
 
-  getContract(product: number) {
-    const contract = new Contract();
-    contract.agentCode = 1069;
-    contract.groupPolicy = 110;
-    contract.contract = 100;
-    contract.subContract = 101;
-
-    return contract;
+  getContract(product: Product) {
+    this.pService.getProductContract(product).subscribe(
+      (result: any) => {
+        const ret = result as Return;
+        if (ret.status) {
+          this.contract = ret.obj as Contract;
+        }
+      });
   }
 
   nextStepAction(nextStep) {

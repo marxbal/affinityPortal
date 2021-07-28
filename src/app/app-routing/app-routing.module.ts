@@ -76,7 +76,7 @@ const routes: Routes = [{
   {
     path: 'issuance',
     component: IssuanceComponent,
-    canActivate: [AuthGuardClient],
+    // canActivate: [AuthGuardClient],
   },
   {
     path: 'issuance/:type/:numPoliza',

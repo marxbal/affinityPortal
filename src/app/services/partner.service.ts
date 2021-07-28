@@ -17,7 +17,12 @@ import {
   Partner
 } from '../objects/partner';
 import Swal from 'sweetalert2';
-import { BehaviorSubject } from 'rxjs';
+import {
+  BehaviorSubject
+} from 'rxjs';
+import {
+  Product
+} from '../objects/product';
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +33,32 @@ export class PartnerService {
   constructor(
     private spinner: NgxSpinnerService,
     private app: AppService) {}
+
+  getPartnerProducts(partner: Partner) {
+    let ret: any = new BehaviorSubject < any > ([]);
+
+    this.app.post(partner, this.map + 'getPartnerProducts')
+      .pipe(first())
+      .subscribe((res => {
+        this.spinner.hide();
+        ret.next(res);
+      }));
+
+    return ret.asObservable();
+  }
+
+  getProductContract(product: Product) {
+    let ret: any = new BehaviorSubject < any > ([]);
+
+    this.app.post(product, this.map + 'getProductContract')
+      .pipe(first())
+      .subscribe((res => {
+        this.spinner.hide();
+        ret.next(res);
+      }));
+
+    return ret.asObservable();
+  }
 
   getPartnerDetails(agentCode: number) {
     let ret: any = new BehaviorSubject < any > ([]);
@@ -41,7 +72,7 @@ export class PartnerService {
         ret.next(res);
       }));
 
-      return ret.asObservable();
+    return ret.asObservable();
   }
 
   getPartnerList() {
@@ -54,7 +85,7 @@ export class PartnerService {
         ret.next(res);
       }));
 
-      return ret.asObservable();
+    return ret.asObservable();
   }
 
   insertContract(partner: Partner) {

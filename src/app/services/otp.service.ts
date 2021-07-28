@@ -129,7 +129,7 @@ export class OTPService {
         }, 10);
       }, error => {
         this.spinner.hide();
-        localStorage.setItem(LOGIN_MSG, "Error! Unable to Login.");
+        localStorage.setItem(LOGIN_MSG, "Error! Unable to Login due to " + error);
         var url = isAdmin ? 'admin' : '' +  '?error=true';
         this.router.navigateByUrl(url);
       }

@@ -10,6 +10,7 @@ import {
 import {
   LOGGED_IN,
   PARTNER,
+  PRODUCT,
   USER,
   LANDING_PAGE
 } from '../constants/local.storage';
@@ -19,6 +20,9 @@ import {
 import {
   Partner
 } from '../objects/partner';
+import {
+  Product
+} from '../objects/product';
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +33,7 @@ export class AuthenticationService {
   public userDetails = new BehaviorSubject < UserDetail > (JSON.parse(localStorage.getItem(USER) || "{}"));
   public initialLandingPage = new BehaviorSubject < string > (localStorage.getItem(LANDING_PAGE) || "login");
   public partner = new BehaviorSubject < Partner > (JSON.parse(localStorage.getItem(PARTNER) || "{}"));
+  public product = new BehaviorSubject < Product[] > (JSON.parse(localStorage.getItem(PRODUCT) || "{}"));
 
   constructor(private router: Router) {}
 
@@ -48,7 +53,7 @@ export class AuthenticationService {
     } else {
       localStorage.removeItem(LOGGED_IN);
     }
-    
+
     this.loggedIn.next(loggedIn);
   }
 
@@ -105,7 +110,6 @@ export class AuthenticationService {
   }
 
   setPartner(details: Partner) {
-    let partner = null;
     if (details != null) {
       localStorage.setItem(PARTNER, JSON.stringify(details));
       details = JSON.parse(localStorage.getItem(PARTNER) || "{}");
@@ -113,7 +117,28 @@ export class AuthenticationService {
       localStorage.removeItem(PARTNER);
     }
 
-    this.partner.next(partner);
+    this.partner.next(details);
+  }
+
+  // *** PRODUCT ***
+
+  get Product() {
+    return this.product.asObservable();
+  }
+
+  getProduct() {
+    return this.product.getValue();
+  }
+
+  setProduct(details: Product[]) {
+    if (details != null) {
+      localStorage.setItem(PRODUCT, JSON.stringify(details));
+      details = JSON.parse(localStorage.getItem(PRODUCT) || "{}");
+    } else {
+      localStorage.removeItem(PRODUCT);
+    }
+
+    this.product.next(details);
   }
 
   // *** DATE FORMAT ***
