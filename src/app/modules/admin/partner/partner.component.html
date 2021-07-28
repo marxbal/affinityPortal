@@ -17,12 +17,14 @@
                 <h5>Basic Information</h5>
                 <div class="row">
                   <div class="col-md-4">
+                    <input *ngIf="false" type="text" class="form-control number" formControlName="partnerCode">
                     <div class="form-group row" [ngClass]="{'input-error': partnerForm.controls['partnerName'].invalid 
                         && (partnerForm.controls['partnerName'].dirty 
                         || partnerForm.controls['partnerName'].touched)}">
                       <div class="col-md-12">
                         <label for="partnerName">PARTNER NAME </label>
-                        <input type="text" class="form-control number required" formControlName="partnerName">
+                        <input type="text" class="form-control" formControlName="partnerName"
+                          oninput="this.value = this.value.toUpperCase()">
                         <p class="form-error" *ngIf="partnerForm.controls['partnerName'].errors?.required">
                           * partner name is required
                         </p>
@@ -35,7 +37,7 @@
                         || partnerForm.controls['domain'].touched)}">
                       <div class="col-md-12">
                         <label for="domain">DOMAIN </label>
-                        <input type="text" class="form-control number required" formControlName="domain">
+                        <input type="text" class="form-control" formControlName="domain">
                         <p class="form-error" *ngIf="partnerForm.controls['domain'].errors?.required">
                           * domain is required
                         </p>

@@ -26,7 +26,12 @@ import {
 import {
   AddProduct
 } from '../objects/add-product';
-import { UserDetail } from '../objects/userDetail';
+import {
+  UserDetail
+} from '../objects/userDetail';
+import {
+  Partner
+} from '../objects/partner';
 
 @Injectable({
   providedIn: 'root'
@@ -56,6 +61,20 @@ export class PartnerService {
 
     const user = new UserDetail();
     this.app.post(userDetail, this.map + 'getPartnerDetails')
+      .pipe(first())
+      .subscribe((res => {
+        this.spinner.hide();
+        ret.next(res);
+      }));
+
+    return ret.asObservable();
+  }
+
+  getPartnerDetailsByPartnerCode(partner: Partner) {
+    let ret: any = new BehaviorSubject < any > ([]);
+
+    const user = new UserDetail();
+    this.app.post(partner, this.map + 'getPartnerDetailsByPartnerCode')
       .pipe(first())
       .subscribe((res => {
         this.spinner.hide();
