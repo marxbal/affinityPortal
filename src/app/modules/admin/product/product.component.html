@@ -26,8 +26,8 @@
                         <select class="form-control required " formControlName="partner" id="partner"
                           (change)="getPartnerDetails($event)">
                           <option></option>
-                          <option *ngFor="let partner of partners" value="{{partner.partnerCode}}">
-                            {{partner.partnerName}}</option>
+                          <option *ngFor="let partner of partners" value="{{partner.COD_PARTNER}}">
+                            {{partner.COD_PARTNER}}-{{partner.TXT_PARTNER}}</option>
                         </select>
                         <p class="form-error" *ngIf="productForm.controls['partner'].errors?.required">
                           * partner is required
