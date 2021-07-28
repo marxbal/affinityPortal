@@ -27,7 +27,9 @@ export class PartnerListComponent implements OnInit {
     private router: Router,
     private auth: AuthService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getPartnerList();
+  }
 
   getPartnerList() {
     this.auth.getLOV(
