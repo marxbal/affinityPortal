@@ -34,6 +34,9 @@ import {
 import {
   UserDetail
 } from '../objects/userDetail';
+import {
+  PartnerService
+} from './partner.service';
 
 @Injectable({
   providedIn: 'root'
@@ -46,7 +49,8 @@ export class OTPService {
     private caller: AuthService,
     private spinner: NgxSpinnerService,
     private app: AppService,
-    private router: Router) {}
+    private router: Router,
+    private pService: PartnerService) {}
 
   requestOTP(email: string, resend: boolean) {
     var otp = new OTP();
@@ -96,13 +100,14 @@ export class OTPService {
         if (r.status) {
           this.login(email, isAdmin);
         } else {
-          var url = isAdmin ? 'admin' : '' +  '?error=true';
+          var url = isAdmin ? 'admin' : '' + '?error=true';
           this.router.navigateByUrl(url);
         }
       }));
   }
 
   login(email: string, isAdmin: boolean) {
+    var url = isAdmin ? 'admin' : '' + '?error=true';
     this.caller.loginUser(c.LOGIN_EMAIL, c.LOGIN_PWD).subscribe(
       result => {
         localStorage.setItem(TOKEN, "Bearer " + result.access_token);
@@ -120,17 +125,25 @@ export class OTPService {
           userDetails.roleId = 2;
           this.auth.setLandingPage("issuance");
         }
-
-        this.auth.setUserDetails(userDetails);
-
-        this.router.navigate([this.auth.getLandingPage()]);
-        setTimeout(function () {
-          window.location.reload();
-        }, 10);
+        
+        this.pService.getPartnerDetails(userDetails).subscribe(
+          (result: any) => {
+            const ret = result as Return;
+            if (ret.status) {
+              this.auth.setUserDetails(userDetails);
+              this.router.navigate([this.auth.getLandingPage()]);
+              setTimeout(function () {
+                window.location.reload();
+              }, 10);
+            } else {
+              this.spinner.hide();
+              localStorage.setItem(LOGIN_MSG, "Error! Unable to get partner details");
+              this.router.navigateByUrl(url);
+            }
+          });
       }, error => {
         this.spinner.hide();
         localStorage.setItem(LOGIN_MSG, "Error! Unable to Login due to " + error);
-        var url = isAdmin ? 'admin' : '' +  '?error=true';
         this.router.navigateByUrl(url);
       }
     );
