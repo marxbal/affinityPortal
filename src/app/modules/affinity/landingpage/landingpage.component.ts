@@ -59,6 +59,7 @@ export class LandingpageComponent implements OnInit {
 
   partnerPath: string = "";
   products: ProductLine[] = [];
+  availableProducts = [];
 
   coverageList: Coverages[] = [];
   coverage: Coverages = new Coverages();
@@ -98,41 +99,23 @@ export class LandingpageComponent implements OnInit {
     }, 500);
   }
 
-  // getPartnerProducts() {
-  //   const partner = this.auth.getPartner();
-
-  //   this.pService.getPartnerProducts(partner).subscribe(
-  //     (result: any) => {
-  //       const ret = result as Return;
-  //       if (ret.status) {
-  //         this.products = ret.obj as ProductLine[];
-  //       }
-  //     });
-  // }
-
-  getPartnerProductss() {
+  getPartnerProducts() {
     this.auth.getLOV(
       "G6009902_MPH",
       "1",
       'cod_partner~A001').subscribe(
       result => {
-        console.log("result " + result);
-        // result.forEach(r => {
-        //   const details: AddPartner = {
-        //     partnerCode: r.COD_PARTNER,
-        //     partnerName: r.TXT_PARTNER,
-        //     domain: r.TXT_DOMAIN
-        //   };
+        if (result.length) {
+          result.forEach((r) => {
+            this.availableProducts.push(r.COD_MODALIDAD);
+          });
 
-        //   this.partners.push(details);
-        // });
+          this.displayProducts();
+        }
       });
   }
 
-  getPartnerProducts() {
-
-    this.getPartnerProductss();
-
+  displayProducts() {
     const l1 = new ProductLine;
     l1.name = "Car";
     l1.badge = "fa-car";
@@ -142,19 +125,29 @@ export class LandingpageComponent implements OnInit {
       "Covers the contents such as improvements, furnishings, fixtures, personal effect. <br /> With this policy you’re covered against events such as: " +
       "<br /> - fire, flood, typhoon, and earthquake damages" +
       "<br /> - robbery and burglary <br /> - personal liability";
+    l1.products = [];
 
     const p1 = new ProductList;
     p1.description = 'motorComprehensive';
     p1.productId = "10001";
     p1.name = 'Comprehensive';
+    const hasComprehensive = _.indexOf(this.availableProducts, "10001");
+    if (hasComprehensive) {
+      l1.products.push(p1);
+    }
 
     const p2 = new ProductList;
     p2.description = 'motorCTPL';
     p2.productId = "10002";
     p2.name = 'CTPL';
+    const hasCTPL = _.indexOf(this.availableProducts, "10002");
+    if (hasCTPL) {
+      l1.products.push(p2);
+    }
 
-    l1.products = [p1, p2];
-    this.products.push(l1);
+    if (hasCTPL || hasComprehensive) {
+      this.products.push(l1);
+    }
 
     const l2 = new ProductLine;
     l2.name = "Accident";
@@ -165,21 +158,29 @@ export class LandingpageComponent implements OnInit {
       "Provides protection 24 hours a day, 7 days a week and 365 days a year for family members.<br /><br />" +
       "This comprehensive personal accident insurance includes additional assistance benefits aside from the " +
       "standard accidental death and permanent disability benefits. ";
+    l2.products = [];
 
     const p3 = new ProductList;
     p3.description = 'personalAccident';
     p3.productId = "33701";
     p3.name = 'Individual Personal';
+    const hasIndividual = _.indexOf(this.availableProducts, "33701");
+    if (hasIndividual) {
+      l2.products.push(p3);
+    }
 
     const p4 = new ProductList;
     p4.description = 'personalFamilyAccident';
     p4.productId = "33702";
     p4.name = 'Personal Family';
+    const hasFamily = _.indexOf(this.availableProducts, "33702");
+    if (hasFamily) {
+      l2.products.push(p4);
+    }
 
-    l2.products = [p3, p4];
-    this.products.push(l2);
-
-    console.log(this.products);
+    if (hasIndividual || hasFamily) {
+      this.products.push(l2);
+    }
   }
 
   loadPolicy(issue, type, numPoliza) {
