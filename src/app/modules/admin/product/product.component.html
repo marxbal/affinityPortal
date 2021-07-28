@@ -113,7 +113,7 @@
                             <label for="groupPolicy">Group Policy</label>
                             <select class="form-control required " formControlName="groupPolicy" id="groupPolicy"
                               (change)="getContract()">
-                              <option value="0" disabled="disabled">Please choose Policy</option>
+                              <option></option>
                               <option *ngFor="let policy of groupPolicyLOV" value="{{policy.NUM_POLIZA}}">
                                 {{policy.NOM_POLIZA}}</option>
                             </select>
@@ -131,7 +131,7 @@
                             <label for="contract">Contract</label>
                             <select class="form-control required " formControlName="contract" id="contract"
                               (change)="getSubContract()">
-                              <option value="0" disabled="disabled">Please choose Contract</option>
+                              <option></option>
                               <option *ngFor="let contract of contractLOV" value="{{contract.NUM_CONTRATO}}">
                                 {{contract.NOM_CONTRATO}}</option>
                             </select>
@@ -148,7 +148,7 @@
                           <div class="col-md-12">
                             <label for="subContract">Sub-Contract</label>
                             <select class="form-control required " formControlName="subContract" id="subContract">
-                              <option value="0" disabled="disabled">Please choose Sub-Contract</option>
+                              <option></option>
                               <option *ngFor="let subContract of subContractLOV"
                                 value="{{subContract.NUM_SUBCONTRATO}}">
                                 {{subContract.NOM_SUBCONTRATO}}
