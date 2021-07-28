@@ -5,7 +5,6 @@ import {
 export class ProductLine {
 
   name: string;
-  badge: string;
   description: string;
   thumbnail: string;
   issuanceType: string;

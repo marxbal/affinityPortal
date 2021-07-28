@@ -118,7 +118,6 @@ export class LandingpageComponent implements OnInit {
   displayProducts() {
     const l1 = new ProductLine;
     l1.name = "Car";
-    l1.badge = "fa-car";
     l1.thumbnail = "car";
     l1.issuanceType = "motorQuotationIssuance";
     l1.description =
@@ -131,7 +130,7 @@ export class LandingpageComponent implements OnInit {
     p1.description = 'motorComprehensive';
     p1.productId = "10001";
     p1.name = 'Comprehensive';
-    const hasComprehensive = _.indexOf(this.availableProducts, "10001") == 0;
+    const hasComprehensive = _.indexOf(this.availableProducts, "10001") != -1;
     if (hasComprehensive) {
       l1.products.push(p1);
     }
@@ -140,7 +139,7 @@ export class LandingpageComponent implements OnInit {
     p2.description = 'motorCTPL';
     p2.productId = "10002";
     p2.name = 'CTPL';
-    const hasCTPL = _.indexOf(this.availableProducts, "10002") == 0;
+    const hasCTPL = _.indexOf(this.availableProducts, "10002") != -1;
     if (hasCTPL) {
       l1.products.push(p2);
     }
@@ -151,7 +150,6 @@ export class LandingpageComponent implements OnInit {
 
     const l2 = new ProductLine;
     l2.name = "Accident";
-    l2.badge = "fa-shield";
     l2.thumbnail = "accident";
     l2.issuanceType = "personalInformation";
     l2.description =
@@ -164,7 +162,7 @@ export class LandingpageComponent implements OnInit {
     p3.description = 'personalAccident';
     p3.productId = "33701";
     p3.name = 'Individual Personal';
-    const hasIndividual = _.indexOf(this.availableProducts, "33701") == 0;
+    const hasIndividual = _.indexOf(this.availableProducts, "33701")  != -1;
     if (hasIndividual) {
       l2.products.push(p3);
     }
@@ -173,7 +171,7 @@ export class LandingpageComponent implements OnInit {
     p4.description = 'personalFamilyAccident';
     p4.productId = "33702";
     p4.name = 'Personal Family';
-    const hasFamily = _.indexOf(this.availableProducts, "33702") == 0;
+    const hasFamily = _.indexOf(this.availableProducts, "33702") != -1;
     if (hasFamily) {
       l2.products.push(p4);
     }
