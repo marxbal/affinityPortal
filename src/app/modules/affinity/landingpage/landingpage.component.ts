@@ -72,7 +72,7 @@ export class LandingpageComponent implements OnInit {
   ngOnInit() {
     this.partner = this.authenticate.getPartner() as Partner;
     if (!_.isEmpty(this.partner)) {
-      this.partnerPath = _.toLowerCase(this.partner.partnerName);
+      this.partnerPath = _.toLower(this.partner.partnerName);
     }
 
     this.getPartnerProducts();

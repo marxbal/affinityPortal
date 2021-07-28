@@ -31,7 +31,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     const partner = this.auth.getPartner() as Partner;
     if (!_.isEmpty(partner)) {
-      this.partnerName = _.toLowerCase(partner.partnerName);
+      this.partnerName = _.toLower(partner.partnerName);
     }
   }
 }
