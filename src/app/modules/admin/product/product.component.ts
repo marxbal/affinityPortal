@@ -222,6 +222,7 @@ export class ProductComponent implements OnInit {
     const agentCode = form.get('agentCode').value;
     const subline = form.get('subline').value;
 
+    form.get('groupPolicy').setValue("0");
     form.get('contract').setValue("0");
     form.get('subContract').setValue("0");
 
@@ -242,6 +243,7 @@ export class ProductComponent implements OnInit {
     const subline = form.get('subline').value;
     const groupPolicy = form.get('groupPolicy').value;
 
+    form.get('contract').setValue("0");
     form.get('subContract').setValue("0");
 
     this.auth.getLOV(
@@ -261,6 +263,8 @@ export class ProductComponent implements OnInit {
     const agentCode = form.get('agentCode').value;
     const subline = form.get('subline').value;
     const contract = form.get('contract').value;
+
+    form.get('subContract').setValue("0");
 
     this.auth.getLOV(
       "G2990022",
