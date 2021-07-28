@@ -131,7 +131,7 @@ export class LandingpageComponent implements OnInit {
     p1.description = 'motorComprehensive';
     p1.productId = "10001";
     p1.name = 'Comprehensive';
-    const hasComprehensive = _.indexOf(this.availableProducts, "10001");
+    const hasComprehensive = _.indexOf(this.availableProducts, "10001") == 0;
     if (hasComprehensive) {
       l1.products.push(p1);
     }
@@ -140,7 +140,7 @@ export class LandingpageComponent implements OnInit {
     p2.description = 'motorCTPL';
     p2.productId = "10002";
     p2.name = 'CTPL';
-    const hasCTPL = _.indexOf(this.availableProducts, "10002");
+    const hasCTPL = _.indexOf(this.availableProducts, "10002") == 0;
     if (hasCTPL) {
       l1.products.push(p2);
     }
@@ -164,7 +164,7 @@ export class LandingpageComponent implements OnInit {
     p3.description = 'personalAccident';
     p3.productId = "33701";
     p3.name = 'Individual Personal';
-    const hasIndividual = _.indexOf(this.availableProducts, "33701");
+    const hasIndividual = _.indexOf(this.availableProducts, "33701") == 0;
     if (hasIndividual) {
       l2.products.push(p3);
     }
@@ -173,7 +173,7 @@ export class LandingpageComponent implements OnInit {
     p4.description = 'personalFamilyAccident';
     p4.productId = "33702";
     p4.name = 'Personal Family';
-    const hasFamily = _.indexOf(this.availableProducts, "33702");
+    const hasFamily = _.indexOf(this.availableProducts, "33702") == 0;
     if (hasFamily) {
       l2.products.push(p4);
     }
