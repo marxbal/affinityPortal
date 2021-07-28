@@ -131,7 +131,7 @@ export class LandingpageComponent implements OnInit {
 
   getPartnerProducts() {
 
-    this.getPartnerProducts();
+    this.getPartnerProductss();
 
     const l1 = new ProductLine;
     l1.name = "Car";
