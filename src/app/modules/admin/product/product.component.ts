@@ -136,12 +136,12 @@ export class ProductComponent implements OnInit {
     // });
 
     this.auth.getLOV(
-      "G6009901_mph",
+      "G6009901_MPH",
       "1",
-      "").subscribe(
+      '').subscribe(
       result => {
         console.log(result);
-        this.contractLOV = result;
+        this.partners = result;
       });
 
     // this.partners = [{
