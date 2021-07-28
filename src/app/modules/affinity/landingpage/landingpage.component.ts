@@ -6,7 +6,6 @@ import {
   Output,
   EventEmitter
 } from '@angular/core';
-// import * as $ from 'jquery/dist/jquery.min';
 import * as _ from 'lodash';
 import {
   AuthenticationService
@@ -35,12 +34,6 @@ import {
 import {
   Coverages
 } from 'src/app/objects/coverages';
-import {
-  PartnerService
-} from 'src/app/services/partner.service';
-import {
-  Return
-} from 'src/app/objects/return';
 
 @Component({
   selector: 'app-landingpage',
@@ -54,9 +47,9 @@ export class LandingpageComponent implements OnInit {
     private auth: AuthService,
     private router: Router,
     private spinner: NgxSpinnerService,
-    private caller: AuthService,
-    private pService: PartnerService) {}
+    private caller: AuthService) {}
 
+  partner: Partner;
   partnerPath: string = "";
   products: ProductLine[] = [];
   availableProducts = [];
@@ -77,10 +70,10 @@ export class LandingpageComponent implements OnInit {
   @Output() productDetails = new EventEmitter();
 
   ngOnInit() {
-    const partner = this.authenticate.getPartner() as Partner;
+    this.partner = this.authenticate.getPartner() as Partner;
 
-    if (!_.isEmpty(partner)) {
-      this.partnerPath = partner.partnerName;
+    if (!_.isEmpty(this.partner)) {
+      this.partnerPath = this.partner.partnerName;
     }
 
     this.getPartnerProducts();
@@ -103,7 +96,7 @@ export class LandingpageComponent implements OnInit {
     this.auth.getLOV(
       "G6009902_MPH",
       "1",
-      'cod_partner~A001').subscribe(
+      'cod_partner~' + this.partner.partnerCode).subscribe(
       result => {
         if (result.length) {
           result.forEach((r) => {
@@ -204,23 +197,6 @@ export class LandingpageComponent implements OnInit {
       window.location.reload();
     }, 10);
   }
-
-  // householdIssuance() {
-  //   this.issuanceType.emit("householdQuotationIssuance");
-  //   this.backButton.emit("initialize");
-  // }
-
-  // motorIssuance(product: number, description: String) {
-  //   this.issuanceType.emit("motorQuotationIssuance");
-  //   this.backButton.emit("initialize");
-
-  //   this.test.emit({product, description});
-  // }
-
-  // PAIssuance() {
-  //   this.issuanceType.emit("personalInformation");
-  //   this.backButton.emit("initialize");
-  // }
 
   issuance(product: string, description: String, issuanceType: String) {
     this.issuanceType.emit(issuanceType);

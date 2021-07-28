@@ -37,6 +37,9 @@ import {
 import {
   PartnerService
 } from './partner.service';
+import {
+  Partner
+} from '../objects/partner';
 
 @Injectable({
   providedIn: 'root'
@@ -131,6 +134,10 @@ export class OTPService {
             const ret = result as Return;
             if (ret.status) {
               this.auth.setUserDetails(userDetails);
+              const partner = ret.obj as Partner;
+
+              this.auth.setPartner(partner);
+
               this.router.navigate([this.auth.getLandingPage()]);
               setTimeout(function () {
                 window.location.reload();
