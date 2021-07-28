@@ -178,12 +178,12 @@ export class ProductComponent implements OnInit {
     this.showSubline = !_.isEmpty(val);
 
     const form = this.productForm;
-    form.get("subline").setValue("0");
+    form.get("subline").setValue("");
     this.showProductPolicy = false;
 
-    form.get("groupPolicy").setValue("0");
-    form.get("contract").setValue("0");
-    form.get("subContract").setValue("0");
+    form.get("groupPolicy").setValue("");
+    form.get("contract").setValue("");
+    form.get("subContract").setValue("");
   }
 
   toggleProductPolicy(event) {
