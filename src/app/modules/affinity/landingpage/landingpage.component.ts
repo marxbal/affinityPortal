@@ -50,7 +50,8 @@ import {
 export class LandingpageComponent implements OnInit {
 
   constructor(
-    private auth: AuthenticationService,
+    private authenticate: AuthenticationService,
+    private auth: AuthService,
     private router: Router,
     private spinner: NgxSpinnerService,
     private caller: AuthService,
@@ -75,7 +76,7 @@ export class LandingpageComponent implements OnInit {
   @Output() productDetails = new EventEmitter();
 
   ngOnInit() {
-    const partner = this.auth.getPartner() as Partner;
+    const partner = this.authenticate.getPartner() as Partner;
 
     if (!_.isEmpty(partner)) {
       this.partnerPath = partner.partnerName;
@@ -109,7 +110,29 @@ export class LandingpageComponent implements OnInit {
   //     });
   // }
 
+  getPartnerProductss() {
+    this.auth.getLOV(
+      "g6009902_mph",
+      "1",
+      'COD_PARTNER~A001').subscribe(
+      result => {
+        console.log("result " + result);
+        // result.forEach(r => {
+        //   const details: AddPartner = {
+        //     partnerCode: r.COD_PARTNER,
+        //     partnerName: r.TXT_PARTNER,
+        //     domain: r.TXT_DOMAIN
+        //   };
+
+        //   this.partners.push(details);
+        // });
+      });
+  }
+
   getPartnerProducts() {
+
+    this.getPartnerProducts
+
     const l1 = new ProductLine;
     l1.name = "Car";
     l1.badge = "fa-car";
