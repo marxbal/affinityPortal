@@ -176,10 +176,14 @@ export class ProductComponent implements OnInit {
   toggleSubline(event) {
     const val = event.target.value;
     this.showSubline = !_.isEmpty(val);
-    if (!this.showSubline) {
-      this.productForm.get("subline").setValue("0");
-      this.showProductPolicy = false;
-    }
+
+    const form = this.productForm;
+    form.get("subline").setValue("0");
+    this.showProductPolicy = false;
+
+    form.get("groupPolicy").setValue("0");
+    form.get("contract").setValue("0");
+    form.get("subContract").setValue("0");
   }
 
   toggleProductPolicy(event) {
@@ -213,8 +217,13 @@ export class ProductComponent implements OnInit {
   }
 
   getGroupPolicy() {
-    const agentCode = this.productForm.get('agentCode').value;
-    const subline = this.productForm.get('subline').value;
+    const form = this.productForm;
+
+    const agentCode = form.get('agentCode').value;
+    const subline = form.get('subline').value;
+
+    form.get('contract').setValue(null);
+    form.get('subContract').setValue(null);
 
     this.auth.getLOV(
       "A2000010",
@@ -227,9 +236,13 @@ export class ProductComponent implements OnInit {
   }
 
   getContract() {
-    const agentCode = this.productForm.get('agentCode').value;
-    const subline = this.productForm.get('subline').value;
-    const groupPolicy = this.productForm.get('groupPolicy').value;
+    const form = this.productForm;
+
+    const agentCode = form.get('agentCode').value;
+    const subline = form.get('subline').value;
+    const groupPolicy = form.get('groupPolicy').value;
+
+    form.get('subContract').setValue(null);
 
     this.auth.getLOV(
       "G2990001",
@@ -243,9 +256,11 @@ export class ProductComponent implements OnInit {
   }
 
   getSubContract() {
-    const agentCode = this.productForm.get('agentCode').value;
-    const subline = this.productForm.get('subline').value;
-    const contract = this.productForm.get('contract').value;
+    const form = this.productForm;
+
+    const agentCode = form.get('agentCode').value;
+    const subline = form.get('subline').value;
+    const contract = form.get('contract').value;
 
     this.auth.getLOV(
       "G2990022",
