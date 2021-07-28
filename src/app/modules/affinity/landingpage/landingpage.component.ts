@@ -112,7 +112,7 @@ export class LandingpageComponent implements OnInit {
 
   getPartnerProductss() {
     this.auth.getLOV(
-      "g6009902_mph",
+      "G6009902_mph",
       "1",
       'COD_PARTNER~A001').subscribe(
       result => {
@@ -131,7 +131,7 @@ export class LandingpageComponent implements OnInit {
 
   getPartnerProducts() {
 
-    this.getPartnerProducts
+    this.getPartnerProducts();
 
     const l1 = new ProductLine;
     l1.name = "Car";
