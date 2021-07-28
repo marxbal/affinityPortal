@@ -89,7 +89,7 @@ export class ProductComponent implements OnInit {
   contractLOV: [] = [];
   subContractLOV: [] = [];
   lineProducts = [];
-  partners: AddPartner[] = [];
+  partners = [];
 
   showInfo: boolean = false;
   showSubline: boolean = false;
@@ -128,22 +128,13 @@ export class ProductComponent implements OnInit {
   }
 
   getPartnerList() {
-    // this.pService.getPartnerList().subscribe((result: any) => {
-    //   const ret = result as Return;
-    //   if (ret.status) {
-    //    this.partners = ret.obj as Partners[];
-    //   }
-    // });
-
     this.auth.getLOV(
       "G6009901_MPH",
       "1",
       '').subscribe(
       result => {
-        console.log(result);
         this.partners = result;
       });
-
     // this.partners = [{
     //   partnerName: "FOPM",
     //   partnerCode: "A001",
@@ -152,34 +143,16 @@ export class ProductComponent implements OnInit {
   }
 
   getPartnerDetails(event) {
-    const partner = event.target.value;
-    this.showInfo = !_.isEmpty(partner);
+    const partnerCode = event.target.value;
+    this.showInfo = !_.isEmpty(partnerCode);
 
     if (this.showInfo) {
-      // this.pService.getPartnerDetails(event.target.value).subscribe(
-      //   (result: any) => {
-      //     const ret = result as Return;
-      //     if (ret.status) {
-      //       const partner = ret.obj as Partner;
-      //       this.productForm.get("agentCode").setValue(partner.agentCode);
-
-      //       // this.productForm.get("subline").setValue(partner.subline);
-      //       this.productForm.get("partnerName").setValue(partner.partnerName);
-      //       this.productForm.get("domain").setValue(partner.domain);
-
-      //       // this.productForm.get("groupPolicy").setValue(partner.groupPolicy);
-      //       // this.productForm.get("contract").setValue(partner.contract);
-      //       // this.productForm.get("subContract").setValue(partner.subContract);
-
-      //       // this.getGroupPolicy(partner);
-      //       // this.getContract(partner);
-      //       // this.getSubContract(partner);
-      //       //this.getProducts(partner.subline, partner.products); //TODO
-      //     }
-      //   });
-
-      this.productForm.get("partnerName").setValue("test");
-      this.productForm.get("domain").setValue("test");
+      this.partners.forEach((partner) => {
+        if (partner.COD_PARTNER == partnerCode) {
+          this.productForm.get("partnerName").setValue(partner.TXT_PARTNER);
+          this.productForm.get("domain").setValue(partner.TXT_DOMAIN);
+        }
+      });
     }
   }
 
