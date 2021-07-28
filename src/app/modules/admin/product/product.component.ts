@@ -134,11 +134,21 @@ export class ProductComponent implements OnInit {
     //    this.partners = ret.obj as Partners[];
     //   }
     // });
-    this.partners = [{
-      partnerName: "FOPM",
-      partnerCode: "A001",
-      domain: "fopm.com.ph"
-    }]
+
+    this.auth.getLOV(
+      "G6009901_mph",
+      "1",
+      "").subscribe(
+      result => {
+        console.log(result);
+        this.contractLOV = result;
+      });
+
+    // this.partners = [{
+    //   partnerName: "FOPM",
+    //   partnerCode: "A001",
+    //   domain: "fopm.com.ph"
+    // }]
   }
 
   getPartnerDetails(event) {
