@@ -14,137 +14,36 @@
               </div>
               <!-- .card-header -->
               <form class="card-body" [formGroup]="partnerForm">
-
+                <h5>Basic Information</h5>
                 <div class="row">
                   <div class="col-md-4">
-                    <div class="form-group row" [ngClass]="{'input-error': partnerForm.controls['agentCode'].invalid 
-                    && (partnerForm.controls['agentCode'].dirty 
-                    || partnerForm.controls['agentCode'].touched)}">
-                      <div class="col-md-12">
-                        <label for="agentCode">AGENT CODE </label>
-                        <input type="text" class="form-control required" formControlName="agentCode">
-                        <p class="form-error" *ngIf="partnerForm.controls['agentCode'].errors?.required">
-                          * agent code is required
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- <div class="col-md-4" *ngIf="showSubline">
-                    <div class="form-group row" [ngClass]="{'input-error': partnerForm.controls['subline'].invalid 
-                    && (partnerForm.controls['subline'].dirty 
-                    || partnerForm.controls['subline'].touched)}">
-                      <div class="col-md-12">
-                        <label for="subline">SUBLINE</label>
-                        <select class="form-control required " formControlName="subline" id="subline"
-                          (change)="getGroupPolicy()">
-                          <option value="0" disabled="disabled">Please choose Subline</option>
-                          <option value="100">Private Car</option>
-                          <option value="105">Private Vehicle</option>
-                          <option value="120">Motorcycle</option>
-                          <option value="337">Personal Accident</option>
-                        </select>
-                        <p class="form-error" *ngIf="partnerForm.controls['subline'].errors?.required">
-                          * subline is required
-                        </p>
-                      </div>
-                    </div>
-                  </div> -->
-                </div>
-                <!-- .row -->
-
-                <div>
-                  <h5>Basic Information</h5>
-                  <div class="row">
-                    <div class="col-md-4">
-                      <div class="form-group row" [ngClass]="{'input-error': partnerForm.controls['partnerName'].invalid 
+                    <div class="form-group row" [ngClass]="{'input-error': partnerForm.controls['partnerName'].invalid 
                         && (partnerForm.controls['partnerName'].dirty 
                         || partnerForm.controls['partnerName'].touched)}">
-                        <div class="col-md-12">
-                          <label for="partnerName">PARTNER NAME </label>
-                          <input type="text" class="form-control number required" formControlName="partnerName">
-                          <p class="form-error" *ngIf="partnerForm.controls['partnerName'].errors?.required">
-                            * partner name is required
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-4">
-                      <div class="form-group row" [ngClass]="{'input-error': partnerForm.controls['domain'].invalid 
-                        && (partnerForm.controls['domain'].dirty 
-                        || partnerForm.controls['domain'].touched)}">
-                        <div class="col-md-12">
-                          <label for="domain">DOMAIN </label>
-                          <input type="text" class="form-control number required" formControlName="domain">
-                          <p class="form-error" *ngIf="partnerForm.controls['domain'].errors?.required">
-                            * domain is required
-                          </p>
-                        </div>
+                      <div class="col-md-12">
+                        <label for="partnerName">PARTNER NAME </label>
+                        <input type="text" class="form-control number required" formControlName="partnerName">
+                        <p class="form-error" *ngIf="partnerForm.controls['partnerName'].errors?.required">
+                          * partner name is required
+                        </p>
                       </div>
                     </div>
                   </div>
-                  <!-- .row -->
-
-                  <!-- <h5>Policy</h5>
-                  <div class="row">
-                    <div class="col-md-4">
-                      <div class="form-group row" [ngClass]="{'input-error': partnerForm.controls['groupPolicy'].invalid 
-                        && (partnerForm.controls['groupPolicy'].dirty 
-                        || partnerForm.controls['groupPolicy'].touched)}">
-                        <div class="col-md-12">
-                          <label for="groupPolicy">Group Policy</label>
-                          <select class="form-control required " formControlName="groupPolicy" id="groupPolicy"
-                            (change)="getContract()">
-                            <option value="0" disabled="disabled">Please choose Policy</option>
-                            <option *ngFor="let policy of groupPolicyLOV" value="{{policy.NUM_POLIZA}}">
-                              {{policy.NOM_POLIZA}}</option>
-                          </select>
-                          <p class="form-error" *ngIf="partnerForm.controls['groupPolicy'].errors?.required">
-                            * group policy is required
-                          </p>
-                        </div>
+                  <div class="col-md-4">
+                    <div class="form-group row" [ngClass]="{'input-error': partnerForm.controls['domain'].invalid 
+                        && (partnerForm.controls['domain'].dirty 
+                        || partnerForm.controls['domain'].touched)}">
+                      <div class="col-md-12">
+                        <label for="domain">DOMAIN </label>
+                        <input type="text" class="form-control number required" formControlName="domain">
+                        <p class="form-error" *ngIf="partnerForm.controls['domain'].errors?.required">
+                          * domain is required
+                        </p>
                       </div>
                     </div>
-                    <div class="col-md-4">
-                      <div class="form-group row" [ngClass]="{'input-error': partnerForm.controls['contract'].invalid 
-                        && (partnerForm.controls['contract'].dirty 
-                        || partnerForm.controls['contract'].touched)}">
-                        <div class="col-md-12">
-                          <label for="contract">Contract</label>
-                          <select class="form-control required " formControlName="contract" id="contract"
-                            (change)="getSubContract()">
-                            <option value="0" disabled="disabled">Please choose Contract</option>
-                            <option *ngFor="let contract of contractLOV" value="{{contract.NUM_CONTRATO}}">
-                              {{contract.NOM_CONTRATO}}</option>
-                          </select>
-                          <p class="form-error" *ngIf="partnerForm.controls['contract'].errors?.required">
-                            * contract is required
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-4">
-                      <div class="form-group row" [ngClass]="{'input-error': partnerForm.controls['subContract'].invalid 
-                        && (partnerForm.controls['subContract'].dirty 
-                        || partnerForm.controls['subContract'].touched)}">
-                        <div class="col-md-12">
-                          <label for="subContract">Sub-Contract</label>
-                          <select class="form-control required " formControlName="subContract" id="subContract">
-                            <option value="0" disabled="disabled">Please choose Sub-Contract</option>
-                            <option *ngFor="let subContract of subContractLOV" value="{{subContract.NUM_SUBCONTRATO}}">
-                              {{subContract.NOM_SUBCONTRATO}}
-                            </option>
-                          </select>
-                          <p class="form-error" *ngIf="partnerForm.controls['subContract'].errors?.required">
-                            * sub contract is required
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div> -->
-                  <!-- .row -->
-
+                  </div>
                 </div>
+                <!-- .row -->
 
                 <br />
                 <br />

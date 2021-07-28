@@ -23,6 +23,12 @@ import {
 import {
   Product
 } from '../objects/product';
+import {
+  AddPartner
+} from '../objects/add-partner';
+import {
+  AddProduct
+} from '../objects/add-product';
 
 @Injectable({
   providedIn: 'root'
@@ -88,7 +94,7 @@ export class PartnerService {
     return ret.asObservable();
   }
 
-  insertPartner(partner: Partner) {
+  insertPartner(partner: AddPartner) {
     this.app.post(partner, this.map + 'insertPartner')
       .pipe(first())
       .subscribe((res => {
@@ -104,6 +110,28 @@ export class PartnerService {
           Swal.fire({
             type: 'error',
             title: 'Error! unable to add Partner.',
+            text: ret.message
+          });
+        }
+      }));
+  }
+
+  insertProduct(product: AddProduct) {
+    this.app.post(product, this.map + 'insertProduct')
+      .pipe(first())
+      .subscribe((res => {
+        this.spinner.hide();
+        const ret = res as Return;
+        if (ret.status) {
+          Swal.fire({
+            type: 'success',
+            title: 'Product Contract added.',
+            text: ret.message
+          });
+        } else {
+          Swal.fire({
+            type: 'error',
+            title: 'Error! unable to add Product Contract.',
             text: ret.message
           });
         }

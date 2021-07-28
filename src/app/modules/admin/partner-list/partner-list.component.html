@@ -18,20 +18,16 @@
                 <table class="table table-striped">
                   <thead>
                     <tr>
-                      <th scope="col">Agent Code</th>
-                      <th scope="col">Partner</th>
-                      <th scope="col">Group Policy</th>
-                      <th scope="col">Contract</th>
-                      <th scope="col">Sub Contract</th>
+                      <th scope="col">Partner Code</th>
+                      <th scope="col">Name</th>
+                      <th scope="col">Domain</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let partner of partners; index as i" (click)="edit(partner.agentCode)" >
-                      <th scope="row">{{partner.agentCode}}</th>
+                    <tr *ngFor="let partner of partners; index as i" (click)="edit(partner.partnerCode)" >
+                      <th scope="row">{{partner.partnerCode}}</th>
                       <td>{{ partner.partnerName }}</td>
-                      <td>{{ partner.groupPolicy }}</td>
-                      <td>{{ partner.contract }}</td>
-                      <td>{{ partner.subContract }}</td>
+                      <td>{{ partner.domain }}</td>
                     </tr>
                   </tbody>
                 </table>

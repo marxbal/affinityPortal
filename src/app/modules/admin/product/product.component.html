@@ -13,47 +13,39 @@
                 <h1 class="card-title">Product</h1>
               </div>
               <!-- .card-header -->
-              <form class="card-body" [formGroup]="partnerForm">
+              <form class="card-body" [formGroup]="productForm">
 
                 <h5>Partner</h5>
                 <div class="row">
                   <div class="col-md-4">
-                    <div class="form-group row">
+                    <div class="form-group row" [ngClass]="{'input-error': productForm.controls['partner'].invalid 
+                      && (productForm.controls['partner'].dirty 
+                      || productForm.controls['partner'].touched)}">
                       <div class="col-md-12">
                         <label for="partner">PARTNER</label>
                         <select class="form-control required " formControlName="partner" id="partner"
                           (change)="getPartnerDetails($event)">
-                          <option value="0" disabled="disabled">Please choose Partner</option>
-                          <option *ngFor="let partner of partners" value="{{partner.agentCode}}">
+                          <option></option>
+                          <option *ngFor="let partner of partners" value="{{partner.partnerCode}}">
                             {{partner.partnerName}}</option>
                         </select>
+                        <p class="form-error" *ngIf="productForm.controls['partner'].errors?.required">
+                          * partner is required
+                        </p>
                       </div>
                     </div>
                   </div>
                 </div>
 
                 <div *ngIf="showInfo">
-                  <h5>Agent Information</h5>
-                  <div class="row">
-                    <div class="col-md-4">
-                      <div class="form-group row">
-                        <div class="col-md-12">
-                          <label for="agentCode">AGENT CODE </label>
-                          <input type="text" class="form-control required" formControlName="agentCode" disabled>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- .row -->
-
-
                   <h5>Basic Information</h5>
                   <div class="row">
                     <div class="col-md-4">
                       <div class="form-group row">
                         <div class="col-md-12">
                           <label for="partnerName">PARTNER NAME </label>
-                          <input type="text" class="form-control number required" formControlName="partnerName" disabled>
+                          <input type="text" class="form-control number required" formControlName="partnerName"
+                            disabled>
                         </div>
                       </div>
                     </div>
@@ -68,85 +60,125 @@
                   </div>
                   <!-- .row -->
 
-                  <h5>Policy</h5>
+                  <h5>Agent Information</h5>
                   <div class="row">
                     <div class="col-md-4">
-                      <div class="form-group row">
+                      <div class="form-group row" [ngClass]="{'input-error': productForm.controls['agentCode'].invalid 
+                      && (productForm.controls['agentCode'].dirty 
+                      || productForm.controls['agentCode'].touched)}">
+                        <div class="col-md-12">
+                          <label for="agentCode">AGENT CODE </label>
+                          <input type="text" class="form-control required" formControlName="agentCode"
+                            (change)="toggleSubline($event)">
+                          <p class="form-error" *ngIf="productForm.controls['agentCode'].errors?.required">
+                            * agent code is required
+                          </p>
+                        </div>
+
+                      </div>
+                    </div>
+
+                    <div *ngIf="showSubline" class="col-md-4">
+                      <div class="form-group row" [ngClass]="{'input-error': productForm.controls['subline'].invalid 
+                      && (productForm.controls['subline'].dirty 
+                      || productForm.controls['subline'].touched)}">
                         <div class="col-md-12">
                           <label for="subline">SUBLINE</label>
                           <select class="form-control required " formControlName="subline" id="subline"
-                            (change)="chooseProduct($event)">
+                            (change)="toggleProductPolicy($event)">
                             <option value="0">Please choose Subline</option>
                             <option value="100">Private Car</option>
                             <option value="105">Private Vehicle</option>
                             <option value="120">Motorcycle</option>
                             <option value="337">Personal Accident</option>
-                            <!-- <option value="251">Household</option> -->
                           </select>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- .row -->
-                  <div class="row">
-                    <div class="col-md-4">
-                      <div class="form-group row">
-                        <div class="col-md-12">
-                          <label for="groupPolicy">Group Policy</label>
-                          <select class="form-control required " formControlName="groupPolicy" id="groupPolicy" (change)="getContract()">
-                            <option value="0" disabled="disabled">Please choose Policy</option>
-                            <option *ngFor="let policy of groupPolicyLOV" value="{{policy.NUM_POLIZA}}">
-                              {{policy.NOM_POLIZA}}</option>
-                          </select>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-4">
-                      <div class="form-group row">
-                        <div class="col-md-12">
-                          <label for="contract">Contract</label>
-                          <select class="form-control required " formControlName="contract" id="contract" (change)="getSubContract()">
-                            <option value="0" disabled="disabled">Please choose Contract</option>
-                            <option *ngFor="let contract of contractLOV" value="{{contract.NUM_CONTRATO}}">
-                              {{contract.NOM_CONTRATO}}</option>
-                          </select>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-4">
-                      <div class="form-group row">
-                        <div class="col-md-12">
-                          <label for="subContract">Sub-Contract</label>
-                          <select class="form-control required " formControlName="subContract" id="subContract">
-                            <option value="0" disabled="disabled">Please choose Sub-Contract</option>
-                            <option *ngFor="let subContract of subContractLOV" value="{{subContract.NUM_SUBCONTRATO}}">
-                              {{subContract.NOM_SUBCONTRATO}}
-                            </option>
-                          </select>
+                          <p class="form-error" *ngIf="productForm.controls['subline'].errors?.required">
+                            * subline is required
+                          </p>
                         </div>
                       </div>
                     </div>
                   </div>
                   <!-- .row -->
 
-                  
-                  <div *ngIf="showProducts">
+                  <div *ngIf="showProductPolicy">
+                    <h5>Policy</h5>
+                    <!-- .row -->
+                    <div class="row">
+                      <div class="col-md-4">
+                        <div class="form-group row" [ngClass]="{'input-error': productForm.controls['groupPolicy'].invalid 
+                        && (productForm.controls['groupPolicy'].dirty 
+                        || productForm.controls['groupPolicy'].touched)}">
+                          <div class="col-md-12">
+                            <label for="groupPolicy">Group Policy</label>
+                            <select class="form-control required " formControlName="groupPolicy" id="groupPolicy"
+                              (change)="getContract()">
+                              <option value="0" disabled="disabled">Please choose Policy</option>
+                              <option *ngFor="let policy of groupPolicyLOV" value="{{policy.NUM_POLIZA}}">
+                                {{policy.NOM_POLIZA}}</option>
+                            </select>
+                            <p class="form-error" *ngIf="productForm.controls['groupPolicy'].errors?.required">
+                              * group policy is required
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group row" [ngClass]="{'input-error': productForm.controls['contract'].invalid 
+                        && (productForm.controls['contract'].dirty 
+                        || productForm.controls['contract'].touched)}">
+                          <div class="col-md-12">
+                            <label for="contract">Contract</label>
+                            <select class="form-control required " formControlName="contract" id="contract"
+                              (change)="getSubContract()">
+                              <option value="0" disabled="disabled">Please choose Contract</option>
+                              <option *ngFor="let contract of contractLOV" value="{{contract.NUM_CONTRATO}}">
+                                {{contract.NOM_CONTRATO}}</option>
+                            </select>
+                            <p class="form-error" *ngIf="productForm.controls['contract'].errors?.required">
+                              * contract is required
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group row" [ngClass]="{'input-error': productForm.controls['subContract'].invalid 
+                        && (productForm.controls['subContract'].dirty 
+                        || productForm.controls['subContract'].touched)}">
+                          <div class="col-md-12">
+                            <label for="subContract">Sub-Contract</label>
+                            <select class="form-control required " formControlName="subContract" id="subContract">
+                              <option value="0" disabled="disabled">Please choose Sub-Contract</option>
+                              <option *ngFor="let subContract of subContractLOV"
+                                value="{{subContract.NUM_SUBCONTRATO}}">
+                                {{subContract.NOM_SUBCONTRATO}}
+                              </option>
+                            </select>
+                            <p class="form-error" *ngIf="productForm.controls['subContract'].errors?.required">
+                              * sub contract is required
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- .row -->
+
                     <h5>Products</h5>
                     <div class="row">
                       <div class="col-md-4">
                         <div class="form-group row">
                           <div class="col-md-12" formArrayName="products">
-  
                             <div *ngFor="let product of lineProducts">
-  
+
                               <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="{{product.name}}" [value]="product.id"
-                                  (change)="onCheckChange($event)">
+                                <input class="form-check-input" type="checkbox" id="{{product.name}}"
+                                  [value]="product.subline + ':' + product.id" (change)="onCheckChange($event)"
+                                  [checked]="false">
                                 <label class="form-check-label" for="{{product.name}}">
                                   {{product.name}}
                                 </label>
                               </div>
-  
+
                             </div>
                           </div>
                         </div>
@@ -163,7 +195,7 @@
                 <br />
 
                 <div class="btn-group">
-                  <button *ngIf="showSaveBtn" class="btn btn-success" (click)="save()">SAVE</button>
+                  <button *ngIf="!productForm.invalid" class="btn btn-success" (click)="save()">SAVE</button>
                   <button class="btn btn-secondary">CANCEL</button>
                 </div>
 

@@ -10,9 +10,6 @@ import {
   Validators
 } from '@angular/forms';
 import {
-  Partner
-} from 'src/app/objects/partner';
-import {
   AuthService
 } from 'src/app/services/auth.service';
 import {
@@ -20,12 +17,15 @@ import {
 } from 'src/app/services/partner.service';
 import * as _ from 'lodash';
 import {
-  Return
-} from 'src/app/objects/return';
+  AddPartner
+} from 'src/app/objects/add-partner';
+import {
+  AddProduct
+} from 'src/app/objects/add-product';
 
 export interface Partners {
   partnerName: string;
-  agentCode: number;  
+  agentCode: number;
 }
 
 @Component({
@@ -38,24 +38,50 @@ export class ProductComponent implements OnInit {
   products = [{
       name: 'Comprehensive',
       id: 10001,
-      line: 1
+      line: 1,
+      subline: 100
     },
     {
       name: 'CTPL',
       id: 10002,
-      line: 1
+      line: 1,
+      subline: 100
+    },
+    {
+      name: 'Comprehensive',
+      id: 10001,
+      line: 1,
+      subline: 105
+    },
+    {
+      name: 'CTPL',
+      id: 10002,
+      line: 1,
+      subline: 105
+    },
+    {
+      name: 'Comprehensive',
+      id: 10001,
+      line: 1,
+      subline: 120
+    },
+    {
+      name: 'CTPL',
+      id: 10002,
+      line: 1,
+      subline: 120
     },
     {
       name: 'Individual Personal',
-      // subline: 337,
       id: 33701,
-      line: 3
+      line: 3,
+      subline: 337
     },
     {
       name: 'Personal Family',
-      // subline: 337,
       id: 33702,
-      line: 3
+      line: 3,
+      subline: 337
     },
   ];
 
@@ -63,18 +89,18 @@ export class ProductComponent implements OnInit {
   contractLOV: [] = [];
   subContractLOV: [] = [];
   lineProducts = [];
-  partners: Partners[] = [];
+  partners: AddPartner[] = [];
 
   showInfo: boolean = false;
-  showProducts: boolean = false;
-  showSaveBtn: boolean = false;
+  showSubline: boolean = false;
+  showProductPolicy: boolean = false;
 
   constructor(
     private fb: FormBuilder,
     private auth: AuthService,
     private pService: PartnerService) {}
 
-  partnerForm: FormGroup;
+  productForm: FormGroup;
 
   ngOnInit() {
     this.createForm();
@@ -82,7 +108,7 @@ export class ProductComponent implements OnInit {
   }
 
   createForm() {
-    this.partnerForm = this.fb.group({
+    this.productForm = this.fb.group({
       partner: ["", Validators.required],
       agentCode: ["", Validators.required],
       subline: ["", Validators.required],
@@ -94,11 +120,142 @@ export class ProductComponent implements OnInit {
       products: this.fb.array([])
     });
 
-    this.partnerForm.get("products");
+    this.productForm.get("products");
   }
 
   get control() {
-    return this.partnerForm.get('products') as FormArray;
+    return this.productForm.get('products') as FormArray;
+  }
+
+  getPartnerList() {
+    // this.pService.getPartnerList().subscribe((result: any) => {
+    //   const ret = result as Return;
+    //   if (ret.status) {
+    //    this.partners = ret.obj as Partners[];
+    //   }
+    // });
+    this.partners = [{
+      partnerName: "FOPM",
+      partnerCode: "A001",
+      domain: "fopm.com.ph"
+    }]
+  }
+
+  getPartnerDetails(event) {
+    const partner = event.target.value;
+    this.showInfo = !_.isEmpty(partner);
+
+    if (this.showInfo) {
+      // this.pService.getPartnerDetails(event.target.value).subscribe(
+      //   (result: any) => {
+      //     const ret = result as Return;
+      //     if (ret.status) {
+      //       const partner = ret.obj as Partner;
+      //       this.productForm.get("agentCode").setValue(partner.agentCode);
+
+      //       // this.productForm.get("subline").setValue(partner.subline);
+      //       this.productForm.get("partnerName").setValue(partner.partnerName);
+      //       this.productForm.get("domain").setValue(partner.domain);
+
+      //       // this.productForm.get("groupPolicy").setValue(partner.groupPolicy);
+      //       // this.productForm.get("contract").setValue(partner.contract);
+      //       // this.productForm.get("subContract").setValue(partner.subContract);
+
+      //       // this.getGroupPolicy(partner);
+      //       // this.getContract(partner);
+      //       // this.getSubContract(partner);
+      //       //this.getProducts(partner.subline, partner.products); //TODO
+      //     }
+      //   });
+
+      this.productForm.get("partnerName").setValue("test");
+      this.productForm.get("domain").setValue("test");
+    }
+  }
+
+  toggleSubline(event) {
+    const val = event.target.value;
+    this.showSubline = !_.isEmpty(val);
+    if (!this.showSubline) {
+      this.productForm.get("subline").setValue("0");
+      this.showProductPolicy = false;
+    }
+  }
+
+  toggleProductPolicy(event) {
+    this.showProductPolicy = true;
+
+    this.getProducts(event.target.value, []);
+    this.getGroupPolicy();
+  }
+
+  getProducts(subline: number, products: number[]) {
+    this.lineProducts = [];
+    this.clearProductListForm();
+
+    this.products.forEach((product) => {
+      if (product.subline == subline) {
+        this.lineProducts.push(product);
+
+        const isInactive = (-1 !== _.indexOf(products, product.id)) ? "N" : "S";
+        this.control.push(new FormControl(product.subline + ":" + product.id + ":" + isInactive));
+      }
+    });
+  }
+
+  clearProductListForm() {
+    this.control.controls.forEach(() => {
+      this.control.removeAt(0);
+      if (this.control.controls.length) {
+        this.clearProductListForm();
+      };
+    });
+  }
+
+  getGroupPolicy() {
+    const agentCode = this.productForm.get('agentCode').value;
+    const subline = this.productForm.get('subline').value;
+
+    this.auth.getLOV(
+      "A2000010",
+      "4",
+      'COD_CIA~1|COD_AGT~' + agentCode +
+      '|COD_RAMO~' + subline).subscribe(
+      result => {
+        this.groupPolicyLOV = result;
+      });
+  }
+
+  getContract() {
+    const agentCode = this.productForm.get('agentCode').value;
+    const subline = this.productForm.get('subline').value;
+    const groupPolicy = this.productForm.get('groupPolicy').value;
+
+    this.auth.getLOV(
+      "G2990001",
+      "7",
+      'COD_CIA~1|COD_AGT~' + agentCode +
+      '|COD_RAMO~' + subline +
+      '|NUM_POLIZA_GRUPO~' + groupPolicy).subscribe(
+      result => {
+        this.contractLOV = result;
+      });
+  }
+
+  getSubContract() {
+    const agentCode = this.productForm.get('agentCode').value;
+    const subline = this.productForm.get('subline').value;
+    const contract = this.productForm.get('contract').value;
+
+    this.auth.getLOV(
+      "G2990022",
+      "2",
+      'COD_CIA~1|COD_AGT~' + agentCode +
+      '|COD_RAMO~' + subline +
+      '|NUM_CONTRATO~' + contract).subscribe(
+      result => {
+        this.subContractLOV = result;
+      });
   }
 
   onCheckChange(event) {
@@ -123,155 +280,11 @@ export class ProductComponent implements OnInit {
     });
 
     this.control.push(new FormControl(val));
-    // if (event.target.checked) {
-    //   // Add a new control in the arrayForm
-    //   this.control.push(new FormControl(event.target.value));
-    // }
-    // /* unselected */
-    // else {
-    //   // find the unselected element
-    //   let i: number = 0;
-
-    //   this.control.controls.forEach((ctrl: FormControl) => {
-    //     if (ctrl.value == event.target.value) {
-    //       // Remove the unselected element from the arrayForm
-    //       this.control.removeAt(i);
-    //       return;
-    //     }
-    //     i++;
-    //   });
-    // }
-  }
-
-  getPartnerList() {
-    // this.pService.getPartnerList().subscribe((result: any) => {
-    //   const ret = result as Return;
-    //   if (ret.status) {
-    //    this.partners = ret.obj as Partners[];
-    //   }
-    // });
-    this.partners = [{
-        partnerName: "FOPM",
-        agentCode: 1069
-      },
-      {
-        partnerName: "MARSH",
-        agentCode: 1070
-      }
-    ]
-  }
-
-  getPartnerDetails(event) {
-    const partner = event.target.value;
-    this.showInfo = !_.isEmpty(partner);
-    this.showSaveBtn = true;
-
-    // this.pService.getPartnerDetails(event.target.value).subscribe(
-    //   (result: any) => {
-    //     const ret = result as Return;
-    //     if (ret.status) {
-    //       const partner = ret.obj as Partner;
-    //       this.partnerForm.get("agentCode").setValue(partner.agentCode);
-
-    //       // this.partnerForm.get("subline").setValue(partner.subline);
-    //       this.partnerForm.get("partnerName").setValue(partner.partnerName);
-    //       this.partnerForm.get("domain").setValue(partner.domain);
-
-    //       // this.partnerForm.get("groupPolicy").setValue(partner.groupPolicy);
-    //       // this.partnerForm.get("contract").setValue(partner.contract);
-    //       // this.partnerForm.get("subContract").setValue(partner.subContract);
-
-    //       // this.getGroupPolicy(partner);
-    //       // this.getContract(partner);
-    //       // this.getSubContract(partner);
-    //       //this.getProducts(partner.subline, partner.products); //TODO
-    //     }
-    //   });
-
-    this.partnerForm.get("agentCode").setValue(1012);
-    this.partnerForm.get("partnerName").setValue("test");
-    this.partnerForm.get("domain").setValue("test");
-  }
-
-  chooseProduct(event) {
-    this.getProducts(event.target.value, []);
-    this.getGroupPolicy();
-  }
-
-  getProducts(subline: number, products: number[]) {
-    let line = 1;
-    if (subline == 337) {
-      line = 3;
-    }
-
-    this.showProducts = true;
-    this.lineProducts = [];
-    this.clearProductListForm();
-
-    this.products.forEach((product) => {
-      if (product.line == line) {
-        this.lineProducts.push(product);
-
-        const isInactive = (-1 !== _.indexOf(products, product.id)) ? "N" : "S";
-        this.control.push(new FormControl(product.id + ":" + isInactive));
-      }
-    });
-  }
-
-  clearProductListForm() {
-    this.control.controls.forEach(() => {
-        this.control.removeAt(0);
-        if (this.control.controls.length) {
-          this.clearProductListForm();
-        };
-    });
-  }
-
-  getGroupPolicy() {
-    const agentCode = this.partnerForm.get('agentCode').value;
-    const subline = this.partnerForm.get('subline').value;
-    console.log("agentCode " + agentCode);
-    console.log("subline " + subline);
-
-    this.auth.getLOV(
-      "A2000010",
-      "4",
-      'COD_CIA~1|COD_AGT~' + agentCode +
-      '|COD_RAMO~' + subline).subscribe(
-      result => {
-        this.groupPolicyLOV = result;
-      });
-  }
-
-  getContract(partner: Partner) {
-    this.auth.getLOV(
-      "G2990001",
-      "7",
-      'COD_CIA~1|COD_AGT~' + partner.agentCode +
-      '|COD_RAMO~' + partner.subline +
-      '|NUM_POLIZA_GRUPO~' + partner.groupPolicy).subscribe(
-      result => {
-        this.contractLOV = result;
-      });
-  }
-
-  getSubContract(partner: Partner) {
-    this.auth.getLOV(
-      "G2990022",
-      "2",
-      'COD_CIA~1|COD_AGT~' + partner.agentCode +
-      '|COD_RAMO~' + partner.subline +
-      '|NUM_CONTRATO~' + partner.contract).subscribe(
-      result => {
-        this.subContractLOV = result;
-      });
   }
 
   save() {
-    const partner = this.partnerForm.value as Partner;
-    partner.active = true;
-    partner.product = 10001;
-    this.pService.insertContract(partner);
+    const product = this.productForm.value as AddProduct;
+    this.pService.insertProduct(product);
   }
 
 }

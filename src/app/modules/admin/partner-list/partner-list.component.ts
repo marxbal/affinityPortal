@@ -6,21 +6,13 @@ import {
   Router
 } from '@angular/router';
 import {
-  Partner
-} from 'src/app/objects/partner';
+  AddPartner
+} from 'src/app/objects/add-partner';
 
-const PARTNER: Partner[] = [{
-  agentCode: 1069,
-  partnerName: "Mercury",
-  groupPolicy: 1023,
-  contract: 12202,
-  subContract: 23233,
-  domain: '',
-  primaryColor: '',
-  products: [1],
-  product: 1001,
-  active: true,
-  subline: 300
+const PARTNER: AddPartner[] = [{
+  partnerCode: "A001",
+  partnerName: "FOPM",
+  domain: 'fopm.com.ph'
 }];
 
 @Component({
@@ -37,8 +29,8 @@ export class PartnerListComponent implements OnInit {
 
   ngOnInit() {}
 
-  edit(agentCode: number) {
-    this.router.navigateByUrl("/partner?agentCode=" + agentCode);
+  edit(partnerCode: number) {
+    this.router.navigateByUrl("/partner?partnerCode=" + partnerCode);
   }
 
   addPartner() {
