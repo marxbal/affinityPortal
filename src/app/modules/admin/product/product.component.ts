@@ -135,11 +135,6 @@ export class ProductComponent implements OnInit {
       result => {
         this.partners = result;
       });
-    // this.partners = [{
-    //   partnerName: "FOPM",
-    //   partnerCode: "A001",
-    //   domain: "fopm.com.ph"
-    // }]
   }
 
   getPartnerDetails(event) {

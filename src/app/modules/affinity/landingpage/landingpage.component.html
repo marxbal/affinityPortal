@@ -9,12 +9,6 @@
           <button (click)="scroll('issuance')" class="btn get-started-btn btn-outline-primary">Get
             Started</button>
 
-          <!-- <div class="btn-group">
-            <button (click)="scroll('issuance')" class="btn form-control btn-outline-primary">Get Started</button>
-            <button (click)="scroll('previousTransaction')" class="btn btn-outline-primary">Previous
-              Transaction</button>
-          </div> -->
-
           <p>Exclusive insurance coverage
             <br />that protects your home, car
             <br />and family.
@@ -23,15 +17,38 @@
         </div>
       </div>
       <div class="col-md-7 d-flex align-items-center">
-        <!-- <img class="landing-img-family d-none d-md-block" src="assets/images/insured-family.png" /> -->
       </div>
     </div>
   </div>
 </div>
 
-<div class="container" id="issuance">
+<div *ngIf="products.length == 0" class="container" id="issuance">
   <div class="row">
+    <div class="card">
+      <div class="row">
+        <div class="col-md-6 d-none d-md-block">
+          <img class="card-img-top" src="assets/images/product_line/car.jpg" alt="car">
+        </div>
+        <div class="col-md-6">
+          <div class="card">
 
+            <h1 class="card-title">
+              <strong>No</strong> Available Product
+            </h1>
+
+            <p class="card-text">
+              We are sorry to inform you that our partner doesn't have any products available at the moment. Please contact administration for inquries. Thank you.
+            </p>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="products.length > 0" class="container" id="issuance">
+  <div class="row">
     <div *ngFor="let product of products;let i=index;" class="col-md-12">
       <div class="card">
         <div class="row">
@@ -43,10 +60,6 @@
             <div class="card">
 
               <h1 class="card-title">
-                <!-- <span class="fa-stack fa-md">
-                  <i class="fa fa-circle fa-stack-2x"></i>
-                  <i class="fa fa-inverse {{product.badge}} fa-stack-1x"></i>
-                </span> -->
                 <strong>{{product.name}}</strong> Insurance
               </h1>
 
