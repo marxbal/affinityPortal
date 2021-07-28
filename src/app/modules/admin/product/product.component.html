@@ -18,18 +18,18 @@
                 <h5>Partner</h5>
                 <div class="row">
                   <div class="col-md-4">
-                    <div class="form-group row" [ngClass]="{'input-error': productForm.controls['partner'].invalid 
-                      && (productForm.controls['partner'].dirty 
-                      || productForm.controls['partner'].touched)}">
+                    <div class="form-group row" [ngClass]="{'input-error': productForm.controls['partnerCode'].invalid 
+                      && (productForm.controls['partnerCode'].dirty 
+                      || productForm.controls['partnerCode'].touched)}">
                       <div class="col-md-12">
-                        <label for="partner">PARTNER</label>
-                        <select class="form-control required " formControlName="partner" id="partner"
+                        <label for="partnerCode">PARTNER</label>
+                        <select class="form-control required " formControlName="partnerCode" id="partnerCode"
                           (change)="getPartnerDetails($event)">
                           <option></option>
                           <option *ngFor="let partner of partners" value="{{partner.COD_PARTNER}}">
                             {{partner.COD_PARTNER}}-{{partner.TXT_PARTNER}}</option>
                         </select>
-                        <p class="form-error" *ngIf="productForm.controls['partner'].errors?.required">
+                        <p class="form-error" *ngIf="productForm.controls['partnerCode'].errors?.required">
                           * partner is required
                         </p>
                       </div>

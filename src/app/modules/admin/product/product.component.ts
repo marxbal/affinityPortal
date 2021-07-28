@@ -109,7 +109,7 @@ export class ProductComponent implements OnInit {
 
   createForm() {
     this.productForm = this.fb.group({
-      partner: ["", Validators.required],
+      partnerCode: ["", Validators.required],
       agentCode: ["", Validators.required],
       subline: ["", Validators.required],
       partnerName: ["", Validators.required],
