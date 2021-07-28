@@ -112,9 +112,9 @@ export class LandingpageComponent implements OnInit {
 
   getPartnerProductss() {
     this.auth.getLOV(
-      "G6009902_mph",
+      "G6009902_MPH",
       "1",
-      'COD_PARTNER~A001').subscribe(
+      'cod_partner~A001').subscribe(
       result => {
         console.log("result " + result);
         // result.forEach(r => {
