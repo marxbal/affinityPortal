@@ -88,6 +88,28 @@ export class PartnerService {
     return ret.asObservable();
   }
 
+  insertPartner(partner: Partner) {
+    this.app.post(partner, this.map + 'insertPartner')
+      .pipe(first())
+      .subscribe((res => {
+        this.spinner.hide();
+        const ret = res as Return;
+        if (ret.status) {
+          Swal.fire({
+            type: 'success',
+            title: 'Partner added.',
+            text: ret.message
+          });
+        } else {
+          Swal.fire({
+            type: 'error',
+            title: 'Error! unable to add Partner.',
+            text: ret.message
+          });
+        }
+      }));
+  }
+
   insertContract(partner: Partner) {
     this.app.post(partner, this.map + 'insertContract')
       .pipe(first())
@@ -97,13 +119,13 @@ export class PartnerService {
         if (ret.status) {
           Swal.fire({
             type: 'success',
-            title: 'Partner contract added.',
+            title: 'Product Contract added.',
             text: ret.message
           });
         } else {
           Swal.fire({
             type: 'error',
-            title: 'Error! unable to add contract.',
+            title: 'Error! unable to add Product Contract.',
             text: ret.message
           });
         }

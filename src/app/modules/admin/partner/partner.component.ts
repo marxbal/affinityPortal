@@ -74,106 +74,106 @@ export class PartnerComponent implements OnInit {
   createForm() {
     this.partnerForm = this.fb.group({
       agentCode: ["", Validators.required],
-      subline: ["", Validators.required],
+      // subline: ["", Validators.required],
       partnerName: ["", Validators.required],
       domain: ["", Validators.required],
-      groupPolicy: ["", Validators.required],
-      contract: ["", Validators.required],
-      subContract: ["", Validators.required],
-      products: this.fb.array([])
+      // groupPolicy: ["", Validators.required],
+      // contract: ["", Validators.required],
+      // subContract: ["", Validators.required],
+      // products: this.fb.array([])
     });
 
-    this.partnerForm.get("products");
+    // this.partnerForm.get("products");
   }
 
-  get control() {
-    return this.partnerForm.get('products') as FormArray;
-  }
+  // get control() {
+  //   return this.partnerForm.get('products') as FormArray;
+  // }
 
   setPartnerDetails(agentCode) {
     this.partnerForm.get("agentCode").setValue(agentCode);
-    this.toggleSubline();
-    this.showInfo = true;
+    // this.toggleSubline();
+    // this.showInfo = true;
 
     const partner = this.getPartnerDetails();
 
-    this.partnerForm.get("subline").setValue(partner.subline);
+    // this.partnerForm.get("subline").setValue(partner.subline);
 
     this.partnerForm.get("partnerName").setValue(partner.partnerName);
     this.partnerForm.get("domain").setValue(partner.domain);
 
-    this.partnerForm.get("groupPolicy").setValue(partner.groupPolicy);
-    this.partnerForm.get("contract").setValue(partner.contract);
-    this.partnerForm.get("subContract").setValue(partner.subContract);
+    // this.partnerForm.get("groupPolicy").setValue(partner.groupPolicy);
+    // this.partnerForm.get("contract").setValue(partner.contract);
+    // this.partnerForm.get("subContract").setValue(partner.subContract);
   }
 
-  toggleSubline() {
-    const agentCode = this.partnerForm.get("agentCode").value;
-    this.showSubline = !_.isEmpty(agentCode);
-    if (!this.showSubline) {
-      this.showInfo = false;
-      this.partnerForm.get("subline").setValue("");
-    }
-  }
+  // toggleSubline() {
+  //   const agentCode = this.partnerForm.get("agentCode").value;
+  //   this.showSubline = !_.isEmpty(agentCode);
+  //   if (!this.showSubline) {
+  //     this.showInfo = false;
+  //     this.partnerForm.get("subline").setValue("");
+  //   }
+  // }
 
   getPartnerDetails() {
     return this.partner;
   }
 
-  getGroupPolicy() {
-    const agentCode = this.partnerForm.get("agentCode").value;
-    const subline = this.partnerForm.get("subline").value;
-    this.showInfo = !_.isEmpty(subline);
+  // getGroupPolicy() {
+  //   const agentCode = this.partnerForm.get("agentCode").value;
+  //   const subline = this.partnerForm.get("subline").value;
+  //   this.showInfo = !_.isEmpty(subline);
 
-    this.auth.getLOV(
-      "A2000010",
-      "4",
-      'COD_CIA~1|COD_AGT~' + agentCode +
-      '|COD_RAMO~' + subline).subscribe(
-      result => {
-        this.groupPolicyLOV = result;
-      });
-  }
+  //   this.auth.getLOV(
+  //     "A2000010",
+  //     "4",
+  //     'COD_CIA~1|COD_AGT~' + agentCode +
+  //     '|COD_RAMO~' + subline).subscribe(
+  //     result => {
+  //       this.groupPolicyLOV = result;
+  //     });
+  // }
 
-  getContract() {
-    const agentCode = this.partnerForm.get("agentCode").value;
-    const subline = this.partnerForm.get("subline").value;
-    const groupPolicy = this.partnerForm.get("groupPolicy").value;
+  // getContract() {
+  //   const agentCode = this.partnerForm.get("agentCode").value;
+  //   const subline = this.partnerForm.get("subline").value;
+  //   const groupPolicy = this.partnerForm.get("groupPolicy").value;
 
-    this.partnerForm.get('contract').setValue("");
-    this.partnerForm.get('subContract').setValue("");
-    this.auth.getLOV(
-      "G2990001",
-      "7",
-      'COD_CIA~1|COD_AGT~' + agentCode +
-      '|COD_RAMO~' + subline +
-      '|NUM_POLIZA_GRUPO~' + groupPolicy).subscribe(
-      result => {
-        this.contractLOV = result;
-      });
-  }
+  //   this.partnerForm.get('contract').setValue("");
+  //   this.partnerForm.get('subContract').setValue("");
+  //   this.auth.getLOV(
+  //     "G2990001",
+  //     "7",
+  //     'COD_CIA~1|COD_AGT~' + agentCode +
+  //     '|COD_RAMO~' + subline +
+  //     '|NUM_POLIZA_GRUPO~' + groupPolicy).subscribe(
+  //     result => {
+  //       this.contractLOV = result;
+  //     });
+  // }
 
-  getSubContract() {
-    const agentCode = this.partnerForm.get("agentCode").value;
-    const subline = this.partnerForm.get("subline").value;
-    const contract = this.partnerForm.get("contract").value;
+  // getSubContract() {
+  //   const agentCode = this.partnerForm.get("agentCode").value;
+  //   const subline = this.partnerForm.get("subline").value;
+  //   const contract = this.partnerForm.get("contract").value;
 
-    this.partnerForm.get('subContract').setValue("");
-    this.auth.getLOV(
-      "G2990022",
-      "2",
-      'COD_CIA~1|COD_AGT~' + agentCode +
-      '|COD_RAMO~' + subline +
-      '|NUM_CONTRATO~' + contract).subscribe(
-      result => {
-        this.subContractLOV = result;
-      });
-  }
+  //   this.partnerForm.get('subContract').setValue("");
+  //   this.auth.getLOV(
+  //     "G2990022",
+  //     "2",
+  //     'COD_CIA~1|COD_AGT~' + agentCode +
+  //     '|COD_RAMO~' + subline +
+  //     '|NUM_CONTRATO~' + contract).subscribe(
+  //     result => {
+  //       this.subContractLOV = result;
+  //     });
+  // }
 
   save() {
     const partner = this.partnerForm.value as Partner;
-    partner.active = true;
-    partner.product = 10001;
+    // partner.active = true;
+    // partner.product = 10001;
     this.pService.insertContract(partner);
   }
 

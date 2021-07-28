@@ -22,8 +22,7 @@
                     || partnerForm.controls['agentCode'].touched)}">
                       <div class="col-md-12">
                         <label for="agentCode">AGENT CODE </label>
-                        <input type="text" class="form-control required" formControlName="agentCode"
-                          (change)="toggleSubline()">
+                        <input type="text" class="form-control required" formControlName="agentCode">
                         <p class="form-error" *ngIf="partnerForm.controls['agentCode'].errors?.required">
                           * agent code is required
                         </p>
@@ -31,7 +30,7 @@
                     </div>
                   </div>
 
-                  <div class="col-md-4" *ngIf="showSubline">
+                  <!-- <div class="col-md-4" *ngIf="showSubline">
                     <div class="form-group row" [ngClass]="{'input-error': partnerForm.controls['subline'].invalid 
                     && (partnerForm.controls['subline'].dirty 
                     || partnerForm.controls['subline'].touched)}">
@@ -44,18 +43,17 @@
                           <option value="105">Private Vehicle</option>
                           <option value="120">Motorcycle</option>
                           <option value="337">Personal Accident</option>
-                          <!-- <option value="251">Household</option> -->
                         </select>
                         <p class="form-error" *ngIf="partnerForm.controls['subline'].errors?.required">
                           * subline is required
                         </p>
                       </div>
                     </div>
-                  </div>
+                  </div> -->
                 </div>
                 <!-- .row -->
 
-                <div *ngIf="showInfo">
+                <div>
                   <h5>Basic Information</h5>
                   <div class="row">
                     <div class="col-md-4">
@@ -87,7 +85,7 @@
                   </div>
                   <!-- .row -->
 
-                  <h5>Policy</h5>
+                  <!-- <h5>Policy</h5>
                   <div class="row">
                     <div class="col-md-4">
                       <div class="form-group row" [ngClass]="{'input-error': partnerForm.controls['groupPolicy'].invalid 
@@ -143,7 +141,7 @@
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </div> -->
                   <!-- .row -->
 
                 </div>

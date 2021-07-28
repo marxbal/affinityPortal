@@ -43,23 +43,6 @@
                         </div>
                       </div>
                     </div>
-
-                    <div class="col-md-4">
-                      <div class="form-group row">
-                        <div class="col-md-12">
-                          <label for="subline">SUBLINE</label>
-                          <select class="form-control required " formControlName="subline" id="subline"
-                            (change)="getGroupPolicy()" disabled>
-                            <option value="0" disabled="disabled">Please choose Subline</option>
-                            <option value="100">Private Car</option>
-                            <option value="105">Private Vehicle</option>
-                            <option value="120">Motorcycle</option>
-                            <option value="337">Personal Accident</option>
-                            <!-- <option value="251">Household</option> -->
-                          </select>
-                        </div>
-                      </div>
-                    </div>
                   </div>
                   <!-- .row -->
 
@@ -90,8 +73,27 @@
                     <div class="col-md-4">
                       <div class="form-group row">
                         <div class="col-md-12">
+                          <label for="subline">SUBLINE</label>
+                          <select class="form-control required " formControlName="subline" id="subline"
+                            (change)="chooseProduct($event)">
+                            <option value="0">Please choose Subline</option>
+                            <option value="100">Private Car</option>
+                            <option value="105">Private Vehicle</option>
+                            <option value="120">Motorcycle</option>
+                            <option value="337">Personal Accident</option>
+                            <!-- <option value="251">Household</option> -->
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- .row -->
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="form-group row">
+                        <div class="col-md-12">
                           <label for="groupPolicy">Group Policy</label>
-                          <select class="form-control required " formControlName="groupPolicy" id="groupPolicy" disabled>
+                          <select class="form-control required " formControlName="groupPolicy" id="groupPolicy" (change)="getContract()">
                             <option value="0" disabled="disabled">Please choose Policy</option>
                             <option *ngFor="let policy of groupPolicyLOV" value="{{policy.NUM_POLIZA}}">
                               {{policy.NOM_POLIZA}}</option>
@@ -103,7 +105,7 @@
                       <div class="form-group row">
                         <div class="col-md-12">
                           <label for="contract">Contract</label>
-                          <select class="form-control required " formControlName="contract" id="contract" disabled>
+                          <select class="form-control required " formControlName="contract" id="contract" (change)="getSubContract()">
                             <option value="0" disabled="disabled">Please choose Contract</option>
                             <option *ngFor="let contract of contractLOV" value="{{contract.NUM_CONTRATO}}">
                               {{contract.NOM_CONTRATO}}</option>
@@ -115,7 +117,7 @@
                       <div class="form-group row">
                         <div class="col-md-12">
                           <label for="subContract">Sub-Contract</label>
-                          <select class="form-control required " formControlName="subContract" id="subContract" disabled>
+                          <select class="form-control required " formControlName="subContract" id="subContract">
                             <option value="0" disabled="disabled">Please choose Sub-Contract</option>
                             <option *ngFor="let subContract of subContractLOV" value="{{subContract.NUM_SUBCONTRATO}}">
                               {{subContract.NOM_SUBCONTRATO}}
@@ -127,29 +129,35 @@
                   </div>
                   <!-- .row -->
 
-                  <h5>Products</h5>
-                  <div class="row">
-                    <div class="col-md-4">
-                      <div class="form-group row">
-                        <div class="col-md-12" formArrayName="products">
-
-                          <div *ngFor="let product of sublineProducts">
-
-                            <div class="form-check">
-                              <input class="form-check-input" type="checkbox" id="{{product.name}}" [value]="product.id"
-                                (change)="onCheckChange($event)">
-                              <label class="form-check-label" for="{{product.name}}">
-                                {{product.name}}
-                              </label>
+                  
+                  <div *ngIf="showProducts">
+                    <h5>Products</h5>
+                    <div class="row">
+                      <div class="col-md-4">
+                        <div class="form-group row">
+                          <div class="col-md-12" formArrayName="products">
+  
+                            <div *ngFor="let product of lineProducts">
+  
+                              <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="{{product.name}}" [value]="product.id"
+                                  (change)="onCheckChange($event)">
+                                <label class="form-check-label" for="{{product.name}}">
+                                  {{product.name}}
+                                </label>
+                              </div>
+  
                             </div>
-
                           </div>
                         </div>
                       </div>
                     </div>
+                    <!-- .row -->
                   </div>
-                  <!-- .row -->
+                  <!-- showProducts -->
+
                 </div>
+                <!-- showInfo -->
 
                 <br />
                 <br />

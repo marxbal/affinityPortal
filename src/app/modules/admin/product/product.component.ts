@@ -38,60 +38,35 @@ export class ProductComponent implements OnInit {
   products = [{
       name: 'Comprehensive',
       id: 10001,
-      subline: 100,
-      group: 'Private Car'
+      line: 1
     },
     {
       name: 'CTPL',
-      subline: 100,
       id: 10002,
-      group: 'Private Car'
-    },
-    {
-      name: 'Comprehensive',
-      id: 12001,
-      subline: 120,
-      group: 'Motorcycle'
-    },
-    {
-      name: 'CTPL',
-      subline: 120,
-      id: 12002,
-      group: 'Motorcycle'
-    },
-    {
-      name: 'Comprehensive',
-      id: 10501,
-      subline: 105,
-      group: 'Private Vehicle'
-    },
-    {
-      name: 'CTPL',
-      subline: 105,
-      id: 10502,
-      group: 'Private Vehicle'
+      line: 1
     },
     {
       name: 'Individual Personal',
-      subline: 337,
+      // subline: 337,
       id: 33701,
-      group: 'Personal Accident'
+      line: 3
     },
     {
       name: 'Personal Family',
-      subline: 337,
+      // subline: 337,
       id: 33702,
-      group: 'Personal Accident'
+      line: 3
     },
   ];
 
   groupPolicyLOV: [] = [];
   contractLOV: [] = [];
   subContractLOV: [] = [];
-  sublineProducts = [];
+  lineProducts = [];
   partners: Partners[] = [];
 
   showInfo: boolean = false;
+  showProducts: boolean = false;
   showSaveBtn: boolean = false;
 
   constructor(
@@ -169,21 +144,21 @@ export class ProductComponent implements OnInit {
   }
 
   getPartnerList() {
-    this.pService.getPartnerList().subscribe((result: any) => {
-      const ret = result as Return;
-      if (ret.status) {
-       this.partners = ret.obj as Partners[];
-      }
-    });
-    // this.partners = [{
-    //     partnerName: "FOPM",
-    //     agentCode: 1069
-    //   },
-    //   {
-    //     partnerName: "MARSH",
-    //     agentCode: 1070
+    // this.pService.getPartnerList().subscribe((result: any) => {
+    //   const ret = result as Return;
+    //   if (ret.status) {
+    //    this.partners = ret.obj as Partners[];
     //   }
-    // ]
+    // });
+    this.partners = [{
+        partnerName: "FOPM",
+        agentCode: 1069
+      },
+      {
+        partnerName: "MARSH",
+        agentCode: 1070
+      }
+    ]
   }
 
   getPartnerDetails(event) {
@@ -191,35 +166,51 @@ export class ProductComponent implements OnInit {
     this.showInfo = !_.isEmpty(partner);
     this.showSaveBtn = true;
 
-    this.pService.getPartnerDetails(event.target.value).subscribe(
-      (result: any) => {
-        const ret = result as Return;
-        if (ret.status) {
-          const partner = ret.obj as Partner;
-          this.partnerForm.get("agentCode").setValue(partner.agentCode);
+    // this.pService.getPartnerDetails(event.target.value).subscribe(
+    //   (result: any) => {
+    //     const ret = result as Return;
+    //     if (ret.status) {
+    //       const partner = ret.obj as Partner;
+    //       this.partnerForm.get("agentCode").setValue(partner.agentCode);
 
-          this.partnerForm.get("subline").setValue(partner.subline);
-          this.partnerForm.get("partnerName").setValue(partner.partnerName);
-          this.partnerForm.get("domain").setValue(partner.domain);
+    //       // this.partnerForm.get("subline").setValue(partner.subline);
+    //       this.partnerForm.get("partnerName").setValue(partner.partnerName);
+    //       this.partnerForm.get("domain").setValue(partner.domain);
 
-          this.partnerForm.get("groupPolicy").setValue(partner.groupPolicy);
-          this.partnerForm.get("contract").setValue(partner.contract);
-          this.partnerForm.get("subContract").setValue(partner.subContract);
+    //       // this.partnerForm.get("groupPolicy").setValue(partner.groupPolicy);
+    //       // this.partnerForm.get("contract").setValue(partner.contract);
+    //       // this.partnerForm.get("subContract").setValue(partner.subContract);
 
-          this.getGroupPolicy(partner);
-          this.getContract(partner);
-          this.getSubContract(partner);
-          this.getProducts(partner.subline, partner.products); //TODO
-        }
-      });
+    //       // this.getGroupPolicy(partner);
+    //       // this.getContract(partner);
+    //       // this.getSubContract(partner);
+    //       //this.getProducts(partner.subline, partner.products); //TODO
+    //     }
+    //   });
+
+    this.partnerForm.get("agentCode").setValue(1012);
+    this.partnerForm.get("partnerName").setValue("test");
+    this.partnerForm.get("domain").setValue("test");
+  }
+
+  chooseProduct(event) {
+    this.getProducts(event.target.value, []);
+    this.getGroupPolicy();
   }
 
   getProducts(subline: number, products: number[]) {
-    this.sublineProducts = [];
+    let line = 1;
+    if (subline == 337) {
+      line = 3;
+    }
+
+    this.showProducts = true;
+    this.lineProducts = [];
+    this.clearProductListForm();
 
     this.products.forEach((product) => {
-      if (product.subline == subline) {
-        this.sublineProducts.push(product);
+      if (product.line == line) {
+        this.lineProducts.push(product);
 
         const isInactive = (-1 !== _.indexOf(products, product.id)) ? "N" : "S";
         this.control.push(new FormControl(product.id + ":" + isInactive));
@@ -227,12 +218,26 @@ export class ProductComponent implements OnInit {
     });
   }
 
-  getGroupPolicy(partner: Partner) {
+  clearProductListForm() {
+    this.control.controls.forEach(() => {
+        this.control.removeAt(0);
+        if (this.control.controls.length) {
+          this.clearProductListForm();
+        };
+    });
+  }
+
+  getGroupPolicy() {
+    const agentCode = this.partnerForm.get('agentCode').value;
+    const subline = this.partnerForm.get('subline').value;
+    console.log("agentCode " + agentCode);
+    console.log("subline " + subline);
+
     this.auth.getLOV(
       "A2000010",
       "4",
-      'COD_CIA~1|COD_AGT~' + partner.agentCode +
-      '|COD_RAMO~' + partner.subline).subscribe(
+      'COD_CIA~1|COD_AGT~' + agentCode +
+      '|COD_RAMO~' + subline).subscribe(
       result => {
         this.groupPolicyLOV = result;
       });

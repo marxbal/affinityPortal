@@ -97,65 +97,67 @@ export class LandingpageComponent implements OnInit {
     }, 500);
   }
 
-  getPartnerProducts() {
-    const partner = this.auth.getPartner();
-
-    this.pService.getPartnerProducts(partner).subscribe(
-      (result: any) => {
-        const ret = result as Return;
-        if (ret.status) {
-          this.products = ret.obj as ProductLine[];
-        }
-      });
-  }
-
   // getPartnerProducts() {
-  //   const l1 = new ProductLine;
-  //   l1.name = "Car";
-  //   l1.badge = "fa-car";
-  //   l1.thumbnail = "car";
-  //   l1.issuanceType = "motorQuotationIssuance";
-  //   l1.description =
-  //     "Covers the contents such as improvements, furnishings, fixtures, personal effect. <br /> With this policy you’re covered against events such as: " +
-  //     "<br /> - fire, flood, typhoon, and earthquake damages" +
-  //     "<br /> - robbery and burglary <br /> - personal liability";
+  //   const partner = this.auth.getPartner();
 
-  //   const p1 = new ProductList;
-  //   p1.description = 'motorComprehensive';
-  //   p1.productId = "10001";
-  //   p1.name = 'Comprehensive';
-
-  //   const p2 = new ProductList;
-  //   p2.description = 'motorCTPL';
-  //   p2.productId = "10002";
-  //   p2.name = 'CTPL';
-
-  //   l1.products = [p1, p2];
-  //   this.products.push(l1);
-
-  //   const l2 = new ProductLine;
-  //   l2.name = "Accident";
-  //   l2.badge = "fa-shield";
-  //   l2.thumbnail = "accident";
-  //   l2.issuanceType = "personalInformation";
-  //   l2.description =
-  //     "Provides protection 24 hours a day, 7 days a week and 365 days a year for family members.<br /><br />" +
-  //     "This comprehensive personal accident insurance includes additional assistance benefits aside from the " +
-  //     "standard accidental death and permanent disability benefits. ";
-
-  //   const p3 = new ProductList;
-  //   p3.description = 'personalAccident';
-  //   p3.productId = "33701";
-  //   p3.name = 'Individual Personal';
-
-  //   const p4 = new ProductList;
-  //   p4.description = 'personalFamilyAccident';
-  //   p4.productId = "33702";
-  //   p4.name = 'Personal Family';
-
-  //   l2.products = [p3, p4];
-  //   this.products.push(l2);
+  //   this.pService.getPartnerProducts(partner).subscribe(
+  //     (result: any) => {
+  //       const ret = result as Return;
+  //       if (ret.status) {
+  //         this.products = ret.obj as ProductLine[];
+  //       }
+  //     });
   // }
+
+  getPartnerProducts() {
+    const l1 = new ProductLine;
+    l1.name = "Car";
+    l1.badge = "fa-car";
+    l1.thumbnail = "car";
+    l1.issuanceType = "motorQuotationIssuance";
+    l1.description =
+      "Covers the contents such as improvements, furnishings, fixtures, personal effect. <br /> With this policy you’re covered against events such as: " +
+      "<br /> - fire, flood, typhoon, and earthquake damages" +
+      "<br /> - robbery and burglary <br /> - personal liability";
+
+    const p1 = new ProductList;
+    p1.description = 'motorComprehensive';
+    p1.productId = "10001";
+    p1.name = 'Comprehensive';
+
+    const p2 = new ProductList;
+    p2.description = 'motorCTPL';
+    p2.productId = "10002";
+    p2.name = 'CTPL';
+
+    l1.products = [p1, p2];
+    this.products.push(l1);
+
+    const l2 = new ProductLine;
+    l2.name = "Accident";
+    l2.badge = "fa-shield";
+    l2.thumbnail = "accident";
+    l2.issuanceType = "personalInformation";
+    l2.description =
+      "Provides protection 24 hours a day, 7 days a week and 365 days a year for family members.<br /><br />" +
+      "This comprehensive personal accident insurance includes additional assistance benefits aside from the " +
+      "standard accidental death and permanent disability benefits. ";
+
+    const p3 = new ProductList;
+    p3.description = 'personalAccident';
+    p3.productId = "33701";
+    p3.name = 'Individual Personal';
+
+    const p4 = new ProductList;
+    p4.description = 'personalFamilyAccident';
+    p4.productId = "33702";
+    p4.name = 'Personal Family';
+
+    l2.products = [p3, p4];
+    this.products.push(l2);
+
+    console.log(this.products);
+  }
 
   loadPolicy(issue, type, numPoliza) {
     type = "";
