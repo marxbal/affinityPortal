@@ -11,7 +11,12 @@ body {
   font-family: 'Numans', sans-serif;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   margin-top: 20px !important;
   margin-bottom: .5rem;
 }
@@ -194,7 +199,7 @@ li.nav-item a.nav-link.link:hover {
 }
 
 .nav {
-  box-shadow: 0 0.5px 5px 0.1px #3d3d3d;
+  /* box-shadow: 0 0.5px 5px 0.1px #3d3d3d; */
   padding: 20px 0;
 }
 
@@ -346,7 +351,8 @@ a.article:hover {
   padding: 0.75rem;
 }
 
-.table td, .table th {
+.table td,
+.table th {
   padding: 5px 10px !important;
 }
 
@@ -543,48 +549,449 @@ form .form-group.input-error .multiselect-dropdown {
 }
 
 /* ---------------------------------------------------
-    PARTNER  - MERCER
+    PARTNER THEME - PURPLE
 ----------------------------------------------------- */
-.mercer .header-border {
-  background-color: #243472;
+.theme-purple .nav {
+  border-top: 5px solid #243472;
 }
 
-.mercer .footer-bottom {
-  background-color: #243472;
-}
-.mercer .btn-primary, .mercer .btn-mapfre {
+.theme-purple .footer-bottom,
+.theme-purple .btn-outline-primary:hover,
+.theme-purple .btn-primary,
+.theme-purple .btn-mapfre {
   background-color: #243472 !important;
-  border-color: #161f45 !important;
 }
 
-.mercer .btn-primary:hover, .mercer .btn-mapfre:hover {
+.theme-purple .btn-primary:hover,
+.theme-purple .btn-mapfre:hover,
+.theme-purple .card-title {
   color: #243472 !important;
-  background-color: #f6f6f6 !important;
+}
+
+.theme-purple .btn-primary,
+.theme-purple .btn-mapfre,
+.theme-purple .btn-primary:hover,
+.theme-purple .btn-mapfre:hover,
+.theme-purple .btn-outline-primary,
+.theme-purple .btn-outline-primary:hover {
   border-color: #161f45 !important;
 }
 
-.mercer .btn-outline-primary {
-  border-color: #161f45 !important;
+.theme-purple .btn-outline-primary {
   color: #161f45 !important;
 }
 
-.mercer .btn-outline-primary:hover {
-  color: #d5d5d5 !important;
-  border-color: #161f45 !important;
-  background-color: #243472 !important;
+.theme-purple .btn-primary:hover,
+.theme-purple .btn-mapfre:hover {
+  background-color: #f6f6f6 !important;
 }
 
-.mercer .card-title {
-  font-family: verdana;
-  color: #243472 !important;
+.theme-purple .btn-outline-primary:hover {
+  color: #d5d5d5 !important;
 }
+
+/* ---------------------------------------------------
+    PARTNER THEME - BLUE
+----------------------------------------------------- */
+.theme-blue .nav {
+  border-top: 5px solid #3085d6;
+}
+
+.theme-blue .header-border,
+.theme-blue .footer-bottom,
+.theme-blue .btn-outline-primary:hover,
+.theme-blue .btn-primary,
+.theme-blue .btn-mapfre {
+  background-color: #3085d6 !important;
+}
+
+.theme-blue .btn-primary:hover,
+.theme-blue .btn-mapfre:hover,
+.theme-blue .card-title {
+  color: #3085d6 !important;
+}
+
+.theme-blue .btn-primary,
+.theme-blue .btn-mapfre,
+.theme-blue .btn-primary:hover,
+.theme-blue .btn-mapfre:hover,
+.theme-blue .btn-outline-primary,
+.theme-blue .btn-outline-primary:hover {
+  border-color: #1d60a0 !important;
+}
+
+.theme-blue .btn-outline-primary {
+  color: #1d60a0 !important;
+}
+
+.theme-blue .btn-primary:hover,
+.theme-blue .btn-mapfre:hover {
+  background-color: #f6f6f6 !important;
+}
+
+.theme-blue .btn-outline-primary:hover {
+  color: #d5d5d5 !important;
+}
+
+/* ---------------------------------------------------
+    PARTNER THEME - BLACK
+----------------------------------------------------- */
+.theme-black .nav {
+  border-top: 5px solid #1e2023;
+}
+
+.theme-black .header-border,
+.theme-black .footer-bottom,
+.theme-black .btn-outline-primary:hover,
+.theme-black .btn-primary,
+.theme-black .btn-mapfre {
+  background-color: #1e2023 !important;
+}
+
+.theme-black .btn-primary:hover,
+.theme-black .btn-mapfre:hover,
+.theme-black .card-title {
+  color: #1e2023 !important;
+}
+
+.theme-black .btn-primary,
+.theme-black .btn-mapfre,
+.theme-black .btn-primary:hover,
+.theme-black .btn-mapfre:hover,
+.theme-black .btn-outline-primary,
+.theme-black .btn-outline-primary:hover {
+  border-color: #2e3439 !important;
+}
+
+.theme-black .btn-outline-primary {
+  color: #2e3439 !important;
+}
+
+.theme-black .btn-primary:hover,
+.theme-black .btn-mapfre:hover {
+  background-color: #f6f6f6 !important;
+}
+
+.theme-black .btn-outline-primary:hover {
+  color: #d5d5d5 !important;
+}
+
+/* ---------------------------------------------------
+    PARTNER THEME - GREEN
+----------------------------------------------------- */
+.theme-green .nav {
+  border-top: 5px solid #469c47;
+}
+
+.theme-green .header-border,
+.theme-green .footer-bottom,
+.theme-green .btn-outline-primary:hover,
+.theme-green .btn-primary,
+.theme-green .btn-mapfre {
+  background-color: #469c47 !important;
+}
+
+.theme-green .btn-primary:hover,
+.theme-green .btn-mapfre:hover,
+.theme-green .card-title {
+  color: #469c47 !important;
+}
+
+.theme-green .btn-primary,
+.theme-green .btn-mapfre,
+.theme-green .btn-primary:hover,
+.theme-green .btn-mapfre:hover,
+.theme-green .btn-outline-primary,
+.theme-green .btn-outline-primary:hover {
+  border-color: #224e23 !important;
+}
+
+.theme-green .btn-outline-primary {
+  color: #224e23 !important;
+}
+
+.theme-green .btn-primary:hover,
+.theme-green .btn-mapfre:hover {
+  background-color: #f6f6f6 !important;
+}
+
+.theme-green .btn-outline-primary:hover {
+  color: #d5d5d5 !important;
+}
+
+/* ---------------------------------------------------
+    PARTNER THEME - YELLOW
+----------------------------------------------------- */
+.theme-yellow .nav {
+  border-top: 5px solid #dcdc3f;
+}
+
+.theme-yellow .header-border,
+.theme-yellow .footer-bottom,
+.theme-yellow .btn-outline-primary:hover,
+.theme-yellow .btn-primary,
+.theme-yellow .btn-mapfre {
+  background-color: #dcdc3f !important;
+}
+
+.theme-yellow .btn-primary:hover,
+.theme-yellow .btn-mapfre:hover,
+.theme-yellow .card-title {
+  color: #dcdc3f !important;
+}
+
+.theme-yellow .btn-primary,
+.theme-yellow .btn-mapfre,
+.theme-yellow .btn-primary:hover,
+.theme-yellow .btn-mapfre:hover,
+.theme-yellow .btn-outline-primary,
+.theme-yellow .btn-outline-primary:hover {
+  border-color: #958e10 !important;
+}
+
+.theme-yellow .btn-outline-primary {
+  color: #958e10 !important;
+}
+
+.theme-yellow .btn-primary:hover,
+.theme-yellow .btn-mapfre:hover {
+  background-color: #f6f6f6 !important;
+}
+
+.theme-yellow .btn-outline-primary:hover {
+  color: #d5d5d5 !important;
+}
+
+.theme-yellow .btn-primary,
+.theme-yellow ul.footer-links li a  {
+  color: rgb(37, 33, 33) !important;
+}
+
+/* ---------------------------------------------------
+    PARTNER THEME - YELLOW GREEN
+----------------------------------------------------- */
+.theme-yellowgreen .nav {
+  border-top: 5px solid #b0dc3f;
+}
+
+.theme-yellowgreen .header-border,
+.theme-yellowgreen .footer-bottom,
+.theme-yellowgreen .btn-outline-primary:hover,
+.theme-yellowgreen .btn-primary,
+.theme-yellowgreen .btn-mapfre {
+  background-color: #b0dc3f !important;
+}
+
+.theme-yellowgreen .btn-primary:hover,
+.theme-yellowgreen .btn-mapfre:hover,
+.theme-yellowgreen .card-title {
+  color: #b0dc3f !important;
+}
+
+.theme-yellowgreen .btn-primary,
+.theme-yellowgreen .btn-mapfre,
+.theme-yellowgreen .btn-primary:hover,
+.theme-yellowgreen .btn-mapfre:hover,
+.theme-yellowgreen .btn-outline-primary,
+.theme-yellowgreen .btn-outline-primary:hover {
+  border-color: #559510 !important;
+}
+
+.theme-yellowgreen .btn-outline-primary {
+  color: #559510 !important;
+}
+
+.theme-yellowgreen .btn-primary:hover,
+.theme-yellowgreen .btn-mapfre:hover {
+  background-color: #f6f6f6 !important;
+}
+
+.theme-yellowgreen .btn-outline-primary:hover {
+  color: #d5d5d5 !important;
+}
+
+.theme-yellowgreen .btn-primary,
+.theme-yellowgreen ul.footer-links li a  {
+  color: rgb(37, 33, 33) !important;
+}
+
+/* ---------------------------------------------------
+    PARTNER THEME - ORANGE
+----------------------------------------------------- */
+.theme-orange .nav {
+  border-top: 5px solid #dc883f;
+}
+
+.theme-orange .header-border,
+.theme-orange .footer-bottom,
+.theme-orange .btn-outline-primary:hover,
+.theme-orange .btn-primary,
+.theme-orange .btn-mapfre {
+  background-color: #dc883f !important;
+}
+
+.theme-orange .btn-primary:hover,
+.theme-orange .btn-mapfre:hover,
+.theme-orange .card-title {
+  color: #dc883f !important;
+}
+
+.theme-orange .btn-primary,
+.theme-orange .btn-mapfre,
+.theme-orange .btn-primary:hover,
+.theme-orange .btn-mapfre:hover,
+.theme-orange .btn-outline-primary,
+.theme-orange .btn-outline-primary:hover {
+  border-color: #956910 !important;
+}
+
+.theme-orange .btn-outline-primary {
+  color: #956910 !important;
+}
+
+.theme-orange .btn-primary:hover,
+.theme-orange .btn-mapfre:hover {
+  background-color: #f6f6f6 !important;
+}
+
+.theme-orange .btn-outline-primary:hover {
+  color: #d5d5d5 !important;
+}
+
+/* ---------------------------------------------------
+    PARTNER THEME - GRAY
+----------------------------------------------------- */
+.theme-gray .nav {
+  border-top: 5px solid #7d7772;
+}
+
+.theme-gray .header-border,
+.theme-gray .footer-bottom,
+.theme-gray .btn-outline-primary:hover,
+.theme-gray .btn-primary,
+.theme-gray .btn-mapfre {
+  background-color: #7d7772 !important;
+}
+
+.theme-gray .btn-primary:hover,
+.theme-gray .btn-mapfre:hover,
+.theme-gray .card-title {
+  color: #7d7772 !important;
+}
+
+.theme-gray .btn-primary,
+.theme-gray .btn-mapfre,
+.theme-gray .btn-primary:hover,
+.theme-gray .btn-mapfre:hover,
+.theme-gray .btn-outline-primary,
+.theme-gray .btn-outline-primary:hover {
+  border-color: #1b1a19 !important;
+}
+
+.theme-gray .btn-outline-primary {
+  color: #1b1a19 !important;
+}
+
+.theme-gray .btn-primary:hover,
+.theme-gray .btn-mapfre:hover {
+  background-color: #f6f6f6 !important;
+}
+
+.theme-gray .btn-outline-primary:hover {
+  color: #d5d5d5 !important;
+}
+
+/* ---------------------------------------------------
+    PARTNER THEME - PINK
+----------------------------------------------------- */
+.theme-pink .nav {
+  border-top: 5px solid #f991eb;
+}
+
+.theme-pink .header-border,
+.theme-pink .footer-bottom,
+.theme-pink .btn-outline-primary:hover,
+.theme-pink .btn-primary,
+.theme-pink .btn-mapfre {
+  background-color: #f991eb !important;
+}
+
+.theme-pink .btn-primary:hover,
+.theme-pink .btn-mapfre:hover,
+.theme-pink .card-title {
+  color: #f991eb !important;
+}
+
+.theme-pink .btn-primary,
+.theme-pink .btn-mapfre,
+.theme-pink .btn-primary:hover,
+.theme-pink .btn-mapfre:hover,
+.theme-pink .btn-outline-primary,
+.theme-pink .btn-outline-primary:hover {
+  border-color: #98309a !important;
+}
+
+.theme-pink .btn-outline-primary {
+  color: #98309a !important;
+}
+
+.theme-pink .btn-primary:hover,
+.theme-pink .btn-mapfre:hover {
+  background-color: #f6f6f6 !important;
+}
+
+.theme-pink .btn-outline-primary:hover {
+  color: #d5d5d5 !important;
+}
+
+/* ---------------------------------------------------
+    PARTNER THEME - BROWN
+----------------------------------------------------- */
+.theme-brown .nav {
+  border-top: 5px solid #60462f;
+}
+
+.theme-brown .header-border,
+.theme-brown .footer-bottom,
+.theme-brown .btn-outline-primary:hover,
+.theme-brown .btn-primary,
+.theme-brown .btn-mapfre {
+  background-color: #60462f !important;
+}
+
+.theme-brown .btn-primary:hover,
+.theme-brown .btn-mapfre:hover,
+.theme-brown .card-title {
+  color: #60462f !important;
+}
+
+.theme-brown .btn-primary,
+.theme-brown .btn-mapfre,
+.theme-brown .btn-primary:hover,
+.theme-brown .btn-mapfre:hover,
+.theme-brown .btn-outline-primary,
+.theme-brown .btn-outline-primary:hover {
+  border-color: #402e1e !important;
+}
+
+.theme-brown .btn-outline-primary {
+  color: #402e1e !important;
+}
+
+.theme-brown .btn-primary:hover,
+.theme-brown .btn-mapfre:hover {
+  background-color: #f6f6f6 !important;
+}
+
+.theme-brown .btn-outline-primary:hover {
+  color: #d5d5d5 !important;
+}
+
 /* ---------------------------------------------------
     MEDIAQUERIES
 ----------------------------------------------------- */
 
 @media (max-width: 768px) {
-  #sidebar {}
-
   #sidebar.active {
     width: 250px;
   }

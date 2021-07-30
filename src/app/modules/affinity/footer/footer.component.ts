@@ -21,12 +21,24 @@ export class FooterComponent implements OnInit {
     private auth: AuthenticationService) {}
 
   partnerPath: string = "";
+  partnerImg: string = "";
+  brokenUrl: boolean = false;
 
   ngOnInit() {
     const partner = this.auth.getPartner() as Partner;
     if (!_.isEmpty(partner)) {
       this.partnerPath = _.toLower(partner.partnerName);
+      this.partnerImg = "assets/images/partners/" + this.partnerPath + "/logo.png";
     }
+  }
+
+  onErrorFunction() {
+    this.brokenUrl = true;
+    this.getImageUrl();
+  }
+
+  private getImageUrl() {
+    return this.brokenUrl ? "assets/images/default-partner.png" : "assets/images/partners/" + this.partnerPath + "/logo.png";
   }
 
 }

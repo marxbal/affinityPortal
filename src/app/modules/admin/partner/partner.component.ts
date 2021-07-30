@@ -37,6 +37,18 @@ export class PartnerComponent implements OnInit {
 
   partnerForm: FormGroup;
   partner: Partner = new Partner();
+  themeList = [
+    "blue",
+    "black",
+    "green",
+    "yellow",
+    "yellowGreen",
+    "orange",
+    "purple",
+    "gray",
+    "pink",
+    "brown"
+  ]
 
   ngOnInit() {
     this.createForm();
@@ -55,16 +67,9 @@ export class PartnerComponent implements OnInit {
       partnerCode: ["", null],
       partnerName: ["", Validators.required],
       domain: ["", Validators.required],
+      themeCode: ["", null]
     });
   }
-
-  // setPartnerDetails(partnerCode: string) {
-  //   const partner = this.getPartnerDetails(partnerCode);
-
-  //   this.partnerForm.get("partnerCode").setValue(partner.partnerCode);
-  //   this.partnerForm.get("partnerName").setValue(partner.partnerName);
-  //   this.partnerForm.get("domain").setValue(partner.domain);
-  // }
 
   setPartnerDetails(partnerCode: string) {
     this.partner.partnerCode = partnerCode;
@@ -77,16 +82,9 @@ export class PartnerComponent implements OnInit {
           this.partnerForm.get("partnerCode").setValue(this.partner.partnerCode);
           this.partnerForm.get("partnerName").setValue(this.partner.partnerName);
           this.partnerForm.get("domain").setValue(this.partner.domain);
+          this.partnerForm.get("themeCode").setValue(this.partner.themeCode);
         }
       });
-
-    // this.partner = {
-    //   partnerCode: partnerCode,
-    //   partnerName: "FOPM",
-    //   agentCode: 1,
-    //   domain: "test",
-    //   products: []
-    // };
 
     return this.partner;
   }

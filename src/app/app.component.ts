@@ -21,7 +21,7 @@ import {
 })
 export class AppComponent implements OnInit {
 
-  partnerName: string = "";
+  themeCode: string = "";
 
   constructor(
     public router: Router,
@@ -30,8 +30,8 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     const partner = this.auth.getPartner() as Partner;
-    if (!_.isEmpty(partner)) {
-      this.partnerName = _.toLower(partner.partnerName);
+    if (!_.isEmpty(partner) && !_.isEmpty(partner.themeCode)) {
+      this.themeCode = "theme-" + _.toLower(partner.themeCode);
     }
   }
 }

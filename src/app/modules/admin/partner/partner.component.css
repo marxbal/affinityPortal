@@ -5,3 +5,7 @@
 .card {
   padding: 20px;
 }
+
+#themeCode {
+  text-transform: uppercase;
+}

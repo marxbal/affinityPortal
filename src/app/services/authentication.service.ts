@@ -133,7 +133,7 @@ export class AuthenticationService {
   setProduct(details: Product[]) {
     if (details != null) {
       localStorage.setItem(PRODUCT, JSON.stringify(details));
-      details = JSON.parse(localStorage.getItem(PRODUCT) || "{}");
+      details = JSON.parse(localStorage.getItem(PRODUCT) || "[]");
     } else {
       localStorage.removeItem(PRODUCT);
     }

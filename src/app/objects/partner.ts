@@ -4,6 +4,7 @@ export class Partner {
   agentCode: number;
   partnerName: string;
   domain: string;
+  themeCode: string;
   products: number[];
 
   constructor(init ? : Partial < Partner > ) {

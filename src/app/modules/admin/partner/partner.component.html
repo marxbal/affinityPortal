@@ -44,6 +44,18 @@
                       </div>
                     </div>
                   </div>
+                  <div class="col-md-4">
+                    <div class="form-group row">
+                      <div class="col-md-12">
+                        <label for="partnerCode">THEME</label>
+                        <select class="form-control required " formControlName="themeCode" id="themeCode">
+                          <option></option>
+                          <option *ngFor="let theme of themeList" value="{{theme}}">
+                            {{theme}}</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 <!-- .row -->
 
