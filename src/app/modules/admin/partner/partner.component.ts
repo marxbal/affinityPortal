@@ -73,7 +73,7 @@ export class PartnerComponent implements OnInit {
 
   setPartnerDetails(partnerCode: string) {
     this.partner.partnerCode = partnerCode;
-    this.pService.getPartnerDetailsByPartnerCode(this.partner).subscribe(
+    this.pService.getPartnerDetails(this.partner).subscribe(
       (result: any) => {
         const ret = result as Return;
         if (ret.status) {

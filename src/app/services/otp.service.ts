@@ -129,7 +129,11 @@ export class OTPService {
           this.auth.setLandingPage("issuance");
         }
         
-        this.pService.getPartnerDetails(userDetails).subscribe(
+        const partner = new Partner();
+        const domain = email.split("@")[1];
+
+        partner.domain = domain;
+        this.pService.getPartnerDetails(partner).subscribe(
           (result: any) => {
             const ret = result as Return;
             if (ret.status) {
