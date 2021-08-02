@@ -63,9 +63,6 @@ import {
 } from 'ngx-spinner';
 import Swal from 'sweetalert2';
 import * as _ from 'lodash';
-import {
-  Contract
-} from 'src/app/objects/contract';
 
 @Component({
   selector: 'app-risk-household',
@@ -82,7 +79,6 @@ export class RiskHouseholdComponent implements OnInit {
     private router: Router) {}
 
   @Input() affinity: Affinity;
-  @Input() contract: Contract;
   @Output() nextStep = new EventEmitter();
   @Output() affinityOutput2 = new EventEmitter();
 
@@ -392,7 +388,7 @@ export class RiskHouseholdComponent implements OnInit {
 
       this.a2000260 = this.common.assignA2000260(this.affinity);
       this.p2000025 = this.common.assignP2000025(this.affinity);
-      this.p2000030 = this.common.assignP2000030(this.affinity, this.contract);
+      this.p2000030 = this.common.assignP2000030(this.affinity);
       this.p2000031 = this.common.assignP2000031(this.affinity, this.p2000030);
       this.p2000020 = this.common.assignP2000020(this.affinity);
       this.p2000040 = this.common.assignP2000040(this.affinity);

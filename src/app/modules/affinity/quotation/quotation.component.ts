@@ -47,9 +47,6 @@ import Swal from 'sweetalert2';
 import {
   NgxSpinnerService
 } from 'ngx-spinner';
-import {
-  Contract
-} from 'src/app/objects/contract';
 
 @Component({
   selector: 'app-quotation',
@@ -65,7 +62,6 @@ export class QuotationComponent implements OnInit {
     private router: Router) {}
 
   @Input() affinity: Affinity;
-  @Input() contract: Contract;
   @Input() line: String;
   @Output() nextStep = new EventEmitter();
 
@@ -109,7 +105,6 @@ export class QuotationComponent implements OnInit {
 
         this.affinity.lov.bodilyInjuryLOV.splice(-1, 1);
         this.affinity.lov.bodilyInjuryLOV.splice(-1, 1);
-
       });
 
     this.caller.doCallService("/afnty/getCoverageLimits?codRamo=100&codCob=1005", null).subscribe(
@@ -188,7 +183,6 @@ export class QuotationComponent implements OnInit {
                 text: "We are unable to process your request."
               });
             }
-
           });
       }
     });
@@ -231,7 +225,7 @@ export class QuotationComponent implements OnInit {
       this.affinity.motorDetails.reCompute = "1";
 
       this.spinner.show();
-      this.p2000030 = this.common.assignP2000030(this.affinity, this.contract);
+      this.p2000030 = this.common.assignP2000030(this.affinity);
       this.p2000031 = this.common.assignP2000031(this.affinity, this.p2000030);
       this.p1001331 = this.common.assignP1001331(this.affinity);
       this.p1001331List.push(this.common.assignP1001331(this.affinity));
@@ -279,7 +273,7 @@ export class QuotationComponent implements OnInit {
         "p2100610List": this.p2100610,
         "p2000025List": this.p2000025
       };
-      
+
       this.caller.doCallService('/afnty/issueQuote', param).subscribe(
         result => {
           switch (result.status) {
@@ -337,5 +331,4 @@ export class QuotationComponent implements OnInit {
       this.nextStep.emit(this.buyNowStep);
     }
   }
-
 }

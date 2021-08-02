@@ -38,17 +38,8 @@ import {
   EMAIL
 } from 'src/app/constants/local.storage';
 import {
-  Contract
-} from 'src/app/objects/contract';
-import {
   PartnerService
 } from 'src/app/services/partner.service';
-import {
-  Product
-} from 'src/app/objects/product';
-import {
-  Return
-} from 'src/app/objects/return';
 
 @Component({
   selector: 'app-issuance',
@@ -72,7 +63,6 @@ export class IssuanceComponent implements OnInit {
   line: String;
   backButton: String;
   affinity: Affinity;
-  contract: Contract;
 
   coverageList: Coverages[] = [];
   coverage: Coverages = new Coverages();
@@ -297,11 +287,6 @@ export class IssuanceComponent implements OnInit {
     return new Promise((resolve) => setTimeout(resolve, time));
   }
 
-  // applyProduct(product: string, description: String) {
-  //   this.product = product;
-  //   this.description = description;
-  // }
-
   assignP2161ToAccessory(p21006100) {
     for (let i = 0; i < p21006100.length; i++) {
       let temp: MotorAccessories = new MotorAccessories();
@@ -324,17 +309,6 @@ export class IssuanceComponent implements OnInit {
   productDetails(param: any) {
     this.product = param.product;
     this.description = param.description;
-    this.getContract(param.product);
-  }
-
-  getContract(product: Product) {
-    this.pService.getProductContract(product).subscribe(
-      (result: any) => {
-        const ret = result as Return;
-        if (ret.status) {
-          this.contract = ret.obj as Contract;
-        }
-      });
   }
 
   nextStepAction(nextStep) {
@@ -389,113 +363,4 @@ export class IssuanceComponent implements OnInit {
       }
     }, 16);
   }
-
-  // getLabel(id, anyList, cod, nom){
-  //   let holder = "";
-  //   for(let i = 0; i < anyList.length; i++){
-  //     if(id == anyList[i][cod]){
-  //       holder = anyList[i][nom];
-  //       break;
-  //     }
-  //   }
-
-  //   return holder;
-  // }
-
-  // loadAllLOV(motorTypeId, manufacturerId, modelId, vehicleTypeId,modelYear,subModelId,colorId,vehicleUsedId,p2100610List){
-
-  //   this.commonService.chooseType(
-  //     motorTypeId
-  //   ).subscribe(
-  //   (result) => {
-  //     this.affinity.lov.makeLOV = result;
-  //     this.affinity.motorDetails.manufacturer = this.getLabel(manufacturerId,result,'COD_MARCA','NOM_MARCA');
-  //     this.affinity.motorDetails.manufacturerIdHolder = manufacturerId + '-' + this.affinity.motorDetails.manufacturer;
-  //   });
-
-  //   this.commonService.chooseMake(
-  //     motorTypeId,
-  //     manufacturerId
-  //   ).subscribe( 
-  //   (result) => {
-  //     this.affinity.lov.modelLOV = result;
-  //     this.affinity.motorDetails.model = this.getLabel(modelId,result,'COD_MODELO','NOM_MODELO');
-  //     this.affinity.motorDetails.modelIdHolder = modelId + '-' + this.affinity.motorDetails.model;
-  //   });
-
-  //   this.commonService.chooseModel(
-  //     manufacturerId,
-  //     modelId
-  //   ).subscribe( 
-  //   (result) => {
-  //     this.affinity.lov.variantLOV = result;
-  //     this.affinity.motorDetails.vehicleType = this.getLabel(vehicleTypeId,result,'COD_TIP_VEHI','NOM_TIP_VEHI');
-  //     this.affinity.motorDetails.vehicleTypeIdHolder = vehicleTypeId + '-' + this.affinity.motorDetails.vehicleType;
-  //   });
-
-  //   this.commonService.chooseVariant(
-  //     manufacturerId,
-  //     modelId,
-  //     vehicleTypeId
-  //   ).subscribe( 
-  //   (result) => {
-  //     this.affinity.lov.yearList = result;
-  //   });
-
-  //   this.affinity.motorDetails.subline = this.commonService.selectSubline(vehicleTypeId).split("-")[1];
-  //   this.affinity.motorDetails.validityDate = this.commonService.selectSubline(vehicleTypeId).split("-")[0];
-
-  //   this.commonService.loadAccessories(
-  //     vehicleTypeId,
-  //     this.affinity.motorDetails.validityDate
-  //   ).subscribe( 
-  //   (result) => {
-  //     this.affinity.lov.accessoryLOV = result
-  //   });   
-
-  //   this.commonService.chooseModelYear(
-  //     manufacturerId,
-  //     modelId,
-  //     vehicleTypeId,
-  //     modelYear
-  //   ).subscribe( 
-  //   (result) => {
-  //     this.affinity.lov.subModelLOV = result;
-  //     this.affinity.motorDetails.subModel = this.getLabel(subModelId,result,'COD_SUB_MODELO','NOM_SUB_MODELO');
-  //     this.affinity.motorDetails.subModelIdHolder = subModelId + '-' + this.affinity.motorDetails.subModel;
-  //   });   
-
-  //   this.commonService.chooseSubModel(
-  //     motorTypeId,
-  //     manufacturerId,
-  //     modelId,
-  //     vehicleTypeId,
-  //     modelYear
-  //   ).subscribe( 
-  //   (result) => {
-  //     this.affinity.lov.typeOfUseLOV = result;
-  //     this.affinity.motorDetails.vehicleUsed = this.getLabel(vehicleUsedId,result,'COD_USO_VEHI','NOM_USO_VEHI');
-  //     this.affinity.motorDetails.vehicleUsedIdHolder = vehicleUsedId + '-' + this.affinity.motorDetails.vehicleUsed;
-  //   });    
-
-  //   this.commonService.loadFMV(
-  //     manufacturerId,
-  //     modelId,
-  //     subModelId,
-  //     modelYear
-  //   ).subscribe( 
-  //   (resultFMV) => { 
-  //     this.affinity.motorDetails.FMV = resultFMV;
-  //   });
-
-  //   this.caller.getLOV("A2100800","1",'').subscribe(
-  //     result => {
-  //       this.affinity.lov.colorLOV = result;
-  //       this.affinity.motorDetails.color = this.getLabel(colorId,result,'COD_COLOR','NOM_COLOR');
-  //       this.affinity.motorDetails.colorIdHolder = colorId + '-' + this.affinity.motorDetails.color;
-  //   });
-
-
-  // }
-
 }

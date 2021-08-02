@@ -57,9 +57,6 @@ import {
   NgxSpinnerService
 } from 'ngx-spinner';
 import * as _ from 'lodash';
-import {
-  Contract
-} from 'src/app/objects/contract';
 
 @Component({
   selector: 'app-personal',
@@ -73,11 +70,9 @@ export class PersonalComponent implements OnInit {
     private checker: IsRequired,
     private common: CommonService,
     private spinner: NgxSpinnerService,
-    // private paSvc: PersonalAccidentIssuanceService
   ) {}
 
   @Input() affinity: Affinity;
-  @Input() contract: Contract;
   @Input() backButton: String;
   @Output() nextStep = new EventEmitter();
   @Output() affinityOutput = new EventEmitter();
@@ -338,7 +333,6 @@ export class PersonalComponent implements OnInit {
       cancelButtonColor: '#d33',
       confirmButtonText: 'Proceed'
     }).then((result) => {
-
       if (!result.value) {
         return null;
       }
@@ -348,7 +342,7 @@ export class PersonalComponent implements OnInit {
       this.affinity.propertyDetails.EVFurnishing = (this.affinity.propertyDetails.EVFurnishing).toString().replace(/\,/g, '');
       this.affinity.propertyDetails.EVImprovements = (this.affinity.propertyDetails.EVImprovements).toString().replace(/\,/g, '');
 
-      this.p2000030 = this.common.assignP2000030(this.affinity, this.contract);
+      this.p2000030 = this.common.assignP2000030(this.affinity);
       this.p2000031 = this.common.assignP2000031(this.affinity, this.p2000030);
       this.p1001331 = this.common.assignP1001331(this.affinity);
       this.p1001331List.push(this.common.assignP1001331(this.affinity));
@@ -397,10 +391,8 @@ export class PersonalComponent implements OnInit {
                 title: 'Quotation Issuance',
                 text: result.message
               });
-
               break;
             case 2:
-
               this.caller.doCallService('/afnty/getPaymentBreakdown?numPoliza=' + result.message + '&type=C', null).subscribe(
                 paymentBreakdown => {
                   this.affinity.premiumBreakdown = paymentBreakdown;
@@ -413,9 +405,7 @@ export class PersonalComponent implements OnInit {
                   } else {
                     this.getCoverages(result.message, this.affinity, "techControl");
                   }
-
                 });
-
               break;
             default:
               this.affinity.quotationNumber = result.message;
@@ -428,9 +418,7 @@ export class PersonalComponent implements OnInit {
                 });
               break;
           }
-
         });
-
     });
   }
 
@@ -496,7 +484,7 @@ export class PersonalComponent implements OnInit {
         return null;
       }
 
-      this.p2000030 = this.common.assignP2000030(this.affinity, this.contract);
+      this.p2000030 = this.common.assignP2000030(this.affinity);
       this.p2000031List = this.common.assignP2000031PA(this.affinity, this.p2000030);
       this.p1001331 = this.common.assignP1001331(this.affinity);
       this.p1001331List.push(this.common.assignP1001331(this.affinity));
@@ -659,7 +647,7 @@ export class PersonalComponent implements OnInit {
         this.affinity.riskDetails.validID = "TIN";
       }
 
-      this.p2000030 = this.common.assignP2000030(this.affinity, this.contract);
+      this.p2000030 = this.common.assignP2000030(this.affinity);
       this.p2000031 = this.common.assignP2000031(this.affinity, this.p2000030);
       this.p1001331 = this.common.assignP1001331(this.affinity);
       this.p1001331List.push(this.common.assignP1001331(this.affinity));
@@ -707,7 +695,7 @@ export class PersonalComponent implements OnInit {
         "p2100610List": this.p2100610,
         "p2000025List": this.p2000025
       };
-      
+
       this.caller.doCallService('/afnty/issueQuote', param).subscribe(
         result => {
           switch (result.status) {
@@ -718,10 +706,8 @@ export class PersonalComponent implements OnInit {
                 title: 'Quotation Issuance',
                 text: result.message
               });
-
               break;
             case 2:
-
               this.caller.doCallService('/afnty/getPaymentBreakdown?numPoliza=' + result.message + '&type=C', null).subscribe(
                 paymentBreakdown => {
                   this.affinity.premiumBreakdown = paymentBreakdown;
@@ -734,9 +720,7 @@ export class PersonalComponent implements OnInit {
                   } else {
                     this.getCoverages(result.message, this.affinity, "techControl");
                   }
-
                 });
-
               break;
             default:
               this.affinity.quotationNumber = result.message;
@@ -749,7 +733,6 @@ export class PersonalComponent implements OnInit {
                 });
               break;
           }
-
         });
     });
   }
@@ -767,7 +750,6 @@ export class PersonalComponent implements OnInit {
           }
 
           for (let i = 0; i < result.length; i++) {
-
             switch (result[i].codCob) {
               case "1004":
                 affinity.motorDetails.bodilyInjuryLimit = result[i].sumaAseg;
@@ -795,17 +777,14 @@ export class PersonalComponent implements OnInit {
 
         if (affinity.lineId == '337') {
           for (let i = 0; i < result.length; i++) {
-
             if (result[i].numRiesgo == "1") {
               // result[i].sumaAseg = this.formatter.format(parseFloat(result[i].sumaAseg));
               result[i].totalPremium = ((result[i].totalPremium) ? this.formatter.format(parseFloat(result[i].totalPremium)) : "INCL");
               result[i].numSecu = parseInt(result[i].numSecu) + 0;
               affinity.coveragesValue.push(result[i]);
             }
-
           }
           affinity.paDetails.familyMembers = this.mapP2025Insured(this.p2000025, result);
-
         }
 
         if (affinity.lineId == '251') {
@@ -814,8 +793,6 @@ export class PersonalComponent implements OnInit {
           let total7386 = 0;
 
           for (let i = 0; i < result.length; i++) {
-
-
             switch (result[i].codCobRelacionada) {
               case "7105":
                 total7105 = total7105 + parseFloat((result[i].totalPremium ? result[i].totalPremium : 0));
@@ -827,7 +804,6 @@ export class PersonalComponent implements OnInit {
                 total7386 = total7386 + parseFloat((result[i].totalPremium ? result[i].totalPremium : 0));
                 break;
             }
-
           }
 
           for (let i = 0; i < result.length; i++) {
@@ -849,7 +825,6 @@ export class PersonalComponent implements OnInit {
             }
 
             result[i].totalPremium = ((result[i].totalPremium == "") ? "" : this.formatter.format(parseFloat((result[i].totalPremium) ? result[i].totalPremium : "0")));
-
           }
         }
 
@@ -922,9 +897,7 @@ export class PersonalComponent implements OnInit {
       }
 
       riskTemp.coveragesValue = _.orderBy(riskTemp.coveragesValue, 'codCob', 'desc');
-
       riskTemp.fullName = riskTemp.lastName + ", " + riskTemp.firstName + " " + (riskTemp.middleName ? riskTemp.middleName : "");
-
       temp.push(riskTemp);
     }
 

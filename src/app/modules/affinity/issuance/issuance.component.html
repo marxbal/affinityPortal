@@ -24,7 +24,6 @@
       (affinityOutput)="affinityOutput($event)"
       [backButton]="this.backButton"
       [affinity]="this.affinity"
-      [contract]="this.contract"
       [product]="this.product"
       [description]="this.description"></app-personal>
 
@@ -39,7 +38,6 @@
     <app-quotation
       *ngIf="this.templateRouter == 'issueQuotation'"
       [affinity]="this.affinity"
-      [contract]="this.contract"
       [line]="this.line"
       (nextStep)="nextStepAction($event)"></app-quotation>
 
@@ -54,7 +52,6 @@
       (nextStep)="nextStepAction($event)"
       (affinityOutput)="affinityOutput($event)"
       [affinity]="this.affinity"
-      [contract]="this.contract"
       [line]="this.line"></app-risk>
 
     <app-accident

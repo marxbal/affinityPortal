@@ -11,22 +11,19 @@
     *ngIf="this.line == 'motorQuotationIssuance'"
     (nextStep)="nextStepAction($event)"
     (affinityOutput)="affinityOutput2($event)"
-    [affinity]="this.affinity"
-    [contract]="this.contract">
+    [affinity]="this.affinity">
 </app-risk-motor>
 
 <app-risk-household
     *ngIf="this.line == 'householdQuotationIssuance'"
     (nextStep)="nextStepAction($event)"
     (affinityOutput)="affinityOutput2($event)"
-    [affinity]="this.affinity"
-    [contract]="this.contract">
+    [affinity]="this.affinity">
 </app-risk-household>
 
 <app-risk-accident
     *ngIf="this.line == 'personalInformation'"
     (nextStep)="nextStepAction($event)"
     (affinityOutput)="affinityOutput2($event)"
-    [affinity]="this.affinity"
-    [contract]="this.contract">
+    [affinity]="this.affinity">
 </app-risk-accident>

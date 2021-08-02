@@ -60,9 +60,6 @@ import {
   IsRequired
 } from '../../../guard/is-required';
 import * as _ from 'lodash';
-import {
-  Contract
-} from 'src/app/objects/contract';
 
 @Component({
   selector: 'app-risk-accident',
@@ -79,7 +76,6 @@ export class RiskAccidentComponent implements OnInit {
     private checker: IsRequired) {}
 
   @Input() affinity: Affinity;
-  @Input() contract: Contract;
   @Output() nextStep = new EventEmitter();
   @Output() affinityOutput2 = new EventEmitter();
 
@@ -136,7 +132,6 @@ export class RiskAccidentComponent implements OnInit {
           if (this.iOS()) {
             this.affinity.riskDetails.validID = this.affinity.lov.documentLOV[0].TIP_DOCUM;
           }
-
         }
       });
 
@@ -222,7 +217,6 @@ export class RiskAccidentComponent implements OnInit {
     let ret = true;
 
     if (this.affinity.lineId == "337") {
-
       // let currentYearDiff = (m().year() - parseInt(this.affinity.riskDetails.birthDate));
       let currentYearDiff = (m(new Date(this.affinity.motorDetails.policyPeriodFrom)).diff(new Date(this.affinity.riskDetails.birthDate), 'months', true)) / 12;
 
@@ -232,9 +226,7 @@ export class RiskAccidentComponent implements OnInit {
           title: 'Quotation Issuance',
           text: "Age of Principal Insured must be between Eighteen (18) and Seventy (70) Years Old."
         });
-
         ret = false;
-
       }
     }
 
@@ -428,7 +420,7 @@ export class RiskAccidentComponent implements OnInit {
       this.p1001331List.push(this.p1001331);
 
       this.p2000025 = this.common.assignP2000025(this.affinity);
-      this.p2000030 = this.common.assignP2000030(this.affinity, this.contract);
+      this.p2000030 = this.common.assignP2000030(this.affinity);
       this.p2000031List = this.common.assignP2000031PA(this.affinity, this.p2000030);
       this.p2000020 = this.common.assignP2000020(this.affinity);
       this.p2000040 = this.common.assignP2000040(this.affinity);

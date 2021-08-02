@@ -33,7 +33,7 @@ export class AuthenticationService {
   public userDetails = new BehaviorSubject < UserDetail > (JSON.parse(localStorage.getItem(USER) || "{}"));
   public initialLandingPage = new BehaviorSubject < string > (localStorage.getItem(LANDING_PAGE) || "login");
   public partner = new BehaviorSubject < Partner > (JSON.parse(localStorage.getItem(PARTNER) || "{}"));
-  public products = new BehaviorSubject < Product[] > (JSON.parse(localStorage.getItem(PRODUCTS) || "{}"));
+  public products = new BehaviorSubject < Array<Product> > (JSON.parse(localStorage.getItem(PRODUCTS) || "{}"));
 
   constructor(private router: Router) {}
 
@@ -130,7 +130,7 @@ export class AuthenticationService {
     return this.products.getValue();
   }
 
-  setProducts(list: Product[]) {
+  setProducts(list: Array<Product>) {
     if (list != null) {
       localStorage.setItem(PRODUCTS, JSON.stringify(list));
       list = JSON.parse(localStorage.getItem(PRODUCTS) || "[]");

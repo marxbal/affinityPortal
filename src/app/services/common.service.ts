@@ -45,7 +45,12 @@ import {
 import {
   BehaviorSubject
 } from 'rxjs/internal/BehaviorSubject';
-import { Contract } from '../objects/contract';
+import {
+  Contract
+} from '../objects/contract';
+import {
+  AuthenticationService
+} from './authentication.service';
 
 @Injectable({
   providedIn: 'root'
@@ -54,7 +59,8 @@ export class CommonService {
 
   constructor(
     private caller: AuthService,
-    private spinner: NgxSpinnerService) {}
+    private spinner: NgxSpinnerService,
+    private auth: AuthenticationService) {}
 
   chooseType(motorTypeId) {
     let ret: any = new BehaviorSubject < any > ([]);
@@ -1058,13 +1064,15 @@ export class CommonService {
   }
 
   //TODO
-  assignP2000030(affinity: Affinity, contract: Contract) {
+  assignP2000030(affinity: Affinity) {
     let p2030: P2000030 = new P2000030();
 
     // p2030.codAgt = 1069;
     // p2030.numPolizaGrupo = '119';
     // p2030.numContrato = 11900;
     // p2030.numSubcontrato = 11900;
+
+    const contract = this.getContractByLineId(affinity.lineId);
 
     p2030.codAgt = contract.agentCode;
     p2030.numPolizaGrupo = contract.groupPolicy.toString();
@@ -1142,6 +1150,23 @@ export class CommonService {
     // }
 
     return p2030;
+  }
+
+  getContractByLineId(lineId: string) {
+    const contract = new Contract();
+    const products = this.auth.getProducts();
+
+    products.forEach((p) => {
+      const subline = p.subline.toString();
+      if (subline == lineId) {
+        contract.agentCode = p.agentCode;
+        contract.groupPolicy = p.groupPolicy;
+        contract.contract = p.contract;
+        contract.subContract = p.subContract;
+      }
+    });
+
+    return contract;
   }
 
 }
