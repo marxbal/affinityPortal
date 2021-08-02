@@ -34,6 +34,7 @@ import {
 import {
   Coverages
 } from 'src/app/objects/coverages';
+import { Product } from 'src/app/objects/product';
 
 @Component({
   selector: 'app-landingpage',
@@ -97,10 +98,24 @@ export class LandingpageComponent implements OnInit {
       "1",
       'cod_partner~' + this.partner.partnerCode).subscribe(
       result => {
+        const productList : Product[] = [];
+
         if (result.length) {
           result.forEach((r) => {
-            this.availableProducts.push(r.COD_MODALIDAD);
+            const productId = r.COD_MODALIDAD;
+            this.availableProducts.push(productId);
+            const p : Product = new Product();
+            p.productId = productId;
+            p.agentCode = r.COD_AGT;
+            p.subline = r.COD_RAMO;
+            p.groupPolicy = r.NUM_POLIZA_GRUPO;
+            p.contract = r.NUM_CONTRATO;
+            p.subContract = r.NUM_SUB_CONTRATO;
+
+            productList.push(p);
           });
+
+          this.authenticate.setProducts(productList);
 
           this.displayProducts();
         }

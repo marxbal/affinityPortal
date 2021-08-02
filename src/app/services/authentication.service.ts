@@ -10,7 +10,7 @@ import {
 import {
   LOGGED_IN,
   PARTNER,
-  PRODUCT,
+  PRODUCTS,
   USER,
   LANDING_PAGE
 } from '../constants/local.storage';
@@ -33,7 +33,7 @@ export class AuthenticationService {
   public userDetails = new BehaviorSubject < UserDetail > (JSON.parse(localStorage.getItem(USER) || "{}"));
   public initialLandingPage = new BehaviorSubject < string > (localStorage.getItem(LANDING_PAGE) || "login");
   public partner = new BehaviorSubject < Partner > (JSON.parse(localStorage.getItem(PARTNER) || "{}"));
-  public product = new BehaviorSubject < Product[] > (JSON.parse(localStorage.getItem(PRODUCT) || "{}"));
+  public products = new BehaviorSubject < Product[] > (JSON.parse(localStorage.getItem(PRODUCTS) || "{}"));
 
   constructor(private router: Router) {}
 
@@ -120,25 +120,25 @@ export class AuthenticationService {
     this.partner.next(details);
   }
 
-  // *** PRODUCT ***
+  // *** PRODUCTS ***
 
-  get Product() {
-    return this.product.asObservable();
+  get Products() {
+    return this.products.asObservable();
   }
 
-  getProduct() {
-    return this.product.getValue();
+  getProducts() {
+    return this.products.getValue();
   }
 
-  setProduct(details: Product[]) {
-    if (details != null) {
-      localStorage.setItem(PRODUCT, JSON.stringify(details));
-      details = JSON.parse(localStorage.getItem(PRODUCT) || "[]");
+  setProducts(list: Product[]) {
+    if (list != null) {
+      localStorage.setItem(PRODUCTS, JSON.stringify(list));
+      list = JSON.parse(localStorage.getItem(PRODUCTS) || "[]");
     } else {
-      localStorage.removeItem(PRODUCT);
+      localStorage.removeItem(PRODUCTS);
     }
 
-    this.product.next(details);
+    this.products.next(list);
   }
 
   // *** DATE FORMAT ***
