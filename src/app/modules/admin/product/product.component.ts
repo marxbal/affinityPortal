@@ -118,6 +118,7 @@ export class ProductComponent implements OnInit {
       partnerCode: ["", Validators.required],
       agentCode: ["", Validators.required],
       subline: ["", Validators.required],
+      line: ["", null],
       partnerName: ["", Validators.required],
       domain: ["", Validators.required],
       groupPolicy: ["", Validators.required],
@@ -183,6 +184,7 @@ export class ProductComponent implements OnInit {
 
     this.products.forEach((product) => {
       if (product.subline == subline) {
+        this.productForm.get("line").setValue(product.line);
         this.lineProducts.push(product);
 
         const isInactive = (-1 !== _.indexOf(products, product.id)) ? "N" : "S";

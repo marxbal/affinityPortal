@@ -166,6 +166,9 @@
                     <h5>Products</h5>
                     <div class="row">
                       <div class="col-md-4">
+
+                        <input type="text" class="form-control hide" formControlName="line" disabled>
+
                         <div class="form-group row">
                           <div class="col-md-12" formArrayName="products">
                             <div *ngFor="let product of lineProducts">

@@ -103,16 +103,20 @@ export class LandingpageComponent implements OnInit {
         if (result.length) {
           result.forEach((r) => {
             const productId = r.COD_MODALIDAD;
-            this.availableProducts.push(productId);
+            
             const p : Product = new Product();
             p.productId = productId;
             p.agentCode = r.COD_AGT;
             p.subline = r.COD_RAMO;
             p.groupPolicy = r.NUM_POLIZA_GRUPO;
             p.contract = r.NUM_CONTRATO;
-            p.subContract = r.NUM_SUB_CONTRATO;
+            p.subContract = r.NUM_SUBCONTRATO;
+            const active = r.MCA_INH === "N";
 
-            productList.push(p);
+            if (active) {
+              this.availableProducts.push(productId);
+              productList.push(p);
+            }
           });
 
           this.authenticate.setProducts(productList);
