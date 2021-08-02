@@ -1,4 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit
+} from '@angular/core';
+import {
+  Router
+} from '@angular/router';
+import {
+  environment
+} from 'src/environments/environment';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,9 +16,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
+  redirectUrl: string = environment.redirectUrl;
 
-  ngOnInit() {
+  constructor(private router: Router) {}
+
+  ngOnInit() {}
+
+  goTo(link: string) {
+    this.router.navigateByUrl(this.redirectUrl + "/" + link);
   }
 
 }

@@ -17,11 +17,14 @@ import {
 } from 'src/app/services/partner.service';
 import * as _ from 'lodash';
 import {
-  AddPartner
-} from 'src/app/objects/add-partner';
-import {
   AddProduct
 } from 'src/app/objects/add-product';
+import {
+  Router
+} from '@angular/router';
+import {
+  environment
+} from 'src/environments/environment';
 
 export interface Partners {
   partnerName: string;
@@ -34,6 +37,8 @@ export interface Partners {
   styleUrls: ['./product.component.css']
 })
 export class ProductComponent implements OnInit {
+
+  redirectUrl: string = environment.redirectUrl;
 
   products = [{
       name: 'Comprehensive',
@@ -98,7 +103,8 @@ export class ProductComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private auth: AuthService,
-    private pService: PartnerService) {}
+    private pService: PartnerService,
+    private router: Router) {}
 
   productForm: FormGroup;
 
@@ -282,6 +288,10 @@ export class ProductComponent implements OnInit {
   save() {
     const product = this.productForm.value as AddProduct;
     this.pService.insertProduct(product);
+  }
+
+  cancel() {
+    this.router.navigateByUrl(this.redirectUrl + "/product-list");
   }
 
 }

@@ -3,26 +3,30 @@ import {
   OnInit
 } from '@angular/core';
 import {
-  FormArray,
   FormBuilder,
   FormGroup,
   Validators
 } from '@angular/forms';
 import {
-  ActivatedRoute
+  ActivatedRoute,
+  Router
 } from '@angular/router';
 import {
   Partner
 } from 'src/app/objects/partner';
 import {
-  AuthService
-} from 'src/app/services/auth.service';
-import {
   PartnerService
 } from 'src/app/services/partner.service';
 import * as _ from 'lodash';
-import { AddPartner } from 'src/app/objects/add-partner';
-import { Return } from 'src/app/objects/return';
+import {
+  AddPartner
+} from 'src/app/objects/add-partner';
+import {
+  Return
+} from 'src/app/objects/return';
+import {
+  environment
+} from 'src/environments/environment';
 
 @Component({
   selector: 'app-partner',
@@ -30,10 +34,14 @@ import { Return } from 'src/app/objects/return';
   styleUrls: ['./partner.component.css']
 })
 export class PartnerComponent implements OnInit {
+
+  redirectUrl: string = environment.redirectUrl;
+
   constructor(
     private route: ActivatedRoute,
     private fb: FormBuilder,
-    private pService: PartnerService) {}
+    private pService: PartnerService,
+    private router: Router) {}
 
   partnerForm: FormGroup;
   partner: Partner = new Partner();
@@ -92,6 +100,10 @@ export class PartnerComponent implements OnInit {
   save() {
     const partner = this.partnerForm.value as AddPartner;
     this.pService.insertPartner(partner);
+  }
+
+  cancel() {
+    this.router.navigateByUrl(this.redirectUrl + "/partner-list");
   }
 
 }
