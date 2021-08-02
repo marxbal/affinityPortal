@@ -5,9 +5,6 @@ import {
   BehaviorSubject
 } from 'rxjs/internal/BehaviorSubject';
 import {
-  Router
-} from '@angular/router';
-import {
   LOGGED_IN,
   PARTNER,
   PRODUCTS,
@@ -31,15 +28,14 @@ export class AuthenticationService {
 
   public loggedIn = new BehaviorSubject < boolean > (localStorage.getItem(LOGGED_IN) == "true" || false);
   public userDetails = new BehaviorSubject < UserDetail > (JSON.parse(localStorage.getItem(USER) || "{}"));
-  public initialLandingPage = new BehaviorSubject < string > (localStorage.getItem(LANDING_PAGE) || "login");
+  public landingPage = new BehaviorSubject < string > (localStorage.getItem(LANDING_PAGE) || "login");
   public partner = new BehaviorSubject < Partner > (JSON.parse(localStorage.getItem(PARTNER) || "{}"));
-  public products = new BehaviorSubject < Array<Product> > (JSON.parse(localStorage.getItem(PRODUCTS) || "{}"));
+  public products = new BehaviorSubject < Array < Product > > (JSON.parse(localStorage.getItem(PRODUCTS) || "{}"));
 
-  constructor(private router: Router) {}
+  constructor() {}
 
   // *** LOGGED IN ***
-
-  get login() {
+  get LoggedIn() {
     return this.loggedIn.asObservable();
   }
 
@@ -58,7 +54,6 @@ export class AuthenticationService {
   }
 
   // *** USER DETAIL ***
-
   get userDetail() {
     return this.userDetails.asObservable();
   }
@@ -80,13 +75,12 @@ export class AuthenticationService {
   }
 
   // *** LANDING PAGE ***
-
-  get landingPage() {
-    return this.initialLandingPage.asObservable();
+  get LandingPage() {
+    return this.landingPage.asObservable();
   }
 
   getLandingPage() {
-    return this.initialLandingPage.getValue();
+    return this.landingPage.getValue();
   }
 
   setLandingPage(initialPage: string) {
@@ -96,11 +90,10 @@ export class AuthenticationService {
       localStorage.removeItem(LANDING_PAGE);
     }
 
-    this.initialLandingPage.next(localStorage.getItem(LANDING_PAGE));
+    this.landingPage.next(localStorage.getItem(LANDING_PAGE));
   }
 
   // *** PARTNER ***
-
   get Partner() {
     return this.partner.asObservable();
   }
@@ -121,7 +114,6 @@ export class AuthenticationService {
   }
 
   // *** PRODUCTS ***
-
   get Products() {
     return this.products.asObservable();
   }
@@ -130,7 +122,7 @@ export class AuthenticationService {
     return this.products.getValue();
   }
 
-  setProducts(list: Array<Product>) {
+  setProducts(list: Array < Product > ) {
     if (list != null) {
       localStorage.setItem(PRODUCTS, JSON.stringify(list));
       list = JSON.parse(localStorage.getItem(PRODUCTS) || "[]");
@@ -142,7 +134,6 @@ export class AuthenticationService {
   }
 
   // *** DATE FORMAT ***
-
   setDateFormat(datee: string) {
     localStorage.setItem("dateFormat", datee);
   }
@@ -152,12 +143,12 @@ export class AuthenticationService {
   }
 
   // *** CLEAR ALL AUTHENTICATION ***
-
   clearAuth() {
-    this.setUserDetails(null);
     this.setLogin(null);
+    this.setUserDetails(null);
     this.setLandingPage(null);
     this.setPartner(null);
+    this.setProducts(null);
     localStorage.clear();
   }
 }

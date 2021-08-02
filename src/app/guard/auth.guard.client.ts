@@ -55,7 +55,7 @@ export class AuthGuardClient implements CanActivate {
       }
     });
 
-    return this.authService.login
+    return this.authService.loggedIn
       .pipe(take(1))
       .pipe(map((isLoggedIn: boolean) => {
         if (!isLoggedIn) {
