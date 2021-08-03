@@ -69,12 +69,14 @@ export class MotorComponent implements OnInit {
 
   ngOnInit() {
     this.selectProduct(this.product, this.description);
+    this.getCarType();
 
     if (!this.affinity) {
       this.affinity = new Affinity();
     }
 
     this.accessory = new MotorAccessories();
+    
 
     this.spinner.show();
 
