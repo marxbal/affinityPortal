@@ -284,6 +284,17 @@ export class LandingpageComponent implements OnInit {
       (result: any) => {
         const ret = result as Return;
         if (ret.status) {
+          var mapForm = document.createElement("form");
+          mapForm.method = "POST"; // or "post" if appropriate
+          mapForm.action = ret.obj["url"];;
+          var mapInput = document.createElement("input");
+          mapInput.type = "hidden";
+          mapInput.name = "paymentRequest";
+          mapInput.setAttribute("value", ret.obj["value"];
+          mapForm.appendChild(mapInput);
+          document.body.appendChild(mapForm);
+          mapForm.submit();
+
           console.log(ret);
         } else {
           console.log(ret);
