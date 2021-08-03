@@ -53,7 +53,7 @@ export class MotorComponent implements OnInit {
   @Input() product: string;
   @Input() description: String;
 
-  carType: [{}] = [{}];
+  carType: Array<{}> = [];
 
   accessory: MotorAccessories;
   coverageList: Coverages[] = [];
