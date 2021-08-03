@@ -43,19 +43,6 @@ export class PartnerService {
     private spinner: NgxSpinnerService,
     private app: AppService) {}
 
-  getProductContract(product: Product) {
-    let ret: any = new BehaviorSubject < any > ([]);
-
-    this.app.post(product, this.map + 'getProductContract')
-      .pipe(first())
-      .subscribe((res => {
-        this.spinner.hide();
-        ret.next(res);
-      }));
-
-    return ret.asObservable();
-  }
-
   getPartnerDetails(partner: Partner) {
     let ret: any = new BehaviorSubject < any > ([]);
 
