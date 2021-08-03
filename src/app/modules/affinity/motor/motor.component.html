@@ -65,8 +65,7 @@
 	                <label for="motorTypeId" class="col-form-label affinity-label">TYPE <span class="text-mapfre text-heavy">*</span></label>
 	                <select class="form-control" id="motorTypeId" [(ngModel)]="this.affinity.motorDetails.motorTypeIdHolder" (change)="chooseType()">
 	                    <option value="0" disabled="disabled">Please choose Type</option>
-	                    <option value="100-PRIVATE CAR">PRIVATE CAR</option>
-	                    <option value="120-MOTORCYCLE">MOTORCYCLE</option>
+						<option *ngFor="let type of carType" value="{{type.sbuline}}">{{type.name}}</option>
 	                </select>
 	            </div>
 	        </div>

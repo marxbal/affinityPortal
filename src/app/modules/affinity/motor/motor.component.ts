@@ -29,6 +29,7 @@ import {
   IsRequired
 } from '../../../guard/is-required';
 import Swal from 'sweetalert2';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-motor',
@@ -41,7 +42,8 @@ export class MotorComponent implements OnInit {
     private caller: AuthService,
     private spinner: NgxSpinnerService,
     private commonService: CommonService,
-    private checker: IsRequired) {}
+    private checker: IsRequired,
+    private auth: AuthenticationService) {}
 
   @Input() affinity: Affinity;
   @Output() nextStep = new EventEmitter();
@@ -50,6 +52,8 @@ export class MotorComponent implements OnInit {
 
   @Input() product: string;
   @Input() description: String;
+
+  carType: [{}] = [{}];
 
   accessory: MotorAccessories;
   coverageList: Coverages[] = [];
@@ -119,6 +123,19 @@ export class MotorComponent implements OnInit {
         this.spinner.hide();
       });
 
+  }
+
+  getCarType() {
+    const products = this.auth.getProducts();
+    products.forEach((p)=> {
+      if (this.product == p.productId.toString()) {
+        if (p.subline == 100) {
+          this.carType.push({subline: "100-PRIVATE CAR", name: "PRIVATE CAR"});
+        } else if (p.subline == 120) {
+          this.carType.push({subline: "120-MOTORCYCLE", name: "MOTORCYCLE"});
+        }
+      }
+    });
   }
 
   changePlateNumber() {
