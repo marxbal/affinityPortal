@@ -34,10 +34,19 @@ import {
 import {
   Coverages
 } from 'src/app/objects/coverages';
-import { Product } from 'src/app/objects/product';
-import { PaymentPaynamics } from 'src/app/objects/payment-paynamics';
-import { PaymentService } from 'src/app/services/payment.service';
-import { Return } from 'src/app/objects/return';
+import {
+  Product
+} from 'src/app/objects/product';
+import {
+  PaymentPaynamics
+} from 'src/app/objects/payment-paynamics';
+import {
+  PaymentService
+} from 'src/app/services/payment.service';
+import {
+  Return
+} from 'src/app/objects/return';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-landingpage',
@@ -102,13 +111,13 @@ export class LandingpageComponent implements OnInit {
       "1",
       'cod_partner~' + this.partner.partnerCode).subscribe(
       result => {
-        const productList : Product[] = [];
+        const productList: Product[] = [];
 
         if (result.length) {
           result.forEach((r) => {
             const productId = r.COD_MODALIDAD;
-            
-            const p : Product = new Product();
+
+            const p: Product = new Product();
             p.productId = productId;
             p.agentCode = r.COD_AGT;
             p.subline = r.COD_RAMO;
@@ -177,7 +186,7 @@ export class LandingpageComponent implements OnInit {
     p3.description = 'personalAccident';
     p3.productId = "33701";
     p3.name = 'Individual Personal';
-    const hasIndividual = _.indexOf(this.availableProducts, "33701")  != -1;
+    const hasIndividual = _.indexOf(this.availableProducts, "33701") != -1;
     if (hasIndividual) {
       l2.products.push(p3);
     }
@@ -254,11 +263,11 @@ export class LandingpageComponent implements OnInit {
   testPay() {
     const payment = new PaymentPaynamics();
 
-    payment.requestId = "TEST0000008";
-    payment.ipAddress = "192.168.1.1";
+    payment.requestId = "TEST0000008"; //
+    payment.ipAddress = "192.168.1.1"; //
     payment.cancelUrl = "https://prd2.mapfreinsurance.com.ph/mivo2/terms-and-condition";
     payment.mtacUrl = "https://prd2.mapfreinsurance.com.ph/mivo2/terms-and-condition";
-    payment.descriptorNote = "TEST PAYMENT";
+    payment.descriptorNote = "TEST PAYMENT"; //
     payment.firstName = "Ken";
     payment.middleName = "Malit";
     payment.lastName = "Layug";
@@ -271,13 +280,13 @@ export class LandingpageComponent implements OnInit {
     payment.email = "test@mapfreinsurance.com.ph";
     payment.phone = "09170000000";
     payment.mobile = "";
-    payment.itemName = "Test Item 1";
-    payment.quantity = "1";
-    payment.amount = "1000.00";
-    payment.trxType = "sale";
-    payment.paymentMethod = "cc";
-    payment.responseUrl = "https://prd2.mapfreinsurance.com.ph/paymentservice";
-    payment.appNotifUrl = "https://prd2.mapfreinsurance.com.ph/paymentservice/payment/test-payment-notification";
+    payment.itemName = "Test Item 1"; //
+    payment.quantity = "1"; //
+    payment.amount = "1000.00"; //
+    payment.trxType = "sale"; //
+    payment.paymentMethod = "cc"; //
+    payment.responseUrl = "https://prd2.mapfreinsurance.com.ph/paymentservice"; //
+    payment.appNotifUrl = "https://prd2.mapfreinsurance.com.ph/paymentservice/payment/test-payment-notification"; //
     payment.policyNo = "123123";
 
     this.paymentService.request(payment).subscribe(
@@ -285,19 +294,21 @@ export class LandingpageComponent implements OnInit {
         const ret = result as Return;
         if (ret.status) {
           var mapForm = document.createElement("form");
-          mapForm.method = "POST"; // or "post" if appropriate
+          mapForm.method = "POST";
           mapForm.action = ret.obj["url"];;
           var mapInput = document.createElement("input");
           mapInput.type = "hidden";
           mapInput.name = "paymentRequest";
-          mapInput.setAttribute("value", ret.obj["value"];
+          mapInput.setAttribute("value", ret.obj["value"]);
           mapForm.appendChild(mapInput);
           document.body.appendChild(mapForm);
           mapForm.submit();
-
-          console.log(ret);
         } else {
-          console.log(ret);
+          Swal.fire({
+            type: 'error',
+            title: 'Can not proceed to Payment',
+            text: ret.message
+          })
         }
       });
 
