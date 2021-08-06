@@ -55,7 +55,6 @@ export class PaymentComponent implements OnInit {
   ngOnInit() {
     console.log(this.affinity);
 
-
     this.grossPremSend = this.affinity.premiumBreakdown.grossPrem;
     this.affinity.premiumBreakdown.grossPrem = this.formatter.format(parseFloat(this.affinity.premiumBreakdown.grossPrem));
     this.affinity.premiumBreakdown.netPrem = this.formatter.format(parseFloat(this.affinity.premiumBreakdown.netPrem));
@@ -75,16 +74,16 @@ export class PaymentComponent implements OnInit {
       }
     });
 
-    // this.getMunicipalityName();
-    // this.getProvinceName();
+    this.getMunicipalityName();
+    this.getProvinceName();
   }
 
   getProvinceName() {
-    const provinceDetailId = this.affinity.riskDetails.correspondentAddress.provinceDetailId;
+    const provinceDetailId = this.affinity.province;
     this.caller.getLOV('A1000100', '9', 'COD_PAIS~PHL').subscribe(
       result => {
         result.forEach(province => {
-          if (province.COD_PROV === provinceDetailId) {
+          if (province.COD_PROV == provinceDetailId) {
             this.province = province.NOM_PROV;
           }
         });
@@ -92,9 +91,9 @@ export class PaymentComponent implements OnInit {
   }
 
   getMunicipalityName() {
-    const municipalityDetailId = this.affinity.riskDetails.correspondentAddress.municipalityDetailId;
-    const provinceDetailId = this.affinity.riskDetails.correspondentAddress.provinceDetailId;
-    this.caller.getLOV('A1000102', '7', 'cod_pais~PHL|cod_prov~' + provinceDetailId.split("-")[0]).subscribe(
+    const municipalityDetailId = this.affinity.municipality;
+    const provinceDetailId = this.affinity.province;
+    this.caller.getLOV('A1000102', '7', 'cod_pais~PHL|cod_prov~' + provinceDetailId).subscribe(
       result => {
         result.forEach(municipality => {
           if (municipality.COD_LOCALIDAD === municipalityDetailId) {
@@ -115,16 +114,13 @@ export class PaymentComponent implements OnInit {
     payment.firstName = this.affinity.riskDetails.firstName;
     payment.middleName = this.affinity.riskDetails.middleName;
     payment.lastName = this.affinity.riskDetails.lastName;
-    payment.address1 = this.affinity.riskDetails.correspondentAddress.addressDetails;
+    payment.address1 = this.affinity.address1;
     // payment.address2 = "Test";
-
-    const municipalityDetailId = this.affinity.riskDetails.correspondentAddress.municipalityDetailId;
-    const provinceDetailId = this.affinity.riskDetails.correspondentAddress.provinceDetailId;
 
     payment.city = this.municipality;
     payment.state = this.province;
-    // payment.country = this.affinity.riskDetails.correspondentAddress.;
-    payment.zip = this.affinity.riskDetails.correspondentAddress.zipCode;
+    payment.country = this.affinity.riskDetails.nationality;
+    payment.zip = this.affinity.zipCode;
     payment.email = this.affinity.riskDetails.emailAddress;
     payment.phone = this.affinity.riskDetails.phoneNumber;
     // payment.mobile = "";

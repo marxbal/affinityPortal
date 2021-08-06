@@ -1180,28 +1180,6 @@ export class CommonService {
     return contract;
   }
 
-  getProvinceName(provinceDetailId: string) {
-    this.caller.getLOV('A1000100', '9', 'COD_PAIS~PHL').subscribe(
-      result => {
-        result.forEach(province => {
-          if (province.COD_PROV === provinceDetailId) {
-            return province.NOM_PROV;
-          }
-        });
-      });
-  }
-
-  getMunicipalityName(provinceDetailId: string, municipalityDetailId: string) {
-    this.caller.getLOV('A1000102', '7', 'cod_pais~PHL|cod_prov~' + provinceDetailId.split("-")[0]).subscribe(
-      result => {
-        result.forEach(municipality => {
-          if (municipality.COD_LOCALIDAD === municipalityDetailId) {
-            return municipality.NOM_LOCALIDAD;
-          }
-        });
-      });
-  }
-
   payment(payment: PaymentPaynamics, paymentOption: string) {
     // const payment = new PaymentPaynamics();
     this.spinner.show();
@@ -1215,10 +1193,10 @@ export class CommonService {
     // payment.middleName = this.affinity.riskDetails.middleName;
     // payment.lastName = this.affinity.riskDetails.lastName;
     // payment.address1 = this.affinity.riskDetails.correspondentAddress.addressDetails;
-    payment.address2 = "Test";
+    payment.address2 = "";
     // payment.city = this.affinity.riskDetails.correspondentAddress.municipalityDetailId;
     // payment.state = this.affinity.riskDetails.correspondentAddress.provinceDetailId;
-    payment.country = "PHILIPPINES";
+    // payment.country = "PHILIPPINES";
     // payment.zip = this.affinity.riskDetails.correspondentAddress.zipCode;
     // payment.email = this.affinity.riskDetails.emailAddress;
     // payment.phone = this.affinity.riskDetails.phoneNumber;
@@ -1227,7 +1205,7 @@ export class CommonService {
     payment.quantity = "1"; //
     // payment.amount = this.affinity.premiumBreakdown.numRecibo; //
     payment.trxType = "sale"; //
-    payment.paymentMethod = "cc"; //
+    payment.paymentMethod = paymentOption; //
     payment.responseUrl = "https://prd2.mapfreinsurance.com.ph/paymentservice"; //
     payment.appNotifUrl = "https://prd2.mapfreinsurance.com.ph/paymentservice/payment/test-payment-notification"; //
     // payment.policyNo = this.affinity.policyNumber;

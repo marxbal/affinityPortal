@@ -55,5 +55,9 @@ export class Affinity {
   paymentReferenceNumber: string;
   techControlLevel: string; //determine if observation, audit or reject
   techControl: string[] = []; //list of technical controls
+  address1: string;
+  municipality: string;
+  province: string;
+  zipCode: string;
 
 }
