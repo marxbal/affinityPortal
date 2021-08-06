@@ -18,8 +18,12 @@ import {
   NgxSpinnerService
 } from 'ngx-spinner';
 import {
-  AuthService
-} from '../../../services/auth.service';
+  CommonService
+} from 'src/app/services/common.service';
+import {
+  PaymentPaynamics
+} from 'src/app/objects/payment-paynamics';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-payment',
@@ -29,9 +33,9 @@ import {
 export class PaymentComponent implements OnInit {
 
   constructor(
-    private spinner: NgxSpinnerService,
-    private caller: AuthService,
-    private route: ActivatedRoute) {}
+    private route: ActivatedRoute,
+    private common: CommonService,
+    private caller: AuthService) {}
 
   @Input() line: String;
   @Input() affinity: Affinity;
@@ -44,6 +48,9 @@ export class PaymentComponent implements OnInit {
   });
   grossPremSend: string;
   retStatus = "";
+
+  municipality: string = "";
+  province: string = "";
 
   ngOnInit() {
     this.grossPremSend = this.affinity.premiumBreakdown.grossPrem;
@@ -64,35 +71,96 @@ export class PaymentComponent implements OnInit {
         this.retStatus = "failed";
       }
     });
+
+    this.getMunicipalityName();
+    this.getProvinceName();
+  }
+
+  getProvinceName() {
+    const provinceDetailId = this.affinity.riskDetails.correspondentAddress.provinceDetailId;
+    this.caller.getLOV('A1000100', '9', 'COD_PAIS~PHL').subscribe(
+      result => {
+        result.forEach(province => {
+          if (province.COD_PROV === provinceDetailId) {
+            this.province = province.NOM_PROV;
+          }
+        });
+      });
+  }
+
+  getMunicipalityName() {
+    const municipalityDetailId = this.affinity.riskDetails.correspondentAddress.municipalityDetailId;
+    const provinceDetailId = this.affinity.riskDetails.correspondentAddress.provinceDetailId;
+    this.caller.getLOV('A1000102', '7', 'cod_pais~PHL|cod_prov~' + provinceDetailId.split("-")[0]).subscribe(
+      result => {
+        result.forEach(municipality => {
+          if (municipality.COD_LOCALIDAD === municipalityDetailId) {
+            this.municipality = municipality.NOM_LOCALIDAD;
+          }
+        });
+      });
   }
 
   requestPayment() {
-    this.spinner.show();
-    let pDTO: Payment = new Payment();
-    pDTO.numPoliza = this.affinity.policyNumber;
-    pDTO.grossPrem = this.grossPremSend;
-    pDTO.numRecibo = this.affinity.premiumBreakdown.numRecibo;
-    this.caller.doCallService('/afnty/Payment/Request', pDTO).subscribe(
-      response => {
-        var mapForm = document.createElement("form");
-        mapForm.method = "POST"; // or "post" if appropriate
-        mapForm.action = response.url;
+    const payment = new PaymentPaynamics();
 
-        Object.entries(response).forEach((attribute: any[]) => {
-          if (attribute[0] === 'url') {
-            return;
-          }
+    // payment.requestId = "TEST0000008"; //
+    // payment.ipAddress = "192.168.1.1"; //
+    // payment.cancelUrl = "https://prd2.mapfreinsurance.com.ph/mivo2/terms-and-condition";
+    // payment.mtacUrl = "https://prd2.mapfreinsurance.com.ph/mivo2/terms-and-condition";
+    // payment.descriptorNote = "TEST PAYMENT"; //
+    payment.firstName = this.affinity.riskDetails.firstName;
+    payment.middleName = this.affinity.riskDetails.middleName;
+    payment.lastName = this.affinity.riskDetails.lastName;
+    payment.address1 = this.affinity.riskDetails.correspondentAddress.addressDetails;
+    // payment.address2 = "Test";
 
-          var mapInput = document.createElement("input");
-          mapInput.type = "hidden";
-          mapInput.name = attribute[0].replaceAll('vpc', 'vpc_');
-          mapInput.setAttribute("value", attribute[1]);
-          mapForm.appendChild(mapInput);
-        });
+    const municipalityDetailId = this.affinity.riskDetails.correspondentAddress.municipalityDetailId;
+    const provinceDetailId = this.affinity.riskDetails.correspondentAddress.provinceDetailId;
 
-        document.body.appendChild(mapForm);
-        mapForm.submit();
-      });
+    payment.city = this.municipality;
+    payment.state = this.province;
+    // payment.country = this.affinity.riskDetails.correspondentAddress.;
+    payment.zip = this.affinity.riskDetails.correspondentAddress.zipCode;
+    payment.email = this.affinity.riskDetails.emailAddress;
+    payment.phone = this.affinity.riskDetails.phoneNumber;
+    // payment.mobile = "";
+    // payment.itemName = "Test Item 1"; //
+    // payment.quantity = "1"; //
+    payment.amount = this.affinity.premiumBreakdown.numRecibo; //
+    // payment.trxType = "sale"; //
+    // payment.paymentMethod = "cc"; //
+    // payment.responseUrl = "https://prd2.mapfreinsurance.com.ph/paymentservice"; //
+    // payment.appNotifUrl = "https://prd2.mapfreinsurance.com.ph/paymentservice/payment/test-payment-notification"; //
+    payment.policyNo = this.affinity.policyNumber;
+
+    this.common.payment(payment, "cc");
+
+    // let pDTO: Payment = new Payment();
+    // pDTO.numPoliza = this.affinity.policyNumber;
+    // pDTO.grossPrem = this.grossPremSend;
+    // pDTO.numRecibo = this.affinity.premiumBreakdown.numRecibo;
+    // this.caller.doCallService('/afnty/Payment/Request', pDTO).subscribe(
+    //   response => {
+    //     var mapForm = document.createElement("form");
+    //     mapForm.method = "POST"; // or "post" if appropriate
+    //     mapForm.action = response.url;
+
+    //     Object.entries(response).forEach((attribute: any[]) => {
+    //       if (attribute[0] === 'url') {
+    //         return;
+    //       }
+
+    //       var mapInput = document.createElement("input");
+    //       mapInput.type = "hidden";
+    //       mapInput.name = attribute[0].replaceAll('vpc', 'vpc_');
+    //       mapInput.setAttribute("value", attribute[1]);
+    //       mapForm.appendChild(mapInput);
+    //     });
+
+    //     document.body.appendChild(mapForm);
+    //     mapForm.submit();
+    //   });
   }
 
   sleep(time) {

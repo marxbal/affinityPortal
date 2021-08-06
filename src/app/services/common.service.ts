@@ -51,9 +51,15 @@ import {
 import {
   AuthenticationService
 } from './authentication.service';
-import { PaymentPaynamics } from '../objects/payment-paynamics';
-import { PaymentService } from './payment.service';
-import { Return } from '../objects/return';
+import {
+  PaymentPaynamics
+} from '../objects/payment-paynamics';
+import {
+  PaymentService
+} from './payment.service';
+import {
+  Return
+} from '../objects/return';
 import Swal from 'sweetalert2';
 
 @Injectable({
@@ -245,7 +251,7 @@ export class CommonService {
         validity_date = '01052014-100';
       }
     }
-    
+
     return validity_date;
   }
 
@@ -1174,37 +1180,61 @@ export class CommonService {
     return contract;
   }
 
-  payment(payment: PaymentPaynamics) {
+  getProvinceName(provinceDetailId: string) {
+    this.caller.getLOV('A1000100', '9', 'COD_PAIS~PHL').subscribe(
+      result => {
+        result.forEach(province => {
+          if (province.COD_PROV === provinceDetailId) {
+            return province.NOM_PROV;
+          }
+        });
+      });
+  }
+
+  getMunicipalityName(provinceDetailId: string, municipalityDetailId: string) {
+    this.caller.getLOV('A1000102', '7', 'cod_pais~PHL|cod_prov~' + provinceDetailId.split("-")[0]).subscribe(
+      result => {
+        result.forEach(municipality => {
+          if (municipality.COD_LOCALIDAD === municipalityDetailId) {
+            return municipality.NOM_LOCALIDAD;
+          }
+        });
+      });
+  }
+
+  payment(payment: PaymentPaynamics, paymentOption: string) {
     // const payment = new PaymentPaynamics();
+    this.spinner.show();
 
     payment.requestId = "TEST0000008"; //
     payment.ipAddress = "192.168.1.1"; //
     payment.cancelUrl = "https://prd2.mapfreinsurance.com.ph/mivo2/terms-and-condition";
     payment.mtacUrl = "https://prd2.mapfreinsurance.com.ph/mivo2/terms-and-condition";
     payment.descriptorNote = "TEST PAYMENT"; //
-    payment.firstName = "Ken";
-    payment.middleName = "Malit";
-    payment.lastName = "Layug";
-    payment.address1 = "Test";
+    // payment.firstName = this.affinity.riskDetails.firstName;
+    // payment.middleName = this.affinity.riskDetails.middleName;
+    // payment.lastName = this.affinity.riskDetails.lastName;
+    // payment.address1 = this.affinity.riskDetails.correspondentAddress.addressDetails;
     payment.address2 = "Test";
-    payment.city = "Dinalupihan";
-    payment.state = "Bataan";
+    // payment.city = this.affinity.riskDetails.correspondentAddress.municipalityDetailId;
+    // payment.state = this.affinity.riskDetails.correspondentAddress.provinceDetailId;
     payment.country = "PHILIPPINES";
-    payment.zip = "2110";
-    payment.email = "test@mapfreinsurance.com.ph";
-    payment.phone = "09170000000";
+    // payment.zip = this.affinity.riskDetails.correspondentAddress.zipCode;
+    // payment.email = this.affinity.riskDetails.emailAddress;
+    // payment.phone = this.affinity.riskDetails.phoneNumber;
     payment.mobile = "";
     payment.itemName = "Test Item 1"; //
     payment.quantity = "1"; //
-    payment.amount = "1000.00"; //
+    // payment.amount = this.affinity.premiumBreakdown.numRecibo; //
     payment.trxType = "sale"; //
     payment.paymentMethod = "cc"; //
     payment.responseUrl = "https://prd2.mapfreinsurance.com.ph/paymentservice"; //
     payment.appNotifUrl = "https://prd2.mapfreinsurance.com.ph/paymentservice/payment/test-payment-notification"; //
-    payment.policyNo = "123123";
+    // payment.policyNo = this.affinity.policyNumber;
 
     this.paymentService.request(payment).subscribe(
       (result: any) => {
+        this.spinner.hide();
         const ret = result as Return;
         if (ret.status) {
           var mapForm = document.createElement("form");
