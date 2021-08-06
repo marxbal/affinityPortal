@@ -1196,7 +1196,7 @@ export class CommonService {
     payment.address2 = "";
     // payment.city = this.affinity.riskDetails.correspondentAddress.municipalityDetailId;
     // payment.state = this.affinity.riskDetails.correspondentAddress.provinceDetailId;
-    // payment.country = "PHILIPPINES";
+    payment.country = "PHILIPPINES";
     // payment.zip = this.affinity.riskDetails.correspondentAddress.zipCode;
     // payment.email = this.affinity.riskDetails.emailAddress;
     // payment.phone = this.affinity.riskDetails.phoneNumber;

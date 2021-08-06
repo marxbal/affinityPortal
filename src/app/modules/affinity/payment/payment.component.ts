@@ -121,14 +121,14 @@ export class PaymentComponent implements OnInit {
 
     payment.city = this.municipality;
     payment.state = this.province;
-    payment.country = this.affinity.riskDetails.nationality;
+    // payment.country = this.affinity.riskDetails.nationality;
     payment.zip = this.affinity.zipCode;
     payment.email = this.affinity.riskDetails.emailAddress;
     payment.phone = this.affinity.riskDetails.phoneNumber;
     // payment.mobile = "";
     // payment.itemName = "Test Item 1"; //
     // payment.quantity = "1"; //
-    payment.amount = this.affinity.premiumBreakdown.numRecibo; //
+    payment.amount = this.grossPremSend; //
     // payment.trxType = "sale"; //
     // payment.paymentMethod = "cc"; //
     // payment.responseUrl = "https://prd2.mapfreinsurance.com.ph/paymentservice"; //
