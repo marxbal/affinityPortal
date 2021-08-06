@@ -39,6 +39,7 @@ import {
 } from '../objects/a1000131_mph';
 import * as m from 'moment';
 import * as $ from 'jquery/dist/jquery.min';
+// import * as _ from 'lodash';
 import {
   NgxSpinnerService
 } from 'ngx-spinner';
@@ -1214,6 +1215,7 @@ export class CommonService {
       (result: any) => {
         this.spinner.hide();
         const ret = result as Return;
+        console.log(ret);
         if (ret.status) {
           // var mapForm = document.createElement("form");
           // mapForm.method = "POST";
