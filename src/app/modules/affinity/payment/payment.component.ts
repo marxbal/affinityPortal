@@ -54,6 +54,8 @@ export class PaymentComponent implements OnInit {
 
   ngOnInit() {
     console.log(this.affinity);
+    console.log('address1 ' + this.affinity.address1);
+    console.log('province ' + this.affinity.province);
 
     this.grossPremSend = this.affinity.premiumBreakdown.grossPrem;
     this.affinity.premiumBreakdown.grossPrem = this.formatter.format(parseFloat(this.affinity.premiumBreakdown.grossPrem));

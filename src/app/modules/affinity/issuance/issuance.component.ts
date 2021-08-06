@@ -191,6 +191,7 @@ export class IssuanceComponent implements OnInit {
           case 337:
             this.paIssuance.mapRetrievePolicy(this.affinity, result).subscribe(
               (resulta) => {
+                console.log('resulta ' + resulta);
                 this.affinity = resulta;
                 this.retrivePolicyNavigate(result, action);
               });
