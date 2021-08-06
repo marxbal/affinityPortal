@@ -181,8 +181,10 @@ export class PersonalAccidentIssuanceService {
     this.paAff.motorDetails.policyPeriodFrom= m(result.inceptionDate).format('YYYY-MM-DD');
     this.paAff.motorDetails.policyPeriodTo= m(result.expiryDate).format('YYYY-MM-DD');
 
-
-
+    this.paAff.address1 = result.address1;
+    this.paAff.municipality = result.municipality;
+    this.paAff.province = result.province;
+    this.paAff.zipCode = result.zipCode;
   }
 
   mapP2025Primary(p2025){

@@ -180,11 +180,6 @@ export class IssuanceComponent implements OnInit {
     this.spinner.show();
     this.caller.doCallService('/afnty/retrievePolicyDetails', numPoliza).subscribe(
       result => {
-        this.affinity.address1 = result.address1;
-        this.affinity.municipality = result.municipality;
-        this.affinity.province = result.province;
-        this.affinity.zipCode = result.zipCode;
-
         switch (result.p2000030.codRamo) {
           // case 251:
           //   this.propertyIssuance.mapRetrievePolicy(this.affinity, result).subscribe(
