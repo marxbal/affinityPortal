@@ -35,7 +35,9 @@ export class AppService {
   post(param: any, endpoint: string): Observable < any > {
     this.spinner.show();
     return this.http.post(this.apiUrl + endpoint, param, this.getHeaders())
-      .pipe(catchError((err: any) => {
+      .pipe(map((res: any) => {
+        return res
+      })).pipe(catchError((err: any) => {
         this.alertErr(err.message);
         this.spinner.hide();
         return throwError(err.error);
