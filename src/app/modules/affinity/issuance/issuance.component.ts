@@ -181,32 +181,26 @@ export class IssuanceComponent implements OnInit {
     this.caller.doCallService('/afnty/retrievePolicyDetails', numPoliza).subscribe(
       result => {
         switch (result.p2000030.codRamo) {
-          case 251:
-
-            this.propertyIssuance.mapRetrievePolicy(this.affinity, result).subscribe(
-              (resulta) => {
-                this.affinity = resulta;
-                this.retrivePolicyNavigate(result, action);
-              });
-
-            break;
+          // case 251:
+          //   this.propertyIssuance.mapRetrievePolicy(this.affinity, result).subscribe(
+          //     (resulta) => {
+          //       this.affinity = resulta;
+          //       this.retrivePolicyNavigate(result, action);
+          //     });
+          //   break;
           case 337:
-
             this.paIssuance.mapRetrievePolicy(this.affinity, result).subscribe(
               (resulta) => {
                 this.affinity = resulta;
                 this.retrivePolicyNavigate(result, action);
               });
-
             break;
           default:
-
             this.motorIssuance.mapRetrievePolicy(this.affinity, result).subscribe(
               (resulta) => {
                 this.affinity = resulta;
                 this.retrivePolicyNavigate(result, action);
               });
-
             break;
         }
       });
@@ -235,33 +229,28 @@ export class IssuanceComponent implements OnInit {
     this.caller.doCallService('/afnty/retrieveQuotationDetails', numPoliza).subscribe(
       result => {
         switch (result.p2000030.codRamo) {
-          case 251:
+          // case 251:
+          //   this.propertyIssuance.mapRetrieveQuote(this.affinity, result).subscribe(
+          //     (resulta) => {
+          //       this.affinity = resulta;
+          //       this.retrieveQuoteNavigate(result, 'householdQuotationIssuance');
+          //     });
 
-            this.propertyIssuance.mapRetrieveQuote(this.affinity, result).subscribe(
-              (resulta) => {
-                this.affinity = resulta;
-                this.retrieveQuoteNavigate(result, 'householdQuotationIssuance');
-              });
-
-            // this.affinity = this.motorIssuance.mapRetrieveQuote(this.affinity, result);
-            break;
+          //   // this.affinity = this.motorIssuance.mapRetrieveQuote(this.affinity, result);
+          //   break;
           case 337:
-
             this.paIssuance.mapRetrieveQuote(this.affinity, result).subscribe(
               (resulta) => {
                 this.affinity = resulta;
                 this.retrieveQuoteNavigate(result, 'personalInformation');
               });
-
             break;
           default:
-
             this.motorIssuance.mapRetrieveQuote(this.affinity, result).subscribe(
               (resulta) => {
                 this.affinity = resulta;
                 this.retrieveQuoteNavigate(result, 'motorQuotationIssuance');
               });
-
             break;
         }
       });

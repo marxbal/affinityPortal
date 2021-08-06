@@ -37,16 +37,6 @@ import {
 import {
   Product
 } from 'src/app/objects/product';
-import {
-  PaymentPaynamics
-} from 'src/app/objects/payment-paynamics';
-import {
-  PaymentService
-} from 'src/app/services/payment.service';
-import {
-  Return
-} from 'src/app/objects/return';
-import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-landingpage',
@@ -60,8 +50,7 @@ export class LandingpageComponent implements OnInit {
     private auth: AuthService,
     private router: Router,
     private spinner: NgxSpinnerService,
-    private caller: AuthService,
-    private paymentService: PaymentService) {}
+    private caller: AuthService) {}
 
   partner: Partner;
   partnerPath: string = "";
@@ -258,60 +247,6 @@ export class LandingpageComponent implements OnInit {
         this.spinner.hide();
         this.affinity.coverages = this.coverageList;
       });
-  }
-
-  testPay() {
-    const payment = new PaymentPaynamics();
-
-    payment.requestId = "TEST0000008"; //
-    payment.ipAddress = "192.168.1.1"; //
-    payment.cancelUrl = "https://prd2.mapfreinsurance.com.ph/mivo2/terms-and-condition";
-    payment.mtacUrl = "https://prd2.mapfreinsurance.com.ph/mivo2/terms-and-condition";
-    payment.descriptorNote = "TEST PAYMENT"; //
-    payment.firstName = "Ken";
-    payment.middleName = "Malit";
-    payment.lastName = "Layug";
-    payment.address1 = "Test";
-    payment.address2 = "Test";
-    payment.city = "Dinalupihan";
-    payment.state = "Bataan";
-    payment.country = "PHILIPPINES";
-    payment.zip = "2110";
-    payment.email = "test@mapfreinsurance.com.ph";
-    payment.phone = "09170000000";
-    payment.mobile = "";
-    payment.itemName = "Test Item 1"; //
-    payment.quantity = "1"; //
-    payment.amount = "1000.00"; //
-    payment.trxType = "sale"; //
-    payment.paymentMethod = "cc"; //
-    payment.responseUrl = "https://prd2.mapfreinsurance.com.ph/paymentservice"; //
-    payment.appNotifUrl = "https://prd2.mapfreinsurance.com.ph/paymentservice/payment/test-payment-notification"; //
-    payment.policyNo = "123123";
-
-    this.paymentService.request(payment).subscribe(
-      (result: any) => {
-        const ret = result as Return;
-        if (ret.status) {
-          var mapForm = document.createElement("form");
-          mapForm.method = "POST";
-          mapForm.action = ret.obj["url"];;
-          var mapInput = document.createElement("input");
-          mapInput.type = "hidden";
-          mapInput.name = "paymentRequest";
-          mapInput.setAttribute("value", ret.obj["value"]);
-          mapForm.appendChild(mapInput);
-          document.body.appendChild(mapForm);
-          mapForm.submit();
-        } else {
-          Swal.fire({
-            type: 'error',
-            title: 'Can not proceed to Payment',
-            text: ret.message
-          })
-        }
-      });
-
   }
 
 }

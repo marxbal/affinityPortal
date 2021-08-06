@@ -98,7 +98,7 @@ export class PolicyComponent implements OnInit {
               Swal.fire({
                 type: 'success',
                 title: 'Email Sent!',
-                text: "Your insurance policy was sent to " + emailFinal.slice(0, -1) + ". Please ensure that fopmsecure@mapfreinsurance.com.ph is NOT on your spam/blocked email list. Do check your spam/junk folder in case you have not received any email confirmation and updates from us."
+                text: "Your insurance policy was sent to " + emailFinal.slice(0, -1) + ". Please ensure that online@mapfreinsurance.com.ph is NOT on your spam/blocked email list. Do check your spam/junk folder in case you have not received any email confirmation and updates from us."
               });
               $("#emailModalClose").click();
             } else {

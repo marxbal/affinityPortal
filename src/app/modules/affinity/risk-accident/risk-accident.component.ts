@@ -194,8 +194,6 @@ export class RiskAccidentComponent implements OnInit {
       return null;
     }
 
-    // $("#vehiclePhotosContainer").removeClass("hidden");
-
     Swal.fire({
       type: 'warning',
       title: 'Quotation Issuance',
@@ -217,7 +215,6 @@ export class RiskAccidentComponent implements OnInit {
     let ret = true;
 
     if (this.affinity.lineId == "337") {
-      // let currentYearDiff = (m().year() - parseInt(this.affinity.riskDetails.birthDate));
       let currentYearDiff = (m(new Date(this.affinity.motorDetails.policyPeriodFrom)).diff(new Date(this.affinity.riskDetails.birthDate), 'months', true)) / 12;
 
       if (currentYearDiff < 18 || currentYearDiff > 70) {
@@ -346,7 +343,6 @@ export class RiskAccidentComponent implements OnInit {
   }
 
   removeFamilyMember(familyMember: Risk) {
-
     let index1: number = this.affinity.paDetails.familyMembers.indexOf(familyMember);
 
     if (index1 !== -1) {
@@ -487,17 +483,6 @@ export class RiskAccidentComponent implements OnInit {
                     this.getCoverages(result.message, this.affinity, "techControl");
                   });
               }
-
-              if (this.affinity.motorDetails.vehiclePhotos.length > 0) {
-                let formData = this.common.assignFormDataUpload(this.affinity);
-                formData.append('numPoliza', this.affinity.policyNumber);
-                formData.append('fullName', this.affinity.riskDetails.firstName + " " + (this.affinity.riskDetails.firstName) ? this.affinity.riskDetails.firstName : "");
-                this.caller.doCallService("/afnty/uploadFile", formData).subscribe(
-                  result => {
-
-                  });
-              }
-
               break;
             default:
               Swal.fire({
@@ -510,9 +495,6 @@ export class RiskAccidentComponent implements OnInit {
           }
         });
     });
-
-    // this.nextStep.emit(nextStep);
-    //  this.affinityOutput2.emit(this.affinity);
   }
 
   getCoverages(numPoliza, affinity: Affinity, nextStep) {
@@ -521,7 +503,6 @@ export class RiskAccidentComponent implements OnInit {
         this.mapP2025Insured(this.p2000025, resulta);
         for (let i = 0; i < resulta.length; i++) {
           if (resulta[i].numRiesgo == "1") {
-            // resulta[i].sumaAseg = this.formatter.format(parseFloat(resulta[i].sumaAseg));
             resulta[i].numSecu = parseInt(resulta[i].numSecu) + 0;
             resulta[i].totalPremium = ((resulta[i].totalPremium) ? this.formatter.format(parseFloat(resulta[i].totalPremium)) : "INCL");
             affinity.coveragesValue.push(resulta[i]);
@@ -596,8 +577,6 @@ export class RiskAccidentComponent implements OnInit {
 
       for (let c = 0; c < p2040.length; c++) {
         if (p2040[c].numRiesgo == (x + 1)) {
-          // p2040[c].sumaAseg = this.formatter.format(parseFloat(p2040[c].sumaAseg));
-          // p2040[c].totalPremium = this.formatter.format(parseFloat((p2040[c].totalPremium) ? p2040[c].totalPremium : "0"));
           p2040[c].totalPremium = "INCL";
           riskTemp.coveragesValue.push(p2040[c]);
         }
@@ -610,8 +589,4 @@ export class RiskAccidentComponent implements OnInit {
       this.affinity.paDetails.familyMembers.push(riskTemp);
     }
   }
-  // backButtonAction(){
-  //   this.nextStep.emit("initialize");
-  //   this.affinityOutput2.emit(this.affinity);
-  // }
 }

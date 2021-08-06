@@ -115,6 +115,7 @@ export class OTPService {
       result => {
         localStorage.setItem(TOKEN, "Bearer " + result.access_token);
         localStorage.setItem(EMAIL, email);
+        localStorage.setItem(LOGIN_MSG, "");
 
         this.auth.setLogin(true);
 
