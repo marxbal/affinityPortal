@@ -39,7 +39,7 @@ import {
 } from '../objects/a1000131_mph';
 import * as m from 'moment';
 import * as $ from 'jquery/dist/jquery.min';
-// import * as _ from 'lodash';
+import * as _ from 'lodash';
 import {
   NgxSpinnerService
 } from 'ngx-spinner';
@@ -1215,25 +1215,28 @@ export class CommonService {
       (result: any) => {
         this.spinner.hide();
         const ret = result as Return;
-        console.log(ret);
-        if (ret.status) {
-          // var mapForm = document.createElement("form");
-          // mapForm.method = "POST";
-          // mapForm.action = ret.obj["url"];;
-          // var mapInput = document.createElement("input");
-          // mapInput.type = "hidden";
-          // mapInput.name = "paymentRequest";
-          // mapInput.setAttribute("value", ret.obj["value"]);
-          // mapForm.appendChild(mapInput);
-          // document.body.appendChild(mapForm);
-          // mapForm.submit();
-        } else {
-          Swal.fire({
-            type: 'error',
-            title: 'Can not proceed to Payment',
-            text: ret.message
-          })
+
+        if (!_.isEmpty(ret)) {
+          if (ret.status) {
+            var mapForm = document.createElement("form");
+            mapForm.method = "POST";
+            mapForm.action = ret.obj["url"];;
+            var mapInput = document.createElement("input");
+            mapInput.type = "hidden";
+            mapInput.name = "paymentRequest";
+            mapInput.setAttribute("value", ret.obj["value"]);
+            mapForm.appendChild(mapInput);
+            document.body.appendChild(mapForm);
+            mapForm.submit();
+          } else {
+            Swal.fire({
+              type: 'error',
+              title: 'Can not proceed to Payment',
+              text: ret.message
+            })
+          }
         }
+        
       });
 
   }

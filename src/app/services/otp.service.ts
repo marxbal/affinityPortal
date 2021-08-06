@@ -40,6 +40,7 @@ import {
 import {
   Partner
 } from '../objects/partner';
+import * as _ from 'lodash';
 
 @Injectable({
   providedIn: 'root'
@@ -129,7 +130,7 @@ export class OTPService {
           userDetails.roleId = 2;
           this.auth.setLandingPage("issuance");
         }
-        
+
         const partner = new Partner();
         const domain = email.split("@")[1];
 
@@ -137,20 +138,22 @@ export class OTPService {
         this.pService.getPartnerDetails(partner).subscribe(
           (result: any) => {
             const ret = result as Return;
-            if (ret.status) {
-              this.auth.setUserDetails(userDetails);
-              const partner = ret.obj as Partner;
+            if (!_.isEmpty(ret)) {
+              if (ret.status) {
+                this.auth.setUserDetails(userDetails);
+                const partner = ret.obj as Partner;
 
-              this.auth.setPartner(partner);
+                this.auth.setPartner(partner);
 
-              this.router.navigate([this.auth.getLandingPage()]);
-              setTimeout(function () {
-                window.location.reload();
-              }, 10);
-            } else {
-              this.spinner.hide();
-              localStorage.setItem(LOGIN_MSG, "Error! Unable to get partner details");
-              this.router.navigateByUrl(url);
+                this.router.navigate([this.auth.getLandingPage()]);
+                setTimeout(function () {
+                  window.location.reload();
+                }, 10);
+              } else {
+                this.spinner.hide();
+                localStorage.setItem(LOGIN_MSG, "Error! Unable to get partner details");
+                this.router.navigateByUrl(url);
+              }
             }
           });
       }, error => {
