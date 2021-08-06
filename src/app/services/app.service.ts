@@ -36,7 +36,9 @@ export class AppService {
     this.spinner.show();
     return this.http.post(this.apiUrl + endpoint, param, this.getHeaders())
       .pipe(map((res: any) => {
-        return res
+        if (res) {
+          return res;
+        }
       })).pipe(catchError((err: any) => {
         this.alertErr(err.message);
         this.spinner.hide();
