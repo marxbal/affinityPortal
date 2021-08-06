@@ -1215,16 +1215,16 @@ export class CommonService {
         this.spinner.hide();
         const ret = result as Return;
         if (ret.status) {
-          var mapForm = document.createElement("form");
-          mapForm.method = "POST";
-          mapForm.action = ret.obj["url"];;
-          var mapInput = document.createElement("input");
-          mapInput.type = "hidden";
-          mapInput.name = "paymentRequest";
-          mapInput.setAttribute("value", ret.obj["value"]);
-          mapForm.appendChild(mapInput);
-          document.body.appendChild(mapForm);
-          mapForm.submit();
+          // var mapForm = document.createElement("form");
+          // mapForm.method = "POST";
+          // mapForm.action = ret.obj["url"];;
+          // var mapInput = document.createElement("input");
+          // mapInput.type = "hidden";
+          // mapInput.name = "paymentRequest";
+          // mapInput.setAttribute("value", ret.obj["value"]);
+          // mapForm.appendChild(mapInput);
+          // document.body.appendChild(mapForm);
+          // mapForm.submit();
         } else {
           Swal.fire({
             type: 'error',
