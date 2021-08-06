@@ -53,6 +53,9 @@ export class PaymentComponent implements OnInit {
   province: string = "";
 
   ngOnInit() {
+    console.log(this.affinity);
+
+
     this.grossPremSend = this.affinity.premiumBreakdown.grossPrem;
     this.affinity.premiumBreakdown.grossPrem = this.formatter.format(parseFloat(this.affinity.premiumBreakdown.grossPrem));
     this.affinity.premiumBreakdown.netPrem = this.formatter.format(parseFloat(this.affinity.premiumBreakdown.netPrem));
@@ -72,8 +75,8 @@ export class PaymentComponent implements OnInit {
       }
     });
 
-    this.getMunicipalityName();
-    this.getProvinceName();
+    // this.getMunicipalityName();
+    // this.getProvinceName();
   }
 
   getProvinceName() {
