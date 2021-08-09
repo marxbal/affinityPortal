@@ -125,6 +125,9 @@ import {
 import {
   PartnerComponent
 } from './modules/admin/partner/partner.component';
+import {
+  DecimalPipe
+} from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -175,7 +178,8 @@ import {
       useClass: InterceptorService,
       multi: true
     },
-    IsRequired
+    IsRequired,
+    DecimalPipe
   ],
   bootstrap: [AppComponent]
 })
