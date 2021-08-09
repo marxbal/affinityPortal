@@ -42,7 +42,7 @@ export class PaymentComponent implements OnInit {
     style: 'currency',
     currency: 'PHP',
   });
-  grossPremSend: string;
+  total: string;
   retStatus = "";
 
   municipality: string = "";
@@ -53,7 +53,7 @@ export class PaymentComponent implements OnInit {
     console.log('address1 ' + this.affinity.address1);
     console.log('province ' + this.affinity.province);
 
-    this.grossPremSend = this.affinity.premiumBreakdown.grossPrem;
+    this.total = parseFloat(this.affinity.premiumBreakdown.grossPrem).toString();
     this.affinity.premiumBreakdown.grossPrem = this.formatter.format(parseFloat(this.affinity.premiumBreakdown.grossPrem));
     this.affinity.premiumBreakdown.netPrem = this.formatter.format(parseFloat(this.affinity.premiumBreakdown.netPrem));
     this.affinity.premiumBreakdown.docStamp = this.formatter.format(parseFloat(this.affinity.premiumBreakdown.docStamp));
@@ -127,16 +127,16 @@ export class PaymentComponent implements OnInit {
 
     switch (productId) {
       case "10001":
-        itemName = "COMPREHENSIVE " + this.buildItemName();
+        itemName = "COMPREHENSIVE: " + this.buildItemName();
         break;
       case "10002":
-        itemName = "CTPL " + this.buildItemName();
+        itemName = "CTPL: " + this.buildItemName();
         break;
       case "33701":
-        itemName = "INDIVIDUAL PERSONAL " + this.affinity.riskDetails.fullName;
+        itemName = "INDIVIDUAL PERSONAL: " + this.affinity.riskDetails.fullName;
         break;
       case "33702":
-        itemName = "PERSONAL FAMILY " + this.affinity.riskDetails.fullName;
+        itemName = "PERSONAL FAMILY: " + this.affinity.riskDetails.fullName;
         break;
     }
 
@@ -173,7 +173,7 @@ export class PaymentComponent implements OnInit {
     payment.email = this.affinity.riskDetails.emailAddress;
     payment.phone = this.affinity.riskDetails.phoneNumber;
     payment.itemName = this.getItemName(productId);
-    payment.amount = this.grossPremSend;
+    payment.amount = this.total;
     payment.policyNo = this.affinity.policyNumber;
 
     this.common.payment(payment, "cc");
