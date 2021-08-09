@@ -425,7 +425,9 @@ a.article:hover {
 }
 
 .form-control {
-  border-radius: 0;
+  border: 1px solid #adb5bd !important;
+  border-radius: 7px !important;
+  height: calc(1.5em + .75rem + 8px) !important;
 }
 
 .accordion-header {
