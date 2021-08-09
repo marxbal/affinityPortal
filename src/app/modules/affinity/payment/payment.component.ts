@@ -12,18 +12,14 @@ import {
   Affinity
 } from '../../../objects/affinity';
 import {
-  Payment
-} from '../../../objects/payment';
-import {
-  NgxSpinnerService
-} from 'ngx-spinner';
-import {
   CommonService
 } from 'src/app/services/common.service';
 import {
   PaymentPaynamics
 } from 'src/app/objects/payment-paynamics';
-import { AuthService } from 'src/app/services/auth.service';
+import {
+  AuthService
+} from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-payment',
@@ -105,34 +101,79 @@ export class PaymentComponent implements OnInit {
       });
   }
 
+  getProductDescription(productId: string) {
+    let productName = "";
+
+    switch (productId) {
+      case "10001":
+        productName = "COMPREHENSIVE 10001";
+        break;
+      case "10002":
+        productName = "CTPL 10002";
+        break;
+      case "33701":
+        productName = "INDIVIDUAL PERSONAL 33701";
+        break;
+      case "33702":
+        productName = "PERSONAL FAMILY 33702";
+        break;
+    }
+
+    return productName;
+  }
+
+  getItemName(productId: string) {
+    let itemName = "";
+
+    switch (productId) {
+      case "10001":
+        itemName = "COMPREHENSIVE " + this.buildItemName();
+        break;
+      case "10002":
+        itemName = "CTPL " + this.buildItemName();
+        break;
+      case "33701":
+        itemName = "INDIVIDUAL PERSONAL " + this.affinity.riskDetails.fullName;
+        break;
+      case "33702":
+        itemName = "PERSONAL FAMILY " + this.affinity.riskDetails.fullName;
+        break;
+    }
+
+    return itemName;
+  }
+
+  buildItemName() {
+    let item = '';
+    const motor = this.affinity.motorDetails;
+
+    const modelYear = motor.modelYear + " ";
+    const manufacturer = motor.manufacturer + " ";
+    const model = motor.model + " ";
+    const subModel = motor.subModel + " ";
+
+    item = modelYear + manufacturer + model + subModel + motor.vehicleType;
+
+    return item;
+  }
+
   requestPayment() {
     const payment = new PaymentPaynamics();
+    const productId = this.affinity.productId;
 
-    // payment.requestId = "TEST0000008"; //
-    // payment.ipAddress = "192.168.1.1"; //
-    // payment.cancelUrl = "https://prd2.mapfreinsurance.com.ph/mivo2/terms-and-condition";
-    // payment.mtacUrl = "https://prd2.mapfreinsurance.com.ph/mivo2/terms-and-condition";
-    // payment.descriptorNote = "TEST PAYMENT"; //
+    payment.requestId = this.affinity.paymentReferenceNumber;
+    payment.descriptorNote = this.getProductDescription(productId);
     payment.firstName = this.affinity.riskDetails.firstName;
     payment.middleName = this.affinity.riskDetails.middleName;
     payment.lastName = this.affinity.riskDetails.lastName;
     payment.address1 = this.affinity.address1;
-    // payment.address2 = "Test";
-
     payment.city = this.municipality;
     payment.state = this.province;
-    // payment.country = this.affinity.riskDetails.nationality;
     payment.zip = this.affinity.zipCode;
     payment.email = this.affinity.riskDetails.emailAddress;
     payment.phone = this.affinity.riskDetails.phoneNumber;
-    // payment.mobile = "";
-    // payment.itemName = "Test Item 1"; //
-    // payment.quantity = "1"; //
-    payment.amount = this.grossPremSend; //
-    // payment.trxType = "sale"; //
-    // payment.paymentMethod = "cc"; //
-    // payment.responseUrl = "https://prd2.mapfreinsurance.com.ph/paymentservice"; //
-    // payment.appNotifUrl = "https://prd2.mapfreinsurance.com.ph/paymentservice/payment/test-payment-notification"; //
+    payment.itemName = this.getItemName(productId);
+    payment.amount = this.grossPremSend;
     payment.policyNo = this.affinity.policyNumber;
 
     this.common.payment(payment, "cc");
