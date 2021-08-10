@@ -383,15 +383,19 @@
         class="custom-control-input" value="cc">
       <label class="custom-control-label" for="customRadioInline1">Pay using Credit Card</label>
     </div>
-    <br />
-    <img class="logo-collection" src="assets/images/authProgram_SC.gif" />
-    <img class="logo-collection" src="assets/images/authProgram_VBV.gif" />
   </div>
   <div class="col-md-3">
     <div class="custom-control custom-radio custom-control-inline">
       <input type="radio" id="customRadioInline2" name="customRadioInline1" [(ngModel)]="this.affinity.paymentOption"
+        class="custom-control-input" value="gc">
+      <label class="custom-control-label" for="customRadioInline2">Pay via GCash</label>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="custom-control custom-radio custom-control-inline">
+      <input type="radio" id="customRadioInline3" name="customRadioInline3" [(ngModel)]="this.affinity.paymentOption"
         class="custom-control-input" value="co">
-      <label class="custom-control-label" for="customRadioInline2">Pay via OTC/GCash</label>
+      <label class="custom-control-label" for="customRadioInline2">Pay via OTC</label>
     </div>
   </div>
 </div>

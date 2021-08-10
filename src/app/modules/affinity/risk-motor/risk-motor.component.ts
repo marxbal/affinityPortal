@@ -63,6 +63,7 @@ import {
 import {
   DecimalPipe
 } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-risk-motor',
@@ -76,8 +77,7 @@ export class RiskMotorComponent implements OnInit {
     private common: CommonService,
     private spinner: NgxSpinnerService,
     private checker: IsRequired,
-    private motorIssuance: MotorIssuanceService,
-    private decimalPipe: DecimalPipe) {}
+    private router: Router) {}
 
   @Input() affinity: Affinity;
   @Output() nextStep = new EventEmitter();
@@ -412,9 +412,15 @@ export class RiskMotorComponent implements OnInit {
           switch (result.status) {
             case 1:
               this.affinity.policyNumber = result.message;
-              this.common.payment(this.affinity, "cc");
-
-              // this.returnPayment(result.message);
+              const paymentOption = this.affinity.paymentOption;
+              if (paymentOption == "co") {
+                this.router.navigate(['issuance/51359e8b51c63b87d50cb1bab73380e2/' + result.message2]);
+                setTimeout(function () {
+                  window.location.reload();
+                }, 10);
+              } else {
+                this.common.payment(this.affinity, paymentOption);
+              }
 
               // this.router.navigate(['issuance/51359e8b51c63b87d50cb1bab73380e2/' + result.message]);
               // setTimeout(function () {
@@ -468,42 +474,6 @@ export class RiskMotorComponent implements OnInit {
         });
     });
   }
-
-  // returnPayment(policyNumber: string) {
-  //   this.spinner.show();
-
-  //   this.caller.doCallService('/afnty/getPaymentBreakdown?numPoliza=' + policyNumber + '&type=P', null).subscribe(
-  //     paymentBreakdown => {
-        
-  //       this.affinity.policyNumber = policyNumber;
-  //       this.affinity.premiumBreakdown = paymentBreakdown;
-
-  //       this.affinity.address1 = this.affinity.riskDetails.correspondentAddress.addressDetails;
-  //       this.affinity.province = this.affinity.riskDetails.correspondentAddress.provinceDetailId;
-  //       this.affinity.municipality = this.affinity.riskDetails.correspondentAddress.municipalityDetailId;
-  //       this.affinity.zipCode = this.affinity.riskDetails.correspondentAddress.zipCode;
-
-  //       console.log(this.affinity);
-
-  //       const premium = parseFloat(this.affinity.premiumBreakdown.grossPrem);
-  //       const total = this.decimalPipe.transform(premium, '1.2-2');
-
-  //       this.common.requestPayment(this.affinity, total);
-  //     });
-
-  //   // this.caller.doCallService('/afnty/retrievePolicyDetails', policyNumber).subscribe(
-  //   //   result => {
-  //   //     this.motorIssuance.mapRetrievePolicy(this.affinity, result).subscribe(
-  //   //       (res: Affinity) => {
-  //   //         this.affinity = res;
-  //   //         const premium = parseFloat(this.affinity.premiumBreakdown.grossPrem);
-  //   //         const total = this.decimalPipe.transform(premium, '1.2-2');
-
-  //   //         this.common.requestPayment(this.affinity, total);
-  //   //       });
-  //   //   });
-  // }
-  
 
   getCoverages(numPoliza, affinity: Affinity, nextStep) {
     this.common.getCoverageByPolicy("A", numPoliza, affinity.motorDetails.subline).subscribe(

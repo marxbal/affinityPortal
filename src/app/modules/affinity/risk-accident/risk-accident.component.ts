@@ -459,10 +459,21 @@ export class RiskAccidentComponent implements OnInit {
         result => {
           switch (result.status) {
             case 1:
-              this.router.navigate(['issuance/51359e8b51c63b87d50cb1bab73380e2/' + result.message]);
-              setTimeout(function () {
-                window.location.reload();
-              }, 10);
+              this.affinity.policyNumber = result.message;
+              const paymentOption = this.affinity.paymentOption;
+              if (paymentOption == "co") {
+                this.router.navigate(['issuance/51359e8b51c63b87d50cb1bab73380e2/' + result.message2]);
+                setTimeout(function () {
+                  window.location.reload();
+                }, 10);
+              } else {
+                this.common.payment(this.affinity, paymentOption);
+              }
+
+              // this.router.navigate(['issuance/51359e8b51c63b87d50cb1bab73380e2/' + result.message]);
+              // setTimeout(function () {
+              //   window.location.reload();
+              // }, 10);
               // if (this.affinity.paymentOption == "cc") {
               //   window.open(result.message, "_self");
               // } else {
