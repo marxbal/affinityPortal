@@ -463,7 +463,6 @@ export class RiskAccidentComponent implements OnInit {
               setTimeout(function () {
                 window.location.reload();
               }, 10);
-
               // if (this.affinity.paymentOption == "cc") {
               //   window.open(result.message, "_self");
               // } else {
