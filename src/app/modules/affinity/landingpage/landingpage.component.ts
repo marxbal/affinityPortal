@@ -85,7 +85,6 @@ export class LandingpageComponent implements OnInit {
   }
 
   viewPreviousPolicy() {
-    this.previousQuotations = [];
     this.previousPolicies = [];
     if (this.affinity.previousIssuances) {
       for (let i = 0; i < this.affinity.previousIssuances.length; i++) {
@@ -97,7 +96,6 @@ export class LandingpageComponent implements OnInit {
   }
 
   viewPreviousQuotation() {
-    this.previousPolicies = [];
     this.previousQuotations = [];
     if (this.affinity.previousIssuances) {
       for (let i = 0; i < this.affinity.previousIssuances.length; i++) {
