@@ -1190,7 +1190,7 @@ export class CommonService {
     const baseUrl = environment.baseUrl;
     const cancelUrl = baseUrl + environment.cancelUrl + payment.policyNumber;
     const tacUrl = baseUrl + environment.tacUrl;
-    const responseUrl = baseUrl + environment.responseUrl;
+    const responseUrl = baseUrl + environment.responseUrl + payment.policyNumber;
     const appNotifUrl = baseUrl + environment.appNotifUrl;
 
     payment.ipAddress = "192.168.1.1";
