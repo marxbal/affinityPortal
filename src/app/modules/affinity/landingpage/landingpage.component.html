@@ -112,7 +112,7 @@
 
     <div class="col-md-12">
       <div class="collapse" id="collapseQuotations">
-        <div class="row" *ngFor="let issue of this.affinity.previousIssuances">
+        <div class="row" *ngFor="let issue of this.previousIssuances">
           <div class="col-md-4" *ngIf="issue.quotationNumber">
 
             <div class="card card-previous">
@@ -184,8 +184,8 @@
 
       <div class="collapse" id="collapsePolicies">
         <!-- <div class="card card-body"> -->
-        <div class="row" *ngFor="let issue of this.affinity.previousIssuances">
-          <div class="col-md-4" *ngIf="issue.policyNumber">
+        <div class="row">
+          <div class="col-md-4" *ngFor="let issue of this.previousPolicies">
 
             <div class="card card-previous">
               <div class="card-body text-center">
