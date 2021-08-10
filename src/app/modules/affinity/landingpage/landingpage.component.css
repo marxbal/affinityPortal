@@ -31,6 +31,10 @@
   color: #d31d29;
 }
 
+.card-previous .fa-stack {
+  color: #8b8b8b !important;
+}
+
 .landing-container {
   background: #d52529;
   background-image: url('/assets/images/landing-page.jpg');

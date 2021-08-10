@@ -98,82 +98,78 @@
 <div class="container" id="previousTransaction">
   <div class="row mt-5">
     <div class="col-md-12 text-center">
-      <button class="btn btn-primary btn-quote" type="button" data-toggle="collapse" data-target="#collapseExample"
-        aria-expanded="false" aria-controls="collapseExample">
-        View Previous Transactions
-      </button>
+      <div class="btn-group">
+        <button class="btn btn-primary btn-quote" type="button" data-toggle="collapse" data-target="#collapseQuotations"
+          aria-expanded="false" aria-controls="collapseQuotations">
+          View Previous Quotations
+        </button>
+        <button class="btn btn-primary btn-quote" type="button" data-toggle="collapse" data-target="#collapsePolicies"
+          aria-expanded="false" aria-controls="collapsePolicies">
+          View Previous Policy
+        </button>
+      </div>
     </div>
+
     <div class="col-md-12">
-      <div class="collapse" id="collapseExample">
+      <div class="collapse" id="collapseQuotations">
         <div class="card card-body">
           <div class="row">
             <div class="col-md-4" *ngFor="let issue of this.affinity.previousIssuances">
 
-              <div class="card card-previous" *ngIf="issue.policyNumber">
-                <div class="card-body text-center">
-                  <div class="desc-container" *ngIf="issue.productId == '10001'">
-                    <h5 class="card-title mt-3"><b>Comprehensive Insurance</b></h5>
-                    <span class="fa-stack fa-3x">
-                      <i class="fa fa-circle fa-stack-2x"></i>
-                      <i class="fa fa-car fa-stack-1x fa-inverse"></i>
-                    </span>
-                  </div>
-                  <div class="desc-container" *ngIf="issue.productId == '10002'">
-                    <h5 class="card-title mt-3"><b>CTPL Insurance</b></h5>
-                    <span class="fa-stack fa-3x">
-                      <i class="fa fa-circle fa-stack-2x"></i>
-                      <i class="fa fa-car fa-stack-1x fa-inverse"></i>
-                    </span>
-                  </div>
-                  <div class="desc-container" *ngIf="issue.productId == '33701'">
-                    <h5 class="card-title mt-3"><b>Individual Personal Accident</b></h5>
-                    <span class="fa-stack fa-3x">
-                      <i class="fa fa-circle fa-stack-2x"></i>
-                      <i class="fa fa-sheild fa-stack-1x fa-inverse"></i>
-                    </span>
-                  </div>
-                  <div class="desc-container" *ngIf="issue.productId == '33702'">
-                    <h5 class="card-title mt-3"><b>Family Personal Accident</b></h5>
-                    <span class="fa-stack fa-3x">
-                      <i class="fa fa-circle fa-stack-2x"></i>
-                      <i class="fa fa-sheild fa-stack-1x fa-inverse"></i>
-                    </span>
-                  </div>
-
-                  
-
-                  <!-- <div class="desc-container" *ngIf="issue.productId == '20008'">
-                    <h5 class="card-title mt-3"><b>Household Insurance</b></h5>
-                  </div> -->
-                  <h5 class="card-title">Policy Request</h5>
-                  <h6 class="card-subtitle mb-2 text-muted">{{issue.policyNumber}}</h6>
-
-                  <button class="btn btn-mapfre btn-block" type="button"
-                    (click)="loadPolicy(issue,'51359e8b51c63b87d50cb1bab73380e2',issue.policyNumber)">
-                    Load Transaction
-                  </button>
-                </div>
-              </div>
-
               <div class="card card-previous" *ngIf="issue.quotationNumber">
                 <div class="card-body text-center">
-                  <div class="desc-container" *ngIf="issue.productId == '10001'">
-                    <h5 class="card-title mt-3"><b>Comprehensive Insurance</b></h5>
+                  
+                  <div class="row" *ngIf="issue.productId == '10001'">
+                    <div class="col-md-4">
+                      <span class="fa-stack fa-2x">
+                        <i class="fa fa-circle fa-stack-2x"></i>
+                        <i class="fa fa-car fa-stack-1x fa-inverse"></i>
+                      </span>
+                    </div>
+                    <div class="col-md-8">
+                      <h5 class="card-title mt-3"><b>Comprehensive</b></h5>
+                      <p>{{issue.quotationNumber}}</p>
+                    </div>
                   </div>
-                  <div class="desc-container" *ngIf="issue.productId == '10002'">
-                    <h5 class="card-title mt-3"><b>CTPL Insurance</b></h5>
+
+                  <div class="row" *ngIf="issue.productId == '10002'">
+                    <div class="col-md-4">
+                      <span class="fa-stack fa-2x">
+                        <i class="fa fa-circle fa-stack-2x"></i>
+                        <i class="fa fa-car fa-stack-1x fa-inverse"></i>
+                      </span>
+                    </div>
+                    <div class="col-md-8">
+                      <h5 class="card-title mt-3"><b>CTPL</b></h5>
+                      <p>{{issue.quotationNumber}}</p>
+                    </div>
                   </div>
-                  <div class="desc-container" *ngIf="issue.productId == '33701'">
-                    <h5 class="card-title mt-3"><b>Individual Personal Accident</b></h5>
+
+                  <div class="row" *ngIf="issue.productId == '33701'">
+                    <div class="col-md-4">
+                      <span class="fa-stack fa-2x">
+                        <i class="fa fa-circle fa-stack-2x"></i>
+                        <i class="fa fa-shield fa-stack-1x fa-inverse"></i>
+                      </span>
+                    </div>
+                    <div class="col-md-8">
+                      <h5 class="card-title mt-3"><b>Individual Personal</b></h5>
+                      <p>{{issue.quotationNumber}}</p>
+                    </div>
                   </div>
-                  <div class="desc-container" *ngIf="issue.productId == '33702'">
-                    <h5 class="card-title mt-3"><b>Family Personal Accident</b></h5>
+
+                  <div class="row" *ngIf="issue.productId == '33702'">
+                    <div class="col-md-4">
+                      <span class="fa-stack fa-2x">
+                        <i class="fa fa-circle fa-stack-2x"></i>
+                        <i class="fa fa-shield fa-stack-1x fa-inverse"></i>
+                      </span>
+                    </div>
+                    <div class="col-md-8">
+                      <h5 class="card-title mt-3"><b>Family Personal</b></h5>
+                      <p>{{issue.quotationNumber}}</p>
+                    </div>
                   </div>
-                  <!-- <div class="desc-container" *ngIf="issue.productId == '20008'">
-                    <h5 class="card-title mt-3"><b>Household Insurance</b></h5>
-                  </div> -->
-                  <h5 class="card-title">Quotation Request</h5>
-                  <h6 class="card-subtitle mb-2 text-muted">{{issue.quotationNumber}}</h6>
 
                   <button class="btn btn-mapfre btn-block" type="button"
                     (click)="loadPolicy(issue,'73015b3208cdee70a4497235463b63d7',issue.quotationNumber)">
@@ -187,6 +183,80 @@
 
         </div>
       </div>
+
+      <div class="collapse" id="collapsePolicies">
+        <!-- <div class="card card-body"> -->
+          <div class="row">
+            <div class="col-md-4" *ngFor="let issue of this.affinity.previousIssuances">
+
+              <div class="card card-previous" *ngIf="issue.policyNumber">
+                <div class="card-body text-center">
+
+                  <div class="row" *ngIf="issue.productId == '10001'">
+                    <div class="col-md-4">
+                      <span class="fa-stack fa-2x">
+                        <i class="fa fa-circle fa-stack-2x"></i>
+                        <i class="fa fa-car fa-stack-1x fa-inverse"></i>
+                      </span>
+                    </div>
+                    <div class="col-md-8">
+                      <h5 class="card-title mt-3"><b>Comprehensive</b></h5>
+                      <p>{{issue.policyNumber}}</p>
+                    </div>
+                  </div>
+
+                  <div class="row" *ngIf="issue.productId == '10002'">
+                    <div class="col-md-4">
+                      <span class="fa-stack fa-2x">
+                        <i class="fa fa-circle fa-stack-2x"></i>
+                        <i class="fa fa-car fa-stack-1x fa-inverse"></i>
+                      </span>
+                    </div>
+                    <div class="col-md-8">
+                      <h5 class="card-title mt-3"><b>CTPL</b></h5>
+                      <p>{{issue.policyNumber}}</p>
+                    </div>
+                  </div>
+
+                  <div class="row" *ngIf="issue.productId == '33701'">
+                    <div class="col-md-4">
+                      <span class="fa-stack fa-2x">
+                        <i class="fa fa-circle fa-stack-2x"></i>
+                        <i class="fa fa-shield fa-stack-1x fa-inverse"></i>
+                      </span>
+                    </div>
+                    <div class="col-md-8">
+                      <h5 class="card-title mt-3"><b>Individual Personal</b></h5>
+                      <p>{{issue.policyNumber}}</p>
+                    </div>
+                  </div>
+
+                  <div class="row" *ngIf="issue.productId == '33702'">
+                    <div class="col-md-4">
+                      <span class="fa-stack fa-2x">
+                        <i class="fa fa-circle fa-stack-2x"></i>
+                        <i class="fa fa-shield fa-stack-1x fa-inverse"></i>
+                      </span>
+                    </div>
+                    <div class="col-md-8">
+                      <h5 class="card-title mt-3"><b>Family Personal</b></h5>
+                      <p>{{issue.policyNumber}}</p>
+                    </div>
+                  </div>
+
+                  <button class="btn btn-mapfre btn-block" type="button"
+                    (click)="loadPolicy(issue, '51359e8b51c63b87d50cb1bab73380e2', issue.policyNumber)">
+                    Load Policy
+                  </button>
+                  
+                </div>
+              </div>
+
+            </div>
+          </div>
+        <!-- </div> -->
+      </div>
+
     </div>
   </div>
 </div>
