@@ -162,7 +162,7 @@ export class PaymentComponent implements OnInit {
   }
 
   requestPayment() {
-    this.common.requestPayment(this.affinity, this.total);
+    this.common.payment(this.affinity, "cc");
     
     // const payment = new PaymentPaynamics();
     // const productId = this.affinity.productId;

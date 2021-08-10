@@ -1240,29 +1240,29 @@ export class CommonService {
     return item;
   }
 
-  requestPayment(affinity: Affinity, total: string) {
-    const payment = new PaymentPaynamics();
-    const productId = affinity.productId;
+  // requestPayment(affinity: Affinity, total: string) {
+  //   const payment = new PaymentPaynamics();
+  //   const productId = affinity.productId;
 
-    payment.requestId = affinity.paymentReferenceNumber;
-    payment.descriptorNote = this.getProductDescription(productId);
-    payment.firstName = affinity.riskDetails.firstName;
-    payment.middleName = affinity.riskDetails.middleName;
-    payment.lastName = affinity.riskDetails.lastName;
-    payment.address1 = affinity.address1;
+    // payment.requestId = affinity.paymentReferenceNumber;
+    // payment.descriptorNote = this.getProductDescription(productId);
+    // payment.firstName = affinity.riskDetails.firstName;
+    // payment.middleName = affinity.riskDetails.middleName;
+    // payment.lastName = affinity.riskDetails.lastName;
+    // payment.address1 = affinity.address1;
     // payment.city = municipality;
     // payment.state = province;
-    payment.city = affinity.municipality;
-    payment.state = affinity.province;
-    payment.zip = affinity.zipCode;
-    payment.email = affinity.riskDetails.emailAddress;
-    payment.phone = affinity.riskDetails.phoneNumber;
-    payment.itemName = this.getItemName(affinity, productId);
-    payment.amount = total.toString().replace(/,/g, "");
-    payment.policyNumber = affinity.policyNumber;
-    payment.receipt = affinity.premiumBreakdown.numRecibo;
+    // payment.city = affinity.municipality;
+    // payment.state = affinity.province;
+    // payment.zip = affinity.zipCode;
+    // payment.email = affinity.riskDetails.emailAddress;
+    // payment.phone = affinity.riskDetails.phoneNumber;
+    // payment.itemName = this.getItemName(affinity, productId);
+    // payment.amount = total.toString().replace(/,/g, "");
+    // payment.policyNumber = affinity.policyNumber;
+    // payment.receipt = affinity.premiumBreakdown.numRecibo;
 
-    this.payment(payment, "cc");
+    // this.payment(payment, "cc");
 
     // let pDTO: Payment = new Payment();
     // pDTO.numPoliza = this.affinity.policyNumber;
@@ -1289,28 +1289,30 @@ export class CommonService {
     //     document.body.appendChild(mapForm);
     //     mapForm.submit();
     //   });
-  }
+  // }
 
-  payment(payment: PaymentPaynamics, paymentOption: string) {
+  payment(affinity: Affinity, paymentOption: string) {
     this.spinner.show();
 
+    const payment = new PaymentPaynamics();
+    const productId = affinity.productId;
     const baseUrl = environment.baseUrl;
-    const cancelUrl = baseUrl + environment.cancelUrl + payment.policyNumber;
-    const tacUrl = baseUrl + environment.tacUrl;
-    const responseUrl = baseUrl + environment.responseUrl + payment.policyNumber;
-    const appNotifUrl = baseUrl + environment.appNotifUrl;
 
-    payment.ipAddress = "192.168.1.1";
-    payment.cancelUrl = cancelUrl;
-    payment.mtacUrl = tacUrl;
-    payment.address2 = "";
-    payment.country = "PHILIPPINES";
-    payment.mobile = "";
-    payment.quantity = "1";
-    payment.trxType = "sale";
+    payment.policyNumber = affinity.policyNumber;
+    payment.descriptorNote = this.getProductDescription(productId);
+    payment.itemName = this.getItemName(affinity, productId);
+    payment.cancelUrl = baseUrl + environment.cancelUrl + payment.policyNumber;
+    payment.mtacUrl = baseUrl + environment.tacUrl;
+    payment.responseUrl = baseUrl + environment.responseUrl + payment.policyNumber;
+    payment.appNotifUrl = baseUrl + environment.appNotifUrl;
     payment.paymentMethod = paymentOption;
-    payment.responseUrl = responseUrl;
-    payment.appNotifUrl = appNotifUrl;
+
+    // payment.ipAddress = "192.168.1.1";
+    // payment.address2 = "";
+    // payment.country = "PHILIPPINES";
+    // payment.mobile = "";
+    // payment.quantity = "1";
+    // payment.trxType = "sale";
 
     // payment.requestId = "TEST0000008";
     // payment.ipAddress = "192.168.1.1";
