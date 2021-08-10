@@ -1,0 +1,45 @@
+.issuance-container {
+  margin-top: 50px;
+  font-family: Montserrat, sans-serif;
+}
+
+.wrap-issuance {
+  padding-top: 80px;
+}
+
+.img-responsive {
+  border-radius: 10px;
+}
+
+h5 {
+  margin: 0 0 !important;
+  padding: 0 10px 10px;
+}
+
+.payment-panel {
+  padding: 15px;
+  border: 5px solid #36a84d;
+  background: #e4ffea;
+  border-radius: 10px;
+  margin-bottom: 30px;
+}
+
+.payment-status-panel {
+  text-align: center;
+}
+
+.payment-panel.failed {
+  border: 5px solid #858585;
+  background: #e1e1e1;
+}
+
+.details-list {
+  border-bottom: 1px solid rgb(222 226 230);
+  margin: 10px 0;
+}
+
+.paynamics-logo {
+  width: 100px;
+  display: block;
+  margin: 0 auto;
+}

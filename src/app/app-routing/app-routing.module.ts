@@ -32,6 +32,9 @@ import {
 import {
   ProductComponent
 } from '../modules/admin/product/product.component';
+import {
+  PaymentResultComponent
+} from '../modules/affinity/payment-result/payment-result.component';
 
 const routes: Routes = [{
     path: '',
@@ -82,6 +85,11 @@ const routes: Routes = [{
     path: 'issuance/:type/:numPoliza',
     component: IssuanceComponent,
     canActivate: [AuthGuardClient],
+  },
+  {
+    path: 'payment-result/:policyNumber',
+    component: PaymentResultComponent,
+    // canActivate: [AuthGuardClient],
   }
 ];
 

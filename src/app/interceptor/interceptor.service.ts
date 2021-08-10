@@ -6,8 +6,7 @@ import {
   HttpHandler,
   HttpEvent,
   HttpInterceptor,
-  HttpErrorResponse,
-  HttpClient
+  HttpErrorResponse
 } from '@angular/common/http';
 import {
   Observable,
@@ -17,12 +16,6 @@ import {
   map,
   catchError
 } from 'rxjs/operators';
-import {
-  AuthenticationService
-} from '../services/authentication.service';
-import {
-  AuthService
-} from '../services/auth.service';
 import * as _ from 'lodash';
 import {
   Router

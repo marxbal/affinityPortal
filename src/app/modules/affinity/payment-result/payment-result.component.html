@@ -1,0 +1,218 @@
+<app-header></app-header>
+<div class="wrap-issuance">
+  <div class="container issuance-container">
+    <div class="row">
+
+      <div class="col-md-7">
+        <img class="img-responsive d-none d-md-block" src="assets/images/payment-success.jpg" />
+      </div>
+
+      <div class="col-md-5">
+        <div class="payment-panel">
+
+          <div class="payment-status-panel d-block d-sm-none">
+            <span class="fa-stack fa-3x">
+              <i class="fa fa-circle fa-stack-2x"></i>
+              <i class="fa fa-check fa-stack-1x fa-inverse"></i>
+            </span>
+            <h5>Payment Successful</h5>
+          </div>
+
+
+          <div class="details-list">
+            <label>Client Name: </label>
+            <h5>Jethru Balarbar</h5>
+          </div>
+
+          <div class="details-list">
+            <label>Payment Reference Number: </label>
+            <!-- <h5>{{this.affinity.paymentReferenceNumber}}</h5> -->
+            <h5>0393940404040404</h5>
+          </div>
+
+          <div class="details-list">
+            <label>Payment Status: </label>
+            <h5>Paid</h5>
+          </div>
+
+          <div class="details-list">
+            <label>Total Payment Paid: </label>
+            <!-- <h5>{{this.affinity.premiumBreakdown.grossPrem}}</h5> -->
+            <h5>P1000.00</h5>
+          </div>
+
+          <!-- <button class="btn btn-mapfre btn-block mt-3 mb-3" (click)="requestPayment()">
+            <b>Pay using Credit Card</b>
+          </button> -->
+
+          <img class="paynamics-logo" src="assets/images/paynamics-logo.png" />
+          <br />
+        </div>
+      </div>
+
+      <div class="col-md-12">
+        <div *ngIf="this.affinity.productId == '10002' || this.affinity.productId == '10001'">
+          <!-- <div class="form-group row">
+            <div class="col-md-12">
+              <label for="first_name" class="col-form-label affinity-label">Client Name</label>
+              <div>{{this.affinity.riskDetails.firstName}}<span *ngIf="this.affinity.motorDetails.isCorporate == '1'">
+                  {{this.affinity.riskDetails.middleName}} {{this.affinity.riskDetails.lastName}}</span></div>
+            </div>
+          </div> -->
+          <br />
+          <div class="row">
+            <div class="col-md-12">
+              <h5>List of Coverages</h5>
+              <table class="table table-small table-hover table-condensed">
+                <thead>
+                  <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Coverage Name</th>
+                    <th scope="col" class="text-right">Limit</th>
+                    <th scope="col" class="text-right">Premium</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let cover of this.affinity.coveragesValue">
+                    <td><span class="text-success"><b>
+                          <h4><i class="fa fa-check-circle mt-2 mb-2"></i></h4>
+                        </b></span></td>
+                    <td>{{cover.nomCob}}</td>
+                    <td class="text-right">{{this.formatter.format(cover.sumaAseg)}}</td>
+                    <td class="text-right">{{cover.totalPremium}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br />
+          <br />
+        </div>
+        <div *ngIf="this.affinity.productId == '33701' || this.affinity.productId == '33702'">
+          <div class="col-md-12">
+            <div class="card mb-3">
+              <div class="card-body">
+                <span class="card-title">
+                  <!-- <div class="form-group row">
+                    <div class="col-md-8">
+                      <label for="first_name" class="col-form-label affinity-label">Insured Name</label>
+                      <div>{{this.affinity.riskDetails.firstName}}<span
+                          *ngIf="this.affinity.motorDetails.isCorporate == '1'">{{this.affinity.riskDetails.middleName}}
+                          {{this.affinity.riskDetails.lastName}}</span></div>
+                    </div>
+                    <div class="col-md-4">
+                      <label for="first_name" class="col-form-label affinity-label">Relationship</label>
+                      <div>PRIMARY</div>
+                    </div>
+                  </div> -->
+                  <div class="form-group row">
+                    <div class="col-md-4">
+                      <label for="first_name" class="col-form-label affinity-label">Effectivity Date</label>
+                      <div>{{this.affinity.motorDetails.policyPeriodFrom}}</div>
+                    </div>
+                    <div class="col-md-4">
+                      <label for="first_name" class="col-form-label affinity-label">Expiry Date</label>
+                      <div>{{this.affinity.motorDetails.policyPeriodTo}}</div>
+                    </div>
+                  </div>
+                </span>
+                <!-- <h5>List of Coverages</h5> -->
+                <br />
+                <table class="table table-small table-hover table-condensed">
+                  <thead>
+                    <tr>
+                      <th scope="col"></th>
+                      <th scope="col">Coverage Name</th>
+                      <th scope="col" class="text-right">Limit</th>
+                      <th scope="col" class="text-right">Premium <ng-container *ngIf="this.affinity.lineId == '251'">
+                          (includes Fire Service Tax)</ng-container>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let cover of this.affinity.coveragesValue">
+                      <td><span class="text-success"><b>
+                            <h4><i class="fa fa-check-circle mt-2 mb-2"></i></h4>
+                          </b></span></td>
+                      <td>{{cover.nomCob}}</td>
+                      <td class="text-right">{{this.formatter.format(cover.sumaAseg)}}</td>
+                      <td class="text-right">{{cover.totalPremium}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="card mb-3" *ngFor="let insured of this.affinity.paDetails.familyMembers">
+              <div class="card-body">
+                <span class="card-title">
+                  <div class="form-group row">
+                    <div class="col-md-8">
+                      <label for="first_name" class="col-form-label affinity-label">Insured Name</label>
+                      <div>{{insured.firstName}} {{insured.middleName}} {{insured.lastName}}</div>
+                    </div>
+                    <div class="col-md-4">
+                      <label for="first_name" class="col-form-label affinity-label">Relationship</label>
+                      <div>{{insured.relationship.split(":=:")[1]}}</div>
+                    </div>
+                  </div>
+                </span>
+                <!-- <h5>List of Coverages</h5> -->
+                <br />
+                <table class="table table-small table-hover table-condensed">
+                  <thead>
+                    <tr>
+                      <th scope="col"></th>
+                      <th scope="col">Coverage Name</th>
+                      <th scope="col" class="text-right">Limit</th>
+                      <th scope="col" class="text-right">Premium <ng-container *ngIf="this.affinity.lineId == '251'">
+                          (includes Fire Service Tax)</ng-container>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let cover of insured.coveragesValue">
+                      <td><span class="text-success"><b>
+                            <h4><i class="fa fa-check-circle mt-2 mb-2"></i></h4>
+                          </b></span></td>
+                      <td>{{cover.nomCob}}</td>
+                      <td class="text-right">{{this.formatter.format(cover.sumaAseg)}}</td>
+                      <td class="text-right">{{cover.totalPremium}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-12">
+
+            <h5>Details of Coverage</h5>
+            <table class="table table-small table-hover table-condensed">
+              <thead>
+                <tr>
+                  <th scope="col">Coverage</th>
+                  <th scope="col">Benefit</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let coverage of this.affinity.coverages">
+                  <td style="min-width: 300px;">{{coverage.benefit}}</td>
+                  <td style="text-align: justify;">
+                    <span *ngFor="let coverages of coverage.coverages">
+                      {{coverages}}<br /><br />
+                    </span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer class="footer"></app-footer>

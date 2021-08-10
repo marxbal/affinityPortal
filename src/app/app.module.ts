@@ -128,6 +128,9 @@ import {
 import {
   DecimalPipe
 } from '@angular/common';
+import {
+  PaymentResultComponent
+} from './modules/affinity/payment-result/payment-result.component';
 
 @NgModule({
   declarations: [
@@ -160,7 +163,8 @@ import {
     ProductListComponent,
     PartnerListComponent,
     ProductComponent,
-    PartnerComponent
+    PartnerComponent,
+    PaymentResultComponent
   ],
   imports: [
     FormsModule,

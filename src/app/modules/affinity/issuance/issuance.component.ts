@@ -25,9 +25,6 @@ import {
   MotorIssuanceService
 } from '../../../services/motor-issuance.service';
 import {
-  PropertyIssuanceService
-} from '../../../services/property-issuance.service';
-import {
   PersonalAccidentIssuanceService
 } from '../../../services/personal-accident-issuance.service';
 import {
@@ -37,9 +34,6 @@ import * as _ from 'lodash';
 import {
   EMAIL
 } from 'src/app/constants/local.storage';
-import {
-  PartnerService
-} from 'src/app/services/partner.service';
 
 @Component({
   selector: 'app-issuance',
@@ -55,9 +49,7 @@ export class IssuanceComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private commonService: CommonService,
     private motorIssuance: MotorIssuanceService,
-    private propertyIssuance: PropertyIssuanceService,
-    private paIssuance: PersonalAccidentIssuanceService,
-    private pService: PartnerService) {}
+    private paIssuance: PersonalAccidentIssuanceService) {}
 
   templateRouter: String;
   line: String;
