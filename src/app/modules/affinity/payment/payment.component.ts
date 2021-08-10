@@ -161,55 +161,8 @@ export class PaymentComponent implements OnInit {
     return item;
   }
 
-  requestPayment() {
-    this.common.payment(this.affinity, "cc");
-    
-    // const payment = new PaymentPaynamics();
-    // const productId = this.affinity.productId;
-
-    // payment.requestId = this.affinity.paymentReferenceNumber;
-    // payment.descriptorNote = this.getProductDescription(productId);
-    // payment.firstName = this.affinity.riskDetails.firstName;
-    // payment.middleName = this.affinity.riskDetails.middleName;
-    // payment.lastName = this.affinity.riskDetails.lastName;
-    // payment.address1 = this.affinity.address1;
-    // payment.city = this.municipality;
-    // payment.state = this.province;
-    // payment.zip = this.affinity.zipCode;
-    // payment.email = this.affinity.riskDetails.emailAddress;
-    // payment.phone = this.affinity.riskDetails.phoneNumber;
-    // payment.itemName = this.getItemName(productId);
-    // payment.amount = this.total;
-    // payment.policyNumber = this.affinity.policyNumber;
-    // payment.receipt = this.affinity.premiumBreakdown.numRecibo;
-
-    // this.common.payment(payment, "cc");
-
-    // let pDTO: Payment = new Payment();
-    // pDTO.numPoliza = this.affinity.policyNumber;
-    // pDTO.grossPrem = this.grossPremSend;
-    // pDTO.numRecibo = this.affinity.premiumBreakdown.numRecibo;
-    // this.caller.doCallService('/afnty/Payment/Request', pDTO).subscribe(
-    //   response => {
-    //     var mapForm = document.createElement("form");
-    //     mapForm.method = "POST"; // or "post" if appropriate
-    //     mapForm.action = response.url;
-
-    //     Object.entries(response).forEach((attribute: any[]) => {
-    //       if (attribute[0] === 'url') {
-    //         return;
-    //       }
-
-    //       var mapInput = document.createElement("input");
-    //       mapInput.type = "hidden";
-    //       mapInput.name = attribute[0].replaceAll('vpc', 'vpc_');
-    //       mapInput.setAttribute("value", attribute[1]);
-    //       mapForm.appendChild(mapInput);
-    //     });
-
-    //     document.body.appendChild(mapForm);
-    //     mapForm.submit();
-    //   });
+  requestPayment(paymentOption: string) {
+    this.common.payment(this.affinity, paymentOption);
   }
 
   sleep(time) {
