@@ -67,6 +67,7 @@ export class PaymentResultComponent implements OnInit {
       this.retrieveTransactions();
       if (!_.isEmpty(policyNumber)) {
         this.retrievePolicyDetails(policyNumber);
+        console.log(this.affinity);
         const type = this.getType(this.affinity.productId);
         this.getCoverageDescriptions(type);
       } else {
