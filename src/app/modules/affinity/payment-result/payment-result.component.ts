@@ -42,6 +42,9 @@ export class PaymentResultComponent implements OnInit {
   affinity: Affinity = new Affinity();
   coverageList: Coverages[] = [];
   coverage: Coverages = new Coverages();
+  paymentStatus: boolean = false;
+  nameLabel: string = "Client Name:";
+  policyNumber: string = "";
 
   constructor(
     private route: ActivatedRoute,
@@ -63,13 +66,20 @@ export class PaymentResultComponent implements OnInit {
     if (this.affinity.clientId === null) {
       this.router.navigate(['login']);
     } else {
-      const policyNumber = this.route.snapshot.paramMap.get("policyNumber");
+      this.policyNumber = this.route.snapshot.paramMap.get("policyNumber");
       this.retrieveTransactions();
-      if (!_.isEmpty(policyNumber)) {
-        this.retrievePolicyDetails(policyNumber);
+      if (!_.isEmpty(this.policyNumber)) {
+        this.retrievePolicyDetails(this.policyNumber);
         console.log(this.affinity);
-        const type = this.getType(this.affinity.productId);
+
+        const productId = this.affinity.productId;
+        const type = this.getType(productId);
+        if (productId == "33701" || productId == "33702") {
+          this.nameLabel = "Primary Insured Name:"
+        }
+
         this.getCoverageDescriptions(type);
+        this.retrievePaymentStatus(this.policyNumber);
       } else {
         this.router.navigate([this.auth.getLandingPage()]);
       }
@@ -173,6 +183,19 @@ export class PaymentResultComponent implements OnInit {
 
         this.affinity.coverages = this.coverageList;
       });
+  }
+
+  retrievePaymentStatus(policyNumber) {
+    this.spinner.show();
+    this.paymentStatus = false;
+    this.caller.doCallService('/afnty/retrievePaymentStatus', policyNumber).subscribe(
+      result => {
+        this.spinner.hide();
+      });
+  }
+
+  retryPayment() {
+    this.router.navigate(['issuance/51359e8b51c63b87d50cb1bab73380e2/' + this.policyNumber]);
   }
 
 }

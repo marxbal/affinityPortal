@@ -4,13 +4,13 @@
     <div class="row">
 
       <div class="col-md-7">
-        <img class="img-responsive d-none d-md-block" src="assets/images/payment-success.jpg" />
+        <img class="img-responsive d-none d-md-block" src="assets/images/payment-{{paymentStatus ? 'success' : 'failed'}}.jpg" />
       </div>
 
       <div class="col-md-5">
-        <div class="payment-panel">
+        <div class="payment-panel {{paymentStatus ? 'success' : 'failed'}}">
 
-          <div class="payment-status-panel d-block d-sm-none">
+          <div *ngIf="paymentStatus" class="payment-status-panel d-block d-sm-none">
             <span class="fa-stack fa-3x">
               <i class="fa fa-circle fa-stack-2x"></i>
               <i class="fa fa-check fa-stack-1x fa-inverse"></i>
@@ -18,9 +18,16 @@
             <h5>Payment Successful</h5>
           </div>
 
+          <div *ngIf="!paymentStatus" class="payment-status-panel d-block d-sm-none">
+            <span class="fa-stack fa-3x">
+              <i class="fa fa-circle fa-stack-2x"></i>
+              <i class="fa fa-times fa-stack-1x fa-inverse"></i>
+            </span>
+            <h5>Payment Unsuccessful</h5>
+          </div>
 
           <div class="details-list">
-            <label>Client Name: </label>
+            <label>{{this.nameLabel}}</label>
             <h5>{{this.affinity.riskDetails.fullName}}</h5>
           </div>
 
@@ -33,7 +40,7 @@
             <div class="row">
               <div class="col-md-6">
                 <label>Payment Status: </label>
-                <h5>Paid</h5>
+                <h5>{{paymentStatus ? "Paid" : "Unpaid"}}</h5>
               </div>
               <div class="col-md-6">
                 <label>Total Payment: </label>
@@ -43,7 +50,7 @@
           </div>
 
           <div class="details-list">
-            <div class="row">
+            <div *ngIf="paymentStatus" class="row">
               <div class="col-md-6">
                 <label>Effectivity: </label>
                 <h5>{{this.affinity.motorDetails.policyPeriodFrom}}</h5>
@@ -53,11 +60,14 @@
                 <h5>{{this.affinity.motorDetails.policyPeriodTo}}</h5>
               </div>
             </div>
+            <div *ngIf="!paymentStatus" class="row">
+              <div class="col-md-12">
+                <button class="btn btn-mapfre btn-block mt-3 mb-3" (click)="retryPayment()">
+                  <b>Retry Credit Card Payment</b>
+                </button>
+              </div>
+            </div>
           </div>
-
-          <!-- <button class="btn btn-mapfre btn-block mt-3 mb-3" (click)="requestPayment()">
-            <b>Pay using Credit Card</b>
-          </button> -->
 
           <img class="paynamics-logo" src="assets/images/paynamics-logo.png" />
           <br />
@@ -187,7 +197,7 @@
           </tbody>
         </table>
       </div>
-      
+
     </div>
   </div>
 </div>
