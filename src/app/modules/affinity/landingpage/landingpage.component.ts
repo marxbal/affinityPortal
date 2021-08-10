@@ -101,7 +101,7 @@ export class LandingpageComponent implements OnInit {
     this.previousQuotations = [];
     if (this.affinity.previousIssuances) {
       for (let i = 0; i < this.affinity.previousIssuances.length; i++) {
-        if (this.affinity.previousIssuances[i].policyNumber) { 
+        if (this.affinity.previousIssuances[i].quotationNumber) { 
           this.previousQuotations.push(this.affinity.previousIssuances[i]);
         }
       }
