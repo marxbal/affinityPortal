@@ -459,7 +459,7 @@ export class RiskAccidentComponent implements OnInit {
         result => {
           switch (result.status) {
             case 1:
-              this.router.navigate(['issuance/51359e8b51c63b87d50cb1bab73380e2/' + result.message2]);
+              this.router.navigate(['issuance/51359e8b51c63b87d50cb1bab73380e2/' + result.message]);
               setTimeout(function () {
                 window.location.reload();
               }, 10);
