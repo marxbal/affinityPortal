@@ -162,26 +162,28 @@ export class PaymentComponent implements OnInit {
   }
 
   requestPayment() {
-    const payment = new PaymentPaynamics();
-    const productId = this.affinity.productId;
+    this.common.requestPayment(this.affinity, this.total);
+    
+    // const payment = new PaymentPaynamics();
+    // const productId = this.affinity.productId;
 
-    payment.requestId = this.affinity.paymentReferenceNumber;
-    payment.descriptorNote = this.getProductDescription(productId);
-    payment.firstName = this.affinity.riskDetails.firstName;
-    payment.middleName = this.affinity.riskDetails.middleName;
-    payment.lastName = this.affinity.riskDetails.lastName;
-    payment.address1 = this.affinity.address1;
-    payment.city = this.municipality;
-    payment.state = this.province;
-    payment.zip = this.affinity.zipCode;
-    payment.email = this.affinity.riskDetails.emailAddress;
-    payment.phone = this.affinity.riskDetails.phoneNumber;
-    payment.itemName = this.getItemName(productId);
-    payment.amount = this.total;
-    payment.policyNumber = this.affinity.policyNumber;
-    payment.receipt = this.affinity.premiumBreakdown.numRecibo;
+    // payment.requestId = this.affinity.paymentReferenceNumber;
+    // payment.descriptorNote = this.getProductDescription(productId);
+    // payment.firstName = this.affinity.riskDetails.firstName;
+    // payment.middleName = this.affinity.riskDetails.middleName;
+    // payment.lastName = this.affinity.riskDetails.lastName;
+    // payment.address1 = this.affinity.address1;
+    // payment.city = this.municipality;
+    // payment.state = this.province;
+    // payment.zip = this.affinity.zipCode;
+    // payment.email = this.affinity.riskDetails.emailAddress;
+    // payment.phone = this.affinity.riskDetails.phoneNumber;
+    // payment.itemName = this.getItemName(productId);
+    // payment.amount = this.total;
+    // payment.policyNumber = this.affinity.policyNumber;
+    // payment.receipt = this.affinity.premiumBreakdown.numRecibo;
 
-    this.common.payment(payment, "cc");
+    // this.common.payment(payment, "cc");
 
     // let pDTO: Payment = new Payment();
     // pDTO.numPoliza = this.affinity.policyNumber;

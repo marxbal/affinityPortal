@@ -1258,7 +1258,7 @@ export class CommonService {
     payment.email = affinity.riskDetails.emailAddress;
     payment.phone = affinity.riskDetails.phoneNumber;
     payment.itemName = this.getItemName(affinity, productId);
-    payment.amount = total;
+    payment.amount = total.toString().replace(/,/g, "");
     payment.policyNumber = affinity.policyNumber;
     payment.receipt = affinity.premiumBreakdown.numRecibo;
 
