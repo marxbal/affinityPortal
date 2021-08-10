@@ -10,51 +10,49 @@
     <div *ngIf="this.affinity.productId == '10002' || this.affinity.productId == '10001'">
       <div class="card mb-3">
         <div class="card-body">
-          <span class="card-title">
-            <div class="form-group row">
-              <div class="col-md-12">
-                <label for="first_name" class="col-form-label affinity-label">Client Name</label>
-                <div><strong>{{this.affinity.riskDetails.firstName}}<span
-                      *ngIf="this.affinity.motorDetails.isCorporate == '1'">
-                      {{this.affinity.riskDetails.middleName}} {{this.affinity.riskDetails.lastName}}</span></strong>
-                </div>
+          <div class="form-group row">
+            <div class="col-md-12">
+              <label for="first_name" class="col-form-label affinity-label">Client Name</label>
+              <div><strong>{{this.affinity.riskDetails.firstName}}<span
+                    *ngIf="this.affinity.motorDetails.isCorporate == '1'">
+                    {{this.affinity.riskDetails.middleName}} {{this.affinity.riskDetails.lastName}}</span></strong>
               </div>
             </div>
-            <h5 class="mt-5">Vehicle Details</h5>
-            <div class="form-group row">
-              <div class="col-md-4">
-                <label for="first_name" class="col-form-label affinity-label">Make/Manufacturer</label>
-                <div><strong>{{this.affinity.motorDetails.manufacturer}}</strong></div>
-              </div>
-              <div class="col-md-4">
-                <label for="first_name" class="col-form-label affinity-label">Model</label>
-                <div><strong>{{this.affinity.motorDetails.model}}</strong></div>
-              </div>
-              <div class="col-md-4">
-                <label for="first_name" class="col-form-label affinity-label">Sub Model</label>
-                <div><strong>{{this.affinity.motorDetails.subModel}}</strong></div>
-              </div>
-              <div *ngIf="this.affinity.motorDetails.plateNumber" class="col-md-4">
-                <label for="first_name" class="col-form-label affinity-label">Plate Number</label>
-                <div><strong>{{this.affinity.motorDetails.plateNumber}}</strong></div>
-              </div>
-              <div *ngIf="this.affinity.motorDetails.conductionNumber" class="col-md-4">
-                <label for="first_name" class="col-form-label affinity-label">Conduction Number</label>
-                <div><strong>{{this.affinity.motorDetails.conductionNumber}}</strong></div>
-              </div>
+          </div>
+          <h5 class="mt-5">Vehicle Details</h5>
+          <div class="form-group row">
+            <div class="col-md-4">
+              <label for="first_name" class="col-form-label affinity-label">Make/Manufacturer</label>
+              <div><strong>{{this.affinity.motorDetails.manufacturer}}</strong></div>
             </div>
-            <h5 class="mt-5">Policy Period</h5>
-            <div class="form-group row">
-              <div class="col-md-6">
-                <label for="first_name" class="col-form-label affinity-label">Effectivity Date</label>
-                <div><strong>{{this.affinity.motorDetails.policyPeriodFrom}}</strong></div>
-              </div>
-              <div class="col-md-6 text-align-right">
-                <label for="first_name" class="col-form-label affinity-label">Expiry Date</label>
-                <div><strong>{{this.affinity.motorDetails.policyPeriodTo}}</strong></div>
-              </div>
+            <div class="col-md-4">
+              <label for="first_name" class="col-form-label affinity-label">Model</label>
+              <div><strong>{{this.affinity.motorDetails.model}}</strong></div>
             </div>
-          </span>
+            <div class="col-md-4">
+              <label for="first_name" class="col-form-label affinity-label">Sub Model</label>
+              <div><strong>{{this.affinity.motorDetails.subModel}}</strong></div>
+            </div>
+            <div *ngIf="this.affinity.motorDetails.plateNumber" class="col-md-4">
+              <label for="first_name" class="col-form-label affinity-label">Plate Number</label>
+              <div><strong>{{this.affinity.motorDetails.plateNumber}}</strong></div>
+            </div>
+            <div *ngIf="this.affinity.motorDetails.conductionNumber" class="col-md-4">
+              <label for="first_name" class="col-form-label affinity-label">Conduction Number</label>
+              <div><strong>{{this.affinity.motorDetails.conductionNumber}}</strong></div>
+            </div>
+          </div>
+          <h5 class="mt-5">Policy Period</h5>
+          <div class="form-group row">
+            <div class="col-md-6">
+              <label for="first_name" class="col-form-label affinity-label">Effectivity Date</label>
+              <div><strong>{{this.affinity.motorDetails.policyPeriodFrom}}</strong></div>
+            </div>
+            <div class="col-md-6 text-align-right">
+              <label for="first_name" class="col-form-label affinity-label">Expiry Date</label>
+              <div><strong>{{this.affinity.motorDetails.policyPeriodTo}}</strong></div>
+            </div>
+          </div>
 
           <h5>List of Coverages</h5>
           <table class="table table-small table-hover table-condensed">
