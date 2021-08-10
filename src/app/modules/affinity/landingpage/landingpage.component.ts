@@ -89,7 +89,10 @@ export class LandingpageComponent implements OnInit {
     if (this.affinity.previousIssuances) {
       for (let i = 0; i < this.affinity.previousIssuances.length; i++) {
         if (this.affinity.previousIssuances[i].policyNumber) { 
-          this.previousPolicies.push(this.affinity.previousIssuances[i]);
+          const include = _.indexOf(this.availableProducts, this.affinity.previousIssuances[i].productId) != -1;
+          if (include) {
+            this.previousPolicies.push(this.affinity.previousIssuances[i]);
+          }
         }
       }
     }
@@ -100,7 +103,10 @@ export class LandingpageComponent implements OnInit {
     if (this.affinity.previousIssuances) {
       for (let i = 0; i < this.affinity.previousIssuances.length; i++) {
         if (this.affinity.previousIssuances[i].quotationNumber) { 
-          this.previousQuotations.push(this.affinity.previousIssuances[i]);
+          const include = _.indexOf(this.availableProducts, this.affinity.previousIssuances[i].productId) != -1;
+          if (include) {
+            this.previousQuotations.push(this.affinity.previousIssuances[i]);
+          }
         }
       }
     }
