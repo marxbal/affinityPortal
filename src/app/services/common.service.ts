@@ -1300,17 +1300,43 @@ export class CommonService {
     const responseUrl = baseUrl + environment.responseUrl + payment.policyNumber;
     const appNotifUrl = baseUrl + environment.appNotifUrl;
 
+    // payment.ipAddress = "192.168.1.1";
+    // payment.cancelUrl = cancelUrl;
+    // payment.mtacUrl = tacUrl;
+    // payment.address2 = "";
+    // payment.country = "PHILIPPINES";
+    // payment.mobile = "";
+    // payment.quantity = "1";
+    // payment.trxType = "sale";
+    // payment.paymentMethod = paymentOption;
+    // payment.responseUrl = responseUrl;
+    // payment.appNotifUrl = appNotifUrl;
+
+    payment.requestId = "TEST0000008";
     payment.ipAddress = "192.168.1.1";
-    payment.cancelUrl = cancelUrl;
-    payment.mtacUrl = tacUrl;
-    payment.address2 = "";
-    payment.country = "PHILIPPINES";
-    payment.mobile = "";
-    payment.quantity = "1";
-    payment.trxType = "sale";
-    payment.paymentMethod = paymentOption;
-    payment.responseUrl = responseUrl;
-    payment.appNotifUrl = appNotifUrl;
+    payment.cancelUrl = "https://prd2.mapfreinsurance.com.ph/mivo2/terms-and-condition";
+    payment.mtacUrl = "https://prd2.mapfreinsurance.com.ph/mivo2/terms-and-condition";
+    payment.descriptorNote = "TEST PAYMENT";
+    payment.firstName =  "Ken";
+    payment.middleName =  "Malit";
+    payment.lastName =  "Layug";
+    payment.address1 =  "Test";
+    payment.address2 =  "Test";
+    payment.city =  "Dinalupihan";
+    payment.state =  "Bataan";
+    payment.country =  "PHILIPPINES";
+    payment.zip = "2110";
+    payment.email =  "test@mapfreinsurance.com.ph";
+    payment.phone =  "09170000000";
+    payment.mobile =  "";
+    payment.itemName =  "Test Item 1";
+    payment.quantity =  "1";
+    payment.amount =  "1000.00";
+    payment.trxType =  "sale";
+    payment.paymentMethod =  "cc";
+    payment.responseUrl =  "https://prd2.mapfreinsurance.com.ph/paymentservice";
+    payment.appNotifUrl =  "https://prd2.mapfreinsurance.com.ph/paymentservice/payment/test-payment-notification";
+    payment.policyNumber =  "123123";
 
     this.paymentService.request(payment).subscribe(
       (result: any) => {
