@@ -1188,7 +1188,7 @@ export class CommonService {
     this.spinner.show();
 
     const baseUrl = environment.baseUrl;
-    const cancelUrl = baseUrl + environment.cancelUrl;
+    const cancelUrl = baseUrl + environment.cancelUrl + payment.policyNumber;
     const tacUrl = baseUrl + environment.tacUrl;
     const responseUrl = baseUrl + environment.responseUrl;
     const appNotifUrl = baseUrl + environment.appNotifUrl;
