@@ -1,6 +1,8 @@
-.goodHealth{
+.goodHealth a {
+  color: #d31d29;
 }
 
-.goodHealth a{
-	color: #d31d29;
+.paynamics-logo {
+  width: 100px;
+  margin: 0 auto;
 }

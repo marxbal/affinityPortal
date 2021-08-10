@@ -384,7 +384,10 @@ export class RiskAccidentComponent implements OnInit {
 
     if (this.affinity.paymentOption == "cc") {
       option = "Credit Card as your payment option";
-      imges = "<img class='logo-collection' src='assets/images/authProgram_SC.gif' /><img class='logo-collection' src='assets/images/authProgram_VBV.gif' />";
+      imges = "<img class='paynamics-logo' src='assets/images/paynamics-log.png' />";
+    } else if (this.affinity.paymentOption == "gc") {
+      option = "Gcash as your payment option";
+      imges = "<img class='paynamics-logo' src='assets/images/paynamics-log.png' />";
     }
 
     Swal.fire({
