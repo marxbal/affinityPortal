@@ -52,6 +52,11 @@ export class PaymentResultComponent implements OnInit {
     private motorIssuance: MotorIssuanceService,
     private paIssuance: PersonalAccidentIssuanceService) {}
 
+  formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'PHP',
+  });
+
   ngOnInit() {
     this.affinity.clientId = localStorage.getItem(EMAIL);
 
@@ -130,7 +135,7 @@ export class PaymentResultComponent implements OnInit {
     this.caller.doCallService('/afnty/retrievePolicyDetails', policyNumber).subscribe(
       result => {
         this.spinner.hide();
-        
+
         switch (result.p2000030.codRamo) {
           case 337:
             this.paIssuance.mapRetrievePolicy(this.affinity, result).subscribe(
