@@ -459,6 +459,9 @@ a.article:hover {
   font-size: 25px;
 }
 
+.text-align-right {
+  text-align: right !important;
+}
 
 .fixed-bottom-digi {
   position: fixed;
