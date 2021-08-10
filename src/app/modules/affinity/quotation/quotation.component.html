@@ -10,7 +10,7 @@
     <div *ngIf="this.affinity.productId == '10002' || this.affinity.productId == '10001'">
       <div class="card mb-3">
         <div class="card-body">
-          <div class="form-group row">
+          <div class="form-group row bottom-break">
             <div class="col-md-12">
               <label for="first_name" class="col-form-label affinity-label">Client Name</label>
               <div><strong>{{this.affinity.riskDetails.firstName}}<span
@@ -19,8 +19,9 @@
               </div>
             </div>
           </div>
-          <h5 class="mt-5">Vehicle Details</h5>
-          <div class="form-group row">
+
+          <div class="form-group row bottom-break">
+            <h5 class="mt-5">Vehicle Details</h5>
             <div class="col-md-4">
               <label for="first_name" class="col-form-label affinity-label">Make/Manufacturer</label>
               <div><strong>{{this.affinity.motorDetails.manufacturer}}</strong></div>
@@ -42,8 +43,9 @@
               <div><strong>{{this.affinity.motorDetails.conductionNumber}}</strong></div>
             </div>
           </div>
-          <h5 class="mt-5">Policy Period</h5>
-          <div class="form-group row">
+
+          <div class="form-group row bottom-break">
+            <h5 class="mt-5">Policy Period</h5>
             <div class="col-md-6">
               <label for="first_name" class="col-form-label affinity-label">Effectivity Date</label>
               <div><strong>{{this.affinity.motorDetails.policyPeriodFrom}}</strong></div>
