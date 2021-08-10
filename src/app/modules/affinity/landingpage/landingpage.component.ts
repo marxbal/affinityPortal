@@ -79,6 +79,8 @@ export class LandingpageComponent implements OnInit {
     }
 
     this.getPartnerProducts();
+
+    alert(this.affinity.previousIssuances);
   }
 
   //smooth scroll to preferred html element

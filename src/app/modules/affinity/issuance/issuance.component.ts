@@ -91,7 +91,6 @@ export class IssuanceComponent implements OnInit {
 
           for (let i = 0; i < this.affinity.previousIssuances.length; i++) {
             if (this.affinity.previousIssuances[i].policyNumber) {
-
               for (let x = 0; x < this.affinity.previousIssuances[i].iDTO.a2000020List.length; x++) {
                 switch (this.affinity.previousIssuances[i].iDTO.a2000020List[x].codCampo) {
                   case "COD_MODALIDAD":
