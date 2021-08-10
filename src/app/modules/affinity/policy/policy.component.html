@@ -85,8 +85,6 @@
           </table>
         </div>
       </div>
-      <br />
-      <br />
     </div>
 
     <!-- <div *ngIf="this.affinity.productId == '20008'">
@@ -323,33 +321,30 @@
   </div>
   <div class="row">
     <div class="col-md-12">
-      <div class="row">
-        <div class="col-md-12">
-
-          <h5>Details of Coverage</h5>
-          <table class="table table-small table-hover table-condensed">
-            <thead>
-              <tr>
-                <th scope="col">Coverage</th>
-                <th scope="col">Benefit</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let coverage of this.affinity.coverages">
-                <td style="min-width: 300px;">{{coverage.benefit}}</td>
-                <td style="text-align: justify;">
-                  <span *ngFor="let coverages of coverage.coverages">
-                    {{coverages}}<br /><br />
-                  </span>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
+      <h5>Details of Coverage</h5>
+      <table class="table table-small table-hover table-condensed">
+        <thead>
+          <tr>
+            <th scope="col">Coverage</th>
+            <th scope="col">Benefit</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let coverage of this.affinity.coverages">
+            <td style="min-width: 300px;">{{coverage.benefit}}</td>
+            <td style="text-align: justify;">
+              <span *ngFor="let coverages of coverage.coverages">
+                {{coverages}}<br /><br />
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
+
 </div>
+
 <div class="modal fade" id="emailModal" tabindex="-1" role="dialog" aria-labelledby="emailModal" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
