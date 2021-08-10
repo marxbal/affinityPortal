@@ -63,9 +63,7 @@
                 <th scope="col"></th>
                 <th scope="col">Coverage Name</th>
                 <th scope="col" class="text-right">Limit</th>
-                <th scope="col" class="text-right">Premium <ng-container *ngIf="this.affinity.lineId == '251'">(includes
-                    Fire Service Tax)</ng-container>
-                </th>
+                <th scope="col" class="text-right">Premium</th>
               </tr>
             </thead>
             <tbody>
@@ -92,14 +90,9 @@
                 </td>
                 <td class="text-right">{{cover.totalPremium}}</td>
               </tr>
-              <tr>
-                <td></td>
-                <td></td>
-                <td *ngIf="this.affinity.productId == '10001'" class="text-right"><button class="btn btn-mapfre"
-                    (click)="reSubmitQuote()">Update Coverages</button></td>
-              </tr>
             </tbody>
           </table>
+          <button *ngIf="this.affinity.productId == '10001'" class="btn btn-mapfre" (click)="reSubmitQuote()">Update Coverages</button>
         </div>
       </div>
       <br />
