@@ -58,6 +58,7 @@ export class LandingpageComponent implements OnInit {
   availableProducts = [];
 
   previousPolicies = [];
+  previousQuotations = [];
 
   coverageList: Coverages[] = [];
   coverage: Coverages = new Coverages();
@@ -81,16 +82,27 @@ export class LandingpageComponent implements OnInit {
     }
 
     this.getPartnerProducts();
-
-    alert(this.affinity.previousIssuances);
   }
 
   viewPreviousPolicy() {
+    this.previousQuotations = [];
     this.previousPolicies = [];
     if (this.affinity.previousIssuances) {
       for (let i = 0; i < this.affinity.previousIssuances.length; i++) {
         if (this.affinity.previousIssuances[i].policyNumber) { 
           this.previousPolicies.push(this.affinity.previousIssuances[i]);
+        }
+      }
+    }
+  }
+
+  viewPreviousQuotation() {
+    this.previousPolicies = [];
+    this.previousQuotations = [];
+    if (this.affinity.previousIssuances) {
+      for (let i = 0; i < this.affinity.previousIssuances.length; i++) {
+        if (this.affinity.previousIssuances[i].policyNumber) { 
+          this.previousQuotations.push(this.affinity.previousIssuances[i]);
         }
       }
     }

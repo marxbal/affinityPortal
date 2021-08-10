@@ -100,7 +100,7 @@
     <div class="col-md-12 text-center">
       <div class="btn-group">
         <button class="btn btn-primary btn-quote" type="button" data-toggle="collapse" data-target="#collapseQuotations"
-          aria-expanded="false" aria-controls="collapseQuotations">
+          aria-expanded="false" aria-controls="collapseQuotations" (click)="viewPreviousQuotation()">
           View Previous Quotations
         </button>
         <button class="btn btn-primary btn-quote" type="button" data-toggle="collapse" data-target="#collapsePolicies"
@@ -112,8 +112,8 @@
 
     <div class="col-md-12">
       <div class="collapse" id="collapseQuotations">
-        <div class="row" *ngFor="let issue of this.previousIssuances">
-          <div class="col-md-4" *ngIf="issue.quotationNumber">
+        <div class="row">
+          <div class="col-md-4" *ngFor="let issue of this.previousQuotations">
 
             <div class="card card-previous">
               <div class="card-body text-center">
