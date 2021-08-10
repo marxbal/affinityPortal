@@ -305,10 +305,10 @@ export class RiskMotorComponent implements OnInit {
 
     if (this.affinity.paymentOption == "cc") {
       option = "Credit Card as your payment option";
-      imges = "<img class='paynamics-logo' src='assets/images/paynamics-log.png' />";
+      imges = "<img class='paynamics-logo' src='assets/images/paynamics-logo.png' />";
     } else if (this.affinity.paymentOption == "gc") {
       option = "Gcash as your payment option";
-      imges = "<img class='paynamics-logo' src='assets/images/paynamics-log.png' />";
+      imges = "<img class='paynamics-logo' src='assets/images/paynamics-logo.png' />";
     }
 
     Swal.fire({
