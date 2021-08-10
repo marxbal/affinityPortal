@@ -37,21 +37,25 @@
         <div>
             <h5 class="mt-5">Vehicle Details</h5>
             <div class="form-group row">
-                <div class="col-md-6">
-                    <label for="first_name" class="col-form-label affinity-label">Make/Manufacturer</label>
-                    <div>{{this.affinity.motorDetails.manufacturer}}</div>
+                <div class="col-md-4">
+                  <label for="first_name" class="col-form-label affinity-label">Make/Manufacturer</label>
+                  <div>{{this.affinity.motorDetails.manufacturer}}</div>
                 </div>
-                <div class="col-md-6 text-align-right">
-                    <label for="first_name" class="col-form-label affinity-label">Model</label>
-                    <div>{{this.affinity.motorDetails.model}}</div>
+                <div class="col-md-4">
+                  <label for="first_name" class="col-form-label affinity-label">Model</label>
+                  <div>{{this.affinity.motorDetails.model}}</div>
                 </div>
-                <div class="col-md-6">
-                    <label for="first_name" class="col-form-label affinity-label">Sub Model</label>
-                    <div>{{this.affinity.motorDetails.subModel}}</div>
+                <div class="col-md-4">
+                  <label for="first_name" class="col-form-label affinity-label">Sub Model</label>
+                  <div>{{this.affinity.motorDetails.subModel}}</div>
                 </div>
-                <div class="col-md-6 text-align-right">
-                    <label for="first_name" class="col-form-label affinity-label">Plate Number</label>
-                    <div>{{this.affinity.motorDetails.plateNumber}}</div>
+                <div *ngIf="this.affinity.motorDetails.plateNumber" class="col-md-4">
+                  <label for="first_name" class="col-form-label affinity-label">Plate Number</label>
+                  <div>{{this.affinity.motorDetails.plateNumber}}</div>
+                </div>
+                <div *ngIf="this.affinity.motorDetails.conductionNumber" class="col-md-4">
+                  <label for="first_name" class="col-form-label affinity-label">Conduction Number</label>
+                  <div>{{this.affinity.motorDetails.conductionNumber}}</div>
                 </div>
             </div>
             <h5 class="mt-5">Policy Period</h5>
