@@ -62,6 +62,9 @@ import {
   Return
 } from '../objects/return';
 import Swal from 'sweetalert2';
+import {
+  environment
+} from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -1184,17 +1187,23 @@ export class CommonService {
   payment(payment: PaymentPaynamics, paymentOption: string) {
     this.spinner.show();
 
+    const baseUrl = environment.baseUrl;
+    const cancelUrl = baseUrl + environment.cancelUrl;
+    const tacUrl = baseUrl + environment.tacUrl;
+    const responseUrl = baseUrl + environment.responseUrl;
+    const appNotifUrl = baseUrl + environment.appNotifUrl;
+
     payment.ipAddress = "192.168.1.1";
-    payment.cancelUrl = "https://prd2.mapfreinsurance.com.ph/mivo2/terms-and-condition";
-    payment.mtacUrl = "https://prd2.mapfreinsurance.com.ph/mivo2/terms-and-condition";
+    payment.cancelUrl = cancelUrl;
+    payment.mtacUrl = tacUrl;
     payment.address2 = "";
     payment.country = "PHILIPPINES";
     payment.mobile = "";
     payment.quantity = "1";
     payment.trxType = "sale";
     payment.paymentMethod = paymentOption;
-    payment.responseUrl = "https://prd2.mapfreinsurance.com.ph/paymentservice";
-    payment.appNotifUrl = "https://prd2.mapfreinsurance.com.ph/paymentservice/payment/test-payment-notification";
+    payment.responseUrl = responseUrl;
+    payment.appNotifUrl = appNotifUrl;
 
     this.paymentService.request(payment).subscribe(
       (result: any) => {

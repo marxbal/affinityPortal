@@ -23,7 +23,8 @@ export class PaymentPaynamics {
   paymentMethod: string;
   responseUrl: string;
   appNotifUrl: string;
-  policyNo: string;
+  policyNumber: string;
+  receipt: string;
 
   constructor(init ? : Partial < PaymentPaynamics > ) {
     Object.assign(this, init);

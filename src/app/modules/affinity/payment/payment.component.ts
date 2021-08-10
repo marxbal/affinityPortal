@@ -183,7 +183,8 @@ export class PaymentComponent implements OnInit {
     payment.phone = this.affinity.riskDetails.phoneNumber;
     payment.itemName = this.getItemName(productId);
     payment.amount = this.total;
-    payment.policyNo = this.affinity.policyNumber;
+    payment.policyNumber = this.affinity.policyNumber;
+    payment.receipt = this.affinity.premiumBreakdown.numRecibo;
 
     this.common.payment(payment, "cc");
 

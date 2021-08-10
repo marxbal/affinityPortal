@@ -4,9 +4,13 @@
 
 export const environment = {
   production: false,
-  apiUrl:  'http://localhost:4200/api',
+  apiUrl: 'http://localhost:4200/api',
   baseUrl: 'http://localhost:4200/',
-  redirectUrl: '',
+  redirectUrl: '/affinity',
+  responseUrl: 'payment-success',
+  cancelUrl: 'payment-cancel',
+  tacUrl: 'terms-and-condition',
+  appNotifUrl: 'payment-notify'
 };
 
 /*
