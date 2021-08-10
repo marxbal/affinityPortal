@@ -19,53 +19,53 @@
     </div>
     <img class="img-responsive" src="assets/images/Payment.jpg" />
     <div *ngIf="this.affinity.productId == '10002' || this.affinity.productId == '10001'">
-      <div class="form-group row">
-        <div class="col-md-12">
-          <label for="first_name" class="col-form-label affinity-label">Client Name</label>
-          <div><strong>{{this.affinity.riskDetails.firstName}}<span *ngIf="this.affinity.motorDetails.isCorporate == '1'">
-            {{this.affinity.riskDetails.middleName}} {{this.affinity.riskDetails.lastName}}</span></strong></div>
-        </div>
-      </div>
-      <div>
-        <h5 class="mt-5">Vehicle Details</h5>
-        <div class="form-group row">
-          <div class="col-md-4">
-            <label for="first_name" class="col-form-label affinity-label">Make/Manufacturer</label>
-            <div><strong>{{this.affinity.motorDetails.manufacturer}}</strong></div>
-          </div>
-          <div class="col-md-4">
-            <label for="first_name" class="col-form-label affinity-label">Model</label>
-            <div><strong>{{this.affinity.motorDetails.model}}</strong></div>
-          </div>
-          <div class="col-md-4">
-            <label for="first_name" class="col-form-label affinity-label">Sub Model</label>
-            <div><strong>{{this.affinity.motorDetails.subModel}}</strong></div>
-          </div>
-          <div *ngIf="this.affinity.motorDetails.plateNumber" class="col-md-4">
-            <label for="first_name" class="col-form-label affinity-label">Plate Number</label>
-            <div><strong>{{this.affinity.motorDetails.plateNumber}}</strong></div>
-          </div>
-          <div *ngIf="this.affinity.motorDetails.conductionNumber" class="col-md-4">
-            <label for="first_name" class="col-form-label affinity-label">Conduction Number</label>
-            <div><strong>{{this.affinity.motorDetails.conductionNumber}}</strong></div>
-          </div>
-        </div>
-        <h5 class="mt-5">Policy Period</h5>
-        <div class="form-group row">
-          <div class="col-md-6">
-            <label for="first_name" class="col-form-label affinity-label">Effectivity Date</label>
-            <div><strong>{{this.affinity.motorDetails.policyPeriodFrom}}</strong></div>
-          </div>
-          <div class="col-md-6 text-align-right">
-            <label for="first_name" class="col-form-label affinity-label">Expiry Date</label>
-            <div><strong>{{this.affinity.motorDetails.policyPeriodTo}}</strong></div>
-          </div>
-        </div>
-      </div>
-      <br />
-      <br />
-      <div class="row">
-        <div class="col-md-12">
+      <div class="card mb-3">
+        <div class="card-body">
+          <span class="card-title">
+            <div class="form-group row">
+              <div class="col-md-12">
+                <label for="first_name" class="col-form-label affinity-label">Client Name</label>
+                <div><strong>{{this.affinity.riskDetails.firstName}}<span
+                      *ngIf="this.affinity.motorDetails.isCorporate == '1'">
+                      {{this.affinity.riskDetails.middleName}} {{this.affinity.riskDetails.lastName}}</span></strong>
+                </div>
+              </div>
+            </div>
+            <h5 class="mt-5">Vehicle Details</h5>
+            <div class="form-group row">
+              <div class="col-md-4">
+                <label for="first_name" class="col-form-label affinity-label">Make/Manufacturer</label>
+                <div><strong>{{this.affinity.motorDetails.manufacturer}}</strong></div>
+              </div>
+              <div class="col-md-4">
+                <label for="first_name" class="col-form-label affinity-label">Model</label>
+                <div><strong>{{this.affinity.motorDetails.model}}</strong></div>
+              </div>
+              <div class="col-md-4">
+                <label for="first_name" class="col-form-label affinity-label">Sub Model</label>
+                <div><strong>{{this.affinity.motorDetails.subModel}}</strong></div>
+              </div>
+              <div *ngIf="this.affinity.motorDetails.plateNumber" class="col-md-4">
+                <label for="first_name" class="col-form-label affinity-label">Plate Number</label>
+                <div><strong>{{this.affinity.motorDetails.plateNumber}}</strong></div>
+              </div>
+              <div *ngIf="this.affinity.motorDetails.conductionNumber" class="col-md-4">
+                <label for="first_name" class="col-form-label affinity-label">Conduction Number</label>
+                <div><strong>{{this.affinity.motorDetails.conductionNumber}}</strong></div>
+              </div>
+            </div>
+            <h5 class="mt-5">Policy Period</h5>
+            <div class="form-group row">
+              <div class="col-md-6">
+                <label for="first_name" class="col-form-label affinity-label">Effectivity Date</label>
+                <div><strong>{{this.affinity.motorDetails.policyPeriodFrom}}</strong></div>
+              </div>
+              <div class="col-md-6 text-align-right">
+                <label for="first_name" class="col-form-label affinity-label">Expiry Date</label>
+                <div><strong>{{this.affinity.motorDetails.policyPeriodTo}}</strong></div>
+              </div>
+            </div>
+          </span>
 
           <h5>List of Coverages</h5>
           <table class="table table-small table-hover table-condensed">
@@ -173,97 +173,95 @@
       <br />
     </div> -->
     <div *ngIf="this.affinity.productId == '33701' || this.affinity.productId == '33702'">
-      <div class="col-md-12">
-        <div class="card mb-3">
-          <div class="card-body">
-            <span class="card-title">
-              <div class="form-group row">
-                <div class="col-md-6">
-                  <label for="first_name" class="col-form-label affinity-label">Insured Name</label>
-                  <div><strong>{{this.affinity.riskDetails.firstName}} {{this.affinity.riskDetails.middleName}}
-                      {{this.affinity.riskDetails.lastName}}</strong></div>
-                </div>
-                <div class="col-md-6 text-align-right">
-                  <label for="first_name" class="col-form-label affinity-label">Relationship</label>
-                  <div><strong>PRIMARY</strong></div>
-                </div>
+      <div class="card mb-3">
+        <div class="card-body">
+          <span class="card-title">
+            <div class="form-group row">
+              <div class="col-md-6">
+                <label for="first_name" class="col-form-label affinity-label">Insured Name</label>
+                <div><strong>{{this.affinity.riskDetails.firstName}} {{this.affinity.riskDetails.middleName}}
+                    {{this.affinity.riskDetails.lastName}}</strong></div>
               </div>
-              <div class="form-group row">
-                <div class="col-md-6">
-                  <label for="first_name" class="col-form-label affinity-label">Effectivity Date</label>
-                  <div><strong>{{this.affinity.motorDetails.policyPeriodFrom}}</strong></div>
-                </div>
-                <div class="col-md-6 text-align-right">
-                  <label for="first_name" class="col-form-label affinity-label">Expiry Date</label>
-                  <div><strong>{{this.affinity.motorDetails.policyPeriodTo}}</strong></div>
-                </div>
+              <div class="col-md-6 text-align-right">
+                <label for="first_name" class="col-form-label affinity-label">Relationship</label>
+                <div><strong>PRIMARY</strong></div>
               </div>
-            </span>
-            <!-- <h5>List of Coverages</h5> -->
-            <br />
-            <table class="table table-small table-hover table-condensed">
-              <thead>
-                <tr>
-                  <th scope="col"></th>
-                  <th scope="col">Coverage Name</th>
-                  <th scope="col" class="text-right">Limit</th>
-                  <th scope="col" class="text-right">Premium <ng-container *ngIf="this.affinity.lineId == '251'">
-                      (includes Fire Service Tax)</ng-container>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let cover of this.affinity.coveragesValue">
-                  <td><span class="text-success"><b>
-                        <h4><i class="fa fa-check-circle mt-2 mb-2"></i></h4>
-                      </b></span></td>
-                  <td>{{cover.nomCob}}</td>
-                  <td class="text-right">{{this.formatter.format(cover.sumaAseg)}}</td>
-                  <td class="text-right">{{cover.totalPremium}}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+            </div>
+            <div class="form-group row">
+              <div class="col-md-6">
+                <label for="first_name" class="col-form-label affinity-label">Effectivity Date</label>
+                <div><strong>{{this.affinity.motorDetails.policyPeriodFrom}}</strong></div>
+              </div>
+              <div class="col-md-6 text-align-right">
+                <label for="first_name" class="col-form-label affinity-label">Expiry Date</label>
+                <div><strong>{{this.affinity.motorDetails.policyPeriodTo}}</strong></div>
+              </div>
+            </div>
+          </span>
+          <!-- <h5>List of Coverages</h5> -->
+          <br />
+          <table class="table table-small table-hover table-condensed">
+            <thead>
+              <tr>
+                <th scope="col"></th>
+                <th scope="col">Coverage Name</th>
+                <th scope="col" class="text-right">Limit</th>
+                <th scope="col" class="text-right">Premium <ng-container *ngIf="this.affinity.lineId == '251'">
+                    (includes Fire Service Tax)</ng-container>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let cover of this.affinity.coveragesValue">
+                <td><span class="text-success"><b>
+                      <h4><i class="fa fa-check-circle mt-2 mb-2"></i></h4>
+                    </b></span></td>
+                <td>{{cover.nomCob}}</td>
+                <td class="text-right">{{this.formatter.format(cover.sumaAseg)}}</td>
+                <td class="text-right">{{cover.totalPremium}}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-        <div class="card mb-3" *ngFor="let insured of this.affinity.paDetails.familyMembers">
-          <div class="card-body">
-            <span class="card-title">
-              <div class="form-group row">
-                <div class="col-md-8">
-                  <label for="first_name" class="col-form-label affinity-label">Insured Name</label>
-                  <div>{{insured.firstName}} {{insured.middleName}} {{insured.lastName}}</div>
-                </div>
-                <div class="col-md-4">
-                  <label for="first_name" class="col-form-label affinity-label">Relationship</label>
-                  <div>{{insured.relationship.split(":=:")[1]}}</div>
-                </div>
+      </div>
+      <div class="card mb-3" *ngFor="let insured of this.affinity.paDetails.familyMembers">
+        <div class="card-body">
+          <span class="card-title">
+            <div class="form-group row">
+              <div class="col-md-8">
+                <label for="first_name" class="col-form-label affinity-label">Insured Name</label>
+                <div>{{insured.firstName}} {{insured.middleName}} {{insured.lastName}}</div>
               </div>
-            </span>
-            <!-- <h5>List of Coverages</h5> -->
-            <br />
-            <table class="table table-small table-hover table-condensed">
-              <thead>
-                <tr>
-                  <th scope="col"></th>
-                  <th scope="col">Coverage Name</th>
-                  <th scope="col" class="text-right">Limit</th>
-                  <th scope="col" class="text-right">Premium <ng-container *ngIf="this.affinity.lineId == '251'">
-                      (includes Fire Service Tax)</ng-container>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let cover of insured.coveragesValue">
-                  <td><span class="text-success"><b>
-                        <h4><i class="fa fa-check-circle mt-2 mb-2"></i></h4>
-                      </b></span></td>
-                  <td>{{cover.nomCob}}</td>
-                  <td class="text-right">{{this.formatter.format(cover.sumaAseg)}}</td>
-                  <td class="text-right">{{cover.totalPremium}}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+              <div class="col-md-4">
+                <label for="first_name" class="col-form-label affinity-label">Relationship</label>
+                <div>{{insured.relationship.split(":=:")[1]}}</div>
+              </div>
+            </div>
+          </span>
+          <!-- <h5>List of Coverages</h5> -->
+          <br />
+          <table class="table table-small table-hover table-condensed">
+            <thead>
+              <tr>
+                <th scope="col"></th>
+                <th scope="col">Coverage Name</th>
+                <th scope="col" class="text-right">Limit</th>
+                <th scope="col" class="text-right">Premium <ng-container *ngIf="this.affinity.lineId == '251'">
+                    (includes Fire Service Tax)</ng-container>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let cover of insured.coveragesValue">
+                <td><span class="text-success"><b>
+                      <h4><i class="fa fa-check-circle mt-2 mb-2"></i></h4>
+                    </b></span></td>
+                <td>{{cover.nomCob}}</td>
+                <td class="text-right">{{this.formatter.format(cover.sumaAseg)}}</td>
+                <td class="text-right">{{cover.totalPremium}}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
