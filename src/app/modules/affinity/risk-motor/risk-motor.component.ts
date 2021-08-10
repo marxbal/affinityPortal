@@ -60,6 +60,12 @@ import {
 } from 'ngx-spinner';
 import Swal from 'sweetalert2';
 import * as _ from 'lodash';
+import {
+  MotorIssuanceService
+} from 'src/app/services/motor-issuance.service';
+import {
+  DecimalPipe
+} from '@angular/common';
 
 @Component({
   selector: 'app-risk-motor',
@@ -73,7 +79,8 @@ export class RiskMotorComponent implements OnInit {
     private common: CommonService,
     private spinner: NgxSpinnerService,
     private checker: IsRequired,
-    private router: Router) {}
+    private motorIssuance: MotorIssuanceService,
+    private decimalPipe: DecimalPipe) {}
 
   @Input() affinity: Affinity;
   @Output() nextStep = new EventEmitter();
@@ -407,10 +414,11 @@ export class RiskMotorComponent implements OnInit {
         result => {
           switch (result.status) {
             case 1:
-              this.router.navigate(['issuance/51359e8b51c63b87d50cb1bab73380e2/' + result.message]);
-              setTimeout(function () {
-                window.location.reload();
-              }, 10);
+              this.returnPayment(result.message);
+              // this.router.navigate(['issuance/51359e8b51c63b87d50cb1bab73380e2/' + result.message]);
+              // setTimeout(function () {
+              //   window.location.reload();
+              // }, 10);
               // if (this.affinity.paymentOption == "cc") {
               //   window.open(result.message, "_self");
               // } else {
@@ -458,6 +466,21 @@ export class RiskMotorComponent implements OnInit {
           }
         });
     });
+  }
+
+  returnPayment(policyNumber: string) {
+    this.spinner.show();
+    this.caller.doCallService('/afnty/retrievePolicyDetails', policyNumber).subscribe(
+      result => {
+        this.motorIssuance.mapRetrievePolicy(this.affinity, result).subscribe(
+          (res: Affinity) => {
+            this.affinity = res;
+            const premium = parseFloat(this.affinity.premiumBreakdown.grossPrem);
+            const total = this.decimalPipe.transform(premium, '1.2-2');
+
+            this.common.requestPayment(this.affinity, total);
+          });
+      });
   }
 
   getCoverages(numPoliza, affinity: Affinity, nextStep) {

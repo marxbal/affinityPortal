@@ -1184,6 +1184,113 @@ export class CommonService {
     return contract;
   }
 
+  getProductDescription(productId: string) {
+    let productName = "";
+
+    switch (productId) {
+      case "10001":
+        productName = "COMPREHENSIVE 10001";
+        break;
+      case "10002":
+        productName = "CTPL 10002";
+        break;
+      case "33701":
+        productName = "INDIVIDUAL PERSONAL 33701";
+        break;
+      case "33702":
+        productName = "PERSONAL FAMILY 33702";
+        break;
+    }
+
+    return productName;
+  }
+
+  getItemName(affinity: Affinity, productId: string) {
+    let itemName = "";
+
+    switch (productId) {
+      case "10001":
+        itemName = "COMPREHENSIVE: " + this.buildItemName(affinity);
+        break;
+      case "10002":
+        itemName = "CTPL: " + this.buildItemName(affinity);
+        break;
+      case "33701":
+        itemName = "INDIVIDUAL PERSONAL: " + affinity.riskDetails.fullName;
+        break;
+      case "33702":
+        itemName = "PERSONAL FAMILY: " + affinity.riskDetails.fullName;
+        break;
+    }
+
+    return itemName;
+  }
+
+  buildItemName(affinity: Affinity) {
+    let item = '';
+    const motor = affinity.motorDetails;
+
+    const modelYear = motor.modelYear + " ";
+    const manufacturer = motor.manufacturer + " ";
+    const model = motor.model + " ";
+    const subModel = motor.subModel + " ";
+
+    item = modelYear + manufacturer + model + subModel + motor.vehicleType;
+
+    return item;
+  }
+
+  requestPayment(affinity: Affinity, total: string) {
+    const payment = new PaymentPaynamics();
+    const productId = affinity.productId;
+
+    payment.requestId = affinity.paymentReferenceNumber;
+    payment.descriptorNote = this.getProductDescription(productId);
+    payment.firstName = affinity.riskDetails.firstName;
+    payment.middleName = affinity.riskDetails.middleName;
+    payment.lastName = affinity.riskDetails.lastName;
+    payment.address1 = affinity.address1;
+    // payment.city = municipality;
+    // payment.state = province;
+    payment.city = affinity.municipality;
+    payment.state = affinity.province;
+    payment.zip = affinity.zipCode;
+    payment.email = affinity.riskDetails.emailAddress;
+    payment.phone = affinity.riskDetails.phoneNumber;
+    payment.itemName = this.getItemName(affinity, productId);
+    payment.amount = total;
+    payment.policyNumber = affinity.policyNumber;
+    payment.receipt = affinity.premiumBreakdown.numRecibo;
+
+    this.payment(payment, "cc");
+
+    // let pDTO: Payment = new Payment();
+    // pDTO.numPoliza = this.affinity.policyNumber;
+    // pDTO.grossPrem = this.grossPremSend;
+    // pDTO.numRecibo = this.affinity.premiumBreakdown.numRecibo;
+    // this.caller.doCallService('/afnty/Payment/Request', pDTO).subscribe(
+    //   response => {
+    //     var mapForm = document.createElement("form");
+    //     mapForm.method = "POST"; // or "post" if appropriate
+    //     mapForm.action = response.url;
+
+    //     Object.entries(response).forEach((attribute: any[]) => {
+    //       if (attribute[0] === 'url') {
+    //         return;
+    //       }
+
+    //       var mapInput = document.createElement("input");
+    //       mapInput.type = "hidden";
+    //       mapInput.name = attribute[0].replaceAll('vpc', 'vpc_');
+    //       mapInput.setAttribute("value", attribute[1]);
+    //       mapForm.appendChild(mapInput);
+    //     });
+
+    //     document.body.appendChild(mapForm);
+    //     mapForm.submit();
+    //   });
+  }
+
   payment(payment: PaymentPaynamics, paymentOption: string) {
     this.spinner.show();
 
