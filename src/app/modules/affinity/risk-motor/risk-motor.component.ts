@@ -7,9 +7,6 @@ import {
 } from '@angular/core';
 import * as $ from 'jquery/dist/jquery.min';
 import {
-  Router
-} from '@angular/router';
-import {
   IsRequired
 } from '../../../guard/is-required';
 import {
@@ -414,7 +411,12 @@ export class RiskMotorComponent implements OnInit {
         result => {
           switch (result.status) {
             case 1:
-              this.returnPayment(result.message);
+
+              const premium = parseFloat(this.affinity.premiumBreakdown.grossPrem);
+              const total = this.decimalPipe.transform(premium, '1.2-2');
+  
+              this.common.requestPayment(this.affinity, total);
+
               // this.router.navigate(['issuance/51359e8b51c63b87d50cb1bab73380e2/' + result.message]);
               // setTimeout(function () {
               //   window.location.reload();
@@ -482,6 +484,7 @@ export class RiskMotorComponent implements OnInit {
           });
       });
   }
+  
 
   getCoverages(numPoliza, affinity: Affinity, nextStep) {
     this.common.getCoverageByPolicy("A", numPoliza, affinity.motorDetails.subline).subscribe(
