@@ -21,13 +21,12 @@
 
           <div class="details-list">
             <label>Client Name: </label>
-            <h5>Jethru Balarbar</h5>
+            <h5>{{this.affinity.riskDetails.fullName}}</h5>
           </div>
 
           <div class="details-list">
             <label>Payment Reference Number: </label>
             <h5>{{this.affinity.paymentReferenceNumber}}</h5>
-            <h5>0393940404040404</h5>
           </div>
 
           <div class="details-list">
@@ -37,8 +36,7 @@
 
           <div class="details-list">
             <label>Total Payment Paid: </label>
-            <!-- <h5>{{this.affinity.premiumBreakdown.grossPrem}}</h5> -->
-            <h5>P1000.00</h5>
+            <h5>{{this.formatter.format(this.affinity.premiumBreakdown.grossPrem)}}</h5>
           </div>
 
           <!-- <button class="btn btn-mapfre btn-block mt-3 mb-3" (click)="requestPayment()">

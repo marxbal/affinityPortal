@@ -104,6 +104,7 @@ export class PaymentResultComponent implements OnInit {
         this.spinner.hide();
         let newResult = _.orderBy(result, ['transactionNumber'], ['desc']);
         this.affinity.previousIssuances = newResult;
+        this.affinity.paymentReferenceNumber = result.a2990700_mph.numPaymentReference;
 
         for (let i = 0; i < this.affinity.previousIssuances.length; i++) {
           if (this.affinity.previousIssuances[i].policyNumber) {
