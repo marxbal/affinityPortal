@@ -46,7 +46,6 @@ export class PartnerService {
   getPartnerDetails(partner: Partner) {
     let ret: any = new BehaviorSubject < any > ([]);
 
-    const user = new UserDetail();
     this.app.post(partner, this.map + 'getPartnerDetails')
       .pipe(first())
       .subscribe((res => {

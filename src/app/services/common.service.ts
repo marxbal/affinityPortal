@@ -66,6 +66,8 @@ import {
   environment
 } from '../../environments/environment';
 import { Coverages } from '../objects/coverages';
+import { AppService } from './app.service';
+import { first } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -76,7 +78,8 @@ export class CommonService {
     private caller: AuthService,
     private spinner: NgxSpinnerService,
     private auth: AuthenticationService,
-    private paymentService: PaymentService) {}
+    private paymentService: PaymentService,
+    private app: AppService) {}
 
   chooseType(motorTypeId) {
     let ret: any = new BehaviorSubject < any > ([]);
@@ -1370,12 +1373,14 @@ export class CommonService {
   }
 
   viewCoverage(productId: string) {
+    let ret: any = new BehaviorSubject < any > ([]);
     const listing = [];
-    this.spinner.show();
-    this.caller.doCallService("/afnty/coverage/getCoverageDescription", productId).subscribe(
-      result => {
+    this.app.post({productId}, 'afnty/coverage/getCoverageDescription')
+      .pipe(first())
+      .subscribe((res => {
         this.spinner.hide();
-        result.forEach(c => {
+
+        res.forEach(c => {
           const list = c.split('~');
           let coverage = new Coverages();
           coverage.benefit = list[1];
@@ -1383,23 +1388,10 @@ export class CommonService {
           listing.push(list);
         });
 
-        return listing;
-        console.log(result);
-        // this.spinner.hide();
-        // this.coverageList = [];
-        // let coverageHolder = result;
-        // for (let c in coverageHolder) {
-        //   for (let d in coverageHolder[c]) {
-        //     this.coverage.benefit = coverageHolder[c][d].split(":=:")[1];
-        //     this.coverage.coverages.push(coverageHolder[c][d].split(":=:")[2]);
-        //   }
-        //   this.coverageList.push(this.coverage);
-        //   this.coverage = new Coverages();
+        ret.next(listing);
+      }));
 
-        // }
-        
-        // this.affinity.coverages = this.coverageList;
-      });
+    return ret.asObservable();
   }
 
 }
