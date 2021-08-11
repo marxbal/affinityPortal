@@ -80,6 +80,8 @@ export class QuotationComponent implements OnInit {
   buyNowStep: String;
   emailSend: String;
 
+  coverageList = [];
+
   formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'PHP',
@@ -223,6 +225,7 @@ export class QuotationComponent implements OnInit {
         return null;
       }
 
+      this.getCoverageDescription(this.affinity.productId);
       this.affinity.motorDetails.reCompute = "1";
 
       this.spinner.show();
@@ -290,7 +293,7 @@ export class QuotationComponent implements OnInit {
 
             default:
               this.affinity.quotationNumber = result.message;
-              this.getCoverageDescription(this.affinity.productId);
+              
 
               this.caller.doCallService('/afnty/getPaymentBreakdown?numPoliza=' + result.message + '&type=C', null).subscribe(
                 resultpb => {
@@ -310,6 +313,7 @@ export class QuotationComponent implements OnInit {
     this.common.viewCoverage(productId).subscribe(
       (result: any) => {
         if (!_.isEmpty(result)) {
+          this.coverageList = result;
           this.affinity.coverages = result;
         }
       }
