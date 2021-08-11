@@ -313,7 +313,7 @@ export class RiskMotorComponent implements OnInit {
 
     Swal.fire({
       title: 'Policy Issuance',
-      html: "<p>You've selected " + option + ", Proceed to Payment?</p>" + imges,
+      html: "<p>You've selected " + option + ",</p><p>Proceed to Payment?</p>" + imges,
       type: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#d31d29',
