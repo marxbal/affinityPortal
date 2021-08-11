@@ -188,11 +188,7 @@
           <tbody>
             <tr *ngFor="let coverage of this.affinity.coverages">
               <td style="min-width: 300px;">{{coverage.benefit}}</td>
-              <td style="text-align: justify;">
-                <span *ngFor="let coverages of coverage.coverages">
-                  {{coverages}}<br /><br />
-                </span>
-              </td>
+              <td style="text-align: justify;">{{coverage.coverages}}</td>
             </tr>
           </tbody>
         </table>

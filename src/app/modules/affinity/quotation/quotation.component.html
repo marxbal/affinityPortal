@@ -286,11 +286,6 @@
 
     <br />
     <h4>Total Cost <b style="float: right;">{{this.affinity.premiumBreakdown.grossPrem}}</b></h4><br />
-    <!-- <h6>Net Premium <b>PHP 994.51</b></h6>
-        <h6>Documentary Stamps <b>PHP 124.24</b></h6>
-        <h6>Local Government Tax <b>PHP 4.98</b></h6>
-        <h6>Value Added Tax <b>PHP 119.33</b></h6>
-        <h6>Fire Service Tax <b>PHP 15.91</b></h6> -->
     <table id="paymentBreakdown" class="table table-small table-hover table-condensed">
       <tbody>
         <tr>
@@ -365,7 +360,7 @@
       <tbody>
         <tr *ngFor="let coverage of this.affinity.coverages">
           <td style="min-width: 300px;">{{coverage.benefit}}</td>
-          <td style="text-align: justify;">{{coverages}}</td>
+          <td style="text-align: justify;">{{coverage.coverages}}</td>
         </tr>
       </tbody>
     </table>
