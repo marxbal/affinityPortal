@@ -1368,4 +1368,26 @@ export class CommonService {
       });
   }
 
+  viewCoverage(productId: string) {
+    this.spinner.show();
+    this.caller.doCallService("/afnty/coverage/getCoverageDescription", productId).subscribe(
+      result => {
+        console.log(result);
+        // this.spinner.hide();
+        // this.coverageList = [];
+        // let coverageHolder = result;
+        // for (let c in coverageHolder) {
+        //   for (let d in coverageHolder[c]) {
+        //     this.coverage.benefit = coverageHolder[c][d].split(":=:")[1];
+        //     this.coverage.coverages.push(coverageHolder[c][d].split(":=:")[2]);
+        //   }
+        //   this.coverageList.push(this.coverage);
+        //   this.coverage = new Coverages();
+
+        // }
+        this.spinner.hide();
+        // this.affinity.coverages = this.coverageList;
+      });
+  }
+
 }

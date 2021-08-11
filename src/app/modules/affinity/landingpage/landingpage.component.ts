@@ -37,6 +37,9 @@ import {
 import {
   Product
 } from 'src/app/objects/product';
+import {
+  CommonService
+} from 'src/app/services/common.service';
 
 @Component({
   selector: 'app-landingpage',
@@ -49,6 +52,7 @@ export class LandingpageComponent implements OnInit {
     private authenticate: AuthenticationService,
     private auth: AuthService,
     private router: Router,
+    private common: CommonService,
     private spinner: NgxSpinnerService,
     private caller: AuthService) {}
 
@@ -258,26 +262,30 @@ export class LandingpageComponent implements OnInit {
     });
   }
 
-  viewCoverage(type, description) {
-    this.spinner.show();
-    this.title = description;
+  // viewCoverage(type, description) {
+  //   this.spinner.show();
+  //   this.title = description;
 
-    this.caller.doCallService("/afnty/coverage/getCoverageDescriptions", type).subscribe(
-      result => {
-        this.coverageList = [];
-        let coverageHolder = result;
-        for (let c in coverageHolder) {
-          for (let d in coverageHolder[c]) {
-            this.coverage.benefit = coverageHolder[c][d].split(":=:")[1];
-            this.coverage.coverages.push(coverageHolder[c][d].split(":=:")[2]);
-          }
-          this.coverageList.push(this.coverage);
-          this.coverage = new Coverages();
+  //   this.caller.doCallService("/afnty/coverage/getCoverageDescriptions", type).subscribe(
+  //     result => {
+  //       this.coverageList = [];
+  //       let coverageHolder = result;
+  //       for (let c in coverageHolder) {
+  //         for (let d in coverageHolder[c]) {
+  //           this.coverage.benefit = coverageHolder[c][d].split(":=:")[1];
+  //           this.coverage.coverages.push(coverageHolder[c][d].split(":=:")[2]);
+  //         }
+  //         this.coverageList.push(this.coverage);
+  //         this.coverage = new Coverages();
 
-        }
-        this.spinner.hide();
-        this.affinity.coverages = this.coverageList;
-      });
+  //       }
+  //       this.spinner.hide();
+  //       this.affinity.coverages = this.coverageList;
+  //     });
+  // }
+
+  viewCoverage(productId: string) {
+    this.common.viewCoverage(productId);
   }
 
 }
