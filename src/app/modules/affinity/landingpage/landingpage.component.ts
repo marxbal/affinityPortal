@@ -287,6 +287,7 @@ export class LandingpageComponent implements OnInit {
   viewCoverage(productId: string) {
     this.common.viewCoverage(productId).subscribe(
       (result: any) => {
+        this.coverageList = result;
         this.affinity.coverages = result;
         console.log('coverageList');
         console.log(result);
