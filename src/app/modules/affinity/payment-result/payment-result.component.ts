@@ -118,20 +118,20 @@ export class PaymentResultComponent implements OnInit {
       this.nameLabel = "Primary Insured Name:"
     }
 
-    this.getCoverageDescription(productId);
-    this.retrievePaymentStatus(this.policyNumber);
+    // this.getCoverageDescription(productId);
+    // this.retrievePaymentStatus(this.policyNumber);
   }
 
-  getCoverageDescription(productId: string) {
-    this.common.viewCoverage(productId).subscribe(
-      (result: any) => {
-        if (!_.isEmpty(result)) {
-          this.coverageList = result;
-          this.affinity.coverages = result;
-        }
-      }
-    );
-  }
+  // getCoverageDescription(productId: string) {
+  //   this.common.viewCoverage(productId).subscribe(
+  //     (result: any) => {
+  //       if (!_.isEmpty(result)) {
+  //         this.coverageList = result;
+  //         this.affinity.coverages = result;
+  //       }
+  //     }
+  //   );
+  // }
 
   retrievePaymentStatus(policyNumber) {
     this.spinner.show();

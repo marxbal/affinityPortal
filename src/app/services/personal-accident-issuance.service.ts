@@ -152,22 +152,6 @@ export class PersonalAccidentIssuanceService {
         this.paAff.coveragesValue = _.orderBy(this.paAff.coveragesValue, 'numSecu', 'asc');
       });
 
-    // this.caller.doCallService("/afnty/coverage/getCoverageDescriptions", "personalAccident").subscribe(
-    //   coverages => {
-    //     this.coverageList = [];
-    //     let coverageHolder = coverages;
-    //     for (let c in coverageHolder) {
-    //       for (let d in coverageHolder[c]) {
-    //         this.coverage.benefit = coverageHolder[c][d].split(":=:")[1];
-    //         this.coverage.coverages.push(coverageHolder[c][d].split(":=:")[2]);
-    //       }
-    //       this.coverageList.push(this.coverage);
-    //       this.coverage = new Coverages();
-    //     }
-
-    //     this.paAff.coverages = this.coverageList;
-    //   });
-
     this.commonService.viewCoverage(this.paAff.productId).subscribe(
       (result: any) => {
         if (!_.isEmpty(result)) {
