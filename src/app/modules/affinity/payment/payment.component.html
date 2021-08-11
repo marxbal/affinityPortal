@@ -1,7 +1,8 @@
 <div class="row">
   <div class="col-md-12">
-    <h1 *ngIf="this.retStatus == ''" data-toggle="tooltip" data-placement="top" title="Tooltip on top" id="test">Process
-      Payment</h1>
+    <h1 *ngIf="this.retStatus == ''" data-toggle="tooltip" data-placement="top" title="Tooltip on top" id="test">
+      Process Payment
+    </h1>
     <h1 *ngIf="this.retStatus == 'failed'" data-toggle="tooltip" data-placement="top" title="Tooltip on top" id="test">
       We are unable to process payment for your policy. Kindly check with your bank or try using another credit card.
     </h1>
@@ -11,12 +12,12 @@
 <div class="row">
   <div class="col-md-8">
     <h6>Pay over the counter using the below details and instruction: </h6>
-    <div class="form-group row">
+    <!-- <div class="form-group row">
       <div class="col-md-4">
         <label for="first_name" class="col-form-label affinity-label">Payment Reference Number (PRN)</label>
         <h5>{{this.affinity.paymentReferenceNumber}}</h5>
       </div>
-    </div>
+    </div> -->
     <img class="img-responsive" src="assets/images/Payment.jpg" />
     <div *ngIf="this.affinity.productId == '10002' || this.affinity.productId == '10001'">
       <div class="card mb-3">
@@ -270,9 +271,18 @@
     <button class="btn btn-mapfre btn-block mt-3 mb-3" (click)="requestPayment('cc')"><b>Pay using Credit
         Card</b></button>
     <button class="btn btn-mapfre btn-block mt-3 mb-3" (click)="requestPayment('gc')"><b>Pay using GCash</b></button>
-    <img class="logo-collection" src="assets/images/authProgram_SC.gif" />
-    <img class="logo-collection" src="assets/images/authProgram_VBV.gif" />
+    <img class="paynamics-logo" src="assets/images/paynamics-logo.png" />
     <br />
+
+      <div class="card">
+        <div class="card-title">
+          <h5>Payment Reference Number: </h5>
+        </div>
+        <div class="card-body">
+          <h5>{{this.affinity.paymentReferenceNumber}}</h5>
+        </div>
+      </div>
+
     <h4>Total Cost <b style="float: right;">{{this.affinity.premiumBreakdown.grossPrem}}</b></h4><br />
     <table id="paymentBreakdown" class="table table-small table-hover table-condensed">
       <tbody>
