@@ -93,27 +93,33 @@ export class PaymentResultComponent implements OnInit {
           case 337:
             this.paIssuance.mapRetrievePolicy(this.affinity, result).subscribe(
               (res) => {
-                this.affinity = res;
+                if (!_.isEmpty(res)) {
+                  this.affinity = res;
+                  this.getMoreDetails();
+                }
               });
             break;
           default:
             this.motorIssuance.mapRetrievePolicy(this.affinity, result).subscribe(
               (res) => {
-                this.affinity = res;
+                if (!_.isEmpty(res)) {
+                  this.affinity = res;
+                  this.getMoreDetails();
+                }
               });
             break;
         }
-
-        console.log(this.affinity);
-        const productId = this.affinity.productId;
-        // const type = this.getType(productId);
-        if (productId == "33701" || productId == "33702") {
-          this.nameLabel = "Primary Insured Name:"
-        }
-
-        this.getCoverageDescription(productId);
-        this.retrievePaymentStatus(this.policyNumber);
       });
+  }
+
+  getMoreDetails() {
+    const productId = this.affinity.productId;
+    if (productId == "33701" || productId == "33702") {
+      this.nameLabel = "Primary Insured Name:"
+    }
+
+    this.getCoverageDescription(productId);
+    this.retrievePaymentStatus(this.policyNumber);
   }
 
   getCoverageDescription(productId: string) {
