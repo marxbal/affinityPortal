@@ -12,13 +12,8 @@
 <div class="row">
   <div class="col-md-8">
     <h6>Pay over the counter using the below details and instruction: </h6>
-    <!-- <div class="form-group row">
-      <div class="col-md-4">
-        <label for="first_name" class="col-form-label affinity-label">Payment Reference Number (PRN)</label>
-        <h5>{{this.affinity.paymentReferenceNumber}}</h5>
-      </div>
-    </div> -->
-    <img class="img-responsive" src="assets/images/Payment.jpg" />
+
+    <img class="img-responsive payment-img" src="assets/images/Payment.jpg" />
     <div *ngIf="this.affinity.productId == '10002' || this.affinity.productId == '10001'">
       <div class="card mb-3">
         <div class="card-body">
@@ -274,14 +269,14 @@
     <img class="paynamics-logo" src="assets/images/paynamics-logo.png" />
     <br />
 
-      <div class="card">
-        <div class="card-title">
-          <h5>Payment Reference Number: </h5>
-        </div>
-        <div class="card-body">
-          <h5>{{this.affinity.paymentReferenceNumber}}</h5>
-        </div>
+    <div class="card">
+      <div class="card-body text-align-center">
+        <span class="card-title">
+          <label>Payment Reference Number: </label>
+        </span>
+        <h5><strong>{{this.affinity.paymentReferenceNumber}}</strong></h5>
       </div>
+    </div>
 
     <h4>Total Cost <b style="float: right;">{{this.affinity.premiumBreakdown.grossPrem}}</b></h4><br />
     <table id="paymentBreakdown" class="table table-small table-hover table-condensed">

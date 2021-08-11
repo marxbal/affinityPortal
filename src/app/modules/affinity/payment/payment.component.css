@@ -1,4 +1,15 @@
 .paynamics-logo {
+  display: block;
   width: 100px;
   margin: 0 auto;
+}
+
+.text-align-center {
+  text-align: center;
+}
+
+img.payment-img {
+  border: 1px solid #dfdfdf;
+  border-radius: 5px;
+  margin-bottom: 10px;
 }
