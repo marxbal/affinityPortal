@@ -1385,7 +1385,7 @@ export class CommonService {
           let coverage = new Coverages();
           coverage.benefit = list[1];
           coverage.coverages = list[2];
-          listing.push(list);
+          listing.push(coverage);
         });
 
         ret.next(listing);
