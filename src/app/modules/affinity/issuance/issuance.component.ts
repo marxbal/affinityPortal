@@ -296,34 +296,43 @@ export class IssuanceComponent implements OnInit {
     this.scrollToTop();
   }
 
-  nextStepActionQuoteIssuance(nextStep) {
+  nextStepActionQuoteIssuance(nextStep: string) {
     this.line = nextStep;
 
-    let type = "household";
-    this.affinity.productId = "20008";
-    this.affinity.lineId = "251";
+    // let type = "household";
+    // this.affinity.productId = "20008";
+    // this.affinity.lineId = "251";
 
-    if (this.line == "personalInformation") {
-      type = "personalAccident";
-      this.affinity.productId = "33701";
-      this.affinity.lineId = "337";
-    }
+    // if (this.line == "personalInformation") {
+    //   type = "personalAccident";
+    //   this.affinity.productId = "33701";
+    //   this.affinity.lineId = "337";
+    // }
 
-    this.caller.doCallService("/afnty/coverage/getCoverageDescriptions", type).subscribe(
-      result => {
-        this.coverageList = [];
-        let coverageHolder = result;
-        for (let c in coverageHolder) {
-          for (let d in coverageHolder[c]) {
-            this.coverage.benefit = coverageHolder[c][d].split(":=:")[1];
-            this.coverage.coverages.push(coverageHolder[c][d].split(":=:")[2]);
-          }
-          this.coverageList.push(this.coverage);
-          this.coverage = new Coverages();
-        }
+    // this.commonService.viewCoverage(this.affinity.productId).subscribe(
+    //   (result: any) => {
+    //     if (!_.isEmpty(result)) {
+    //       this.coverageList = result;
+    //       this.affinity.coverages = result;
+    //     }
+    //   }
+    // );
 
-        this.affinity.coverages = this.coverageList;
-      });
+    // this.caller.doCallService("/afnty/coverage/getCoverageDescriptions", type).subscribe(
+    //   result => {
+    //     this.coverageList = [];
+    //     let coverageHolder = result;
+    //     for (let c in coverageHolder) {
+    //       for (let d in coverageHolder[c]) {
+    //         this.coverage.benefit = coverageHolder[c][d].split(":=:")[1];
+    //         this.coverage.coverages.push(coverageHolder[c][d].split(":=:")[2]);
+    //       }
+    //       this.coverageList.push(this.coverage);
+    //       this.coverage = new Coverages();
+    //     }
+
+    //     this.affinity.coverages = this.coverageList;
+    //   });
 
     this.templateRouter = nextStep;
     this.scrollToTop();

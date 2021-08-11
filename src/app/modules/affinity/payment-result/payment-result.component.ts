@@ -31,6 +31,9 @@ import {
 import {
   Coverages
 } from 'src/app/objects/coverages';
+import {
+  CommonService
+} from 'src/app/services/common.service';
 
 @Component({
   selector: 'app-payment-result',
@@ -53,7 +56,8 @@ export class PaymentResultComponent implements OnInit {
     private auth: AuthenticationService,
     private spinner: NgxSpinnerService,
     private motorIssuance: MotorIssuanceService,
-    private paIssuance: PersonalAccidentIssuanceService) {}
+    private paIssuance: PersonalAccidentIssuanceService,
+    private common: CommonService) {}
 
   formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -73,12 +77,12 @@ export class PaymentResultComponent implements OnInit {
         console.log(this.affinity);
 
         const productId = this.affinity.productId;
-        const type = this.getType(productId);
+        // const type = this.getType(productId);
         if (productId == "33701" || productId == "33702") {
           this.nameLabel = "Primary Insured Name:"
         }
 
-        this.getCoverageDescriptions(type);
+        this.getCoverageDescription(productId);
         this.retrievePaymentStatus(this.policyNumber);
       } else {
         this.router.navigate([this.auth.getLandingPage()]);
@@ -86,26 +90,26 @@ export class PaymentResultComponent implements OnInit {
     }
   }
 
-  getType(productId: string) {
-    let itemName = "";
+  // getType(productId: string) {
+  //   let itemName = "";
 
-    switch (productId) {
-      case "10001":
-        itemName = "motorComprehensice";
-        break;
-      case "10002":
-        itemName = "motorCTPL";
-        break;
-      case "33701":
-        itemName = "personalAccident";
-        break;
-      case "33702":
-        itemName = "personalFamilyAccident";
-        break;
-    }
+  //   switch (productId) {
+  //     case "10001":
+  //       itemName = "motorComprehensice";
+  //       break;
+  //     case "10002":
+  //       itemName = "motorCTPL";
+  //       break;
+  //     case "33701":
+  //       itemName = "personalAccident";
+  //       break;
+  //     case "33702":
+  //       itemName = "personalFamilyAccident";
+  //       break;
+  //   }
 
-    return itemName;
-  }
+  //   return itemName;
+  // }
 
   retrieveTransactions() {
     this.spinner.show();
@@ -165,25 +169,36 @@ export class PaymentResultComponent implements OnInit {
       });
   }
 
-  getCoverageDescriptions(type: string) {
-    this.spinner.show();
-    this.caller.doCallService("/afnty/coverage/getCoverageDescriptions", type).subscribe(
-      result => {
-        this.spinner.hide();
-        this.coverageList = [];
-        let coverageHolder = result;
-        for (let c in coverageHolder) {
-          for (let d in coverageHolder[c]) {
-            this.coverage.benefit = coverageHolder[c][d].split(":=:")[1];
-            this.coverage.coverages.push(coverageHolder[c][d].split(":=:")[2]);
-          }
-          this.coverageList.push(this.coverage);
-          this.coverage = new Coverages();
+  getCoverageDescription(productId: string) {
+    this.common.viewCoverage(productId).subscribe(
+      (result: any) => {
+        if (!_.isEmpty(result)) {
+          this.coverageList = result;
+          this.affinity.coverages = result;
         }
-
-        this.affinity.coverages = this.coverageList;
-      });
+      }
+    );
   }
+
+  // getCoverageDescriptions(type: string) {
+  //   this.spinner.show();
+  //   this.caller.doCallService("/afnty/coverage/getCoverageDescriptions", type).subscribe(
+  //     result => {
+  //       this.spinner.hide();
+  //       this.coverageList = [];
+  //       let coverageHolder = result;
+  //       for (let c in coverageHolder) {
+  //         for (let d in coverageHolder[c]) {
+  //           this.coverage.benefit = coverageHolder[c][d].split(":=:")[1];
+  //           this.coverage.coverages.push(coverageHolder[c][d].split(":=:")[2]);
+  //         }
+  //         this.coverageList.push(this.coverage);
+  //         this.coverage = new Coverages();
+  //       }
+
+  //       this.affinity.coverages = this.coverageList;
+  //     });
+  // }
 
   retrievePaymentStatus(policyNumber) {
     this.spinner.show();

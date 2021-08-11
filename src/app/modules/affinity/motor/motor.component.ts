@@ -393,7 +393,7 @@ export class MotorComponent implements OnInit {
     this.affinity.motorDetails.productId = product;
     this.affinity.productId = product;
 
-    this.viewCoverage(description, '');
+    // this.viewCoverage(description, '');
     
     this.commonService.sleep(1000).then(() => {
       this.commonService.scrollToElement("tellUsVehicle", 500);
@@ -409,27 +409,27 @@ export class MotorComponent implements OnInit {
     }
   }
 
-  viewCoverage(type, description) {
-    this.spinner.show();
-    this.title = description;
+  // viewCoverage(type, description) {
+  //   this.spinner.show();
+  //   this.title = description;
 
-    this.caller.doCallService("/afnty/coverage/getCoverageDescriptions", type).subscribe(
-      result => {
-        this.coverageList = [];
-        let coverageHolder = result;
-        for (let c in coverageHolder) {
-          for (let d in coverageHolder[c]) {
-            this.coverage.benefit = coverageHolder[c][d].split(":=:")[1];
-            this.coverage.coverages.push(coverageHolder[c][d].split(":=:")[2]);
-          }
-          this.coverageList.push(this.coverage);
-          this.coverage = new Coverages();
+  //   this.caller.doCallService("/afnty/coverage/getCoverageDescriptions", type).subscribe(
+  //     result => {
+  //       this.coverageList = [];
+  //       let coverageHolder = result;
+  //       for (let c in coverageHolder) {
+  //         for (let d in coverageHolder[c]) {
+  //           this.coverage.benefit = coverageHolder[c][d].split(":=:")[1];
+  //           this.coverage.coverages.push(coverageHolder[c][d].split(":=:")[2]);
+  //         }
+  //         this.coverageList.push(this.coverage);
+  //         this.coverage = new Coverages();
 
-        }
-        this.spinner.hide();
-        this.affinity.coverages = this.coverageList;
-      });
-  }
+  //       }
+  //       this.spinner.hide();
+  //       this.affinity.coverages = this.coverageList;
+  //     });
+  // }
 
   nextStepAction() {
     if (this.checker.checkIfRequired('motor-quote') == "1") {

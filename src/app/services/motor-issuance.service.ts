@@ -142,21 +142,30 @@ export class MotorIssuanceService {
 
       });
 
-    this.caller.doCallService("/afnty/coverage/getCoverageDescriptions", type).subscribe(
-      coverages => {
-        this.coverageList = [];
-        let coverageHolder = coverages;
-        for (let c in coverageHolder) {
-          for (let d in coverageHolder[c]) {
-            this.coverage.benefit = coverageHolder[c][d].split(":=:")[1];
-            this.coverage.coverages.push(coverageHolder[c][d].split(":=:")[2]);
-          }
-          this.coverageList.push(this.coverage);
-          this.coverage = new Coverages();
-        }
+    // this.caller.doCallService("/afnty/coverage/getCoverageDescriptions", type).subscribe(
+    //   coverages => {
+    //     this.coverageList = [];
+    //     let coverageHolder = coverages;
+    //     for (let c in coverageHolder) {
+    //       for (let d in coverageHolder[c]) {
+    //         this.coverage.benefit = coverageHolder[c][d].split(":=:")[1];
+    //         this.coverage.coverages.push(coverageHolder[c][d].split(":=:")[2]);
+    //       }
+    //       this.coverageList.push(this.coverage);
+    //       this.coverage = new Coverages();
+    //     }
 
-        this.motorAff.coverages = this.coverageList;
-      });
+    //     this.motorAff.coverages = this.coverageList;
+    //   });
+
+    this.commonService.viewCoverage(this.motorAff.productId).subscribe(
+      (result: any) => {
+        if (!_.isEmpty(result)) {
+          this.coverageList = result;
+          this.motorAff.coverages = result;
+        }
+      }
+    );
 
     this.loadAllLOV(
       this.motorAff.motorDetails.motorTypeId,
@@ -297,28 +306,41 @@ export class MotorIssuanceService {
 
     let ret: any = new BehaviorSubject < any > ([]);
 
-    this.caller.doCallService("/afnty/coverage/getCoverageDescriptions", type).subscribe(
-      coverages => {
-        this.coverageList = [];
-        let coverageHolder = coverages;
-        for (let c in coverageHolder) {
-          for (let d in coverageHolder[c]) {
-            this.coverage.benefit = coverageHolder[c][d].split(":=:")[1];
-            this.coverage.coverages.push(coverageHolder[c][d].split(":=:")[2]);
-          }
-          this.coverageList.push(this.coverage);
-          this.coverage = new Coverages();
+    // this.caller.doCallService("/afnty/coverage/getCoverageDescriptions", type).subscribe(
+    //   coverages => {
+    //     this.coverageList = [];
+    //     let coverageHolder = coverages;
+    //     for (let c in coverageHolder) {
+    //       for (let d in coverageHolder[c]) {
+    //         this.coverage.benefit = coverageHolder[c][d].split(":=:")[1];
+    //         this.coverage.coverages.push(coverageHolder[c][d].split(":=:")[2]);
+    //       }
+    //       this.coverageList.push(this.coverage);
+    //       this.coverage = new Coverages();
+    //     }
+    //     this.motorAff.coverages = this.coverageList;
+
+    //     this.caller.doCallService('/afnty/getPaymentBreakdown?numPoliza=' + this.motorAff.policyNumber + '&type=P', null).subscribe(
+    //       paymentBreakdown => {
+    //         this.motorAff.premiumBreakdown = paymentBreakdown;
+    //         ret.next(this.motorAff);
+    //       });
+    //   });
+
+    this.commonService.viewCoverage(this.motorAff.productId).subscribe(
+      (result: any) => {
+        if (!_.isEmpty(result)) {
+          this.coverageList = result;
+          this.motorAff.coverages = result;
+
+          this.caller.doCallService('/afnty/getPaymentBreakdown?numPoliza=' + this.motorAff.policyNumber + '&type=P', null).subscribe(
+            paymentBreakdown => {
+              this.motorAff.premiumBreakdown = paymentBreakdown;
+              ret.next(this.motorAff);
+            });
         }
-
-        this.motorAff.coverages = this.coverageList;
-
-        this.caller.doCallService('/afnty/getPaymentBreakdown?numPoliza=' + this.motorAff.policyNumber + '&type=P', null).subscribe(
-          paymentBreakdown => {
-            this.motorAff.premiumBreakdown = paymentBreakdown;
-            ret.next(this.motorAff);
-          });
-
-      });
+      }
+    );
 
     return ret.asObservable();
   }

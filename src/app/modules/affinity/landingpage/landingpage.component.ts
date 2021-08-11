@@ -262,38 +262,15 @@ export class LandingpageComponent implements OnInit {
     });
   }
 
-  // viewCoverage(type, description) {
-  //   this.spinner.show();
-  //   this.title = description;
-
-  //   this.caller.doCallService("/afnty/coverage/getCoverageDescriptions", type).subscribe(
-  //     result => {
-  //       this.coverageList = [];
-  //       let coverageHolder = result;
-  //       for (let c in coverageHolder) {
-  //         for (let d in coverageHolder[c]) {
-  //           this.coverage.benefit = coverageHolder[c][d].split(":=:")[1];
-  //           this.coverage.coverages.push(coverageHolder[c][d].split(":=:")[2]);
-  //         }
-  //         this.coverageList.push(this.coverage);
-  //         this.coverage = new Coverages();
-
-  //       }
-  //       this.spinner.hide();
-  //       this.affinity.coverages = this.coverageList;
-  //     });
-  // }
-
   viewCoverage(productId: string) {
     this.common.viewCoverage(productId).subscribe(
       (result: any) => {
-        this.coverageList = result;
-        this.affinity.coverages = result;
-        console.log('coverageList');
-        console.log(result);
+        if (!_.isEmpty(result)) {
+          this.coverageList = result;
+          this.affinity.coverages = result;
+        }
       }
     );
-    
   }
 
 }
