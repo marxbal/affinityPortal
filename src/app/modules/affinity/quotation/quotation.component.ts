@@ -124,6 +124,8 @@ export class QuotationComponent implements OnInit {
         this.spinner.hide();
       });
 
+    this.getCoverageDescription(this.affinity.productId);
+
     this.formatAmount();
 
     document.body.scrollTop = 0; // For Safari
@@ -225,7 +227,6 @@ export class QuotationComponent implements OnInit {
         return null;
       }
 
-      this.getCoverageDescription(this.affinity.productId);
       this.affinity.motorDetails.reCompute = "1";
 
       this.spinner.show();
@@ -293,7 +294,6 @@ export class QuotationComponent implements OnInit {
 
             default:
               this.affinity.quotationNumber = result.message;
-              
 
               this.caller.doCallService('/afnty/getPaymentBreakdown?numPoliza=' + result.message + '&type=C', null).subscribe(
                 resultpb => {
