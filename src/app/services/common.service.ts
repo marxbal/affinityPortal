@@ -1375,7 +1375,7 @@ export class CommonService {
   viewCoverage(productId: string) {
     let ret: any = new BehaviorSubject < any > ([]);
     const listing = [];
-    this.app.post({productId}, 'afnty/coverage/getCoverageDescription')
+    this.app.post({productId}, '/afnty/coverage/getCoverageDescription')
       .pipe(first())
       .subscribe((res => {
         this.spinner.hide();
