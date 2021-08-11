@@ -71,79 +71,12 @@ export class PaymentResultComponent implements OnInit {
       this.router.navigate(['login']);
     } else {
       this.policyNumber = this.route.snapshot.paramMap.get("policyNumber");
-      this.retrieveTransactions();
       if (!_.isEmpty(this.policyNumber)) {
         this.retrievePolicyDetails(this.policyNumber);
-
       } else {
         this.router.navigate([this.auth.getLandingPage()]);
       }
     }
-  }
-
-  // getType(productId: string) {
-  //   let itemName = "";
-
-  //   switch (productId) {
-  //     case "10001":
-  //       itemName = "motorComprehensice";
-  //       break;
-  //     case "10002":
-  //       itemName = "motorCTPL";
-  //       break;
-  //     case "33701":
-  //       itemName = "personalAccident";
-  //       break;
-  //     case "33702":
-  //       itemName = "personalFamilyAccident";
-  //       break;
-  //   }
-
-  //   return itemName;
-  // }
-
-  retrieveTransactions() {
-    this.spinner.show();
-    this.caller.doCallService('/afnty/retrieveTransactions', this.affinity.clientId).subscribe(
-      result => {
-        this.spinner.hide();
-        let newResult = _.orderBy(result, ['transactionNumber'], ['desc']);
-        this.affinity.previousIssuances = newResult;
-
-        for (let i = 0; i < this.affinity.previousIssuances.length; i++) {
-          if (this.affinity.previousIssuances[i].policyNumber) {
-            for (let x = 0; x < this.affinity.previousIssuances[i].iDTO.a2000020List.length; x++) {
-              switch (this.affinity.previousIssuances[i].iDTO.a2000020List[x].codCampo) {
-                case "COD_MODALIDAD":
-                  this.affinity.previousIssuances[i].productId = this.affinity.previousIssuances[i].iDTO.a2000020List[x].valCampo;
-                  break;
-                default:
-                  break;
-              }
-            }
-          } else {
-            for (let x = 0; x < this.affinity.previousIssuances[i].iDTO.p2000020List.length; x++) {
-              switch (this.affinity.previousIssuances[i].iDTO.p2000020List[x].codCampo) {
-                case "COD_MODALIDAD":
-                  this.affinity.previousIssuances[i].productId = this.affinity.previousIssuances[i].iDTO.p2000020List[x].valCampo;
-                  break;
-                default:
-                  break;
-              }
-            }
-          }
-        }
-
-        console.log(this.affinity);
-        const productId = this.affinity.productId;
-        // const type = this.getType(productId);
-        if (productId == "33701" || productId == "33702") {
-          this.nameLabel = "Primary Insured Name:"
-        }
-
-        this.getCoverageDescription(productId);
-        this.retrievePaymentStatus(this.policyNumber);
-      });
   }
 
   retrievePolicyDetails(policyNumber) {
@@ -167,6 +100,16 @@ export class PaymentResultComponent implements OnInit {
               });
             break;
         }
+
+        console.log(this.affinity);
+        const productId = this.affinity.productId;
+        // const type = this.getType(productId);
+        if (productId == "33701" || productId == "33702") {
+          this.nameLabel = "Primary Insured Name:"
+        }
+
+        this.getCoverageDescription(productId);
+        this.retrievePaymentStatus(this.policyNumber);
       });
   }
 
@@ -180,26 +123,6 @@ export class PaymentResultComponent implements OnInit {
       }
     );
   }
-
-  // getCoverageDescriptions(type: string) {
-  //   this.spinner.show();
-  //   this.caller.doCallService("/afnty/coverage/getCoverageDescriptions", type).subscribe(
-  //     result => {
-  //       this.spinner.hide();
-  //       this.coverageList = [];
-  //       let coverageHolder = result;
-  //       for (let c in coverageHolder) {
-  //         for (let d in coverageHolder[c]) {
-  //           this.coverage.benefit = coverageHolder[c][d].split(":=:")[1];
-  //           this.coverage.coverages.push(coverageHolder[c][d].split(":=:")[2]);
-  //         }
-  //         this.coverageList.push(this.coverage);
-  //         this.coverage = new Coverages();
-  //       }
-
-  //       this.affinity.coverages = this.coverageList;
-  //     });
-  // }
 
   retrievePaymentStatus(policyNumber) {
     this.spinner.show();
