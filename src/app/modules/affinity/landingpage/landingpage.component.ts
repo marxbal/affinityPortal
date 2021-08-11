@@ -52,9 +52,7 @@ export class LandingpageComponent implements OnInit {
     private authenticate: AuthenticationService,
     private auth: AuthService,
     private router: Router,
-    private common: CommonService,
-    private spinner: NgxSpinnerService,
-    private caller: AuthService) {}
+    private common: CommonService) {}
 
   partner: Partner;
   partnerPath: string = "";
@@ -253,8 +251,8 @@ export class LandingpageComponent implements OnInit {
     }, 10);
   }
 
-  issuance(product: string, description: String, issuanceType: String) {
-    this.issuanceType.emit(issuanceType);
+  issuance(product: string, description: String) {
+    this.issuanceType.emit(product);
     this.backButton.emit("initialize");
     this.productDetails.emit({
       product,

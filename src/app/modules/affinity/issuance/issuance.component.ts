@@ -297,7 +297,34 @@ export class IssuanceComponent implements OnInit {
   }
 
   nextStepActionQuoteIssuance(nextStep: string) {
-    this.line = nextStep;
+    const productId = nextStep
+    this.affinity.productId = productId;
+
+    switch (productId) {
+      case "10001":
+        this.line = "motorQuotationIssuance";
+        this.affinity.lineId = "100"
+        break;
+      case "10002":
+        this.line = "motorQuotationIssuance";
+        this.affinity.lineId = "100"
+        break;
+      case "33701":
+        this.line = "personalInformation";
+        this.affinity.lineId = "337"
+        break;
+      case "33702":
+        this.line = "personalInformation";
+        this.affinity.lineId = "337"
+        break;
+      default:
+        this.line = "motorQuotationIssuance";
+        this.affinity.lineId = "100"
+        break;
+    }
+
+
+    // this.line = nextStep;
 
     // let type = "household";
     // this.affinity.productId = "20008";
@@ -334,7 +361,7 @@ export class IssuanceComponent implements OnInit {
     //     this.affinity.coverages = this.coverageList;
     //   });
 
-    this.templateRouter = nextStep;
+    this.templateRouter = this.line;
     this.scrollToTop();
   }
 
