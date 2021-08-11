@@ -92,13 +92,13 @@ export class PaymentResultComponent implements OnInit {
         switch (result.p2000030.codRamo) {
           case 337:
             this.paIssuance.mapRetrievePolicy(this.affinity, result).subscribe(
-              (res: Affinity) => {
+              (res) => {
                 this.affinity = res;
               });
             break;
           default:
             this.motorIssuance.mapRetrievePolicy(this.affinity, result).subscribe(
-              (res: Affinity) => {
+              (res) => {
                 this.affinity = res;
               });
             break;
