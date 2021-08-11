@@ -65,6 +65,7 @@ import Swal from 'sweetalert2';
 import {
   environment
 } from '../../environments/environment';
+import { Coverages } from '../objects/coverages';
 
 @Injectable({
   providedIn: 'root'
@@ -1369,9 +1370,20 @@ export class CommonService {
   }
 
   viewCoverage(productId: string) {
+    const listing = [];
     this.spinner.show();
     this.caller.doCallService("/afnty/coverage/getCoverageDescription", productId).subscribe(
       result => {
+        this.spinner.hide();
+        result.forEach(c => {
+          const list = c.split('~');
+          let coverage = new Coverages();
+          coverage.benefit = list[1];
+          coverage.coverages = list[2];
+          listing.push(list);
+        });
+
+        return listing;
         console.log(result);
         // this.spinner.hide();
         // this.coverageList = [];
@@ -1385,7 +1397,7 @@ export class CommonService {
         //   this.coverage = new Coverages();
 
         // }
-        this.spinner.hide();
+        
         // this.affinity.coverages = this.coverageList;
       });
   }

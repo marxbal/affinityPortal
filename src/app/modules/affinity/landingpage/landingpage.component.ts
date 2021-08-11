@@ -285,7 +285,9 @@ export class LandingpageComponent implements OnInit {
   // }
 
   viewCoverage(productId: string) {
-    this.common.viewCoverage(productId);
+    const coverageList = this.common.viewCoverage(productId);
+    console.log('coverageList');
+    console.log(coverageList);
   }
 
 }
