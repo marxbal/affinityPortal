@@ -65,6 +65,7 @@ export class PaymentResultComponent implements OnInit {
   });
 
   ngOnInit() {
+    this.affinity = new Affinity();
     this.affinity.clientId = localStorage.getItem(EMAIL);
 
     if (this.affinity.clientId === null) {
