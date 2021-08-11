@@ -74,16 +74,7 @@ export class PaymentResultComponent implements OnInit {
       this.retrieveTransactions();
       if (!_.isEmpty(this.policyNumber)) {
         this.retrievePolicyDetails(this.policyNumber);
-        console.log(this.affinity);
 
-        const productId = this.affinity.productId;
-        // const type = this.getType(productId);
-        if (productId == "33701" || productId == "33702") {
-          this.nameLabel = "Primary Insured Name:"
-        }
-
-        this.getCoverageDescription(productId);
-        this.retrievePaymentStatus(this.policyNumber);
       } else {
         this.router.navigate([this.auth.getLandingPage()]);
       }
@@ -142,6 +133,16 @@ export class PaymentResultComponent implements OnInit {
             }
           }
         }
+
+        console.log(this.affinity);
+        const productId = this.affinity.productId;
+        // const type = this.getType(productId);
+        if (productId == "33701" || productId == "33702") {
+          this.nameLabel = "Primary Insured Name:"
+        }
+
+        this.getCoverageDescription(productId);
+        this.retrievePaymentStatus(this.policyNumber);
       });
   }
 
