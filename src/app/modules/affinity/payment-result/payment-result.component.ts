@@ -84,6 +84,8 @@ export class PaymentResultComponent implements OnInit {
     this.caller.doCallService('/afnty/retrievePolicyDetails', policyNumber).subscribe(
       result => {
         this.spinner.hide();
+        this.affinity = result;
+
         this.affinity.paymentReferenceNumber = result.a2990700_mph.numPaymentReference;
 
         switch (result.p2000030.codRamo) {
