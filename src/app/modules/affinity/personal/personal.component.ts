@@ -107,6 +107,7 @@ export class PersonalComponent implements OnInit {
   });
 
   ngOnInit() {
+    console.log(this.affinity);
     this.selectProduct(this.product, this.description);
 
     this.affinity.motorDetails.reCompute = "0";
