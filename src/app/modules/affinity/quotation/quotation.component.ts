@@ -43,6 +43,7 @@ import {
   CommonService
 } from '../../../services/common.service';
 import * as m from 'moment';
+import * as _ from 'lodash';
 import Swal from 'sweetalert2';
 import {
   NgxSpinnerService
@@ -289,6 +290,7 @@ export class QuotationComponent implements OnInit {
 
             default:
               this.affinity.quotationNumber = result.message;
+              this.getCoverageDescription(this.affinity.productId);
 
               this.caller.doCallService('/afnty/getPaymentBreakdown?numPoliza=' + result.message + '&type=C', null).subscribe(
                 resultpb => {
@@ -302,6 +304,16 @@ export class QuotationComponent implements OnInit {
           }
         });
     });
+  }
+
+  getCoverageDescription(productId: string) {
+    this.common.viewCoverage(productId).subscribe(
+      (result: any) => {
+        if (!_.isEmpty(result)) {
+          this.affinity.coverages = result;
+        }
+      }
+    );
   }
 
   nextStepAction() {
