@@ -145,7 +145,7 @@ export class PersonalComponent implements OnInit {
   selectProduct(product, description) {
 
     this.affinity.productId = product;
-    this.viewCoverage(description, '');
+    // this.viewCoverage(description, '');
     this.showAll = "1";
 
     this.common.sleep(1000).then(() => {
