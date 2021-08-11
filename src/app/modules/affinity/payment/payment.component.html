@@ -30,7 +30,7 @@
               </div>
             </div>
           </div>
-          
+
           <div class="form-group row bottom-break">
             <div class="col-md-12">
               <h5>Vehicle Details</h5>
@@ -56,7 +56,7 @@
               <div><strong>{{this.affinity.motorDetails.conductionNumber}}</strong></div>
             </div>
           </div>
-          
+
           <div class="form-group row bottom-break">
             <div class="col-md-12">
               <h5>Policy Period</h5>
@@ -267,7 +267,8 @@
   </div>
 
   <div class="col-md-4">
-    <button class="btn btn-mapfre btn-block mt-3 mb-3" (click)="requestPayment('cc')"><b>Pay using Credit Card</b></button>
+    <button class="btn btn-mapfre btn-block mt-3 mb-3" (click)="requestPayment('cc')"><b>Pay using Credit
+        Card</b></button>
     <button class="btn btn-mapfre btn-block mt-3 mb-3" (click)="requestPayment('gc')"><b>Pay using GCash</b></button>
     <img class="logo-collection" src="assets/images/authProgram_SC.gif" />
     <img class="logo-collection" src="assets/images/authProgram_VBV.gif" />
@@ -347,11 +348,7 @@
       <tbody>
         <tr *ngFor="let coverage of this.affinity.coverages">
           <td style="min-width: 300px;">{{coverage.benefit}}</td>
-          <td style="text-align: justify;">
-            <span *ngFor="let coverages of coverage.coverages">
-              {{coverages}}<br /><br />
-            </span>
-          </td>
+          <td style="text-align: justify;">{{coverages}}</td>
         </tr>
       </tbody>
     </table>

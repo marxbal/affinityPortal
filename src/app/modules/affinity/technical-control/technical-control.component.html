@@ -338,7 +338,7 @@
     </table>
   </div>
 
-  <div class="col-md-12">
+  <div *ngIf="this.affinity.coverages" class="col-md-12">
     <h5>Details of Coverage</h5>
     <table class="table table-small table-hover table-condensed">
       <thead>
@@ -350,11 +350,7 @@
       <tbody>
         <tr *ngFor="let coverage of this.affinity.coverages">
           <td style="min-width: 300px;">{{coverage.benefit}}</td>
-          <td style="text-align: justify;">
-            <span *ngFor="let coverages of coverage.coverages">
-              {{coverages}}<br /><br />
-            </span>
-          </td>
+          <td style="text-align: justify;">{{coverages}}</td>
         </tr>
       </tbody>
     </table>

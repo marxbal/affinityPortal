@@ -96,7 +96,8 @@
               </tr>
             </tbody>
           </table>
-          <button *ngIf="this.affinity.productId == '10001'" class="btn btn-mapfre" (click)="reSubmitQuote()">Update Coverages</button>
+          <button *ngIf="this.affinity.productId == '10001'" class="btn btn-mapfre" (click)="reSubmitQuote()">Update
+            Coverages</button>
         </div>
       </div>
     </div>
@@ -178,7 +179,7 @@
       <br />
       <br />
     </div> -->
-    
+
     <div *ngIf="this.affinity.productId == '33701' || this.affinity.productId == '33702'">
       <div class="card mb-3">
         <div class="card-body">
@@ -364,11 +365,7 @@
       <tbody>
         <tr *ngFor="let coverage of this.affinity.coverages">
           <td style="min-width: 300px;">{{coverage.benefit}}</td>
-          <td style="text-align: justify;">
-            <span *ngFor="let coverages of coverage.coverages">
-              {{coverages}}<br /><br />
-            </span>
-          </td>
+          <td style="text-align: justify;">{{coverages}}</td>
         </tr>
       </tbody>
     </table>
