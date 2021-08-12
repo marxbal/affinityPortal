@@ -16,6 +16,7 @@ import {
 import {
   PaymentPaynamics
 } from '../objects/payment-paynamics';
+import { Payment } from '../objects/payment';
 
 @Injectable({
   providedIn: 'root'
@@ -42,8 +43,9 @@ export class PaymentService {
 
   getResponseCode(requestId: string) {
     let ret: any = new BehaviorSubject < any > ([]);
-
-    this.app.post({requestId}, this.map + 'getResponseCode')
+    const payment = new PaymentPaynamics();
+    payment.requestId = requestId;
+    this.app.post(payment, this.map + 'getResponseCode')
       .pipe(first())
       .subscribe((res => {
         this.spinner.hide();
