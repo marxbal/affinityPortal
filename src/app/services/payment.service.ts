@@ -39,4 +39,17 @@ export class PaymentService {
 
     return ret.asObservable();
   }
+
+  getResponseCode(requestId: string) {
+    let ret: any = new BehaviorSubject < any > ([]);
+
+    this.app.post(requestId, this.map + 'getResponseCode')
+      .pipe(first())
+      .subscribe((res => {
+        this.spinner.hide();
+        ret.next(res);
+      }));
+
+    return ret.asObservable();
+  }
 }

@@ -35,6 +35,9 @@ import {
   Return
 } from 'src/app/objects/return';
 import Swal from 'sweetalert2';
+import {
+  PaymentService
+} from 'src/app/services/payment.service';
 
 @Component({
   selector: 'app-payment-result',
@@ -58,7 +61,8 @@ export class PaymentResultComponent implements OnInit {
     private authService: AuthenticationService,
     private spinner: NgxSpinnerService,
     private motorIssuance: MotorIssuanceService,
-    private paIssuance: PersonalAccidentIssuanceService) {}
+    private paIssuance: PersonalAccidentIssuanceService,
+    private paymentService: PaymentService) {}
 
   formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -77,7 +81,7 @@ export class PaymentResultComponent implements OnInit {
           var requestId = params.requestId;
           this.policyNumber = this.route.snapshot.paramMap.get("policyNumber");
           if (!_.isEmpty(this.policyNumber)) {
-            this.retrievePaymentStatus(requestId);
+            this.getResponseCode(requestId);
             this.retrievePolicyDetails(this.policyNumber);
           } else {
             this.router.navigate([this.auth.getLandingPage()]);
@@ -86,7 +90,7 @@ export class PaymentResultComponent implements OnInit {
     }
   }
 
-  retrievePolicyDetails(policyNumber) {
+  retrievePolicyDetails(policyNumber: string) {
     this.spinner.show();
     this.caller.doCallService('/afnty/retrievePolicyDetails', policyNumber).subscribe(
       result => {
@@ -124,12 +128,9 @@ export class PaymentResultComponent implements OnInit {
     }
   }
 
-  retrievePaymentStatus(requestId) {
-    this.spinner.show();
-    this.caller.doCallService('/payment/getResponseCode', requestId).subscribe(
-      result => {
-        this.spinner.hide();
-        const res = result as Return
+  getResponseCode(requestId: string) {
+    this.paymentService.getResponseCode(requestId).subscribe(
+      (res: Return) => {
         if (res.status) {
           const code = res.obj.toString();
           this.paymentStatus = code == "GR001" || code == "GR002";
@@ -140,7 +141,8 @@ export class PaymentResultComponent implements OnInit {
             text: res.message
           });
         }
-      });
+      }
+    )
   }
 
   retryPayment() {
