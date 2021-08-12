@@ -131,15 +131,17 @@ export class PaymentResultComponent implements OnInit {
   getResponseCode(requestId: string) {
     this.paymentService.getResponseCode(requestId).subscribe(
       (res: Return) => {
-        if (res.status) {
-          const code = res.obj.toString();
-          this.paymentStatus = code == "GR001" || code == "GR002";
-        } else {
-          Swal.fire({
-            type: 'error',
-            title: 'Payment Transaction',
-            text: res.message
-          });
+        if (!_.isEmpty(res)) {
+          if (res.status) {
+            const code = res.obj.toString();
+            this.paymentStatus = code == "GR001" || code == "GR002";
+          } else {
+            Swal.fire({
+              type: 'error',
+              title: 'Payment Transaction',
+              text: res.message
+            });
+          }
         }
       }
     )
