@@ -465,7 +465,7 @@ export class RiskAccidentComponent implements OnInit {
               this.affinity.policyNumber = result.message;
               const paymentOption = this.affinity.paymentOption;
               if (paymentOption == "co") {
-                this.router.navigate(['issuance/51359e8b51c63b87d50cb1bab73380e2/' + result.message2]);
+                this.router.navigate(['issuance/51359e8b51c63b87d50cb1bab73380e2/' + result.message]);
                 setTimeout(function () {
                   window.location.reload();
                 }, 10);
