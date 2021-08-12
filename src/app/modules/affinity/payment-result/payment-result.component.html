@@ -3,11 +3,11 @@
   <div class="container issuance-container">
     <div class="row">
 
-      <div class="col-md-7">
+      <div class="col-md-8">
         <img class="img-responsive d-none d-md-block" src="assets/images/payment-{{paymentStatus ? 'success' : 'failed'}}.jpg" />
       </div>
 
-      <div class="col-md-5">
+      <div class="col-md-4">
         <div class="payment-panel {{paymentStatus ? 'success' : 'failed'}}">
 
           <div *ngIf="paymentStatus" class="payment-status-panel d-block d-sm-none">
@@ -62,15 +62,21 @@
             </div>
             <div *ngIf="!paymentStatus" class="row">
               <div class="col-md-12">
-                <button class="btn btn-mapfre btn-block mt-3 mb-3" (click)="retryPayment('cc')">
-                  <b>Pay via Credit Card Payment/GCash</b>
+                <button class="btn btn-mapfre btn-block mt-3 mb-3" (click)="retryPayment()">
+                  <b>Pay via Credit Card/GCash</b>
+                </button>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <button class="btn btn-success btn-block" (click)="returnToHomepage()">
+                  <b>Go back to Homepage</b>
                 </button>
               </div>
             </div>
           </div>
 
           <img class="paynamics-logo" src="assets/images/paynamics-logo.png" />
-          <br />
         </div>
       </div>
 

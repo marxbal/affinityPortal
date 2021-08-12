@@ -22,7 +22,7 @@ h5 {
   background: #e4ffea;
   border-radius: 10px;
   margin-bottom: 30px;
-  min-height: 423px;
+  min-height: 486px;
 }
 
 .payment-status-panel {
@@ -43,4 +43,9 @@ h5 {
   width: 100px;
   display: block;
   margin: 0 auto;
+}
+
+.btn-success {
+  padding: 10px 30px 10px 30px !important;
+  border: 1px solid green;
 }

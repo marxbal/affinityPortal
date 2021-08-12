@@ -26,9 +26,6 @@ import {
   ProductList
 } from 'src/app/objects/product-list';
 import {
-  NgxSpinnerService
-} from 'ngx-spinner';
-import {
   AuthService
 } from 'src/app/services/auth.service';
 import {

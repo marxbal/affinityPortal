@@ -32,8 +32,9 @@ import {
   Coverages
 } from 'src/app/objects/coverages';
 import {
-  CommonService
-} from 'src/app/services/common.service';
+  Return
+} from 'src/app/objects/return';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-payment-result',
@@ -54,10 +55,10 @@ export class PaymentResultComponent implements OnInit {
     private router: Router,
     private caller: AuthService,
     private auth: AuthenticationService,
+    private authService: AuthenticationService,
     private spinner: NgxSpinnerService,
     private motorIssuance: MotorIssuanceService,
-    private paIssuance: PersonalAccidentIssuanceService,
-    private common: CommonService) {}
+    private paIssuance: PersonalAccidentIssuanceService) {}
 
   formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -71,12 +72,17 @@ export class PaymentResultComponent implements OnInit {
     if (this.affinity.clientId === null) {
       this.router.navigate(['login']);
     } else {
-      this.policyNumber = this.route.snapshot.paramMap.get("policyNumber");
-      if (!_.isEmpty(this.policyNumber)) {
-        this.retrievePolicyDetails(this.policyNumber);
-      } else {
-        this.router.navigate([this.auth.getLandingPage()]);
-      }
+      this.route.queryParams
+        .subscribe(params => {
+          var requestId = params.requestId;
+          this.policyNumber = this.route.snapshot.paramMap.get("policyNumber");
+          if (!_.isEmpty(this.policyNumber)) {
+            this.retrievePaymentStatus(requestId);
+            this.retrievePolicyDetails(this.policyNumber);
+          } else {
+            this.router.navigate([this.auth.getLandingPage()]);
+          }
+        });
     }
   }
 
@@ -116,21 +122,34 @@ export class PaymentResultComponent implements OnInit {
     if (productId == "33701" || productId == "33702") {
       this.nameLabel = "Primary Insured Name:"
     }
-
-    // this.retrievePaymentStatus(this.policyNumber);
   }
 
-  retrievePaymentStatus(policyNumber) {
+  retrievePaymentStatus(requestId) {
     this.spinner.show();
-    this.paymentStatus = false;
-    this.caller.doCallService('/afnty/retrievePaymentStatus', policyNumber).subscribe(
+    this.caller.doCallService('/payment/getResponseCode', requestId).subscribe(
       result => {
         this.spinner.hide();
+        const res = result as Return
+        if (res.status) {
+          const code = res.obj.toString();
+          this.paymentStatus = code == "GR001" || code == "GR002";
+        } else {
+          Swal.fire({
+            type: 'error',
+            title: 'Payment Transaction',
+            text: res.message
+          });
+        }
       });
   }
 
   retryPayment() {
     this.router.navigate(['issuance/51359e8b51c63b87d50cb1bab73380e2/' + this.policyNumber]);
+  }
+
+  returnToHomepage() {
+    const landingPage  =this.authService.getLandingPage();
+    this.router.navigate([landingPage]);
   }
 
 }
