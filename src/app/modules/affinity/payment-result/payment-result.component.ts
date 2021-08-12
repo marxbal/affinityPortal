@@ -52,6 +52,7 @@ export class PaymentResultComponent implements OnInit {
   paymentStatus: boolean = false;
   nameLabel: string = "Client Name:";
   policyNumber: string = "";
+  total: number;
 
   constructor(
     private route: ActivatedRoute,
@@ -126,6 +127,8 @@ export class PaymentResultComponent implements OnInit {
     if (productId == "33701" || productId == "33702") {
       this.nameLabel = "Primary Insured Name:"
     }
+
+    this.total = parseFloat(this.affinity.premiumBreakdown.grossPrem);
   }
 
   getResponseCode(requestId: string) {
