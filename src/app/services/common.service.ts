@@ -1082,7 +1082,6 @@ export class CommonService {
     return p2031;
   }
 
-  //TODO
   assignP2000030(affinity: Affinity) {
     let p2030: P2000030 = new P2000030();
 
@@ -1244,57 +1243,6 @@ export class CommonService {
     return item;
   }
 
-  // requestPayment(affinity: Affinity, total: string) {
-  //   const payment = new PaymentPaynamics();
-  //   const productId = affinity.productId;
-
-    // payment.requestId = affinity.paymentReferenceNumber;
-    // payment.descriptorNote = this.getProductDescription(productId);
-    // payment.firstName = affinity.riskDetails.firstName;
-    // payment.middleName = affinity.riskDetails.middleName;
-    // payment.lastName = affinity.riskDetails.lastName;
-    // payment.address1 = affinity.address1;
-    // payment.city = municipality;
-    // payment.state = province;
-    // payment.city = affinity.municipality;
-    // payment.state = affinity.province;
-    // payment.zip = affinity.zipCode;
-    // payment.email = affinity.riskDetails.emailAddress;
-    // payment.phone = affinity.riskDetails.phoneNumber;
-    // payment.itemName = this.getItemName(affinity, productId);
-    // payment.amount = total.toString().replace(/,/g, "");
-    // payment.policyNumber = affinity.policyNumber;
-    // payment.receipt = affinity.premiumBreakdown.numRecibo;
-
-    // this.payment(payment, "cc");
-
-    // let pDTO: Payment = new Payment();
-    // pDTO.numPoliza = this.affinity.policyNumber;
-    // pDTO.grossPrem = this.grossPremSend;
-    // pDTO.numRecibo = this.affinity.premiumBreakdown.numRecibo;
-    // this.caller.doCallService('/afnty/Payment/Request', pDTO).subscribe(
-    //   response => {
-    //     var mapForm = document.createElement("form");
-    //     mapForm.method = "POST"; // or "post" if appropriate
-    //     mapForm.action = response.url;
-
-    //     Object.entries(response).forEach((attribute: any[]) => {
-    //       if (attribute[0] === 'url') {
-    //         return;
-    //       }
-
-    //       var mapInput = document.createElement("input");
-    //       mapInput.type = "hidden";
-    //       mapInput.name = attribute[0].replaceAll('vpc', 'vpc_');
-    //       mapInput.setAttribute("value", attribute[1]);
-    //       mapForm.appendChild(mapInput);
-    //     });
-
-    //     document.body.appendChild(mapForm);
-    //     mapForm.submit();
-    //   });
-  // }
-
   payment(affinity: Affinity, paymentOption: string) {
     this.spinner.show();
 
@@ -1310,13 +1258,6 @@ export class CommonService {
     payment.responseUrl = baseUrl + environment.responseUrl + payment.policyNumber;
     payment.appNotifUrl = baseUrl + environment.appNotifUrl;
     payment.paymentMethod = paymentOption;
-
-    // payment.ipAddress = "192.168.1.1";
-    // payment.address2 = "";
-    // payment.country = "PHILIPPINES";
-    // payment.mobile = "";
-    // payment.quantity = "1";
-    // payment.trxType = "sale";
 
     // payment.requestId = "TEST0000008";
     // payment.ipAddress = "192.168.1.1";
