@@ -52,34 +52,34 @@ const routes: Routes = [{
   {
     path: 'dashboard',
     component: DashboardComponent,
-    // canActivate: [AuthGuardAdmin],
+    canActivate: [AuthGuardAdmin],
   },
   {
     path: 'partner-list',
     component: PartnerListComponent,
-    // canActivate: [AuthGuardAdmin],
+    canActivate: [AuthGuardAdmin],
   },
   {
     path: 'partner',
     component: PartnerComponent,
-    // canActivate: [AuthGuardAdmin],
+    canActivate: [AuthGuardAdmin],
   },
 
   {
     path: 'product-list',
     component: ProductListComponent,
-    // canActivate: [AuthGuardAdmin],
+    canActivate: [AuthGuardAdmin],
   },
   {
     path: 'product',
     component: ProductComponent,
-    // canActivate: [AuthGuardAdmin],
+    canActivate: [AuthGuardAdmin],
   },
 
   {
     path: 'issuance',
     component: IssuanceComponent,
-    // canActivate: [AuthGuardClient],
+    canActivate: [AuthGuardClient],
   },
   {
     path: 'issuance/:type/:numPoliza',
@@ -89,7 +89,7 @@ const routes: Routes = [{
   {
     path: 'payment-result/:policyNumber',
     component: PaymentResultComponent,
-    // canActivate: [AuthGuardClient],
+    canActivate: [AuthGuardClient],
   }
 ];
 
