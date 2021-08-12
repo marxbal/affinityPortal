@@ -24,6 +24,9 @@ import {
   LOGIN_MSG,
   TOKEN
 } from '../constants/local.storage';
+import {
+  AuthenticationService
+} from '../services/authentication.service';
 
 export const InterceptorSkipHeader = 'X-Skip-Interceptor';
 
@@ -33,7 +36,8 @@ export const InterceptorSkipHeader = 'X-Skip-Interceptor';
 export class InterceptorService implements HttpInterceptor {
 
   constructor(
-    private router: Router) {}
+    private router: Router,
+    private auth: AuthenticationService) {}
 
   intercept(request: HttpRequest < any > , next: HttpHandler): Observable < HttpEvent < any >> {
     let finalRequest = _.cloneDeep(request);
@@ -66,7 +70,7 @@ export class InterceptorService implements HttpInterceptor {
       }),
       catchError((error: HttpErrorResponse) => {
         if (error.status === 401) {
-          // window.location.reload();
+          this.auth.clearAuth();
           localStorage.setItem(LOGIN_MSG, "Error! Token already expired. Please log in again.")
           ic.router.navigateByUrl('/login/?error=true');
         }

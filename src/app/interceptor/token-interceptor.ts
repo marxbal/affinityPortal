@@ -25,13 +25,19 @@ import {
   LOGIN_MSG,
   TOKEN
 } from '../constants/local.storage';
+import {
+  AuthenticationService
+} from '../services/authentication.service';
 
 export const InterceptorSkipHeader = 'X-Skip-Interceptor';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private auth: AuthenticationService) {}
+
   intercept(request: HttpRequest < any > , next: HttpHandler): Observable < HttpEvent < any >> {
     let finalRequest = _.cloneDeep(request);
 
@@ -56,11 +62,10 @@ export class TokenInterceptor implements HttpInterceptor {
         }),
         catchError((error: HttpErrorResponse) => {
           if (error.status === 401) {
-            // let past = Base64.encode(localStorage.getItem("tempECCard")) + '&u=' + Base64.encode(localStorage.getItem("tempUnit"));
+            this.auth.clearAuth();
             const email = localStorage.getItem(EMAIL);
             localStorage.setItem(LOGIN_MSG, "Your session has expired, please log in again.");
             ic.router.navigateByUrl('/?email=' + email);
-            // window.location.reload();
           }
           return throwError(error);
         }));
