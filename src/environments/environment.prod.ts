@@ -3,8 +3,8 @@ export const environment = {
   apiUrl: 'https://affinity.mapfreinsurance.com.ph/genmicro',
   baseUrl: 'https://affinity.mapfreinsurance.com.ph/affinity/',
   redirectUrl: '/affinity',
-  responseUrl: 'affinity/payment-result/',
-  cancelUrl: 'affinity/issuance/51359e8b51c63b87d50cb1bab73380e2/',
-  tacUrl: 'affinity/terms-and-condition',
-  appNotifUrl: 'genmicro/payment/notify'
+  responseUrl: 'payment-result/',
+  cancelUrl: 'issuance/51359e8b51c63b87d50cb1bab73380e2/',
+  tacUrl: 'terms-and-condition',
+  appNotifUrl: '/payment/notify'
 };
