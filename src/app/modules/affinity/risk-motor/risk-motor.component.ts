@@ -58,12 +58,8 @@ import {
 import Swal from 'sweetalert2';
 import * as _ from 'lodash';
 import {
-  MotorIssuanceService
-} from 'src/app/services/motor-issuance.service';
-import {
-  DecimalPipe
-} from '@angular/common';
-import { Router } from '@angular/router';
+  Router
+} from '@angular/router';
 
 @Component({
   selector: 'app-risk-motor',
@@ -424,23 +420,9 @@ export class RiskMotorComponent implements OnInit {
               } else {
                 this.common.payment(this.affinity, paymentOption);
               }
-
-              // this.router.navigate(['issuance/51359e8b51c63b87d50cb1bab73380e2/' + result.message]);
-              // setTimeout(function () {
-              //   window.location.reload();
-              // }, 10);
-              // if (this.affinity.paymentOption == "cc") {
-              //   window.open(result.message, "_self");
-              // } else {
-              //   this.router.navigate(['issuance/51359e8b51c63b87d50cb1bab73380e2/' + result.message2]);
-              //   setTimeout(function () {
-              //     window.location.reload();
-              //   }, 10);
-              // }
               break;
             case 2:
               this.affinity.policyNumber = result.message;
-
               this.affinity.techControl = result.message2.split("~");
               this.affinity = this.common.identifyTechControl(this.affinity);
 
@@ -453,7 +435,6 @@ export class RiskMotorComponent implements OnInit {
                     this.getCoverages(result.message, this.affinity, "techControl");
                   });
               }
-
               if (this.affinity.motorDetails.vehiclePhotos.length > 0) {
                 let formData = this.common.assignFormDataUpload(this.affinity);
                 formData.append('numPoliza', this.affinity.policyNumber);
@@ -463,7 +444,6 @@ export class RiskMotorComponent implements OnInit {
 
                   });
               }
-
               break;
             default:
               Swal.fire({
@@ -527,5 +507,4 @@ export class RiskMotorComponent implements OnInit {
     this.nextStep.emit("motorPolicyIssuance");
     this.affinityOutput2.emit(this.affinity);
   }
-
 }
