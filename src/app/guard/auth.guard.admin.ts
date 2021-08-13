@@ -44,7 +44,6 @@ export class AuthGuardAdmin implements CanActivate {
             }
   
             if (!giveAccess) {
-              this.authService.clearAuth();
               setTimeout(() => {
                 const landingPage  =this.authService.getLandingPage();
                 this.router.navigate([landingPage]);

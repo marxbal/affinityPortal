@@ -62,8 +62,8 @@ export class TokenInterceptor implements HttpInterceptor {
         }),
         catchError((error: HttpErrorResponse) => {
           if (error.status === 401) {
-            this.auth.clearAuth();
             const email = localStorage.getItem(EMAIL);
+            this.auth.clearAuth();
             localStorage.setItem(LOGIN_MSG, "Your session has expired, please log in again.");
             ic.router.navigateByUrl('/?email=' + email);
           }
