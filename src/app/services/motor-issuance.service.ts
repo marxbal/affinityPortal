@@ -52,7 +52,9 @@ export class MotorIssuanceService {
     this.motorAff.riskDetails.middleName = result.mName;
     this.motorAff.riskDetails.lastName = result.lName;
 
-    this.motorAff.riskDetails.fullName = this.motorAff.riskDetails.lastName + ", " + this.motorAff.riskDetails.firstName + " " + this.motorAff.riskDetails.middleName;
+    this.motorAff.riskDetails.fullName = this.motorAff.riskDetails.lastName
+      + ", " + this.motorAff.riskDetails.firstName
+      + (this.motorAff.riskDetails.middleName ? " " + this.motorAff.riskDetails.middleName : "") ;
 
     this.motorAff.riskDetails.validIDValue = result.codDoc;
     this.motorAff.riskDetails.validID = result.tipDoc;
@@ -200,7 +202,9 @@ export class MotorIssuanceService {
     this.motorAff.riskDetails.middleName = result.mName;
     this.motorAff.riskDetails.lastName = result.lName;
 
-    this.motorAff.riskDetails.fullName = this.motorAff.riskDetails.lastName + ", " + this.motorAff.riskDetails.firstName + " " + this.motorAff.riskDetails.middleName;
+    this.motorAff.riskDetails.fullName = this.motorAff.riskDetails.lastName
+      + ", " + this.motorAff.riskDetails.firstName
+      + (this.motorAff.riskDetails.middleName ? " " + this.motorAff.riskDetails.middleName : "") ;
 
     this.motorAff.riskDetails.validIDValue = result.codDoc;
     this.motorAff.riskDetails.validID = result.tipDoc;

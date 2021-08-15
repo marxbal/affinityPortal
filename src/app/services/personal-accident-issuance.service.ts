@@ -177,7 +177,9 @@ export class PersonalAccidentIssuanceService {
     this.paAff.riskDetails.middleName = result.mName;
     this.paAff.riskDetails.lastName = result.lName;
 
-    this.paAff.riskDetails.fullName = this.paAff.riskDetails.lastName + ", " + this.paAff.riskDetails.firstName + " " + this.paAff.riskDetails.middleName;
+    this.paAff.riskDetails.fullName = this.paAff.riskDetails.lastName
+      + ", " + this.paAff.riskDetails.firstName
+      + (this.paAff.riskDetails.middleName ? " " + this.paAff.riskDetails.middleName : "") ;
 
     this.paAff.riskDetails.validIDValue = result.codDoc;
     this.paAff.riskDetails.validID = result.tipDoc;
