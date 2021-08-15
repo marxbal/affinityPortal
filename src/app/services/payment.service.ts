@@ -16,8 +16,6 @@ import {
 import {
   PaymentPaynamics
 } from '../objects/payment-paynamics';
-import { Payment } from '../objects/payment';
-import { PaymentNotificationRequest } from '../objects/payment-notification-request';
 
 @Injectable({
   providedIn: 'root'
@@ -47,19 +45,6 @@ export class PaymentService {
     const payment = new PaymentPaynamics();
     payment.policyNumber = policyNumber;
     this.app.post(payment, this.map + 'getResponseCode')
-      .pipe(first())
-      .subscribe((res => {
-        this.spinner.hide();
-        ret.next(res);
-      }));
-
-    return ret.asObservable();
-  }
-
-  notify(payment: PaymentNotificationRequest) {
-    let ret: any = new BehaviorSubject < any > ([]);
-
-    this.app.post(payment, this.map + 'notify')
       .pipe(first())
       .subscribe((res => {
         this.spinner.hide();
