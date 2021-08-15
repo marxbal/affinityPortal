@@ -38,6 +38,7 @@ import Swal from 'sweetalert2';
 import {
   PaymentService
 } from 'src/app/services/payment.service';
+import { PaymentNotificationRequest } from 'src/app/objects/payment-notification-request';
 
 @Component({
   selector: 'app-payment-result',
@@ -51,6 +52,7 @@ export class PaymentResultComponent implements OnInit {
   coverage: Coverages = new Coverages();
   paymentStatus: boolean = false;
   nameLabel: string = "Client Name:";
+  requestId: string = "";
   policyNumber: string = "";
   total: number;
 
@@ -79,10 +81,10 @@ export class PaymentResultComponent implements OnInit {
     } else {
       this.route.queryParams
         .subscribe(params => {
-          var requestId = params.requestid;
+          this.requestId = params.requestid;
           this.policyNumber = this.route.snapshot.paramMap.get("policyNumber");
           if (!_.isEmpty(this.policyNumber)) {
-            this.getResponseCode(requestId);
+            this.getResponseCode(this.requestId);
             this.retrievePolicyDetails(this.policyNumber);
           } else {
             this.router.navigate([this.auth.getLandingPage()]);
@@ -152,6 +154,31 @@ export class PaymentResultComponent implements OnInit {
 
   retryPayment() {
     this.router.navigate(['issuance/51359e8b51c63b87d50cb1bab73380e2/' + this.policyNumber]);
+  }
+
+  notify() {
+    const payment = new PaymentNotificationRequest();
+    payment.responseCode = 'GR001';
+    payment.responseMessage = 'test response message';
+    payment.responseAdvise = 'test response advise';
+    payment.responseId = this.policyNumber;
+    payment.responseAuthCode = 'testcode';
+    payment.merchantId = 'testmerchantid';
+    payment.requestId = this.requestId;
+    payment.signature = 'testsig';
+    payment.policyNo = this.policyNumber;
+
+    this.paymentService.notify(payment).subscribe(
+      (res: any) => {
+        if (!_.isEmpty(res)) {
+          Swal.fire({
+            type: 'success',
+            title: 'Notified',
+            text: res.message
+          });
+        }
+      }
+    )
   }
 
   returnToHomepage() {
