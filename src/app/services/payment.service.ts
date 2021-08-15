@@ -42,10 +42,10 @@ export class PaymentService {
     return ret.asObservable();
   }
 
-  getResponseCode(requestId: string) {
+  getResponseCode(policyNumber: string) {
     let ret: any = new BehaviorSubject < any > ([]);
     const payment = new PaymentPaynamics();
-    payment.requestId = requestId;
+    payment.policyNumber = policyNumber;
     this.app.post(payment, this.map + 'getResponseCode')
       .pipe(first())
       .subscribe((res => {
