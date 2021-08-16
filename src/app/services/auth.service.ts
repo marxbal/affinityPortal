@@ -310,7 +310,6 @@ export class AuthService {
       .pipe(map((res: any) => {
         if (res) {
           return res;
-
         }
       })).pipe(catchError((err: any) => {
         // return err.error;
