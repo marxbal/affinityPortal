@@ -72,7 +72,7 @@ export class InterceptorService implements HttpInterceptor {
         if (error.status === 401) {
           this.auth.clearAuth();
           localStorage.setItem(LOGIN_MSG, "Error! Token already expired. Please log in again.")
-          ic.router.navigateByUrl('/login/?error=true');
+          ic.router.navigateByUrl('/login?error=true');
         }
         return throwError(error);
       }));
