@@ -59,8 +59,7 @@ export class LoginComponent implements OnInit {
     private route: ActivatedRoute,
     private fb: FormBuilder,
     private otp: OTPService,
-    private router: Router,
-  ) {
+    private router: Router ) {
     this.currentUserSubject = new BehaviorSubject < Users > (
       JSON.parse(localStorage.getItem(CURRENT_USER))
     );
