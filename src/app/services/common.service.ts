@@ -1249,12 +1249,12 @@ export class CommonService {
     const baseUrl = environment.baseUrl;
     const apiUrl = environment.apiUrl;
 
-    payment.policyNumber = affinity.policyNumber;
+    payment.policyNo = affinity.policyNumber;
     payment.descriptorNote = this.getProductDescription(productId);
     payment.itemName = this.getItemName(affinity, productId);
-    payment.cancelUrl = baseUrl + environment.cancelUrl + payment.policyNumber;
+    payment.cancelUrl = baseUrl + environment.cancelUrl + payment.policyNo;
     payment.mtacUrl = baseUrl + environment.tacUrl;
-    payment.responseUrl = baseUrl + environment.responseUrl + payment.policyNumber;
+    payment.responseUrl = baseUrl + environment.responseUrl + payment.policyNo;
     payment.appNotifUrl = apiUrl + environment.appNotifUrl;
 
     this.spinner.show();

@@ -461,6 +461,10 @@ export class PersonalComponent implements OnInit {
       this.affinity.riskDetails.validIDValue = "AFFINITY-" + this.getTempID();
     }
 
+    this.affinity.riskDetails.fullName = this.affinity.riskDetails.lastName
+      + ", "+ this.affinity.riskDetails.firstName
+      + (this.affinity.riskDetails.middleName ? " " + this.affinity.riskDetails.middleName : "");
+
     if (this.affinity.riskDetails.emailAddress) {
       if (!this.validateEmail(this.affinity.riskDetails.emailAddress)) {
         Swal.fire({
@@ -635,7 +639,9 @@ export class PersonalComponent implements OnInit {
 
       this.spinner.show();
       if (this.affinity.motorDetails.isCorporate == "1") {
-        this.affinity.riskDetails.fullName = this.affinity.riskDetails.lastName + ", " + this.affinity.riskDetails.firstName + " " + this.affinity.riskDetails.middleName;
+        this.affinity.riskDetails.lastName
+          + ", "+ this.affinity.riskDetails.firstName
+          + (this.affinity.riskDetails.middleName ? " " + this.affinity.riskDetails.middleName : "");
       }
 
       let motorFields = ["manufacturerId", "modelId", "vehicleTypeId", "subModelId", "vehicleUsedId", "colorId", "usageAreaId"];

@@ -83,7 +83,7 @@ export class PaymentResultComponent implements OnInit {
           this.requestId = params.requestid;
           this.policyNumber = this.route.snapshot.paramMap.get("policyNumber");
           if (!_.isEmpty(this.policyNumber)) {
-            this.getResponseCode(this.policyNumber);
+            this.getResponseCode(this.requestId);
             this.retrievePolicyDetails(this.policyNumber);
           } else {
             this.router.navigate([this.auth.getLandingPage()]);
@@ -132,8 +132,8 @@ export class PaymentResultComponent implements OnInit {
     this.total = parseFloat(this.affinity.premiumBreakdown.grossPrem);
   }
 
-  getResponseCode(policyNumber: string) {
-    this.paymentService.getResponseCode(policyNumber).subscribe(
+  getResponseCode(requestId: string) {
+    this.paymentService.getResponseCode(requestId).subscribe(
       (res: Return) => {
         if (!_.isEmpty(res)) {
           if (res.status) {
