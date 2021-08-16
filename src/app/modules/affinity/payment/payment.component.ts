@@ -161,8 +161,8 @@ export class PaymentComponent implements OnInit {
     return item;
   }
 
-  requestPayment(paymentOption: string) {
-    this.common.payment(this.affinity, paymentOption);
+  requestPayment() {
+    this.common.payment(this.affinity);
   }
 
   sleep(time) {

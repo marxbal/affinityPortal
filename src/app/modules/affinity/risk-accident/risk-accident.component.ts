@@ -470,7 +470,7 @@ export class RiskAccidentComponent implements OnInit {
                   window.location.reload();
                 }, 10);
               } else {
-                this.common.payment(this.affinity, paymentOption);
+                this.common.payment(this.affinity);
               }
               break;
             case 2:
