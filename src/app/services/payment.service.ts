@@ -16,6 +16,7 @@ import {
 import {
   PaymentPaynamics
 } from '../objects/payment-paynamics';
+import * as _ from 'lodash';
 
 @Injectable({
   providedIn: 'root'
@@ -33,7 +34,6 @@ export class PaymentService {
     this.app.post(payment, this.map + 'request')
       .pipe(first())
       .subscribe((res => {
-        this.spinner.hide();
         ret.next(res);
       }));
 

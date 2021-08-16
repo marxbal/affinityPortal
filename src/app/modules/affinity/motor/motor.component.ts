@@ -76,7 +76,6 @@ export class MotorComponent implements OnInit {
     }
 
     this.accessory = new MotorAccessories();
-    
 
     this.spinner.show();
 
@@ -101,30 +100,33 @@ export class MotorComponent implements OnInit {
 
     this.caller.doCallService("/afnty/getCoverageLimits?codRamo=100&codCob=1004", null).subscribe(
       result => {
-        this.affinity.lov.bodilyInjuryLOV = result;
+        this.spinner.hide();
+        this.affinity.lov.bodilyInjuryLOV = [];
+        result.forEach(lov => {
+          if (lov.impLimite == 250000 || lov.impLimite == 500000 || lov.impLimite == 1000000) {
+            this.affinity.lov.bodilyInjuryLOV.push(lov);
+          }
+        });
 
         for (let i = 0; i < this.affinity.lov.bodilyInjuryLOV.length; i++) {
           this.affinity.lov.bodilyInjuryLOV[i].impLimiteFormatted = this.formatter.format(parseFloat(this.affinity.lov.bodilyInjuryLOV[i].impLimite));
         }
-
-        this.affinity.lov.bodilyInjuryLOV.splice(-1, 1);
-        this.affinity.lov.bodilyInjuryLOV.splice(-1, 1);
       });
 
     this.caller.doCallService("/afnty/getCoverageLimits?codRamo=100&codCob=1005", null).subscribe(
       result => {
-        this.affinity.lov.propertyDamageLOV = result;
+        this.spinner.hide();
+        this.affinity.lov.propertyDamageLOV = [];
+        result.forEach(lov => {
+          if (lov.impLimite == 250000 || lov.impLimite == 500000 || lov.impLimite == 1000000) {
+            this.affinity.lov.propertyDamageLOV.push(lov);
+          }
+        });
 
         for (let i = 0; i < this.affinity.lov.propertyDamageLOV.length; i++) {
           this.affinity.lov.propertyDamageLOV[i].impLimiteFormatted = this.formatter.format(parseFloat(this.affinity.lov.propertyDamageLOV[i].impLimite));
         }
-
-        this.affinity.lov.propertyDamageLOV.splice(-1, 1);
-        this.affinity.lov.propertyDamageLOV.splice(-1, 1);
-
-        this.spinner.hide();
       });
-
   }
 
   getCarType() {

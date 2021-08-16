@@ -100,6 +100,7 @@ export class QuotationComponent implements OnInit {
 
     this.caller.doCallService("/afnty/getCoverageLimits?codRamo=100&codCob=1004", null).subscribe(
       result => {
+        this.spinner.hide();
         this.affinity.lov.bodilyInjuryLOV = [];
         result.forEach(lov => {
           if (lov.impLimite == 250000 || lov.impLimite == 500000 || lov.impLimite == 1000000) {
@@ -114,6 +115,7 @@ export class QuotationComponent implements OnInit {
 
     this.caller.doCallService("/afnty/getCoverageLimits?codRamo=100&codCob=1005", null).subscribe(
       result => {
+        this.spinner.hide();
         this.affinity.lov.propertyDamageLOV = [];
         result.forEach(lov => {
           if (lov.impLimite == 250000 || lov.impLimite == 500000 || lov.impLimite == 1000000) {

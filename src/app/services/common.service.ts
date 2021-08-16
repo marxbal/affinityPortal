@@ -1261,6 +1261,7 @@ export class CommonService {
     this.paymentService.request(payment).subscribe(
       (result: Return) => {
         if (!_.isEmpty(result)) {
+          this.spinner.hide();
           if (result.status) {
             var mapForm = document.createElement("form");
             mapForm.method = "POST";
