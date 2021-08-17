@@ -34,6 +34,13 @@ import * as _ from 'lodash';
 import {
   EMAIL
 } from 'src/app/constants/local.storage';
+import {
+  AuthenticationService
+} from 'src/app/services/authentication.service';
+import {
+  ACCIDENT,
+  CAR
+} from 'src/app/objects/line';
 
 @Component({
   selector: 'app-issuance',
@@ -47,9 +54,10 @@ export class IssuanceComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private spinner: NgxSpinnerService,
-    private commonService: CommonService,
+    private common: CommonService,
     private motorIssuance: MotorIssuanceService,
-    private paIssuance: PersonalAccidentIssuanceService) {}
+    private paIssuance: PersonalAccidentIssuanceService,
+    private auth: AuthenticationService) {}
 
   templateRouter: String;
   line: String;
@@ -134,7 +142,7 @@ export class IssuanceComponent implements OnInit {
             this.returnPayment(numPoliza, "payment");
             break;
           default:
-            this.retrieveQuote(numPoliza, type);
+            this.retrieveQuote(numPoliza);
             break;
         }
       }
@@ -171,7 +179,9 @@ export class IssuanceComponent implements OnInit {
     this.spinner.show();
     this.caller.doCallService('/afnty/retrievePolicyDetails', numPoliza).subscribe(
       result => {
-        switch (result.p2000030.codRamo) {
+        const line = this.common.getLinebySubline(result.p2000030.codRamo);
+
+        switch (line) {
           // case 251:
           //   this.propertyIssuance.mapRetrievePolicy(this.affinity, result).subscribe(
           //     (resulta) => {
@@ -179,7 +189,7 @@ export class IssuanceComponent implements OnInit {
           //       this.retrivePolicyNavigate(result, action);
           //     });
           //   break;
-          case 337:
+          case ACCIDENT:
             this.paIssuance.mapRetrievePolicy(this.affinity, result).subscribe(
               (resulta) => {
                 this.affinity = resulta;
@@ -202,7 +212,7 @@ export class IssuanceComponent implements OnInit {
       this.templateRouter = action;
       if (result.p2000030.mcaProvisional == "S") {
         this.affinity.techControl = result.techControlMessage.split("~");
-        this.affinity = this.commonService.identifyTechControl(this.affinity);
+        this.affinity = this.common.identifyTechControl(this.affinity);
 
         this.templateRouter = "techControl";
       } else if (result.a2990700_mph.mcaCollectMivo == null) {
@@ -215,11 +225,13 @@ export class IssuanceComponent implements OnInit {
     }
   }
 
-  retrieveQuote(numPoliza, type) {
+  retrieveQuote(numPoliza) {
     this.spinner.show();
     this.caller.doCallService('/afnty/retrieveQuotationDetails', numPoliza).subscribe(
       result => {
-        switch (result.p2000030.codRamo) {
+        const line = this.common.getLinebySubline(result.p2000030.codRamo);
+
+        switch (line) {
           // case 251:
           //   this.propertyIssuance.mapRetrieveQuote(this.affinity, result).subscribe(
           //     (resulta) => {
@@ -229,7 +241,7 @@ export class IssuanceComponent implements OnInit {
 
           //   // this.affinity = this.motorIssuance.mapRetrieveQuote(this.affinity, result);
           //   break;
-          case 337:
+          case ACCIDENT:
             this.paIssuance.mapRetrieveQuote(this.affinity, result).subscribe(
               (resulta) => {
                 this.affinity = resulta;
@@ -254,7 +266,7 @@ export class IssuanceComponent implements OnInit {
       if (result.p2000030.mcaProvisional == "S") {
 
         this.affinity.techControl = result.techControlMessage.split("~");
-        this.affinity = this.commonService.identifyTechControl(this.affinity);
+        this.affinity = this.common.identifyTechControl(this.affinity);
 
         this.templateRouter = "techControl";
       }
@@ -300,66 +312,44 @@ export class IssuanceComponent implements OnInit {
     const productId = nextStep
     this.affinity.productId = productId;
 
-    switch (productId) {
-      case "10001":
-        this.line = "motorQuotationIssuance";
-        this.affinity.lineId = "100"
-        break;
-      case "10002":
-        this.line = "motorQuotationIssuance";
-        this.affinity.lineId = "100"
-        break;
-      case "33701":
-        this.line = "personalInformation";
-        this.affinity.lineId = "337"
-        break;
-      case "33702":
-        this.line = "personalInformation";
-        this.affinity.lineId = "337"
-        break;
-      default:
-        this.line = "motorQuotationIssuance";
-        this.affinity.lineId = "100"
-        break;
-    }
+    const products = this.auth.getProducts();
 
+    products.forEach((p) => {
+      const id = p.productId.toString();
+      if (productId == id) {
+        this.affinity.lineId = p.subline.toString();
+        const line = this.common.getLinebySubline(this.affinity.lineId);
 
-    // this.line = nextStep;
+        if (line == CAR) {
+          this.line = "motorQuotationIssuance";
+        } else if (line == ACCIDENT) {
+          this.line = "personalInformation";
+        }
+      }
+    });
 
-    // let type = "household";
-    // this.affinity.productId = "20008";
-    // this.affinity.lineId = "251";
-
-    // if (this.line == "personalInformation") {
-    //   type = "personalAccident";
-    //   this.affinity.productId = "33701";
-    //   this.affinity.lineId = "337";
+    // switch (productId) {
+    //   case "10001":
+    //     this.line = "motorQuotationIssuance";
+    //     this.affinity.lineId = "100"
+    //     break;
+    //   case "10002":
+    //     this.line = "motorQuotationIssuance";
+    //     this.affinity.lineId = "100"
+    //     break;
+    //   case "33701":
+    //     this.line = "personalInformation";
+    //     this.affinity.lineId = "337"
+    //     break;
+    //   case "33702":
+    //     this.line = "personalInformation";
+    //     this.affinity.lineId = "337"
+    //     break;
+    //   default:
+    //     this.line = "motorQuotationIssuance";
+    //     this.affinity.lineId = "100"
+    //     break;
     // }
-
-    // this.commonService.viewCoverage(this.affinity.productId).subscribe(
-    //   (result: any) => {
-    //     if (!_.isEmpty(result)) {
-    //       this.coverageList = result;
-    //       this.affinity.coverages = result;
-    //     }
-    //   }
-    // );
-
-    // this.caller.doCallService("/afnty/coverage/getCoverageDescriptions", type).subscribe(
-    //   result => {
-    //     this.coverageList = [];
-    //     let coverageHolder = result;
-    //     for (let c in coverageHolder) {
-    //       for (let d in coverageHolder[c]) {
-    //         this.coverage.benefit = coverageHolder[c][d].split(":=:")[1];
-    //         this.coverage.coverages.push(coverageHolder[c][d].split(":=:")[2]);
-    //       }
-    //       this.coverageList.push(this.coverage);
-    //       this.coverage = new Coverages();
-    //     }
-
-    //     this.affinity.coverages = this.coverageList;
-    //   });
 
     this.templateRouter = this.line;
     this.scrollToTop();
