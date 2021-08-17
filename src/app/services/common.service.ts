@@ -1304,7 +1304,7 @@ export class CommonService {
     payment.itemName = this.getItemName(affinity, productId);
     payment.cancelUrl = baseUrl + environment.cancelUrl + payment.policyNo;
     payment.mtacUrl = baseUrl + environment.tacUrl;
-    payment.responseUrl = baseUrl + environment.responseUrl + payment.policyNo + '/' + payment.requestId;
+    payment.responseUrl = baseUrl + environment.responseUrl + payment.policyNo;
     payment.appNotifUrl = apiUrl + environment.appNotifUrl;
 
     this.spinner.show();
