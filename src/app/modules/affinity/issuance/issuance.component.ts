@@ -312,21 +312,28 @@ export class IssuanceComponent implements OnInit {
     const productId = nextStep
     this.affinity.productId = productId;
 
-    const products = this.auth.getProducts();
+    const line = this.common.getLinebyProduct(productId);
 
-    products.forEach((p) => {
-      const id = p.productId.toString();
-      if (productId == id) {
-        this.affinity.lineId = p.subline.toString();
-        const line = this.common.getLinebySubline(this.affinity.lineId);
-
-        if (line == CAR) {
-          this.line = "motorQuotationIssuance";
-        } else if (line == ACCIDENT) {
-          this.line = "personalInformation";
-        }
-      }
-    });
+    switch (line) {
+      case CAR:
+        this.line = "motorQuotationIssuance";
+        this.affinity.lineId = "100"
+        break;
+      case ACCIDENT:
+        this.line = "personalInformation";
+        const products = this.auth.getProducts();
+        products.forEach((p) => {
+          const id = p.productId.toString();
+          if (productId == id) {
+            this.affinity.lineId = p.subline.toString();
+          }
+        });
+        break;
+      default:
+        this.line = "motorQuotationIssuance";
+        this.affinity.lineId = "100"
+        break;
+    }
 
     // switch (productId) {
     //   case "10001":
