@@ -87,7 +87,7 @@ const routes: Routes = [{
     canActivate: [AuthGuardClient],
   },
   {
-    path: 'payment-result/:policyNumber',
+    path: 'payment-result/:policyNumber/:requestId',
     component: PaymentResultComponent,
     canActivate: [AuthGuardClient],
   }

@@ -80,7 +80,8 @@ export class PaymentResultComponent implements OnInit {
     } else {
       this.route.queryParams
         .subscribe(params => {
-          this.requestId = params.requestid;
+          // this.requestId = params.requestid;
+          this.requestId = this.route.snapshot.paramMap.get("requestId");
           this.policyNumber = this.route.snapshot.paramMap.get("policyNumber");
           if (!_.isEmpty(this.policyNumber)) {
             this.getResponseCode(this.requestId);
