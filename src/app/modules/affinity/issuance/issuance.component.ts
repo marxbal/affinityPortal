@@ -335,29 +335,6 @@ export class IssuanceComponent implements OnInit {
         break;
     }
 
-    // switch (productId) {
-    //   case "10001":
-    //     this.line = "motorQuotationIssuance";
-    //     this.affinity.lineId = "100"
-    //     break;
-    //   case "10002":
-    //     this.line = "motorQuotationIssuance";
-    //     this.affinity.lineId = "100"
-    //     break;
-    //   case "33701":
-    //     this.line = "personalInformation";
-    //     this.affinity.lineId = "337"
-    //     break;
-    //   case "33702":
-    //     this.line = "personalInformation";
-    //     this.affinity.lineId = "337"
-    //     break;
-    //   default:
-    //     this.line = "motorQuotationIssuance";
-    //     this.affinity.lineId = "100"
-    //     break;
-    // }
-
     this.templateRouter = this.line;
     this.scrollToTop();
   }
