@@ -65,14 +65,30 @@ import Swal from 'sweetalert2';
 import {
   environment
 } from '../../environments/environment';
-import { Coverages } from '../objects/coverages';
-import { AppService } from './app.service';
-import { first } from 'rxjs/operators';
+import {
+  Coverages
+} from '../objects/coverages';
+import {
+  AppService
+} from './app.service';
+import {
+  first
+} from 'rxjs/operators';
+import {
+  CAR,
+  ACCIDENT
+} from '../objects/line';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CommonService {
+
+  motorSubline = ["100", "105", "120"];
+  accidentSubline = ["323", "324", "337"];
+
+  motorProducts = ["10001", "10002"];
+  accidentProducts = ["33701", "33702"];
 
   constructor(
     private caller: AuthService,
@@ -80,6 +96,40 @@ export class CommonService {
     private auth: AuthenticationService,
     private paymentService: PaymentService,
     private app: AppService) {}
+
+  getLinebySubline(subline: any) {
+    let line = CAR;
+
+    try {
+      const s = subline.toString();
+      if (_.indexOf(this.motorSubline, s) != -1) {
+        line = CAR;
+      } else if (_.indexOf(this.accidentSubline, s) != -1) {
+        line = ACCIDENT;
+      }
+    } catch (error) {
+      console.log('error getLinebySubline: ' + error);
+    }
+
+    return line;
+  }
+
+  getLinebyProduct(product: any) {
+    let line = CAR;
+
+    try {
+      const p = product.toString();
+      if (_.indexOf(this.motorProducts, p) != -1) {
+        line = CAR;
+      } else if (_.indexOf(this.accidentProducts, p) != -1) {
+        line = ACCIDENT;
+      }
+    } catch (error) {
+      console.log('error getLinebyProduct: ' + error);
+    }
+
+    return line;
+  }
 
   chooseType(motorTypeId) {
     let ret: any = new BehaviorSubject < any > ([]);
@@ -1254,14 +1304,14 @@ export class CommonService {
     payment.itemName = this.getItemName(affinity, productId);
     payment.cancelUrl = baseUrl + environment.cancelUrl + payment.policyNo;
     payment.mtacUrl = baseUrl + environment.tacUrl;
-    payment.responseUrl = baseUrl + environment.responseUrl + payment.policyNo;
+    payment.responseUrl = baseUrl + environment.responseUrl + payment.policyNo + '/' + payment.requestId;
     payment.appNotifUrl = apiUrl + environment.appNotifUrl;
 
     this.spinner.show();
     this.paymentService.request(payment).subscribe(
       (result: Return) => {
         if (!_.isEmpty(result)) {
-          this.spinner.hide();
+          // this.spinner.hide();
           if (result.status) {
             var mapForm = document.createElement("form");
             mapForm.method = "POST";
@@ -1274,6 +1324,7 @@ export class CommonService {
             document.body.appendChild(mapForm);
             mapForm.submit();
           } else {
+            this.spinner.hide();
             Swal.fire({
               type: 'error',
               title: 'Can not proceed to Payment',
