@@ -52,18 +52,6 @@ export class ProductComponent implements OnInit {
       line: 1,
       subline: 100
     },
-    // {
-    //   name: 'Comprehensive',
-    //   id: 10001,
-    //   line: 1,
-    //   subline: 105
-    // },
-    // {
-    //   name: 'CTPL',
-    //   id: 10002,
-    //   line: 1,
-    //   subline: 105
-    // },
     {
       name: 'Comprehensive',
       id: 10001,
