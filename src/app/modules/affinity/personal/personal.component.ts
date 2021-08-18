@@ -611,21 +611,12 @@ export class PersonalComponent implements OnInit {
     this.affinity.motorDetails.policyPeriodTo = m(this.affinity.motorDetails.policyPeriodFrom).add(1, 'year').format('YYYY-MM-DD');
   }
 
-  checkConsent() {
-    let valid = this.affinity.riskDetails.consentCheck;
-
-    if (!valid) {
-      Swal.fire({
-        type: 'error',
-        title: 'Confirm Consent',
-        text: "You need to confirm consent to proceed."
-      });
-    }
-    return valid;
-  }
-
   submitMotorQuote(nextStep) {
     if (this.checker.checkIfRequired('motor-personal') == "0") {
+      return null;
+    }
+
+    if (!this.checkConsent()) {
       return null;
     }
 
@@ -759,6 +750,19 @@ export class PersonalComponent implements OnInit {
           }
         });
     });
+  }
+
+  checkConsent() {
+    let valid = this.affinity.riskDetails.consentCheck;
+
+    if (!valid) {
+      Swal.fire({
+        type: 'error',
+        title: 'Confirm Consent',
+        text: "You need to confirm consent to proceed."
+      });
+    }
+    return valid;
   }
 
   getCoverages(numPoliza, affinity: Affinity, nextStep) {
