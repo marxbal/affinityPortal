@@ -92,8 +92,8 @@ export class MotorComponent implements OnInit {
     //   result => {
     //   });
 
-    this.affinity.motorDetails.bodilyInjuryLimit = "200000";
-    this.affinity.motorDetails.propertyDamageLimit = "200000";
+    this.affinity.motorDetails.bodilyInjuryLimit = "250000";
+    this.affinity.motorDetails.propertyDamageLimit = "250000";
 
     this.affinity.motorDetails.policyPeriodFrom = m().format('YYYY-MM-DD');
     this.affinity.motorDetails.policyPeriodTo = m(this.affinity.motorDetails.policyPeriodFrom).add(1, 'year').format('YYYY-MM-DD');
@@ -103,7 +103,7 @@ export class MotorComponent implements OnInit {
         this.spinner.hide();
         this.affinity.lov.bodilyInjuryLOV = [];
         result.forEach(lov => {
-          if (lov.impLimite == 200000 || lov.impLimite == 250000 || lov.impLimite == 500000 || lov.impLimite == 1000000) {
+          if (lov.impLimite == 250000 || lov.impLimite == 500000 || lov.impLimite == 1000000) {
             this.affinity.lov.bodilyInjuryLOV.push(lov);
           }
         });
@@ -118,7 +118,7 @@ export class MotorComponent implements OnInit {
         this.spinner.hide();
         this.affinity.lov.propertyDamageLOV = [];
         result.forEach(lov => {
-          if (lov.impLimite == 200000 || lov.impLimite == 250000 || lov.impLimite == 500000 || lov.impLimite == 1000000) {
+          if (lov.impLimite == 250000 || lov.impLimite == 500000 || lov.impLimite == 1000000) {
             this.affinity.lov.propertyDamageLOV.push(lov);
           }
         });
