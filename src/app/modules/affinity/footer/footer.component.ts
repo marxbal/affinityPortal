@@ -20,15 +20,13 @@ export class FooterComponent implements OnInit {
   constructor(
     private auth: AuthenticationService) {}
 
-  partnerPath: string = "";
-  partnerImg: string = "";
+  partnerName: string = "";
   brokenUrl: boolean = false;
 
   ngOnInit() {
     const partner = this.auth.getPartner() as Partner;
     if (!_.isEmpty(partner)) {
-      this.partnerPath = _.toLower(partner.partnerName);
-      this.partnerImg = "assets/images/partners/" + this.partnerPath + "/logo.png";
+      this.partnerName = _.toLower(partner.partnerName);
     }
   }
 
@@ -38,7 +36,7 @@ export class FooterComponent implements OnInit {
   }
 
   private getImageUrl() {
-    return this.brokenUrl ? "assets/images/default-partner.png" : "assets/images/partners/" + this.partnerPath + "/logo.png";
+    return this.brokenUrl ? "assets/images/default-partner.png" : "assets/images/partners/" + this.partnerName + ".png";
   }
 
 }
