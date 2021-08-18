@@ -432,6 +432,10 @@ export class PersonalComponent implements OnInit {
       return null;
     }
 
+    if (!this.checkConsent()) {
+      return null;
+    }
+
     if (!this.affinity.riskDetails.occupationalClass) {
       Swal.fire({
         type: 'error',
@@ -605,6 +609,19 @@ export class PersonalComponent implements OnInit {
 
     this.affinity.motorDetails.policyPeriodFrom = m().format('YYYY-MM-DD');
     this.affinity.motorDetails.policyPeriodTo = m(this.affinity.motorDetails.policyPeriodFrom).add(1, 'year').format('YYYY-MM-DD');
+  }
+
+  checkConsent() {
+    let valid = this.affinity.riskDetails.consentCheck;
+
+    if (!valid) {
+      Swal.fire({
+        type: 'error',
+        title: 'Confirm Consent',
+        text: "You need to confirm consent to proceed."
+      });
+    }
+    return valid;
   }
 
   submitMotorQuote(nextStep) {

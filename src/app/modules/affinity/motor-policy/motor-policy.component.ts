@@ -113,19 +113,6 @@ export class MotorPolicyComponent implements OnInit {
     return true;
   }
 
-  checkConsent() {
-    let valid = this.affinity.riskDetails.consentCheck;
-
-    if (!valid) {
-      Swal.fire({
-        type: 'error',
-        title: 'Confirm Consent',
-        text: "You need to confirm consent to proceed."
-      });
-    }
-    return valid;
-  }
-
   changePlateNumber() {
     if (this.affinity.productId == "10002") {
       this.affinity.motorDetails.policyPeriodFrom = m("2020-" + this.getMonthBasedOnPlate(this.affinity.motorDetails.plateNumber) + "-01").format('YYYY-MM-DD');
@@ -437,10 +424,6 @@ export class MotorPolicyComponent implements OnInit {
     }
 
     if (!this.validateChassis()) {
-      return null;
-    }
-
-    if (!this.checkConsent()) {
       return null;
     }
 
