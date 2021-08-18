@@ -37,6 +37,9 @@ import {
 import {
   CommonService
 } from 'src/app/services/common.service';
+import {
+  NgxSpinnerService
+} from 'ngx-spinner';
 
 @Component({
   selector: 'app-landingpage',
@@ -49,7 +52,8 @@ export class LandingpageComponent implements OnInit {
     private authenticate: AuthenticationService,
     private auth: AuthService,
     private router: Router,
-    private common: CommonService) {}
+    private common: CommonService,
+    private spinner: NgxSpinnerService) {}
 
   partner: Partner;
   partnerPath: string = "";
@@ -125,11 +129,13 @@ export class LandingpageComponent implements OnInit {
   }
 
   getPartnerProducts() {
+    this.spinner.show();
     this.auth.getLOV(
       "G6009902_MPH",
       "1",
       'cod_partner~' + this.partner.partnerCode).subscribe(
       result => {
+        this.spinner.hide();
         const productList: Product[] = [];
 
         if (result.length) {
@@ -235,6 +241,9 @@ export class LandingpageComponent implements OnInit {
         type = "51359e8b51c63b87d50cb1bab73380e2";
         break;
       case '3':
+        type = "51359e8b51c63b87d50cb1bab73380e2";
+        break;
+      case '4':
         type = "73015b3208cdee70a4497235463b63d7";
         break;
       default:

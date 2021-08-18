@@ -91,8 +91,10 @@ export class IssuanceComponent implements OnInit {
       this.line = "";
       this.templateRouter = "initialize";
 
+      this.spinner.show();
       this.caller.doCallService('/afnty/retrieveTransactions', this.affinity.clientId).subscribe(
         result => {
+          this.spinner.hide();
           let newResult = _.orderBy(result, ['transactionNumber'], ['desc']);
 
           this.affinity.previousIssuances = newResult;
