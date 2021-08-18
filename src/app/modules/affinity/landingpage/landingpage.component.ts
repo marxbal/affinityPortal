@@ -170,8 +170,8 @@ export class LandingpageComponent implements OnInit {
     l1.thumbnail = "car";
     l1.issuanceType = "motorQuotationIssuance";
     l1.description =
-      "Comprehensive car insurance with all your basic coverage needs." +
-      "<br /> This policy covers you against loss and accidental damage to the vehicle as well as " +
+      "Comprehensive car insurance with all your basic coverage needs.<br /> <br /> " +
+      "This policy covers you against loss and accidental damage to the vehicle as well as " +
       "legal liabilities to third parties in case of bodily injury and physical damage to properties.";
     l1.products = [];
 
