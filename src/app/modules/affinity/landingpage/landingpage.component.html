@@ -120,6 +120,14 @@
             <h3>Previous Quotations</h3>
           </div>
 
+          <div *ngIf="previousQuotations.length == 0" class="col-md-12">
+            <div class="card">
+              <div class="card-body">
+                <h6>No previous quotation yet.</h6>
+              </div>
+            </div>
+          </div>
+
           <div class="col-md-4" *ngFor="let issue of this.previousQuotations">
 
             <div class="card card-previous">
@@ -195,7 +203,7 @@
             <h3>Previous Policies</h3>
           </div>
 
-          <div *ngIf="!this.previousPolicies" class="col-md-12">
+          <div *ngIf="previousPolicies.length == 0" class="col-md-12">
             <div class="card">
               <div class="card-body">
                 <h6>No previous policy yet.</h6>
