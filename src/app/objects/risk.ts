@@ -58,5 +58,6 @@ export class Risk {
   billingAddress: AddressDetails = new AddressDetails();
   mailingAddress: AddressDetails = new AddressDetails();
   coveragesValue: Coverages[] = [];
+  consentCheck: boolean;
   
 }
