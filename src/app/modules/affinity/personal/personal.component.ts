@@ -757,7 +757,7 @@ export class PersonalComponent implements OnInit {
 
     if (!valid) {
       Swal.fire({
-        type: 'error',
+        type: 'warning',
         title: 'Confirm Consent',
         text: "You need to confirm consent to proceed."
       });
