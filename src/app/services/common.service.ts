@@ -1150,7 +1150,7 @@ export class CommonService {
     p2030.codNivel3 = 4003;
     p2030.codCia = 1;
     p2030.codFraccPago = 1;
-    p2030.codSector = 1;
+    p2030.codSector = 1; //TODO
     p2030.codRamo = parseInt(affinity.lineId);
     p2030.fecVctoPoliza = m(affinity.motorDetails.policyPeriodTo).format('M/D/YYYY');
     p2030.fecEfecPoliza = m(affinity.motorDetails.policyPeriodFrom).format('M/D/YYYY');
@@ -1180,7 +1180,7 @@ export class CommonService {
     p2030.codCuadroCom = 1; // function hardcoded
     p2030.pctAgt = 100;
     p2030.codCompensacion = 1;
-    p2030.tipGestor = ("GD");
+    p2030.tipGestor = ("AG");
     p2030.codGestor = (p2030.codAgt + "");
     p2030.mcaRegulariza = "N";
     p2030.tipRegulariza = ('0' + "");
