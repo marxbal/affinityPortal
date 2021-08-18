@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-md-12 text-center logo-holder">
-      <img *ngIf="partnerPath" class="partner-logo" [src]="getImageUrl()" (error)="onErrorFunction()">
+      <img *ngIf="partnerName" class="partner-logo" [src]="getImageUrl()" (error)="onErrorFunction()">
       <img class="logo-collection-mapfre" src="assets/images/mapfre.png" />
     </div>
   </div>
