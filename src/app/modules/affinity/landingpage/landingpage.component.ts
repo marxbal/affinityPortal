@@ -170,9 +170,9 @@ export class LandingpageComponent implements OnInit {
     l1.thumbnail = "car";
     l1.issuanceType = "motorQuotationIssuance";
     l1.description =
-      "Covers the contents such as improvements, furnishings, fixtures, personal effect. <br /> With this policy you’re covered against events such as: " +
-      "<br /> - fire, flood, typhoon, and earthquake damages" +
-      "<br /> - robbery and burglary <br /> - personal liability";
+      "Comprehensive car insurance with all your basic coverage needs." +
+      "<br /> This policy covers you against loss and accidental damage to the vehicle as well as " +
+      "legal liabilities to third parties in case of bodily injury and physical damage to properties.";
     l1.products = [];
 
     const p1 = new ProductList;
