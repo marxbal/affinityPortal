@@ -1366,4 +1366,59 @@ export class CommonService {
       });
   }
 
+  validateEmail(email: string) {
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+  }
+
+  emailPolicy(emailSend: string, policyNumber: string) {
+    let emailTemp = emailSend.split(";");
+    let emailFinal = "";
+
+    for (let i = 0; i < emailTemp.length; i++) {
+
+      if (!this.validateEmail(emailTemp[i].trim())) {
+        Swal.fire({
+          type: 'error',
+          title: 'Invalid Email Address',
+          html: "Email <b>" + emailTemp[i] + "</b> is invalid, please fix and try again."
+        });
+        return null;
+      }
+
+      emailFinal += emailTemp[i].trim() + ";";
+    }
+
+    Swal.fire({
+      title: 'Send Email',
+      text: "You're about to send email, proceed?",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Send Email'
+    }).then((result) => {
+      if (result.value) {
+        this.caller.doCallService("/afnty/sendEmail?email=" + emailFinal.slice(0, -1) + "&numPoliza=" +
+          policyNumber + "&subject=MAPFRE Online Policy Number " + policyNumber + "&type=P", null).subscribe(
+          resulta => {
+            if (resulta.status == 1) {
+              Swal.fire({
+                type: 'success',
+                title: 'Email Sent!',
+                text: "Your insurance policy was sent to " + emailFinal.slice(0, -1) + ". Please ensure that online@mapfreinsurance.com.ph is NOT on your spam/blocked email list. Do check your spam/junk folder in case you have not received any email confirmation and updates from us."
+              });
+              $("#emailModalClose").click();
+            } else {
+              Swal.fire({
+                type: 'error',
+                title: 'Unable to proceed.',
+                text: "We are unable to process your request."
+              });
+            }
+          });
+      }
+    });
+  }
+
 }

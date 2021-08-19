@@ -5,7 +5,6 @@ import {
   Output,
   EventEmitter
 } from '@angular/core';
-import * as $ from 'jquery/dist/jquery.min';
 import {
   AuthService
 } from '../../../services/auth.service';
@@ -15,7 +14,13 @@ import {
 import {
   NgxSpinnerService
 } from 'ngx-spinner';
-import Swal from 'sweetalert2';
+import {
+  CommonService
+} from 'src/app/services/common.service';
+import {
+  ACCIDENT,
+  CAR
+} from 'src/app/objects/line';
 
 @Component({
   selector: 'app-policy',
@@ -25,8 +30,7 @@ import Swal from 'sweetalert2';
 export class PolicyComponent implements OnInit {
 
   constructor(
-    private spinner: NgxSpinnerService,
-    private caller: AuthService) {}
+    private common: CommonService) {}
 
   @Input() line: String;
   @Input() affinity: Affinity;
@@ -38,7 +42,12 @@ export class PolicyComponent implements OnInit {
     currency: 'PHP',
   });
 
-  emailSend: String = "";
+  emailSend: string = "";
+  lineId : number = 1;
+  type: Object = {
+    car: CAR,
+    accident: ACCIDENT
+  }
 
   ngOnInit() {
     this.affinity.premiumBreakdown.grossPrem = this.formatter.format(parseFloat(this.affinity.premiumBreakdown.grossPrem));
@@ -49,6 +58,8 @@ export class PolicyComponent implements OnInit {
     this.affinity.premiumBreakdown.premiumTax = this.formatter.format(parseFloat(this.affinity.premiumBreakdown.premiumTax));
     this.affinity.premiumBreakdown.others = this.formatter.format(parseFloat(this.affinity.premiumBreakdown.others));
     this.affinity.premiumBreakdown.fireTax = this.formatter.format(parseFloat(this.affinity.premiumBreakdown.fireTax));
+
+    this.lineId = this.common.getLinebyProduct(this.affinity.productId);
 
     document.body.scrollTop = 0; // For Safari
     document.documentElement.scrollTop = 0;
@@ -64,61 +75,11 @@ export class PolicyComponent implements OnInit {
   }
 
   submitSendEmail() {
-    let emailTemp = this.emailSend.split(";");
-    let emailFinal = "";
-
-    for (let i = 0; i < emailTemp.length; i++) {
-
-      if (!this.validateEmail(emailTemp[i].trim())) {
-        Swal.fire({
-          type: 'error',
-          title: 'Invalid Email Address',
-          html: "Email <b>" + emailTemp[i] + "</b> is invalid, please fix and try again."
-        });
-        return null;
-      }
-
-      emailFinal += emailTemp[i].trim() + ";";
-    }
-
-    Swal.fire({
-      title: 'Send Email',
-      text: "You're about to send email, proceed?",
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Send Email'
-    }).then((result) => {
-      if (result.value) {
-        this.caller.doCallService("/afnty/sendEmail?email=" + emailFinal.slice(0, -1) + "&numPoliza=" +
-          this.affinity.policyNumber + "&subject=MAPFRE Online Policy Number " + this.affinity.policyNumber + "&type=P", null).subscribe(
-          resulta => {
-            if (resulta.status == 1) {
-              Swal.fire({
-                type: 'success',
-                title: 'Email Sent!',
-                text: "Your insurance policy was sent to " + emailFinal.slice(0, -1) + ". Please ensure that online@mapfreinsurance.com.ph is NOT on your spam/blocked email list. Do check your spam/junk folder in case you have not received any email confirmation and updates from us."
-              });
-              $("#emailModalClose").click();
-            } else {
-              Swal.fire({
-                type: 'error',
-                title: 'Unable to proceed.',
-                text: "We are unable to process your request."
-              });
-            }
-          });
-      }
-    });
+    this.common.emailPolicy(this.emailSend, this.affinity.policyNumber);
   }
 
   printPolicy() {
-    this.spinner.show();
-    this.caller.generatePDFTW("/afnty/printPolicy?numPoliza=" + this.affinity.policyNumber + "&printType=P", null).subscribe(
-      result => {
-        this.spinner.hide();
-      });
+    this.common.print(this.affinity.policyNumber, "P");
   }
 
   nextStepAction(nextStep) {

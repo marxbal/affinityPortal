@@ -9,7 +9,7 @@
 <br />
 <div class="row">
   <div class="col-md-8">
-    <div *ngIf="this.affinity.productId == '10002' || this.affinity.productId == '10001'">
+    <div *ngIf="lineId == type.car">
       <div class="card mb-3">
         <div class="card-body">
           <div class="form-group row bottom-break">
@@ -154,7 +154,7 @@
         <br />
         </div> -->
 
-    <div *ngIf="this.affinity.productId == '33701' || this.affinity.productId == '33702'">
+    <div *ngIf="lineId != type.accident">
       <div class="card mb-3">
         <div class="card-body">
           <div class="form-group row bottom-break">
@@ -206,6 +206,32 @@
         </div>
       </div>
 
+      <div class="card">
+        <div class="card-body">
+          <h5>List of Coverages</h5>
+          <table class="table table-small table-hover table-condensed">
+            <thead>
+              <tr>
+                <th scope="col"></th>
+                <th scope="col">Coverage Name</th>
+                <th scope="col" class="text-right">Limit</th>
+                <th scope="col" class="text-right">Premium</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let cover of this.affinity.coveragesValue">
+                <td><span class="text-success"><b>
+                      <h4><i class="fa fa-check-circle mt-2 mb-2"></i></h4>
+                    </b></span></td>
+                <td>{{cover.nomCob}}</td>
+                <td class="text-right">{{this.formatter.format(cover.sumaAseg)}}</td>
+                <td class="text-right">{{cover.totalPremium}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
       <div class="card mb-3" *ngFor="let insured of this.affinity.paDetails.familyMembers">
         <div class="card-body">
           <div class="form-group row bottom-break">
@@ -218,29 +244,31 @@
               <div>{{insured.relationship.split(":=:")[1]}}</div>
             </div>
           </div>
-
-          <h5>List of Coverages</h5>
-          <table class="table table-small table-hover table-condensed">
-            <thead>
-              <tr>
-                <th scope="col"></th>
-                <th scope="col">Coverage Name</th>
-                <th scope="col" class="text-right">Limit</th>
-                <th scope="col" class="text-right">Premium</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let cover of insured.coveragesValue">
-                <td><span class="text-success"><b>
-                      <h4><i class="fa fa-check-circle mt-2 mb-2"></i></h4>
-                    </b></span></td>
-                <td>{{cover.nomCob}}</td>
-                <td class="text-right">{{this.formatter.format(cover.sumaAseg)}}</td>
-                <td class="text-right">{{cover.totalPremium}}</td>
-              </tr>
-            </tbody>
-          </table>
         </div>
+      </div>
+
+      <div *ngIf="this.affinity.paDetails.familyMembers.length > 0">
+        <h5>List of Coverages</h5>
+        <table class="table table-small table-hover table-condensed">
+          <thead>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col">Coverage Name</th>
+              <th scope="col" class="text-right">Limit</th>
+              <th scope="col" class="text-right">Premium</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let cover of insured.coveragesValue">
+              <td><span class="text-success"><b>
+                    <h4><i class="fa fa-check-circle mt-2 mb-2"></i></h4>
+                  </b></span></td>
+              <td>{{cover.nomCob}}</td>
+              <td class="text-right">{{this.formatter.format(cover.sumaAseg)}}</td>
+              <td class="text-right">{{cover.totalPremium}}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
@@ -248,15 +276,12 @@
   <div class="col-md-4">
     <div class="card">
       <div class="card-body">
-        <div class="row">
-          <div class="col-md-6">
-            <button class="btn btn-mapfre btn-block mt-3 mb-3" (click)="printPolicy()"><b>Print Policy</b></button>
-          </div>
-          <div class="col-md-6">
-            <button class="btn btn-mapfre btn-block mt-3 mb-3" data-toggle="modal" data-target="#emailModal"
+        <button class="btn btn-mapfre btn-block mt-3 mb-3" (click)="printPolicy()"><b>Print Policy</b></button>
+        <button class="btn btn-mapfre btn-block mt-3 mb-3" data-toggle="modal" data-target="#emailModal"
               (click)="sendEmail()"><b>Email Policy</b></button>
-          </div>
-        </div>
+
+        <label for="first_name" class="col-form-label affinity-label">Policy Number</label>
+        <div><strong>{{this.affinity.policyNumber}}</strong></div>
         
         <br />
         <h4>Total Cost <b style="float: right;">{{this.affinity.premiumBreakdown.grossPrem}}</b></h4><br />
@@ -286,15 +311,15 @@
                 <h6>{{this.affinity.premiumBreakdown.lgt}}</h6>
               </td>
             </tr>
-            <tr *ngIf="this.affinity.lineId == '251'">
+            <!-- <tr *ngIf="this.affinity.lineId == '251'">
               <td>
                 <h6 class="mt-2 mb-2">Fire Service Tax</h6>
               </td>
               <td class="text-right">
                 <h6>{{this.affinity.premiumBreakdown.fireTax}}</h6>
               </td>
-            </tr>
-            <tr *ngIf="this.affinity.lineId != '337'">
+            </tr> -->
+            <tr *ngIf="lineId != type.accident">
               <td>
                 <h6 class="mt-2 mb-2">Value Added Tax</h6>
               </td>
@@ -302,7 +327,7 @@
                 <h6>{{this.affinity.premiumBreakdown.eVat}}</h6>
               </td>
             </tr>
-            <tr *ngIf="this.affinity.lineId == '337'">
+            <tr *ngIf="lineId == type.accident">
               <td>
                 <h6 class="mt-2 mb-2">Premium Tax</h6>
               </td>
@@ -310,7 +335,7 @@
                 <h6>{{this.affinity.premiumBreakdown.premiumTax}}</h6>
               </td>
             </tr>
-            <tr *ngIf="this.affinity.lineId == '337'">
+            <tr *ngIf="lineId == type.accident">
               <td>
                 <h6 class="mt-2 mb-2">Others</h6>
               </td>
@@ -322,28 +347,27 @@
         </table>
       </div>
     </div>
-    
-
   </div>
 
-  <div class="col-md-12">
-    <h5>Details of Coverage</h5>
-    <table class="table table-small table-hover table-condensed">
-      <thead>
-        <tr>
-          <th scope="col">Coverage</th>
-          <th scope="col">Benefit</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let coverage of this.affinity.coverages">
-          <td style="min-width: 300px;">{{coverage.benefit}}</td>
-          <td style="text-align: justify;">{{coverage.coverages}}</td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="card">
+    <div class="card-body">
+      <h5>Details of Coverage</h5>
+      <table class="table table-small table-hover table-condensed">
+        <thead>
+          <tr>
+            <th scope="col">Coverage</th>
+            <th scope="col">Benefit</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let coverage of this.affinity.coverages">
+            <td style="min-width: 300px;">{{coverage.benefit}}</td>
+            <td style="text-align: justify;">{{coverage.coverages}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
-
 </div>
 
 <div class="modal fade" id="emailModal" tabindex="-1" role="dialog" aria-labelledby="emailModal" aria-hidden="true">
