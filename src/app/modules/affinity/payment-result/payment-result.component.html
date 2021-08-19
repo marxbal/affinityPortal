@@ -109,23 +109,31 @@
                   </div>
                   <div class="col-md-7">
                     <label for="address" class="col-form-label affinity-label">Address</label>
-                    <div>{{this.affinity.riskDetails.correspondentAddress.addressDetails}}</div>
+                    <div>{{address}}</div>
                   </div>
                 </div>
               </div>
               <div *ngIf="line == type.car" class="col-md-12 bottom-break">
                 <div class="row">
-                  <div class="col-md-4">
+                  <div class="col-md-3">
+                    <label for="model_year" class="col-form-label affinity-label">Model Year</label>
+                    <div><strong>{{this.affinity.motorDetails.modelYear}}</strong></div>
+                  </div>
+                  <div class="col-md-3">
                     <label for="make" class="col-form-label affinity-label">Make/Manufacturer</label>
                     <div><strong>{{this.affinity.motorDetails.manufacturer}}</strong></div>
                   </div>
-                  <div class="col-md-4">
+                  <div class="col-md-3">
                     <label for="model" class="col-form-label affinity-label">Model</label>
                     <div><strong>{{this.affinity.motorDetails.model}}</strong></div>
                   </div>
-                  <div class="col-md-4">
+                  <div class="col-md-3">
                     <label for="sub_model" class="col-form-label affinity-label">Sub Model</label>
                     <div><strong>{{this.affinity.motorDetails.subModel}}</strong></div>
+                  </div>
+                  <div class="col-md-4">
+                    <label for="type_of_use" class="col-form-label affinity-label">Type of Use</label>
+                    <div><strong>{{this.affinity.motorDetails.plateNumber}}</strong></div>
                   </div>
                   <div *ngIf="this.affinity.motorDetails.plateNumber" class="col-md-4">
                     <label for="plate_number" class="col-form-label affinity-label">Plate Number</label>

@@ -63,6 +63,7 @@ export class PaymentResultComponent implements OnInit {
   total: number;
   line: number = 1;
   title: string = "";
+  address: string = "";
   type: Object = {
     car: CAR,
     accident: ACCIDENT
@@ -141,6 +142,7 @@ export class PaymentResultComponent implements OnInit {
 
   getMoreDetails() {
     this.total = parseFloat(this.affinity.premiumBreakdown.grossPrem);
+    this.address = this.buildAddress(this.affinity);
     console.log(this.affinity);
   }
 
@@ -161,6 +163,14 @@ export class PaymentResultComponent implements OnInit {
         break;
     }
     return title;
+  }
+
+  buildAddress(affinity: Affinity) {
+    return this.addComma(affinity.address1) + this.addComma(affinity.municipality) + this.addComma(affinity.province) + affinity.zipCode;
+  }
+
+  addComma(val: string) {
+    return _.isEmpty(val) ? "" : val + ", ";
   }
 
   getResponseCode(requestId: string) {
