@@ -169,8 +169,8 @@
       </div>
 
       <div class="col-md-12">
-        <h5>List of Coverages</h5>
         <div class="card mb-3">
+          <h5>List of Coverages</h5>
           <div class="card-body">
             <table class="table table-small table-hover table-condensed">
               <thead>
@@ -241,21 +241,25 @@
       </div>
 
       <div class="col-md-12">
-        <h5>Details of Coverage</h5>
-        <table class="table table-small table-hover table-condensed">
-          <thead>
-            <tr>
-              <th scope="col">Coverage</th>
-              <th scope="col">Benefit</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let coverage of this.affinity.coverages">
-              <td style="min-width: 300px;">{{coverage.benefit}}</td>
-              <td style="text-align: justify;">{{coverage.coverages}}</td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="card">
+          <div class="card-body">
+            <h5>Details of Coverage</h5>
+            <table class="table table-small table-hover table-condensed">
+              <thead>
+                <tr>
+                  <th scope="col">Coverage</th>
+                  <th scope="col">Benefit</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let coverage of this.affinity.coverages">
+                  <td style="min-width: 300px;">{{coverage.benefit}}</td>
+                  <td style="text-align: justify;">{{coverage.coverages}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
 
     </div>
