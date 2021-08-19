@@ -195,44 +195,46 @@
           </div>
         </div>
         <br />
-        <div *ngIf="line == ACCIDENT" class="card mb-3" *ngFor="let insured of this.affinity.paDetails.familyMembers">
-          <div class="card-body">
-            <span class="card-title">
-              <div class="form-group row">
-                <div class="col-md-8">
-                  <label for="first_name" class="col-form-label affinity-label">Insured Name</label>
-                  <div>{{insured.firstName}} {{insured.middleName}} {{insured.lastName}}</div>
+        <div *ngIf="line == ACCIDENT">
+          <div class="card mb-3" *ngFor="let insured of this.affinity.paDetails.familyMembers">
+            <div class="card-body">
+              <span class="card-title">
+                <div class="form-group row">
+                  <div class="col-md-8">
+                    <label for="first_name" class="col-form-label affinity-label">Insured Name</label>
+                    <div>{{insured.firstName}} {{insured.middleName}} {{insured.lastName}}</div>
+                  </div>
+                  <div class="col-md-4">
+                    <label for="first_name" class="col-form-label affinity-label">Relationship</label>
+                    <div>{{insured.relationship.split(":=:")[1]}}</div>
+                  </div>
                 </div>
-                <div class="col-md-4">
-                  <label for="first_name" class="col-form-label affinity-label">Relationship</label>
-                  <div>{{insured.relationship.split(":=:")[1]}}</div>
-                </div>
-              </div>
-            </span>
-
-            <br />
-            <table class="table table-small table-hover table-condensed">
-              <thead>
-                <tr>
-                  <th scope="col"></th>
-                  <th scope="col">Coverage Name</th>
-                  <th scope="col" class="text-right">Limit</th>
-                  <th scope="col" class="text-right">Premium <ng-container *ngIf="this.affinity.lineId == '251'">
-                      (includes Fire Service Tax)</ng-container>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let cover of insured.coveragesValue">
-                  <td><span class="text-success"><b>
-                        <h4><i class="fa fa-check-circle mt-2 mb-2"></i></h4>
-                      </b></span></td>
-                  <td>{{cover.nomCob}}</td>
-                  <td class="text-right">{{this.formatter.format(cover.sumaAseg)}}</td>
-                  <td class="text-right">{{cover.totalPremium}}</td>
-                </tr>
-              </tbody>
-            </table>
+              </span>
+  
+              <br />
+              <table class="table table-small table-hover table-condensed">
+                <thead>
+                  <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Coverage Name</th>
+                    <th scope="col" class="text-right">Limit</th>
+                    <th scope="col" class="text-right">Premium <ng-container *ngIf="this.affinity.lineId == '251'">
+                        (includes Fire Service Tax)</ng-container>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let cover of insured.coveragesValue">
+                    <td><span class="text-success"><b>
+                          <h4><i class="fa fa-check-circle mt-2 mb-2"></i></h4>
+                        </b></span></td>
+                    <td>{{cover.nomCob}}</td>
+                    <td class="text-right">{{this.formatter.format(cover.sumaAseg)}}</td>
+                    <td class="text-right">{{cover.totalPremium}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
         <br />
