@@ -217,9 +217,9 @@ export class IssuanceComponent implements OnInit {
         this.affinity = this.common.identifyTechControl(this.affinity);
 
         this.templateRouter = "techControl";
-      } else if (result.a2990700_mph.mcaCollectMivo == null) {
-        this.affinity.paymentReferenceNumber = result.a2990700_mph.numPaymentReference;
-        this.templateRouter = "payment";
+      // } else if (result.a2990700_mph.mcaCollectMivo == null) {
+      //   this.affinity.paymentReferenceNumber = result.a2990700_mph.numPaymentReference;
+      //   this.templateRouter = "payment";
       }
 
       this.line = "motorQuotationIssuance";
