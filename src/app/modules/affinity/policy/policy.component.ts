@@ -31,17 +31,17 @@ export class PolicyComponent implements OnInit {
   @Output() nextStep = new EventEmitter();
   @Output() affinityOutput = new EventEmitter();
 
-  formatter = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'PHP',
-  });
-
   emailSend: string = "";
-  lineId : number = 1;
+  lineId: number = 1;
   type: Object = {
     car: CAR,
     accident: ACCIDENT
   }
+
+  formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'PHP',
+  });
 
   ngOnInit() {
     this.affinity.premiumBreakdown.grossPrem = this.formatter.format(parseFloat(this.affinity.premiumBreakdown.grossPrem));
