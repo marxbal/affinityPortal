@@ -195,21 +195,21 @@ export class IssuanceComponent implements OnInit {
             this.paIssuance.mapRetrievePolicy(this.affinity, result).subscribe(
               (resulta) => {
                 this.affinity = resulta;
-                this.retrivePolicyNavigate(result, action);
+                this.retrievePolicyNavigate(result, action);
               });
             break;
           default:
             this.motorIssuance.mapRetrievePolicy(this.affinity, result).subscribe(
               (resulta) => {
                 this.affinity = resulta;
-                this.retrivePolicyNavigate(result, action);
+                this.retrievePolicyNavigate(result, action);
               });
             break;
         }
       });
   }
 
-  retrivePolicyNavigate(result, action) {
+  retrievePolicyNavigate(result, action) {
     if (this.affinity.premiumBreakdown) {
       this.templateRouter = action;
       if (result.p2000030.mcaProvisional == "S") {
@@ -224,6 +224,10 @@ export class IssuanceComponent implements OnInit {
 
       this.line = "motorQuotationIssuance";
       this.spinner.hide();
+
+      if (this.templateRouter == "policy") {
+        this.router.navigateByUrl("/issuance/" + this.affinity.policyNumber + "/" + result.a2990700_mph.numPaymentReference);
+      }
     }
   }
 
