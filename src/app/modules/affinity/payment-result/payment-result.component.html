@@ -149,7 +149,7 @@
                   </div>
                 </div>
               </div>
-              <div *ngIf="line == type.accident" class="col-md-12 bottom-break" >
+              <div *ngIf="line == type.accident && this.affinity.paDetails.familyMembers.length > 0" class="col-md-12 bottom-break" >
                 <label for="members" class="col-form-label affinity-label"><strong>Members: </strong></label>
                 <div class="row" *ngFor="let insured of this.affinity.paDetails.familyMembers">
                   <div class="col-md-5">
