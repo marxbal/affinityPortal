@@ -78,18 +78,27 @@ export class PaymentResultComponent implements OnInit {
     if (this.affinity.clientId === null) {
       this.router.navigate(['login']);
     } else {
-      this.route.queryParams
-        .subscribe(params => {
-          // this.requestId = params.requestid;
-          this.requestId = this.route.snapshot.paramMap.get("requestId");
-          this.policyNumber = this.route.snapshot.paramMap.get("policyNumber");
-          if (!_.isEmpty(this.policyNumber)) {
-            this.getResponseCode(this.requestId);
-            this.retrievePolicyDetails(this.policyNumber);
-          } else {
-            this.router.navigate([this.auth.getLandingPage()]);
-          }
-        });
+      this.requestId = this.route.snapshot.paramMap.get("requestId");
+      this.policyNumber = this.route.snapshot.paramMap.get("policyNumber");
+      if (!_.isEmpty(this.policyNumber)) {
+        this.getResponseCode(this.requestId);
+        this.retrievePolicyDetails(this.policyNumber);
+      } else {
+        this.router.navigate([this.auth.getLandingPage()]);
+      }
+
+      // this.route.queryParams
+      //   .subscribe(params => {
+      //     // this.requestId = params.requestid;
+      //     this.requestId = this.route.snapshot.paramMap.get("requestId");
+      //     this.policyNumber = this.route.snapshot.paramMap.get("policyNumber");
+      //     if (!_.isEmpty(this.policyNumber)) {
+      //       this.getResponseCode(this.requestId);
+      //       this.retrievePolicyDetails(this.policyNumber);
+      //     } else {
+      //       this.router.navigate([this.auth.getLandingPage()]);
+      //     }
+      //   });
     }
   }
 
@@ -150,6 +159,10 @@ export class PaymentResultComponent implements OnInit {
         }
       }
     )
+  }
+
+  printPolicy(){
+    
   }
 
   retryPayment() {

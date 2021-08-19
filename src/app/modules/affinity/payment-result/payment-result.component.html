@@ -51,14 +51,17 @@
 
           <div class="details-list">
             <div *ngIf="paymentStatus" class="row">
-              <div class="col-md-6">
+              <!-- <div class="col-md-6">
                 <label>Effectivity: </label>
                 <h5>{{this.affinity.motorDetails.policyPeriodFrom}}</h5>
               </div>
               <div class="col-md-6">
                 <label>Expiry: </label>
                 <h5>{{this.affinity.motorDetails.policyPeriodTo}}</h5>
-              </div>
+              </div> -->
+              <button class="btn btn-mapfre btn-block mt-3 mb-3" (click)="printPolicy()">
+                <b>Print Policy</b>
+              </button>
             </div>
             <div *ngIf="!paymentStatus" class="row">
               <div class="col-md-12">
@@ -81,9 +84,102 @@
       </div>
 
       <div class="col-md-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-12 bottom-break">
+                <div class="row">
+                  <div class="col-md-6">
+                    <img class="mapfre-logo" src="assets/images/mi_logo.png">
+                    <div class="mapfre-address">
+                      <p><strong>MAPFRE INSURANCE Corporate Center</strong>></p>
+                      <p>Acacia Avenue, Madrigal Buisness Park</p>
+                      <p>Ayala Alabang, Muntinlupa City 1770 * <strong>E-mail:</strong> info@mapfreinsular.com</p>
+                      <p><strong>T</strong> +632.8876.44.44 * <strong>F</strong> +632.8876.43.44 * <strong>VAT REG. TIN:</strong> 000-491-771-000</p>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <p for="first_name" class="text-right">Policy Number</p>
+                    <h4 class="policy-number-value">{{policyNumber}}</h4>
+                    <br />
+                  </div>
+                  <div class="col-md-12">
+                    <h4 class="text-center">COMPREHENSIVE POLICY</h4>
+                  </div>
+                </div>
+              </div>
+              <div class="clearfix"></div>
+              <br />
+              <br />
+              <div class="col-md-12 bottom-break">
+                <div class="row">
+                  <div class="col-md-5">
+                    <label for="insured_name" class="col-form-label affinity-label">Insured Name</label>
+                    <div>{{this.affinity.riskDetails.fullName}}</div>
+                  </div>
+                  <div class="col-md-7">
+                    <label for="address" class="col-form-label affinity-label">Address</label>
+                    <div>{{this.affinity.riskDetails.correspondentAddress.addressDetails}}</div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12 bottom-break">
+                <div class="row">
+                  <div class="col-md-4">
+                    <label for="make" class="col-form-label affinity-label">Make/Manufacturer</label>
+                    <div><strong>{{this.affinity.motorDetails.manufacturer}}</strong></div>
+                  </div>
+                  <div class="col-md-4">
+                    <label for="model" class="col-form-label affinity-label">Model</label>
+                    <div><strong>{{this.affinity.motorDetails.model}}</strong></div>
+                  </div>
+                  <div class="col-md-4">
+                    <label for="sub_model" class="col-form-label affinity-label">Sub Model</label>
+                    <div><strong>{{this.affinity.motorDetails.subModel}}</strong></div>
+                  </div>
+                  <div *ngIf="this.affinity.motorDetails.plateNumber" class="col-md-4">
+                    <label for="plate_number" class="col-form-label affinity-label">Plate Number</label>
+                    <div><strong>{{this.affinity.motorDetails.plateNumber}}</strong></div>
+                  </div>
+                  <div *ngIf="this.affinity.motorDetails.conductionNumber" class="col-md-4">
+                    <label for="conduction_number" class="col-form-label affinity-label">Conduction Number</label>
+                    <div><strong>{{this.affinity.motorDetails.conductionNumber}}</strong></div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12 bottom-break" >
+                <label for="members" class="col-form-label affinity-label"><strong>Members: </strong></label>
+                <div class="row" *ngFor="let insured of this.affinity.paDetails.familyMembers">
+                  <div class="col-md-5">
+                    <label for="insured_name" class="col-form-label affinity-label">Insured Name</label>
+                    <div>{{insured.firstName}} {{insured.middleName}} {{insured.lastName}}</div>
+                  </div>
+                  <div class="col-md-7">
+                    <label for="relationship" class="col-form-label affinity-label">Relationship</label>
+                    <div>{{insured.relationship.split(":=:")[1]}}</div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="row">
+                  <div class="col-md-4">
+                    <label for="effectivity_date" class="col-form-label affinity-label">Effectivity Date</label>
+                    <div>April 20, 2022</div>
+                  </div>
+                  <div class="col-md-4">
+                    <label for="exiry_date" class="col-form-label affinity-label">Expiry Date</label>
+                    <div>April 19, 2023</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
 
+      <div class="col-md-12">
         <h5>List of Coverages</h5>
-
         <div *ngIf="this.affinity.productId == '10002' || this.affinity.productId == '10001'">
           <div class="card mb-3">
             <div class="card-body">

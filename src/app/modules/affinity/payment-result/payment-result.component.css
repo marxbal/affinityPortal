@@ -49,3 +49,21 @@ h5 {
   padding: 10px 30px 10px 30px !important;
   border: 1px solid green;
 }
+
+.mapfre-logo {
+  width: 230px;
+}
+
+.mapfre-address {
+  margin: 15px 0 15px 23px;
+}
+
+.mapfre-address p {
+  font-size: 11px;
+  margin: 1px 0;
+}
+
+.policy-number-value {
+  margin-top: -15px !important;
+  text-align: right;
+}
