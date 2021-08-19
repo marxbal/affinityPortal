@@ -1371,7 +1371,7 @@ export class CommonService {
     return re.test(String(email).toLowerCase());
   }
 
-  emailPolicy(emailSend: string, policyNumber: string) {
+  emailPolicy(emailSend: string, policyNumber: string, type: string) {
     let emailTemp = emailSend.split(";");
     let emailFinal = "";
 
@@ -1400,7 +1400,7 @@ export class CommonService {
     }).then((result) => {
       if (result.value) {
         this.caller.doCallService("/afnty/sendEmail?email=" + emailFinal.slice(0, -1) + "&numPoliza=" +
-          policyNumber + "&subject=MAPFRE Online Policy Number " + policyNumber + "&type=P", null).subscribe(
+          policyNumber + "&subject=MAPFRE Online Policy Number " + policyNumber + "&type=" + type, null).subscribe(
           resulta => {
             if (resulta.status == 1) {
               Swal.fire({

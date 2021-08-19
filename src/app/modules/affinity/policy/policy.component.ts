@@ -69,7 +69,7 @@ export class PolicyComponent implements OnInit {
   }
 
   submitSendEmail() {
-    this.common.emailPolicy(this.emailSend, this.affinity.policyNumber);
+    this.common.emailPolicy(this.emailSend, this.affinity.policyNumber, "P");
   }
 
   printPolicy() {
