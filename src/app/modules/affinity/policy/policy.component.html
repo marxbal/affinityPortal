@@ -48,7 +48,7 @@
             </div>
           </div>
 
-          <div class="form-group row bottom-break">
+          <div class="form-group row">
             <div class="col-md-12">
               <h5>Policy Period</h5>
             </div>
@@ -61,7 +61,11 @@
               <div><strong>{{this.affinity.motorDetails.policyPeriodTo}}</strong></div>
             </div>
           </div>
+        </div>
+      </div>
 
+      <div class="card">
+        <div class="card-body">
           <h5>List of Coverages</h5>
           <table class="table table-small table-hover table-condensed">
             <thead>
@@ -85,6 +89,7 @@
           </table>
         </div>
       </div>
+
     </div>
 
     <!-- <div *ngIf="this.affinity.productId == '20008'">
@@ -168,7 +173,7 @@
               <div><strong>PRIMARY</strong></div>
             </div>
           </div>
-          <div class="form-group row bottom-break">
+          <div class="form-group row">
             <div class="col-md-12">
               <h5>Policy Period</h5>
             </div>
@@ -181,7 +186,6 @@
               <div><strong>{{this.affinity.motorDetails.policyPeriodTo}}</strong></div>
             </div>
           </div>
-
         </div>
       </div>
 
@@ -259,11 +263,21 @@
         <button class="btn btn-mapfre btn-block mt-3 mb-3" data-toggle="modal" data-target="#emailModal"
               (click)="sendEmail()"><b>Email Policy</b></button>
 
-        <label for="first_name" class="col-form-label affinity-label">Policy Number</label>
-        <div><strong>{{this.affinity.policyNumber}}</strong></div>
+        <div class="text-center">
+          <label for="first_name" class="col-form-label affinity-label">Policy Number</label>
+          <h4 class="no-margin-top">
+            <strong>{{this.affinity.policyNumber}}</strong>
+          </h4>
+        </div>
+
+        <div class="text-center">
+          <label for="first_name" class="col-form-label affinity-label">Total Cost</label>
+          <h4 class="no-margin-top">
+            <strong>{{this.affinity.premiumBreakdown.grossPrem}}</strong>
+          </h4>
+        </div>
         
         <br />
-        <h4>Total Cost <b style="float: right;">{{this.affinity.premiumBreakdown.grossPrem}}</b></h4><br />
         <table id="paymentBreakdown" class="table table-small table-hover table-condensed">
           <tbody>
             <tr>
