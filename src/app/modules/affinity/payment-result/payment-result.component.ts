@@ -38,6 +38,13 @@ import Swal from 'sweetalert2';
 import {
   PaymentService
 } from 'src/app/services/payment.service';
+import {
+  CommonService
+} from 'src/app/services/common.service';
+import {
+  ACCIDENT,
+  CAR
+} from 'src/app/objects/line';
 
 @Component({
   selector: 'app-payment-result',
@@ -54,6 +61,8 @@ export class PaymentResultComponent implements OnInit {
   requestId: string = "";
   policyNumber: string = "";
   total: number;
+  line: number = 1;
+  title: string = "";
 
   constructor(
     private route: ActivatedRoute,
@@ -64,7 +73,8 @@ export class PaymentResultComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private motorIssuance: MotorIssuanceService,
     private paIssuance: PersonalAccidentIssuanceService,
-    private paymentService: PaymentService) {}
+    private paymentService: PaymentService,
+    private common: CommonService) {}
 
   formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -86,19 +96,6 @@ export class PaymentResultComponent implements OnInit {
       } else {
         this.router.navigate([this.auth.getLandingPage()]);
       }
-
-      // this.route.queryParams
-      //   .subscribe(params => {
-      //     // this.requestId = params.requestid;
-      //     this.requestId = this.route.snapshot.paramMap.get("requestId");
-      //     this.policyNumber = this.route.snapshot.paramMap.get("policyNumber");
-      //     if (!_.isEmpty(this.policyNumber)) {
-      //       this.getResponseCode(this.requestId);
-      //       this.retrievePolicyDetails(this.policyNumber);
-      //     } else {
-      //       this.router.navigate([this.auth.getLandingPage()]);
-      //     }
-      //   });
     }
   }
 
@@ -107,13 +104,17 @@ export class PaymentResultComponent implements OnInit {
     this.caller.doCallService('/afnty/retrievePolicyDetails', policyNumber).subscribe(
       result => {
         this.spinner.hide();
-
         this.affinity.paymentReferenceNumber = result.a2990700_mph.numPaymentReference;
+        const productId = this.common.getP20Value(result.a2000020List, 'COD_MODALIDAD');
 
-        switch (result.p2000030.codRamo) {
-          case 337:
+        this.line = this.common.getLinebyProduct(productId);
+        this.title = this.getPolicyTitle(productId);
+
+        switch (this.line) {
+          case ACCIDENT:
+            this.nameLabel = "Primary Insured Name:";
             this.paIssuance.mapRetrievePolicy(this.affinity, result).subscribe(
-              (res) => {
+              (res: Affinity) => {
                 if (!_.isEmpty(res)) {
                   this.affinity = res;
                   this.getMoreDetails();
@@ -121,8 +122,9 @@ export class PaymentResultComponent implements OnInit {
               });
             break;
           default:
+            this.nameLabel = "Client Name:";
             this.motorIssuance.mapRetrievePolicy(this.affinity, result).subscribe(
-              (res) => {
+              (res: Affinity) => {
                 if (!_.isEmpty(res)) {
                   this.affinity = res;
                   this.getMoreDetails();
@@ -134,12 +136,27 @@ export class PaymentResultComponent implements OnInit {
   }
 
   getMoreDetails() {
-    const productId = this.affinity.productId;
-    if (productId == "33701" || productId == "33702") {
-      this.nameLabel = "Primary Insured Name:"
-    }
-
     this.total = parseFloat(this.affinity.premiumBreakdown.grossPrem);
+    console.log(this.affinity);
+  }
+
+  getPolicyTitle(productId: string) {
+    let title = "";
+    switch (productId) {
+      case "10001":
+        title = "COMPREHENSIVE CAR POLICY";
+        break;
+      case "10002":
+        title = "CTPL CAR POLICY";
+        break;
+      case "33701":
+        title = "INDIVIDUAL PERSONAL ACCIDENT POLICY";
+        break;
+      case "33702":
+        title = "PERSONAL FAMILY ACCIDENT POLICY";
+        break;
+    }
+    return title;
   }
 
   getResponseCode(requestId: string) {
@@ -162,7 +179,7 @@ export class PaymentResultComponent implements OnInit {
   }
 
   printPolicy(){
-    
+
   }
 
   retryPayment() {
