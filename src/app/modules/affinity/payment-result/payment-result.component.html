@@ -115,7 +115,6 @@
               </div>
               <div *ngIf="line == type.car" class="col-md-12 bottom-break">
                 <div class="row">
-                  interestInsured
                   <div class="col-md-3">
                     <label for="interest_insured" class="col-form-label affinity-label">Interest Insured</label>
                     <div><strong>{{interestInsured}}</strong></div>
@@ -138,7 +137,7 @@
                   </div>
                   <div class="col-md-4">
                     <label for="type_of_use" class="col-form-label affinity-label">Type of Use</label>
-                    <div><strong>{{this.affinity.motorDetails.plateNumber}}</strong></div>
+                    <div><strong>{{this.affinity.motorDetails.vehicleUsed}}</strong></div>
                   </div>
                   <div *ngIf="this.affinity.motorDetails.plateNumber" class="col-md-4">
                     <label for="plate_number" class="col-form-label affinity-label">Plate Number</label>
