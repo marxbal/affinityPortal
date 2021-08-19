@@ -113,7 +113,7 @@
                   </div>
                 </div>
               </div>
-              <div *ngIf="line == CAR" class="col-md-12 bottom-break">
+              <div *ngIf="line == type.car" class="col-md-12 bottom-break">
                 <div class="row">
                   <div class="col-md-4">
                     <label for="make" class="col-form-label affinity-label">Make/Manufacturer</label>
@@ -137,7 +137,7 @@
                   </div>
                 </div>
               </div>
-              <div *ngIf="line == ACCIDENT" class="col-md-12 bottom-break" >
+              <div *ngIf="line == type.accident" class="col-md-12 bottom-break" >
                 <label for="members" class="col-form-label affinity-label"><strong>Members: </strong></label>
                 <div class="row" *ngFor="let insured of this.affinity.paDetails.familyMembers">
                   <div class="col-md-5">
@@ -195,7 +195,7 @@
           </div>
         </div>
         <br />
-        <div *ngIf="line == ACCIDENT">
+        <div *ngIf="line == type.accident">
           <div class="card mb-3" *ngFor="let insured of this.affinity.paDetails.familyMembers">
             <div class="card-body">
               <span class="card-title">

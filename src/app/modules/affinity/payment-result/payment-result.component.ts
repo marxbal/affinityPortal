@@ -63,6 +63,10 @@ export class PaymentResultComponent implements OnInit {
   total: number;
   line: number = 1;
   title: string = "";
+  type: Object = {
+    car: CAR,
+    accident: ACCIDENT
+  }
 
   constructor(
     private route: ActivatedRoute,
