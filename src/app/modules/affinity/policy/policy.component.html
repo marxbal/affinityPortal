@@ -182,27 +182,6 @@
             </div>
           </div>
 
-          <h5>List of Coverages</h5>
-          <table class="table table-small table-hover table-condensed">
-            <thead>
-              <tr>
-                <th scope="col"></th>
-                <th scope="col">Coverage Name</th>
-                <th scope="col" class="text-right">Limit</th>
-                <th scope="col" class="text-right">Premium</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let cover of this.affinity.coveragesValue">
-                <td><span class="text-success"><b>
-                      <h4><i class="fa fa-check-circle mt-2 mb-2"></i></h4>
-                    </b></span></td>
-                <td>{{cover.nomCob}}</td>
-                <td class="text-right">{{this.formatter.format(cover.sumaAseg)}}</td>
-                <td class="text-right">{{cover.totalPremium}}</td>
-              </tr>
-            </tbody>
-          </table>
         </div>
       </div>
 
@@ -349,25 +328,28 @@
     </div>
   </div>
 
-  <div class="card">
-    <div class="card-body">
-      <h5>Details of Coverage</h5>
-      <table class="table table-small table-hover table-condensed">
-        <thead>
-          <tr>
-            <th scope="col">Coverage</th>
-            <th scope="col">Benefit</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let coverage of this.affinity.coverages">
-            <td style="min-width: 300px;">{{coverage.benefit}}</td>
-            <td style="text-align: justify;">{{coverage.coverages}}</td>
-          </tr>
-        </tbody>
-      </table>
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-body">
+        <h5>Details of Coverage</h5>
+        <table class="table table-small table-hover table-condensed">
+          <thead>
+            <tr>
+              <th scope="col">Coverage</th>
+              <th scope="col">Benefit</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let coverage of this.affinity.coverages">
+              <td style="min-width: 300px;">{{coverage.benefit}}</td>
+              <td style="text-align: justify;">{{coverage.coverages}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
+
 </div>
 
 <div class="modal fade" id="emailModal" tabindex="-1" role="dialog" aria-labelledby="emailModal" aria-hidden="true">
