@@ -64,6 +64,7 @@ export class PaymentResultComponent implements OnInit {
   line: number = 1;
   title: string = "";
   address: string = "";
+  interestInsured: string = "";
   type: Object = {
     car: CAR,
     accident: ACCIDENT
@@ -132,6 +133,7 @@ export class PaymentResultComponent implements OnInit {
               (res: Affinity) => {
                 if (!_.isEmpty(res)) {
                   this.affinity = res;
+                  this.buildInterstInsured(this.affinity);
                   this.getMoreDetails();
                 }
               });
@@ -165,12 +167,17 @@ export class PaymentResultComponent implements OnInit {
     return title;
   }
 
+  buildInterstInsured(affinity: Affinity) {
+    const motor = affinity.motorDetails;
+    this.interestInsured = motor.modelYear + " " + motor.manufacturer + " " + motor.model + " " + motor.subModel + " " + motor.vehicleType;
+  }
+
   buildAddress(affinity: Affinity) {
     return this.addComma(affinity.address1) + this.addComma(affinity.municipality) + this.addComma(affinity.province) + affinity.zipCode;
   }
 
   addComma(val: string) {
-    return _.isEmpty(val) ? "" : val + ", ";
+    return _.isEmpty(val) ? "" : val.toUpperCase() + ", ";
   }
 
   getResponseCode(requestId: string) {

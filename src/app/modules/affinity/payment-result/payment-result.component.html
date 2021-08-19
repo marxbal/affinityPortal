@@ -115,6 +115,11 @@
               </div>
               <div *ngIf="line == type.car" class="col-md-12 bottom-break">
                 <div class="row">
+                  interestInsured
+                  <div class="col-md-3">
+                    <label for="interest_insured" class="col-form-label affinity-label">Interest Insured</label>
+                    <div><strong>{{interestInsured}}</strong></div>
+                  </div>
                   <div class="col-md-3">
                     <label for="model_year" class="col-form-label affinity-label">Model Year</label>
                     <div><strong>{{this.affinity.motorDetails.modelYear}}</strong></div>
