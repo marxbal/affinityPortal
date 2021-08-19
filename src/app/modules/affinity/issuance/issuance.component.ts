@@ -225,9 +225,9 @@ export class IssuanceComponent implements OnInit {
       this.line = "motorQuotationIssuance";
       this.spinner.hide();
 
-      if (this.templateRouter == "policy") {
-        this.router.navigateByUrl("/issuance/" + this.affinity.policyNumber + "/" + result.a2990700_mph.numPaymentReference);
-      }
+      // if (this.templateRouter == "policy") {
+      //   this.router.navigateByUrl("/payment-result/" + this.affinity.policyNumber + "/" + result.a2990700_mph.numPaymentReference);
+      // }
     }
   }
 

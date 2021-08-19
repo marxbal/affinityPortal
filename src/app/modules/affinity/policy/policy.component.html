@@ -246,77 +246,83 @@
   </div>
 
   <div class="col-md-4">
-    <button class="btn btn-mapfre btn-block mt-3 mb-3" (click)="printPolicy()"><b>Print Policy</b></button>
-    <!-- <button class="btn btn-mapfre btn-block mt-3 mb-3" (click)="emailPolicy()"><b>Email Policy</b></button> -->
-    <button class="btn btn-mapfre btn-block mt-3 mb-3" data-toggle="modal" data-target="#emailModal"
-      (click)="sendEmail()"><b>Email Policy</b></button>
-    <br />
-    <h4>Total Cost <b style="float: right;">{{this.affinity.premiumBreakdown.grossPrem}}</b></h4><br />
-    <!-- <h6>Net Premium <b>PHP 994.51</b></h6>
-        <h6>Documentary Stamps <b>PHP 124.24</b></h6>
-        <h6>Local Government Tax <b>PHP 4.98</b></h6>
-        <h6>Value Added Tax <b>PHP 119.33</b></h6>
-        <h6>Fire Service Tax <b>PHP 15.91</b></h6> -->
-    <table id="paymentBreakdown" class="table table-small table-hover table-condensed">
-      <tbody>
-        <tr>
-          <td>
-            <h6 class="mt-2 mb-2">Net Premium</h6>
-          </td>
-          <td class="text-right">
-            <h6>{{this.affinity.premiumBreakdown.netPrem}}</h6>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <h6 class="mt-2 mb-2">Documentary Stamps Tax</h6>
-          </td>
-          <td class="text-right">
-            <h6>{{this.affinity.premiumBreakdown.docStamp}}</h6>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <h6 class="mt-2 mb-2">Local Government Tax</h6>
-          </td>
-          <td class="text-right">
-            <h6>{{this.affinity.premiumBreakdown.lgt}}</h6>
-          </td>
-        </tr>
-        <tr *ngIf="this.affinity.lineId == '251'">
-          <td>
-            <h6 class="mt-2 mb-2">Fire Service Tax</h6>
-          </td>
-          <td class="text-right">
-            <h6>{{this.affinity.premiumBreakdown.fireTax}}</h6>
-          </td>
-        </tr>
-        <tr *ngIf="this.affinity.lineId != '337'">
-          <td>
-            <h6 class="mt-2 mb-2">Value Added Tax</h6>
-          </td>
-          <td class="text-right">
-            <h6>{{this.affinity.premiumBreakdown.eVat}}</h6>
-          </td>
-        </tr>
-        <tr *ngIf="this.affinity.lineId == '337'">
-          <td>
-            <h6 class="mt-2 mb-2">Premium Tax</h6>
-          </td>
-          <td class="text-right">
-            <h6>{{this.affinity.premiumBreakdown.premiumTax}}</h6>
-          </td>
-        </tr>
-        <tr *ngIf="this.affinity.lineId == '337'">
-          <td>
-            <h6 class="mt-2 mb-2">Others</h6>
-          </td>
-          <td class="text-right">
-            <h6>{{this.affinity.premiumBreakdown.others}}</h6>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6">
+            <button class="btn btn-mapfre btn-block mt-3 mb-3" (click)="printPolicy()"><b>Print Policy</b></button>
+          </div>
+          <div class="col-md-6">
+            <button class="btn btn-mapfre btn-block mt-3 mb-3" data-toggle="modal" data-target="#emailModal"
+              (click)="sendEmail()"><b>Email Policy</b></button>
+          </div>
+        </div>
+        
+        <br />
+        <h4>Total Cost <b style="float: right;">{{this.affinity.premiumBreakdown.grossPrem}}</b></h4><br />
+        <table id="paymentBreakdown" class="table table-small table-hover table-condensed">
+          <tbody>
+            <tr>
+              <td>
+                <h6 class="mt-2 mb-2">Net Premium</h6>
+              </td>
+              <td class="text-right">
+                <h6>{{this.affinity.premiumBreakdown.netPrem}}</h6>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <h6 class="mt-2 mb-2">Documentary Stamps Tax</h6>
+              </td>
+              <td class="text-right">
+                <h6>{{this.affinity.premiumBreakdown.docStamp}}</h6>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <h6 class="mt-2 mb-2">Local Government Tax</h6>
+              </td>
+              <td class="text-right">
+                <h6>{{this.affinity.premiumBreakdown.lgt}}</h6>
+              </td>
+            </tr>
+            <tr *ngIf="this.affinity.lineId == '251'">
+              <td>
+                <h6 class="mt-2 mb-2">Fire Service Tax</h6>
+              </td>
+              <td class="text-right">
+                <h6>{{this.affinity.premiumBreakdown.fireTax}}</h6>
+              </td>
+            </tr>
+            <tr *ngIf="this.affinity.lineId != '337'">
+              <td>
+                <h6 class="mt-2 mb-2">Value Added Tax</h6>
+              </td>
+              <td class="text-right">
+                <h6>{{this.affinity.premiumBreakdown.eVat}}</h6>
+              </td>
+            </tr>
+            <tr *ngIf="this.affinity.lineId == '337'">
+              <td>
+                <h6 class="mt-2 mb-2">Premium Tax</h6>
+              </td>
+              <td class="text-right">
+                <h6>{{this.affinity.premiumBreakdown.premiumTax}}</h6>
+              </td>
+            </tr>
+            <tr *ngIf="this.affinity.lineId == '337'">
+              <td>
+                <h6 class="mt-2 mb-2">Others</h6>
+              </td>
+              <td class="text-right">
+                <h6>{{this.affinity.premiumBreakdown.others}}</h6>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    
 
   </div>
 
