@@ -53,7 +53,7 @@
             <div class="row">
               <div *ngIf="paymentStatus" class="col-md-12">
                 <button class="btn btn-mapfre btn-block mt-3 mb-3" (click)="printPolicy()">
-                  <b>Print Policy</b>
+                  <b>Print my Policy</b>
                 </button>
               </div>
               <div *ngIf="!paymentStatus" class="col-md-12">
@@ -170,8 +170,8 @@
 
       <div class="col-md-12">
         <div class="card mb-3">
-          <h5>List of Coverages</h5>
           <div class="card-body">
+            <h5>List of Coverages</h5>
             <table class="table table-small table-hover table-condensed">
               <thead>
                 <tr>
@@ -237,11 +237,10 @@
             </div>
           </div>
         </div>
-        <br />
       </div>
 
       <div class="col-md-12">
-        <div class="card">
+        <div class="card mb-3">
           <div class="card-body">
             <h5>Details of Coverage</h5>
             <table class="table table-small table-hover table-condensed">
