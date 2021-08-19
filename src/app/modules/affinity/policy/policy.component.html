@@ -227,31 +227,29 @@
               <div>{{insured.relationship.split(":=:")[1]}}</div>
             </div>
           </div>
-        </div>
-      </div>
 
-      <div *ngIf="this.affinity.paDetails.familyMembers.length > 0">
-        <h5>List of Coverages for Family Members</h5>
-        <table class="table table-small table-hover table-condensed">
-          <thead>
-            <tr>
-              <th scope="col"></th>
-              <th scope="col">Coverage Name</th>
-              <th scope="col" class="text-right">Limit</th>
-              <th scope="col" class="text-right">Premium</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let cover of insured.coveragesValue">
-              <td><span class="text-success"><b>
-                    <h4><i class="fa fa-check-circle mt-2 mb-2"></i></h4>
-                  </b></span></td>
-              <td>{{cover.nomCob}}</td>
-              <td class="text-right">{{this.formatter.format(cover.sumaAseg)}}</td>
-              <td class="text-right">{{cover.totalPremium}}</td>
-            </tr>
-          </tbody>
-        </table>
+          <h5>List of Coverages for Family Members</h5>
+          <table class="table table-small table-hover table-condensed">
+            <thead>
+              <tr>
+                <th scope="col"></th>
+                <th scope="col">Coverage Name</th>
+                <th scope="col" class="text-right">Limit</th>
+                <th scope="col" class="text-right">Premium</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let cover of insured.coveragesValue">
+                <td><span class="text-success"><b>
+                      <h4><i class="fa fa-check-circle mt-2 mb-2"></i></h4>
+                    </b></span></td>
+                <td>{{cover.nomCob}}</td>
+                <td class="text-right">{{this.formatter.format(cover.sumaAseg)}}</td>
+                <td class="text-right">{{cover.totalPremium}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
