@@ -6,14 +6,8 @@ import {
   EventEmitter
 } from '@angular/core';
 import {
-  AuthService
-} from '../../../services/auth.service';
-import {
   Affinity
 } from '../../../objects/affinity';
-import {
-  NgxSpinnerService
-} from 'ngx-spinner';
 import {
   CommonService
 } from 'src/app/services/common.service';
