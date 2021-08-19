@@ -1375,6 +1375,9 @@ export class CommonService {
     let emailTemp = emailSend.split(";");
     let emailFinal = "";
 
+    const title = type == "P" ? "Policy" : "Quotation";
+    const subject = "MAPFRE Online " + title + " Number " + policyNumber; 
+
     for (let i = 0; i < emailTemp.length; i++) {
 
       if (!this.validateEmail(emailTemp[i].trim())) {
@@ -1389,6 +1392,11 @@ export class CommonService {
       emailFinal += emailTemp[i].trim() + ";";
     }
 
+    const textTitle = type == "P" ? "policy" : "proposal";
+    const text = "Your insurance " + textTitle + " was sent to " + emailFinal.slice(0, -1) + 
+      ". Please ensure that fopmsecure@mapfreinsurance.com.ph is NOT on your spam/blocked email list. " + 
+      "Do check your spam/junk folder in case you have not received any email confirmation and updates from us.";
+
     Swal.fire({
       title: 'Send Email',
       text: "You're about to send email, proceed?",
@@ -1400,13 +1408,13 @@ export class CommonService {
     }).then((result) => {
       if (result.value) {
         this.caller.doCallService("/afnty/sendEmail?email=" + emailFinal.slice(0, -1) + "&numPoliza=" +
-          policyNumber + "&subject=MAPFRE Online Policy Number " + policyNumber + "&type=" + type, null).subscribe(
+          policyNumber + "&subject=" + subject + "&type=" + type, null).subscribe(
           resulta => {
             if (resulta.status == 1) {
               Swal.fire({
                 type: 'success',
                 title: 'Email Sent!',
-                text: "Your insurance policy was sent to " + emailFinal.slice(0, -1) + ". Please ensure that online@mapfreinsurance.com.ph is NOT on your spam/blocked email list. Do check your spam/junk folder in case you have not received any email confirmation and updates from us."
+                text: text
               });
               $("#emailModalClose").click();
             } else {
