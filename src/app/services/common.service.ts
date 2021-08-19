@@ -1357,4 +1357,13 @@ export class CommonService {
     return ret.asObservable();
   }
 
+  print(number: string, type: string) {
+    this.spinner.show();
+    this.caller.generatePDFTW("/afnty/printPolicy?numPoliza=" + number + "&printType=" + type, null).subscribe(
+      result => {
+        this.spinner.hide();
+        console.log(result);
+      });
+  }
+
 }

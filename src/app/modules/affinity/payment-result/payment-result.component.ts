@@ -200,7 +200,7 @@ export class PaymentResultComponent implements OnInit {
   }
 
   printPolicy(){
-
+    this.common.print(this.policyNumber, "P");
   }
 
   retryPayment() {
