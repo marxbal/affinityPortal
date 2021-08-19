@@ -48,6 +48,10 @@ import Swal from 'sweetalert2';
 import {
   NgxSpinnerService
 } from 'ngx-spinner';
+import {
+  ACCIDENT,
+  CAR
+} from 'src/app/objects/line';
 
 @Component({
   selector: 'app-quotation',
@@ -78,9 +82,14 @@ export class QuotationComponent implements OnInit {
 
   title: String;
   buyNowStep: String;
-  emailSend: String;
-
+  emailSend: string;
   coverageList = [];
+
+  lineId: number = 1;
+  type: Object = {
+    car: CAR,
+    accident: ACCIDENT
+  }
 
   formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -88,45 +97,47 @@ export class QuotationComponent implements OnInit {
   });
 
   ngOnInit() {
+    this.lineId = this.common.getLinebyProduct(this.affinity.productId);
+
     this.title = "Household";
     this.buyNowStep = "riskInformation";
     if (this.line == "motorQuotationIssuance") {
       this.title = "Motor";
       this.buyNowStep = "motorPolicyIssuance";
+
+      this.caller.doCallService("/afnty/getCoverageLimits?codRamo=100&codCob=1004", null).subscribe(
+        result => {
+          this.spinner.hide();
+          this.affinity.lov.bodilyInjuryLOV = [];
+          result.forEach(lov => {
+            if (lov.impLimite == 250000 || lov.impLimite == 500000 || lov.impLimite == 1000000) {
+              this.affinity.lov.bodilyInjuryLOV.push(lov);
+            }
+          });
+  
+          for (let i = 0; i < this.affinity.lov.bodilyInjuryLOV.length; i++) {
+            this.affinity.lov.bodilyInjuryLOV[i].impLimiteFormatted = this.formatter.format(parseFloat(this.affinity.lov.bodilyInjuryLOV[i].impLimite));
+          }
+        });
+  
+      this.caller.doCallService("/afnty/getCoverageLimits?codRamo=100&codCob=1005", null).subscribe(
+        result => {
+          this.spinner.hide();
+          this.affinity.lov.propertyDamageLOV = [];
+          result.forEach(lov => {
+            if (lov.impLimite == 250000 || lov.impLimite == 500000 || lov.impLimite == 1000000) {
+              this.affinity.lov.propertyDamageLOV.push(lov);
+            }
+          });
+  
+          for (let i = 0; i < this.affinity.lov.propertyDamageLOV.length; i++) {
+            this.affinity.lov.propertyDamageLOV[i].impLimiteFormatted = this.formatter.format(parseFloat(this.affinity.lov.propertyDamageLOV[i].impLimite));
+          }
+        });
     } else if (this.line == "personalInformation") {
       this.title = "Personal Accident";
       this.buyNowStep = "riskInformation";
     }
-
-    this.caller.doCallService("/afnty/getCoverageLimits?codRamo=100&codCob=1004", null).subscribe(
-      result => {
-        this.spinner.hide();
-        this.affinity.lov.bodilyInjuryLOV = [];
-        result.forEach(lov => {
-          if (lov.impLimite == 250000 || lov.impLimite == 500000 || lov.impLimite == 1000000) {
-            this.affinity.lov.bodilyInjuryLOV.push(lov);
-          }
-        });
-
-        for (let i = 0; i < this.affinity.lov.bodilyInjuryLOV.length; i++) {
-          this.affinity.lov.bodilyInjuryLOV[i].impLimiteFormatted = this.formatter.format(parseFloat(this.affinity.lov.bodilyInjuryLOV[i].impLimite));
-        }
-      });
-
-    this.caller.doCallService("/afnty/getCoverageLimits?codRamo=100&codCob=1005", null).subscribe(
-      result => {
-        this.spinner.hide();
-        this.affinity.lov.propertyDamageLOV = [];
-        result.forEach(lov => {
-          if (lov.impLimite == 250000 || lov.impLimite == 500000 || lov.impLimite == 1000000) {
-            this.affinity.lov.propertyDamageLOV.push(lov);
-          }
-        });
-
-        for (let i = 0; i < this.affinity.lov.propertyDamageLOV.length; i++) {
-          this.affinity.lov.propertyDamageLOV[i].impLimiteFormatted = this.formatter.format(parseFloat(this.affinity.lov.propertyDamageLOV[i].impLimite));
-        }
-      });
 
     this.getCoverageDescription(this.affinity.productId);
 
@@ -137,73 +148,15 @@ export class QuotationComponent implements OnInit {
   }
 
   printQuotation() {
-    this.spinner.show();
-    this.caller.generatePDFTW("/afnty/printPolicy?numPoliza=" + this.affinity.quotationNumber + "&printType=Q", null).subscribe(
-      result => {
-        this.spinner.hide();
-      });
-  }
-
-  submitSendEmail() {
-    let emailTemp = this.emailSend.split(";");
-    let emailFinal = "";
-
-    for (let i = 0; i < emailTemp.length; i++) {
-
-      if (!this.validateEmail(emailTemp[i].trim())) {
-        Swal.fire({
-          type: 'error',
-          title: 'Invalid Email Address',
-          html: "Email <b>" + emailTemp[i] + "</b> is invalid, please fix and try again."
-        });
-        return null;
-      }
-
-      emailFinal += emailTemp[i].trim() + ";";
-    }
-
-    Swal.fire({
-      title: 'Send Email',
-      text: "You're about to send email, proceed?",
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Send Email'
-    }).then((result) => {
-      if (result.value) {
-
-        this.caller.doCallService("/afnty/sendEmail?email=" + emailFinal.slice(0, -1) + "&numPoliza=" +
-          this.affinity.quotationNumber + "&subject=MAPFRE Online Quotation Number " + this.affinity.quotationNumber + "&type=Q", null).subscribe(
-          resulta => {
-            if (resulta.status == 1) {
-              Swal.fire({
-                type: 'success',
-                title: 'Email Sent!',
-                text: "Your insurance proposal was sent to " + emailFinal.slice(0, -1) + ". Please ensure that fopmsecure@mapfreinsurance.com.ph is NOT on your spam/blocked email list. Do check your spam/junk folder in case you have not received any email confirmation and updates from us."
-              });
-
-              $("#emailModalClose").click();
-
-            } else {
-              Swal.fire({
-                type: 'error',
-                title: 'Unable to proceed.',
-                text: "We are unable to process your request."
-              });
-            }
-          });
-      }
-    });
-  }
-
-  validateEmail(email) {
-    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(String(email).toLowerCase());
+    this.common.print(this.affinity.quotationNumber, "Q");
   }
 
   sendEmail() {
     this.emailSend = this.affinity.riskDetails.emailAddress.toLowerCase();
+  }
+
+  submitSendEmail() {
+    this.common.emailPolicy(this.emailSend, this.affinity.quotationNumber, "Q");
   }
 
   formatAmount() {
