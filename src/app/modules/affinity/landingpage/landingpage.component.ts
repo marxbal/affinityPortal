@@ -166,7 +166,7 @@ export class LandingpageComponent implements OnInit {
 
   displayProducts() {
     const l1 = new ProductLine;
-    l1.name = "Car";
+    l1.name = "Car and Motor";
     l1.thumbnail = "car";
     l1.issuanceType = "motorQuotationIssuance";
     l1.description =

@@ -1379,7 +1379,6 @@ export class CommonService {
     const subject = "MAPFRE Online " + title + " Number " + policyNumber; 
 
     for (let i = 0; i < emailTemp.length; i++) {
-
       if (!this.validateEmail(emailTemp[i].trim())) {
         Swal.fire({
           type: 'error',
@@ -1388,7 +1387,6 @@ export class CommonService {
         });
         return null;
       }
-
       emailFinal += emailTemp[i].trim() + ";";
     }
 
@@ -1413,15 +1411,15 @@ export class CommonService {
             if (resulta.status == 1) {
               Swal.fire({
                 type: 'success',
-                title: 'Email Sent!',
+                title: 'Email Sent Successfully!',
                 text: text
               });
               $("#emailModalClose").click();
             } else {
               Swal.fire({
                 type: 'error',
-                title: 'Unable to proceed.',
-                text: "We are unable to process your request."
+                title: 'Email not sent.',
+                text: "We are unable to send your request. Please try again later."
               });
             }
           });
