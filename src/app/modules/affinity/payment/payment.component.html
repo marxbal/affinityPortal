@@ -262,98 +262,113 @@
   </div>
 
   <div class="col-md-4">
-    <button class="btn btn-mapfre btn-block mt-3 mb-3" (click)="requestPayment()"><b>Pay using Credit Card/GCash</b></button>
-    <img class="paynamics-logo" src="assets/images/paynamics-logo.png" />
-    <br />
-
     <div class="card">
-      <div class="card-body text-align-center">
-        <span class="card-title">
-          <label>Payment Reference Number: </label>
-        </span>
-        <h5><strong>{{this.affinity.paymentReferenceNumber}}</strong></h5>
+      <div class="card-body">
+
+        <button class="btn btn-mapfre btn-block mt-3 mb-3" (click)="requestPayment()"><b>Pay using Credit Card/GCash</b></button>
+        <img class="paynamics-logo" src="assets/images/paynamics-logo.png" />
+        <br />
+
+        <div class="text-center">
+          <label for="first_name" class="col-form-label affinity-label">Payment Reference Number</label>
+          <h4 class="no-margin-top">
+            <strong>{{this.affinity.paymentReferenceNumber}}</strong>
+          </h4>
+        </div>
+
+        <div class="text-center">
+          <label for="first_name" class="col-form-label affinity-label">Total Cost</label>
+          <h4 class="no-margin-top">
+            <strong>{{this.affinity.premiumBreakdown.grossPrem}}</strong>
+          </h4>
+        </div>
+        
+        <br />
+        <table id="paymentBreakdown" class="table table-small table-hover table-condensed">
+          <tbody>
+            <tr>
+              <td>
+                <h6 class="mt-2 mb-2">Net Premium</h6>
+              </td>
+              <td class="text-right">
+                <h6>{{this.affinity.premiumBreakdown.netPrem}}</h6>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <h6 class="mt-2 mb-2">Documentary Stamps Tax</h6>
+              </td>
+              <td class="text-right">
+                <h6>{{this.affinity.premiumBreakdown.docStamp}}</h6>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <h6 class="mt-2 mb-2">Local Government Tax</h6>
+              </td>
+              <td class="text-right">
+                <h6>{{this.affinity.premiumBreakdown.lgt}}</h6>
+              </td>
+            </tr>
+            <!-- <tr *ngIf="this.affinity.lineId == '251'">
+              <td>
+                <h6 class="mt-2 mb-2">Fire Service Tax</h6>
+              </td>
+              <td class="text-right">
+                <h6>{{this.affinity.premiumBreakdown.fireTax}}</h6>
+              </td>
+            </tr> -->
+            <tr *ngIf="this.affinity.lineId != '337'">
+              <td>
+                <h6 class="mt-2 mb-2">Value Added Tax</h6>
+              </td>
+              <td class="text-right">
+                <h6>{{this.affinity.premiumBreakdown.eVat}}</h6>
+              </td>
+            </tr>
+            <tr *ngIf="this.affinity.lineId == '337'">
+              <td>
+                <h6 class="mt-2 mb-2">Premium Tax</h6>
+              </td>
+              <td class="text-right">
+                <h6>{{this.affinity.premiumBreakdown.premiumTax}}</h6>
+              </td>
+            </tr>
+            <tr *ngIf="this.affinity.lineId == '337'">
+              <td>
+                <h6 class="mt-2 mb-2">Others</h6>
+              </td>
+              <td class="text-right">
+                <h6>{{this.affinity.premiumBreakdown.others}}</h6>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
       </div>
     </div>
-
-    <h4>Total Cost <b style="float: right;">{{this.affinity.premiumBreakdown.grossPrem}}</b></h4><br />
-    <table id="paymentBreakdown" class="table table-small table-hover table-condensed">
-      <tbody>
-        <tr>
-          <td>
-            <h6 class="mt-2 mb-2">Net Premium</h6>
-          </td>
-          <td class="text-right">
-            <h6>{{this.affinity.premiumBreakdown.netPrem}}</h6>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <h6 class="mt-2 mb-2">Documentary Stamps Tax</h6>
-          </td>
-          <td class="text-right">
-            <h6>{{this.affinity.premiumBreakdown.docStamp}}</h6>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <h6 class="mt-2 mb-2">Local Government Tax</h6>
-          </td>
-          <td class="text-right">
-            <h6>{{this.affinity.premiumBreakdown.lgt}}</h6>
-          </td>
-        </tr>
-        <!-- <tr *ngIf="this.affinity.lineId == '251'">
-          <td>
-            <h6 class="mt-2 mb-2">Fire Service Tax</h6>
-          </td>
-          <td class="text-right">
-            <h6>{{this.affinity.premiumBreakdown.fireTax}}</h6>
-          </td>
-        </tr> -->
-        <tr *ngIf="this.affinity.lineId != '337'">
-          <td>
-            <h6 class="mt-2 mb-2">Value Added Tax</h6>
-          </td>
-          <td class="text-right">
-            <h6>{{this.affinity.premiumBreakdown.eVat}}</h6>
-          </td>
-        </tr>
-        <tr *ngIf="this.affinity.lineId == '337'">
-          <td>
-            <h6 class="mt-2 mb-2">Premium Tax</h6>
-          </td>
-          <td class="text-right">
-            <h6>{{this.affinity.premiumBreakdown.premiumTax}}</h6>
-          </td>
-        </tr>
-        <tr *ngIf="this.affinity.lineId == '337'">
-          <td>
-            <h6 class="mt-2 mb-2">Others</h6>
-          </td>
-          <td class="text-right">
-            <h6>{{this.affinity.premiumBreakdown.others}}</h6>
-          </td>
-        </tr>
-      </tbody>
-    </table>
   </div>
 
   <div class="col-md-12">
-    <h5>Details of Coverage</h5>
-    <table class="table table-small table-hover table-condensed">
-      <thead>
-        <tr>
-          <th scope="col">Coverage</th>
-          <th scope="col">Benefit</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let coverage of this.affinity.coverages">
-          <td style="min-width: 300px;">{{coverage.benefit}}</td>
-          <td style="text-align: justify;">{{coverage.coverages}}</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="card">
+      <div class="card-body">
+        <h5>Details of Coverage</h5>
+        <table class="table table-small table-hover table-condensed">
+          <thead>
+            <tr>
+              <th scope="col">Coverage</th>
+              <th scope="col">Benefit</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let coverage of this.affinity.coverages">
+              <td style="min-width: 300px;">{{coverage.benefit}}</td>
+              <td style="text-align: justify;">{{coverage.coverages}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 
 </div>
