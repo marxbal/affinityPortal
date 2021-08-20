@@ -15,14 +15,15 @@ import {
   CommonService
 } from 'src/app/services/common.service';
 import {
-  PaymentPaynamics
-} from 'src/app/objects/payment-paynamics';
-import {
   AuthService
 } from 'src/app/services/auth.service';
 import {
   DecimalPipe
 } from '@angular/common';
+import {
+  ACCIDENT,
+  CAR
+} from 'src/app/objects/line';
 
 @Component({
   selector: 'app-payment',
@@ -42,21 +43,27 @@ export class PaymentComponent implements OnInit {
   @Output() nextStep = new EventEmitter();
   @Output() affinityOutput = new EventEmitter();
 
-  formatter = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'PHP',
-  });
   total: string;
   retStatus = "";
 
   municipality: string = "";
   province: string = "";
 
-  ngOnInit() {
-    console.log(this.affinity);
+  lineId: number = 1;
+  type: Object = {
+    car: CAR,
+    accident: ACCIDENT
+  }
 
+  formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'PHP',
+  });
+
+  ngOnInit() {
     const premium = parseFloat(this.affinity.premiumBreakdown.grossPrem);
     this.total =  this.decimalPipe.transform(premium, '1.2-2');
+    this.lineId = this.common.getLinebyProduct(this.affinity.productId);
 
     this.affinity.premiumBreakdown.grossPrem = this.formatter.format(parseFloat(this.affinity.premiumBreakdown.grossPrem));
     this.affinity.premiumBreakdown.netPrem = this.formatter.format(parseFloat(this.affinity.premiumBreakdown.netPrem));

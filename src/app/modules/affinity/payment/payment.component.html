@@ -11,9 +11,8 @@
 <br />
 <div class="row">
   <div class="col-md-8">
-    <!-- <h6>Pay over the counter using the below details and instruction: </h6> -->
     <img class="img-responsive payment-img" src="assets/images/payment-instruction.png" />
-    <div *ngIf="this.affinity.productId == '10002' || this.affinity.productId == '10001'">
+    <div *ngIf="lineId == type.car">
       <div class="card mb-3">
         <div class="card-body">
           <div class="form-group row bottom-break">
@@ -52,7 +51,7 @@
             </div>
           </div>
 
-          <div class="form-group row bottom-break">
+          <div class="form-group row">
             <div class="col-md-12">
               <h5>Policy Period</h5>
             </div>
@@ -65,7 +64,11 @@
               <div><strong>{{this.affinity.motorDetails.policyPeriodTo}}</strong></div>
             </div>
           </div>
+        </div>
+      </div>
 
+      <div class="card">
+        <div class="card-body">
           <h5>List of Coverages</h5>
           <table class="table table-small table-hover table-condensed">
             <thead>
@@ -89,8 +92,6 @@
           </table>
         </div>
       </div>
-      <br />
-      <br />
     </div>
 
     <!-- <div *ngIf="this.affinity.productId == '20008'">
@@ -171,7 +172,7 @@
       <br />
     </div> -->
 
-    <div *ngIf="this.affinity.productId == '33701' || this.affinity.productId == '33702'">
+    <div *ngIf="lineId == type.accident">
       <div class="card mb-3">
         <div class="card-body">
           <div class="form-group row bottom-break">
@@ -198,7 +199,11 @@
               <div><strong>{{this.affinity.motorDetails.policyPeriodTo}}</strong></div>
             </div>
           </div>
+        </div>
+      </div>
 
+      <div class="card">
+        <div class="card-body">
           <h5>List of Coverages</h5>
           <table class="table table-small table-hover table-condensed">
             <thead>
@@ -222,6 +227,7 @@
           </table>
         </div>
       </div>
+
       <div class="card mb-3" *ngFor="let insured of this.affinity.paDetails.familyMembers">
         <div class="card-body">
           <div class="form-group row bottom-break">
@@ -318,7 +324,7 @@
                 <h6>{{this.affinity.premiumBreakdown.fireTax}}</h6>
               </td>
             </tr> -->
-            <tr *ngIf="this.affinity.lineId != '337'">
+            <tr *ngIf="lineId != type.accident">
               <td>
                 <h6 class="mt-2 mb-2">Value Added Tax</h6>
               </td>
@@ -326,7 +332,7 @@
                 <h6>{{this.affinity.premiumBreakdown.eVat}}</h6>
               </td>
             </tr>
-            <tr *ngIf="this.affinity.lineId == '337'">
+            <tr *ngIf="lineId == type.accident">
               <td>
                 <h6 class="mt-2 mb-2">Premium Tax</h6>
               </td>
@@ -334,7 +340,7 @@
                 <h6>{{this.affinity.premiumBreakdown.premiumTax}}</h6>
               </td>
             </tr>
-            <tr *ngIf="this.affinity.lineId == '337'">
+            <tr *ngIf="lineId == type.accident">
               <td>
                 <h6 class="mt-2 mb-2">Others</h6>
               </td>

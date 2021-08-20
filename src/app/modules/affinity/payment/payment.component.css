@@ -11,5 +11,9 @@
 img.payment-img {
   border: 1px solid #dfdfdf;
   border-radius: 5px;
-  margin: 15px 0;
+  margin-bottom:  15px;
+}
+
+.no-margin-top {
+  margin-top: 0px !important;
 }
