@@ -209,7 +209,7 @@ export class IssuanceComponent implements OnInit {
       });
   }
 
-  retrievePolicyNavigate(result, action) {
+  retrievePolicyNavigate(result: any, action: string) {
     if (this.affinity.premiumBreakdown) {
       this.templateRouter = action;
       if (result.p2000030.mcaProvisional == "S") {
@@ -217,17 +217,13 @@ export class IssuanceComponent implements OnInit {
         this.affinity = this.common.identifyTechControl(this.affinity);
 
         this.templateRouter = "techControl";
-      // } else if (result.a2990700_mph.mcaCollectMivo == null) {
-      //   this.affinity.paymentReferenceNumber = result.a2990700_mph.numPaymentReference;
-      //   this.templateRouter = "payment";
+      } else if (result.a2990700_mph.mcaCollectMivo == null) {
+        this.affinity.paymentReferenceNumber = result.a2990700_mph.numPaymentReference;
+        this.templateRouter = "payment";
       }
 
       this.line = "motorQuotationIssuance";
       this.spinner.hide();
-
-      // if (this.templateRouter == "policy") {
-      //   this.router.navigateByUrl("/payment-result/" + this.affinity.policyNumber + "/" + result.a2990700_mph.numPaymentReference);
-      // }
     }
   }
 
