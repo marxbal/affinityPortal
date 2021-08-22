@@ -65,7 +65,7 @@ export class PaymentResultComponent implements OnInit {
   title: string = "";
   address: string = "";
   interestInsured: string = "";
-  type: Object = {
+  type = {
     car: CAR,
     accident: ACCIDENT
   }

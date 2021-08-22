@@ -50,7 +50,7 @@ export class PaymentComponent implements OnInit {
   province: string = "";
 
   lineId: number = 1;
-  type: Object = {
+  type = {
     car: CAR,
     accident: ACCIDENT
   }

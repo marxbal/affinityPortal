@@ -86,7 +86,7 @@ export class QuotationComponent implements OnInit {
   coverageList = [];
 
   lineId: number = 1;
-  type: Object = {
+  type = {
     car: CAR,
     accident: ACCIDENT
   }

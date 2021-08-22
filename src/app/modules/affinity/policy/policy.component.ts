@@ -33,7 +33,7 @@ export class PolicyComponent implements OnInit {
 
   emailSend: string = "";
   lineId: number = 1;
-  type: Object = {
+  type = {
     car: CAR,
     accident: ACCIDENT
   }
