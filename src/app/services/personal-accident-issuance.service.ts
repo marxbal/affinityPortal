@@ -300,7 +300,7 @@ export class PersonalAccidentIssuanceService {
     this.caller.getLOV(
       "G2990006",
       "13",
-      "COD_RAMO~" + this.paAff.lineId + "|COD_CAMPO~TXT_OCCUPATION|FEC_VALIDEZ~01012020|DVCOD_OCCUPATIONAL_CLASS~" + occClass + "|COD_IDIOMA~EN").subscribe(
+      "COD_RAMO~" + this.paAff.lineId + "|COD_CAMPO~TXT_OCCUPATION|FEC_VALIDEZ~01012016|DVCOD_OCCUPATIONAL_CLASS~" + occClass + "|COD_IDIOMA~EN").subscribe(
       result => {
         this.paAff.lov.occupationLOV = result;
       });

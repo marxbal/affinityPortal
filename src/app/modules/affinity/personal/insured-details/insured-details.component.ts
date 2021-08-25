@@ -73,7 +73,7 @@ export class InsuredDetailsComponent implements OnInit {
     this.caller.getLOV(
       "G2990006",
       "1",
-      "COD_RAMO~" + this.lineId + "|COD_CAMPO~COD_OCCUPATIONAL_CLASS|FEC_VALIDEZ~01012020|COD_MODALIDAD~99999|COD_CIA~1").subscribe(
+      "COD_RAMO~" + this.lineId + "|COD_CAMPO~COD_OCCUPATIONAL_CLASS|FEC_VALIDEZ~01012016|COD_MODALIDAD~99999|COD_CIA~1").subscribe(
       result => {
         this.insuredAffinity.lov.occupationalClassLOV = result;
         this.insuredAffinity.lov.occupationalClassLOV.splice(this.insuredAffinity.lov.occupationalClassLOV.length - 1, 1);
@@ -165,7 +165,7 @@ export class InsuredDetailsComponent implements OnInit {
     this.caller.getLOV(
       "G2990006",
       "13",
-      "COD_CIA~1|COD_RAMO~" + this.lineId + "|COD_CAMPO~TXT_OCCUPATION|FEC_VALIDEZ~01012020|DVCOD_OCCUPATIONAL_CLASS~" + this.insuredAffinity.riskDetails.occupationalClass.split(':=:')[0] + "|COD_IDIOMA~EN").subscribe(
+      "COD_CIA~1|COD_RAMO~" + this.lineId + "|COD_CAMPO~TXT_OCCUPATION|FEC_VALIDEZ~01012016|DVCOD_OCCUPATIONAL_CLASS~" + this.insuredAffinity.riskDetails.occupationalClass.split(':=:')[0] + "|COD_IDIOMA~EN").subscribe(
       result => {
         this.insuredAffinity.lov.occupationLOV = result;
         this.insuredAffinity.riskDetails.occupation = "";
