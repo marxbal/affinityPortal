@@ -27,6 +27,9 @@ export class FooterComponent implements OnInit {
     const partner = this.auth.getPartner() as Partner;
     if (!_.isEmpty(partner)) {
       this.partnerName = _.toLower(partner.partnerName);
+      if (this.partnerName == 'sitel') {
+        this.partnerName = 'marsh';
+      }
     }
   }
 
