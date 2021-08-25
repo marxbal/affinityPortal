@@ -176,7 +176,7 @@
         <br />
         </div> -->
 
-    <div *ngIf="this.affinity.productId == '33701' || this.affinity.productId == '33702'">
+    <div *ngIf="lineId == type.accident">
       <div class="card mb-3">
         <div class="card-body">
           <div class="form-group row bottom-break">
@@ -302,15 +302,15 @@
             <h6>{{this.affinity.premiumBreakdown.lgt}}</h6>
           </td>
         </tr>
-        <tr *ngIf="this.affinity.lineId == '251'">
+        <!-- <tr *ngIf="this.affinity.lineId == '251'">
           <td>
             <h6 class="mt-2 mb-2">Fire Service Tax</h6>
           </td>
           <td class="text-right">
             <h6>{{this.affinity.premiumBreakdown.fireTax}}</h6>
           </td>
-        </tr>
-        <tr *ngIf="this.affinity.lineId != '337'">
+        </tr> -->
+        <tr *ngIf="lineId != type.accident">
           <td>
             <h6 class="mt-2 mb-2">Value Added Tax</h6>
           </td>
@@ -318,7 +318,7 @@
             <h6>{{this.affinity.premiumBreakdown.eVat}}</h6>
           </td>
         </tr>
-        <tr *ngIf="this.affinity.lineId == '337'">
+        <tr *ngIf="lineId == type.accident">
           <td>
             <h6 class="mt-2 mb-2">Premium Tax</h6>
           </td>
@@ -326,7 +326,7 @@
             <h6>{{this.affinity.premiumBreakdown.premiumTax}}</h6>
           </td>
         </tr>
-        <tr *ngIf="this.affinity.lineId == '337'">
+        <tr *ngIf="lineId == type.accident">
           <td>
             <h6 class="mt-2 mb-2">Others</h6>
           </td>

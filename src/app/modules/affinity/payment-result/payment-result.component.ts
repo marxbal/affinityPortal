@@ -160,10 +160,10 @@ export class PaymentResultComponent implements OnInit {
       case "10002":
         title = "CTPL CAR POLICY";
         break;
-      case "33701":
+      case "32301":
         title = "INDIVIDUAL PERSONAL ACCIDENT POLICY";
         break;
-      case "33702":
+      case "32401":
         title = "PERSONAL FAMILY ACCIDENT POLICY";
         break;
     }

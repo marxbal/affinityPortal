@@ -1,4 +1,3 @@
-import {MotorAccessories} from './motor-accessories';
 import {Risk} from './risk';
 
 export class Pa {

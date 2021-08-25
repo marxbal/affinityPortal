@@ -60,6 +60,10 @@ import {
   IsRequired
 } from '../../../guard/is-required';
 import * as _ from 'lodash';
+import {
+  ACCIDENT,
+  CAR
+} from 'src/app/objects/line';
 
 @Component({
   selector: 'app-risk-accident',
@@ -89,6 +93,7 @@ export class RiskAccidentComponent implements OnInit {
   addAddress: String = "";
   addAlternativeShow: String = "";
   addressTypeLov: any[] = [];
+  line: number = 1;
 
   p2000030: P2000030 = new P2000030();
   p2000020: P2000020[] = [];
@@ -102,12 +107,19 @@ export class RiskAccidentComponent implements OnInit {
   p1001331: P1001331 = new P1001331();
   p1001331List: P1001331[] = [];
 
+  type = {
+    car: CAR,
+    accident: ACCIDENT
+  }
+
   formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'PHP',
   });
 
   ngOnInit() {
+    this.line = this.common.getLinebySubline(this.affinity.lineId);
+
     this.caller.getOptionList('EN', 'TIP_ETIQUETA', '999').subscribe(
       result => {
         result.splice(2, 1);
@@ -146,7 +158,10 @@ export class RiskAccidentComponent implements OnInit {
         this.spinner.hide();
       });
 
-    this.caller.getLOV("G2990006", "1", "COD_CIA~1|COD_RAMO~337|COD_MODALIDAD~99999|COD_CAMPO~COD_OCCUPATIONAL_CLASS|FEC_VALIDEZ~01012020").subscribe(
+    this.caller.getLOV(
+      "G2990006",
+      "1",
+      "COD_CIA~1|COD_RAMO~" + this.affinity.lineId + "|COD_MODALIDAD~99999|COD_CAMPO~COD_OCCUPATIONAL_CLASS|FEC_VALIDEZ~01012020").subscribe(
       result => {
         this.affinity.lov.occupationalClassLOV = result;
         this.affinity.lov.occupationalClassLOV.splice(this.affinity.lov.occupationalClassLOV.length - 1, 1);
@@ -205,7 +220,10 @@ export class RiskAccidentComponent implements OnInit {
   }
 
   chooseOccupationalClass() {
-    this.caller.getLOV("G2990006", "13", "COD_CIA~1|COD_RAMO~337|COD_CAMPO~TXT_OCCUPATION|FEC_VALIDEZ~01012020|DVCOD_OCCUPATIONAL_CLASS~" + this.affinity.riskDetails.occupationalClass.split(':=:')[0] + "|COD_IDIOMA~EN").subscribe(
+    this.caller.getLOV
+    ("G2990006",
+    "13",
+    "COD_CIA~1|COD_RAMO~" + this.affinity.lineId + "|COD_CAMPO~TXT_OCCUPATION|FEC_VALIDEZ~01012020|DVCOD_OCCUPATIONAL_CLASS~" + this.affinity.riskDetails.occupationalClass.split(':=:')[0] + "|COD_IDIOMA~EN").subscribe(
       result => {
         this.affinity.lov.occupationLOV = result;
       });
@@ -213,8 +231,8 @@ export class RiskAccidentComponent implements OnInit {
 
   chooseBirthday() {
     let ret = true;
-
-    if (this.affinity.lineId == "337") {
+    const line = this.common.getLinebySubline(this.affinity.lineId);
+    if (line == ACCIDENT) {
       let currentYearDiff = (m(new Date(this.affinity.motorDetails.policyPeriodFrom)).diff(new Date(this.affinity.riskDetails.birthDate), 'months', true)) / 12;
 
       if (currentYearDiff < 18 || currentYearDiff > 70) {

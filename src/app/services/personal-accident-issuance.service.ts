@@ -27,7 +27,8 @@ import * as _ from 'lodash';
 })
 export class PersonalAccidentIssuanceService {
 
-  constructor(private caller: AuthService,
+  constructor(
+    private caller: AuthService,
     private commonService: CommonService) {}
 
   paAff: Affinity = new Affinity();
@@ -79,22 +80,6 @@ export class PersonalAccidentIssuanceService {
         this.paAff.coveragesValue = _.orderBy(this.paAff.coveragesValue, 'numSecu', 'asc');
 
       });
-
-    // this.caller.doCallService("/afnty/coverage/getCoverageDescriptions", "personalAccident").subscribe(
-    //   coverages => {
-    //     this.coverageList = [];
-    //     let coverageHolder = coverages;
-    //     for (let c in coverageHolder) {
-    //       for (let d in coverageHolder[c]) {
-    //         this.coverage.benefit = coverageHolder[c][d].split(":=:")[1];
-    //         this.coverage.coverages.push(coverageHolder[c][d].split(":=:")[2]);
-    //       }
-    //       this.coverageList.push(this.coverage);
-    //       this.coverage = new Coverages();
-    //     }
-
-    //     this.paAff.coverages = this.coverageList;
-    //   });
 
     this.commonService.viewCoverage(this.paAff.productId).subscribe(
       (result: any) => {
@@ -312,7 +297,10 @@ export class PersonalAccidentIssuanceService {
   }
 
   chooseOccupationalClass(occClass) {
-    this.caller.getLOV("G2990006", "13", "COD_RAMO~337|COD_CAMPO~TXT_OCCUPATION|FEC_VALIDEZ~01012020|DVCOD_OCCUPATIONAL_CLASS~" + occClass + "|COD_IDIOMA~EN").subscribe(
+    this.caller.getLOV(
+      "G2990006",
+      "13",
+      "COD_RAMO~" + this.paAff.lineId + "|COD_CAMPO~TXT_OCCUPATION|FEC_VALIDEZ~01012020|DVCOD_OCCUPATIONAL_CLASS~" + occClass + "|COD_IDIOMA~EN").subscribe(
       result => {
         this.paAff.lov.occupationLOV = result;
       });

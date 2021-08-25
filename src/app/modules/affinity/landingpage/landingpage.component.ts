@@ -224,18 +224,18 @@ export class LandingpageComponent implements OnInit {
 
     const p3 = new ProductList;
     p3.description = 'personalAccident';
-    p3.productId = "33701";
+    p3.productId = "32301";
     p3.name = 'Individual Personal';
-    const hasIndividual = _.indexOf(this.availableProducts, "33701") != -1;
+    const hasIndividual = _.indexOf(this.availableProducts, "32301") != -1;
     if (hasIndividual) {
       l2.products.push(p3);
     }
 
     const p4 = new ProductList;
     p4.description = 'personalFamilyAccident';
-    p4.productId = "33702";
+    p4.productId = "32401";
     p4.name = 'Personal Family';
-    const hasFamily = _.indexOf(this.availableProducts, "33702") != -1;
+    const hasFamily = _.indexOf(this.availableProducts, "32401") != -1;
     if (hasFamily) {
       l2.products.push(p4);
     }

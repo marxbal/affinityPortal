@@ -12,6 +12,13 @@ import Swal from 'sweetalert2';
 import {
   AuthService
 } from '../../../services/auth.service';
+import {
+  ACCIDENT,
+  CAR
+} from 'src/app/objects/line';
+import {
+  CommonService
+} from 'src/app/services/common.service';
 
 @Component({
   selector: 'app-technical-control',
@@ -20,7 +27,9 @@ import {
 })
 export class TechnicalControlComponent implements OnInit {
 
-  constructor(private caller: AuthService) {}
+  constructor(
+    private caller: AuthService,
+    private common: CommonService) {}
 
   @Input() affinity: Affinity;
   @Input() line: String;
@@ -29,6 +38,12 @@ export class TechnicalControlComponent implements OnInit {
   title: String;
   buyNowStep: String;
   technicalControl: String[] = [];
+  lineId: number = 1;
+
+  type = {
+    car: CAR,
+    accident: ACCIDENT
+  }
 
   formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -36,6 +51,8 @@ export class TechnicalControlComponent implements OnInit {
   });
 
   ngOnInit() {
+    this.lineId = this.common.getLinebySubline(this.affinity.lineId);
+
     this.affinity.premiumBreakdown.grossPrem = this.formatter.format(parseFloat(this.affinity.premiumBreakdown.grossPrem));
     this.affinity.premiumBreakdown.netPrem = this.formatter.format(parseFloat(this.affinity.premiumBreakdown.netPrem));
     this.affinity.premiumBreakdown.docStamp = this.formatter.format(parseFloat(this.affinity.premiumBreakdown.docStamp));
@@ -54,7 +71,6 @@ export class TechnicalControlComponent implements OnInit {
       this.title = "Personal Accident";
       this.buyNowStep = "riskInformation";
     }
-
 
     for (let i = 1; i < this.affinity.techControl.length; i++) {
       if (this.affinity.techControl[i].split("@")[1] != "1") {

@@ -85,10 +85,10 @@ import {
 export class CommonService {
 
   motorSubline = ["100", "105", "120"];
-  accidentSubline = ["323", "324", "337"];
+  accidentSubline = ["323", "324"];
 
   motorProducts = ["10001", "10002"];
-  accidentProducts = ["33701", "33702"];
+  accidentProducts = ["32301", "32401"];
 
   constructor(
     private caller: AuthService,
@@ -354,7 +354,8 @@ export class CommonService {
   assignP2000025(affinity: Affinity) {
     let p2025: P2000025[] = [];
 
-    if (affinity.lineId == "337") {
+    const line = this.getLinebySubline(affinity.lineId);
+    if (line == ACCIDENT) {
       let gender = "MALE";
 
       if (affinity.riskDetails.gender == "2") {
@@ -601,7 +602,8 @@ export class CommonService {
       }
     }
 
-    if (affinity.lineId == "337") {
+    const line = this.getLinebySubline(affinity.lineId);
+    if (line == ACCIDENT) {
       vars = [
         // [1001,100000], //COMP. THIRD PAR. LIAB.
         [341, 1000000], //Accidental Death Benefit
@@ -939,7 +941,8 @@ export class CommonService {
       vars.push(tep2);
     }
 
-    if (affinity.lineId == "337") {
+    const line = this.getLinebySubline(affinity.lineId);
+    if (line == ACCIDENT) {
       vars = [
         ['COD_MODALIDAD', affinity.productId],
         ['NUM_INSURED', '1']
@@ -1204,7 +1207,8 @@ export class CommonService {
     p2030.numSecuGrupo = null;
     p2030.fecValidez = affinity.motorDetails.validityDate;
 
-    if (affinity.lineId == "337") {
+    const line = this.getLinebySubline(affinity.lineId);
+    if (line == ACCIDENT) {
       p2030.codSector = 3;
       // p2030.numSubcontrato = 10000;
       p2030.fecValidez = '01012020';
@@ -1247,11 +1251,11 @@ export class CommonService {
       case "10002":
         productName = "CTPL 10002";
         break;
-      case "33701":
-        productName = "INDIVIDUAL PERSONAL 33701";
+      case "32301":
+        productName = "INDIVIDUAL PERSONAL 32301";
         break;
-      case "33702":
-        productName = "PERSONAL FAMILY 33702";
+      case "32401":
+        productName = "PERSONAL FAMILY 32401";
         break;
     }
 
@@ -1268,10 +1272,10 @@ export class CommonService {
       case "10002":
         itemName = "CTPL: " + this.buildItemName(affinity);
         break;
-      case "33701":
+      case "32301":
         itemName = "INDIVIDUAL PERSONAL: " + affinity.riskDetails.fullName;
         break;
-      case "33702":
+      case "32401":
         itemName = "PERSONAL FAMILY: " + affinity.riskDetails.fullName;
         break;
     }

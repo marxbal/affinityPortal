@@ -57,6 +57,10 @@ import {
   NgxSpinnerService
 } from 'ngx-spinner';
 import * as _ from 'lodash';
+import {
+  ACCIDENT,
+  CAR
+} from 'src/app/objects/line';
 
 @Component({
   selector: 'app-personal',
@@ -95,6 +99,7 @@ export class PersonalComponent implements OnInit {
   coverageList: Coverages[] = [];
   coverage: Coverages = new Coverages();
   title: String = "";
+  line: number = 1;
 
   addFamily: string = "";
   loadType: string = "";
@@ -106,13 +111,19 @@ export class PersonalComponent implements OnInit {
     currency: 'PHP',
   });
 
+  type = {
+    car: CAR,
+    accident: ACCIDENT
+  }
+
   ngOnInit() {
     console.log(this.affinity);
     this.selectProduct(this.product, this.description);
 
     this.affinity.motorDetails.reCompute = "0";
 
-    if (this.affinity.lineId !== '337') {
+    this.line = this.common.getLinebySubline(this.affinity.lineId);
+    if (this.line != ACCIDENT) {
       this.showAll = "1";
     }
 
@@ -156,19 +167,24 @@ export class PersonalComponent implements OnInit {
     $("#compreCard").removeClass("card-shadow");
     $("#ctplCard").removeClass("card-shadow");
 
-    if (this.affinity.productId == "33701") {
+    if (this.affinity.productId == "32301") {
       $("#compreCard").addClass("card-shadow");
     } else {
       $("#ctplCard").addClass("card-shadow");
     }
 
-    if (this.affinity.lineId == "337" || this.affinity.lineId == "251") {
+    this.line = this.common.getLinebySubline(this.affinity.lineId);
+    // if (this.affinity.lineId == "337" || this.affinity.lineId == "251") {
+    if (this.line == ACCIDENT) {
       this.affinity.motorDetails.isCorporate = "1";
       this.affinity.riskDetails.civilStatus = "";
       this.affinity.motorDetails.policyPeriodFrom = m().format('YYYY-MM-DD');
       this.affinity.motorDetails.policyPeriodTo = m(this.affinity.motorDetails.policyPeriodFrom).add(1, 'year').format('YYYY-MM-DD');
 
-      this.caller.getLOV("G2990006", "1", "COD_RAMO~337|COD_CAMPO~COD_OCCUPATIONAL_CLASS|FEC_VALIDEZ~01012020|COD_MODALIDAD~99999|COD_CIA~1").subscribe(
+      this.caller.getLOV(
+        "G2990006",
+        "1",
+        "COD_RAMO~" + this.affinity.lineId + "|COD_CAMPO~COD_OCCUPATIONAL_CLASS|FEC_VALIDEZ~01012020|COD_MODALIDAD~99999|COD_CIA~1").subscribe(
         result => {
           this.affinity.lov.occupationalClassLOV = result;
           this.affinity.lov.occupationalClassLOV.splice(this.affinity.lov.occupationalClassLOV.length - 1, 1);
@@ -220,7 +236,8 @@ export class PersonalComponent implements OnInit {
   chooseBirthday() {
     let ret = true;
 
-    if (this.affinity.lineId == "337") {
+    const line = this.common.getLinebySubline(this.affinity.lineId);
+    if (line == ACCIDENT) {
       let currentYearDiff = (m(new Date(this.affinity.motorDetails.policyPeriodFrom)).diff(new Date(this.affinity.riskDetails.birthDate), 'months', true)) / 12;
       if (currentYearDiff < 18 || currentYearDiff > 70) {
         Swal.fire({
@@ -237,7 +254,10 @@ export class PersonalComponent implements OnInit {
   }
 
   chooseOccupationalClass() {
-    this.caller.getLOV("G2990006", "13", "COD_CIA~1|COD_RAMO~337|COD_CAMPO~TXT_OCCUPATION|FEC_VALIDEZ~01012020|DVCOD_OCCUPATIONAL_CLASS~" + this.affinity.riskDetails.occupationalClass.split(':=:')[0] + "|COD_IDIOMA~EN").subscribe(
+    this.caller.getLOV(
+      "G2990006",
+      "13",
+      "COD_CIA~1|COD_RAMO~" + this.affinity.lineId + "|COD_CAMPO~TXT_OCCUPATION|FEC_VALIDEZ~01012020|DVCOD_OCCUPATIONAL_CLASS~" + this.affinity.riskDetails.occupationalClass.split(':=:')[0] + "|COD_IDIOMA~EN").subscribe(
       result => {
         this.affinity.lov.occupationLOV = result;
 
@@ -271,10 +291,10 @@ export class PersonalComponent implements OnInit {
       case "10002":
         this.submitMotorQuote(nextStep);
         break;
-      case "33701":
+      case "32301":
         this.submitPAQuote(nextStep);
         break;
-      case "33702":
+      case "32401":
         this.submitPAQuote(nextStep);
         break;
       default:
@@ -457,7 +477,7 @@ export class PersonalComponent implements OnInit {
     }
 
     if (this.affinity.riskDetails.civilStatus !== "S" && this.affinity.paDetails.familyMembers.length > 0) {
-      this.affinity.productId = "33702";
+      this.affinity.productId = "32401";
     }
 
     if (!this.affinity.riskDetails.validIDValue) {
@@ -803,7 +823,8 @@ export class PersonalComponent implements OnInit {
           }
         }
 
-        if (affinity.lineId == '337') {
+        const line = this.common.getLinebySubline(affinity.lineId);
+        if (line == ACCIDENT) {
           for (let i = 0; i < result.length; i++) {
             if (result[i].numRiesgo == "1") {
               // result[i].sumaAseg = this.formatter.format(parseFloat(result[i].sumaAseg));

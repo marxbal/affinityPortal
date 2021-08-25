@@ -39,6 +39,7 @@ export class InsuredDetailsComponent implements OnInit {
   @Input() existing: Risk[];
   @Input() effectivity: string;
   @Input() civilStatus: string;
+  @Input() lineId: any;
   @Output() newInsured = new EventEmitter();
 
   insuredAffinity: Affinity = new Affinity();
@@ -69,13 +70,19 @@ export class InsuredDetailsComponent implements OnInit {
         this.insuredAffinity.lov.civilStatusLOV = result;
       });
 
-    this.caller.getLOV("G2990006", "1", "COD_RAMO~337|COD_CAMPO~COD_OCCUPATIONAL_CLASS|FEC_VALIDEZ~01012020|COD_MODALIDAD~99999|COD_CIA~1").subscribe(
+    this.caller.getLOV(
+      "G2990006",
+      "1",
+      "COD_RAMO~" + this.lineId + "|COD_CAMPO~COD_OCCUPATIONAL_CLASS|FEC_VALIDEZ~01012020|COD_MODALIDAD~99999|COD_CIA~1").subscribe(
       result => {
         this.insuredAffinity.lov.occupationalClassLOV = result;
         this.insuredAffinity.lov.occupationalClassLOV.splice(this.insuredAffinity.lov.occupationalClassLOV.length - 1, 1);
       });
 
-    this.caller.getLOV("G1010031", "82", "COD_RAMO~337|COD_IDIOMA~EN|COD_CAMPO~RELATIONSHIP").subscribe(
+    this.caller.getLOV(
+      "G1010031",
+      "82",
+      "COD_RAMO~" + this.lineId + "|COD_IDIOMA~EN|COD_CAMPO~RELATIONSHIP").subscribe(
       result => {
         let haveSpouse = "0";
         let childCount = 0;
@@ -155,7 +162,10 @@ export class InsuredDetailsComponent implements OnInit {
     if (!this.insuredAffinity.riskDetails.occupationalClass) {
       return null;
     }
-    this.caller.getLOV("G2990006", "13", "COD_CIA~1|COD_RAMO~337|COD_CAMPO~TXT_OCCUPATION|FEC_VALIDEZ~01012020|DVCOD_OCCUPATIONAL_CLASS~" + this.insuredAffinity.riskDetails.occupationalClass.split(':=:')[0] + "|COD_IDIOMA~EN").subscribe(
+    this.caller.getLOV(
+      "G2990006",
+      "13",
+      "COD_CIA~1|COD_RAMO~" + this.lineId + "|COD_CAMPO~TXT_OCCUPATION|FEC_VALIDEZ~01012020|DVCOD_OCCUPATIONAL_CLASS~" + this.insuredAffinity.riskDetails.occupationalClass.split(':=:')[0] + "|COD_IDIOMA~EN").subscribe(
       result => {
         this.insuredAffinity.lov.occupationLOV = result;
         this.insuredAffinity.riskDetails.occupation = "";

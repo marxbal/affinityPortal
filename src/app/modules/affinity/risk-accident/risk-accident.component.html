@@ -92,7 +92,7 @@
   </div>
   <br />
   <div class="row" style="display: none;">
-    <div class="col-md-8" *ngIf="this.affinity.lineId == '337'">
+    <div class="col-md-8" *ngIf="line == type.accident">
       <div class="form-group row">
         <div class="col-md-12">
           <div class="form-check">
@@ -416,8 +416,8 @@
     </div>
   </div>
 </div>
-<h5 *ngIf="this.affinity.lineId == '337'">Policy Period</h5>
-<div class="row" *ngIf="this.affinity.lineId == '337'">
+<h5 *ngIf="line == type.accident">Policy Period</h5>
+<div class="row" *ngIf="line == type.accident">
   <div class="col-md-4">
     <div class="form-group row">
       <div class="col-md-12">
@@ -516,7 +516,8 @@
         <app-insured-details *ngIf="this.addFamily == 'add'" [loadType]="this.loadType"
           [editInsured]="this.familyMember" [existing]="this.affinity.paDetails.familyMembers"
           [effectivity]="this.affinity.motorDetails.policyPeriodFrom"
-          [civilStatus]="this.affinity.riskDetails.civilStatus" (newInsured)="addFamilyMember($event)">
+          [civilStatus]="this.affinity.riskDetails.civilStatus" (newInsured)="addFamilyMember($event)"
+          [lineId]="this.affinity.lineId">
         </app-insured-details>
 
       </div>

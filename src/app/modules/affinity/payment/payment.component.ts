@@ -122,11 +122,11 @@ export class PaymentComponent implements OnInit {
       case "10002":
         productName = "CTPL 10002";
         break;
-      case "33701":
-        productName = "INDIVIDUAL PERSONAL 33701";
+      case "32301":
+        productName = "INDIVIDUAL PERSONAL 32301";
         break;
-      case "33702":
-        productName = "PERSONAL FAMILY 33702";
+      case "32401":
+        productName = "PERSONAL FAMILY 32401";
         break;
     }
 
@@ -143,10 +143,10 @@ export class PaymentComponent implements OnInit {
       case "10002":
         itemName = "CTPL: " + this.buildItemName();
         break;
-      case "33701":
+      case "32301":
         itemName = "INDIVIDUAL PERSONAL: " + this.affinity.riskDetails.fullName;
         break;
-      case "33702":
+      case "32401":
         itemName = "PERSONAL FAMILY: " + this.affinity.riskDetails.fullName;
         break;
     }

@@ -66,15 +66,15 @@ export class ProductComponent implements OnInit {
     },
     {
       name: 'Individual Personal',
-      id: 33701,
+      id: 32301,
       line: 3,
-      subline: 337
+      subline: 323
     },
     {
       name: 'Personal Family',
-      id: 33702,
+      id: 32401,
       line: 3,
-      subline: 337
+      subline: 324
     },
   ];
 

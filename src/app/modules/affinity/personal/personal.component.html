@@ -61,7 +61,7 @@
       <small><i>(<span class="text-mapfre">*</span>) - required fields</i></small>
     </div>
   </div>
-  <div class="row mt-3" *ngIf="this.affinity.lineId != '337'">
+  <div class="row mt-3" *ngIf="line != type.accident">
     <div class="col-md-4" *ngIf="this.affinity.motorDetails.productId">
       <div class="form-group row">
         <div class="col-md-12">
@@ -178,7 +178,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-4" *ngIf="this.affinity.lineId == '337'">
+      <div class="col-md-4" *ngIf="line == type.accident">
         <div class="form-group row">
           <div class="col-md-12">
             <label for="religion" class="affinity-label">RELIGION</label>
@@ -189,7 +189,7 @@
       </div>
     </div>
     <div class="row" class="row" style="display: none;">
-      <div class="col-md-8" *ngIf="this.affinity.lineId == '337'">
+      <div class="col-md-8" *ngIf="line == type.accident">
         <div class="form-group row">
           <div class="col-md-12">
             <div class="form-check">
@@ -232,7 +232,7 @@
         <div class="form-group row">
           <div class="col-md-12">
             <label for="validID" class="affinity-label">GOVERNMENT ID <span
-                *ngIf="this.affinity.lineId != '337' && this.affinity.lineId != '251'"
+                *ngIf="line != type.accident && this.affinity.lineId != '251'"
                 class="text-mapfre text-heavy">*</span></label>
             <select class="form-control required motor-personal" name="Government ID" id="validID"
               [(ngModel)]="this.affinity.riskDetails.validID">
@@ -248,7 +248,7 @@
         <div class="form-group row">
           <div class="col-md-12">
             <label for="validIDValue" class="affinity-label">ID NUMBER <span
-                *ngIf="this.affinity.lineId != '337' && this.affinity.lineId != '251'"
+                *ngIf="line != type.accident && this.affinity.lineId != '251'"
                 class="text-mapfre text-heavy">*</span></label>
             <input type="text" id="validIDValue" class="form-control required motor-personal to-uppercase"
               name="ID Number" placeholder="ID Number" [(ngModel)]="this.affinity.riskDetails.validIDValue">
@@ -314,7 +314,7 @@
             </div> -->
     </div>
   </div>
-  <div *ngIf="this.affinity.lineId == '337'">
+  <div *ngIf="line == type.accident">
     <h5>Employment Details</h5>
     <div class="row">
       <div class="col-md-4">
@@ -388,8 +388,8 @@
 
     </div>
   </div>
-  <h5 *ngIf="this.affinity.lineId == '337'">Policy Period</h5>
-  <div class="row" *ngIf="this.affinity.lineId == '337'">
+  <h5 *ngIf="line == type.accident">Policy Period</h5>
+  <div class="row" *ngIf="line == type.accident">
     <div class="col-md-4">
       <div class="form-group row">
         <div class="col-md-12">
@@ -439,7 +439,8 @@
         <app-insured-details *ngIf="this.addFamily == 'add'" [loadType]="this.loadType"
           [editInsured]="this.familyMember" [existing]="this.affinity.paDetails.familyMembers"
           [effectivity]="this.affinity.motorDetails.policyPeriodFrom"
-          [civilStatus]="this.affinity.riskDetails.civilStatus" (newInsured)="addFamilyMember($event)">
+          [civilStatus]="this.affinity.riskDetails.civilStatus" (newInsured)="addFamilyMember($event)"
+          [lineId]="this.affinity.lineId">
         </app-insured-details>
 
       </div>
