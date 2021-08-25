@@ -299,7 +299,7 @@ export class PersonalComponent implements OnInit {
   }
 
   nextStepAction(nextStep) {
-    this.affinity.riskDetails.firstName = this.affinity.riskDetails.firstName.toUpperCase();
+    this.affinity.riskDetails.firstName = ((this.affinity.riskDetails.firstName) ? this.affinity.riskDetails.firstName.toUpperCase() : "");
     this.affinity.riskDetails.middleName = ((this.affinity.riskDetails.middleName) ? this.affinity.riskDetails.middleName.toUpperCase() : "");
     this.affinity.riskDetails.lastName = ((this.affinity.riskDetails.lastName) ? this.affinity.riskDetails.lastName.toUpperCase() : "");
 
