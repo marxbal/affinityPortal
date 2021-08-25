@@ -295,15 +295,6 @@
           </div>
         </div>
       </div>
-      <div class="col-md-12">
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" id="consentCheck"
-            [(ngModel)]="this.affinity.riskDetails.consentCheck">
-          <label class="form-check-label" for="consentCheck">
-            I hereby give my consent to proceed with the application and that all information provided here are true and correct
-          </label>
-        </div>
-      </div>
       <!-- <div class="col-md-4" *ngIf="this.affinity.motorDetails.isCorporate == '2'">
                 <div class="form-group row">
                     <div class="col-md-12">
@@ -428,6 +419,21 @@
       </div>
     </div>
   </div>
+
+  <br />
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="" id="consentCheck"
+          [(ngModel)]="this.affinity.riskDetails.consentCheck">
+        <label class="form-check-label" for="consentCheck">
+          I hereby give my consent to proceed with the application and that all information provided here are true and correct
+        </label>
+      </div>
+    </div>
+  </div>
+
   <br />
   <br />
 </div>
