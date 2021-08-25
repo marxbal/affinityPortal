@@ -43,12 +43,14 @@ export class AuthGuardClient implements CanActivate {
             giveAccess = userDetails.roleId === 2;
           }
 
-          // if (!giveAccess) {
-          //   setTimeout(() => {
-          //     const landingPage  =this.authService.getLandingPage();
-          //     this.router.navigate([landingPage]);
-          //   }, 500);
-          // }
+          if (!giveAccess) {
+            // setTimeout(() => {
+            //   const landingPage  =this.authService.getLandingPage();
+            //   this.router.navigate([landingPage]);
+            // }, 500);
+            const landingPage  =this.authService.getLandingPage();
+            this.router.navigate([landingPage]);
+          }
           return giveAccess;
         }
       }

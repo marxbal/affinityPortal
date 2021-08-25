@@ -43,12 +43,14 @@ export class AuthGuardAdmin implements CanActivate {
               giveAccess = userDetails.roleId === 1;
             }
   
-            // if (!giveAccess) {
-            //   setTimeout(() => {
-            //     const landingPage  =this.authService.getLandingPage();
-            //     this.router.navigate([landingPage]);
-            //   }, 500);
-            // }
+            if (!giveAccess) {
+              // setTimeout(() => {
+              //   const landingPage  =this.authService.getLandingPage();
+              //   this.router.navigate([landingPage]);
+              // }, 500);
+              const landingPage  =this.authService.getLandingPage();
+              this.router.navigate([landingPage]);
+            }
             return giveAccess;
           }
         }
