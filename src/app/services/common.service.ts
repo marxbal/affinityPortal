@@ -1372,6 +1372,7 @@ export class CommonService {
   }
 
   emailPolicy(emailSend: string, policyNumber: string, type: string) {
+    this.spinner.show();
     let emailTemp = emailSend.split(";");
     let emailFinal = "";
 
@@ -1408,6 +1409,7 @@ export class CommonService {
         this.caller.doCallService("/afnty/sendEmail?email=" + emailFinal.slice(0, -1) + "&numPoliza=" +
           policyNumber + "&subject=" + subject + "&type=" + type, null).subscribe(
           resulta => {
+            this.spinner.hide();
             if (resulta.status == 1) {
               Swal.fire({
                 type: 'success',

@@ -60,7 +60,10 @@ export class LandingpageComponent implements OnInit {
   products: ProductLine[] = [];
   availableProducts = [];
 
+  showPolicies = false;
   previousPolicies = [];
+
+  showQuotations = false;
   previousQuotations = [];
 
   coverageList: Coverages[] = [];
@@ -102,6 +105,7 @@ export class LandingpageComponent implements OnInit {
   }
 
   viewPreviousQuotation() {
+    this.showQuotations = !this.showQuotations;
     this.previousQuotations = [];
     if (this.affinity.previousIssuances) {
       for (let i = 0; i < this.affinity.previousIssuances.length; i++) {

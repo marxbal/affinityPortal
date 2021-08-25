@@ -57,6 +57,7 @@ export class PaymentResultComponent implements OnInit {
   coverageList: Coverages[] = [];
   coverage: Coverages = new Coverages();
   paymentStatus: boolean = false;
+  showImage: boolean = false;
   nameLabel: string = "Client Name:";
   requestId: string = "";
   policyNumber: string = "";
@@ -181,9 +182,12 @@ export class PaymentResultComponent implements OnInit {
   }
 
   getResponseCode(requestId: string) {
+    this.spinner.show();
     this.paymentService.getResponseCode(requestId).subscribe(
       (res: Return) => {
         if (!_.isEmpty(res)) {
+          this.showImage = true;
+          this.spinner.hide();
           if (res.status) {
             const code = res.obj.toString();
             this.paymentStatus = code == "GR001" || code == "GR002";

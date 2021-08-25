@@ -3,7 +3,7 @@
   <div class="container issuance-container">
     <div class="row">
 
-      <div class="col-md-8">
+      <div *ngIf="showImage" class="col-md-8">
         <img class="img-responsive d-none d-md-block" src="assets/images/payment-{{paymentStatus ? 'success' : 'failed'}}.jpg" />
       </div>
 
