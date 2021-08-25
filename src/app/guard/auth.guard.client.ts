@@ -44,12 +44,10 @@ export class AuthGuardClient implements CanActivate {
           }
 
           if (!giveAccess) {
-            // setTimeout(() => {
-            //   const landingPage  =this.authService.getLandingPage();
-            //   this.router.navigate([landingPage]);
-            // }, 500);
-            const landingPage  =this.authService.getLandingPage();
-            this.router.navigate([landingPage]);
+            setTimeout(() => {
+              const landingPage  =this.authService.getLandingPage();
+              this.router.navigate([landingPage]);
+            }, 100);
           }
           return giveAccess;
         }
