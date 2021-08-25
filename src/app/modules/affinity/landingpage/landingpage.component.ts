@@ -94,7 +94,7 @@ export class LandingpageComponent implements OnInit {
     this.viewPolicies = !this.viewPolicies;
 
     if (this.viewPolicies) {
-      this.common.scrollToElement("collapseQuotations", 100);
+      this.common.scrollToElement("quotation-wrapper", 100);
     }
 
     this.previousPolicies = [];
@@ -114,7 +114,7 @@ export class LandingpageComponent implements OnInit {
     this.viewQuotations = !this.viewQuotations;
 
     if (this.viewPolicies) {
-      this.common.scrollToElement("collapsePolicies", 100);
+      this.common.scrollToElement("policy-wrapper", 100);
     }
 
     this.previousQuotations = [];
