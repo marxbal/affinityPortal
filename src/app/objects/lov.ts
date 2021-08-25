@@ -26,5 +26,6 @@ export class LOV {
   relationshipLOV: any[] = [];
   buildingsLOV: any[] = [];
   workOfArtsLOV: any[] = [];
+  accidentCoverageLimitLOV: any[] = [];
 
 }

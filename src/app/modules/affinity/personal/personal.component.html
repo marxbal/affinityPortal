@@ -348,6 +348,21 @@
           </div>
         </div>
       </div>
+      <div class="col-md-4">
+        <div class="form-group row">
+          <div class="col-md-12">
+            <label for="occupation" class="affinity-label">COVERAGE LIMIT <span
+                class="text-mapfre text-heavy">*</span></label>
+            <select class="form-control required motor-personal pa-personal" id="coverageLimit" name="coverageLimit"
+              [(ngModel)]="this.affinity.riskDetails.accidentCoverageLimit">
+              <option selected disabled hidden></option>
+              <option value="0" disabled="disabled">Please choose Coverage Limit</option>
+              <option *ngFor="let acl of this.affinity.lov.accidentCoverageLimitLOV" value="{{acl.COD_VALOR}}">
+                {{acl.COD_VALOR}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
     </div>
     <br />
     <div *ngIf="this.affinity.riskDetails.civilStatus !== '' && this.affinity.riskDetails.civilStatus !== 'S'">

@@ -178,6 +178,7 @@ export class PersonalComponent implements OnInit {
     if (this.line == ACCIDENT) {
       this.affinity.motorDetails.isCorporate = "1";
       this.affinity.riskDetails.civilStatus = "";
+      this.affinity.riskDetails.accidentCoverageLimit = "250000";
       this.affinity.motorDetails.policyPeriodFrom = m().format('YYYY-MM-DD');
       this.affinity.motorDetails.policyPeriodTo = m(this.affinity.motorDetails.policyPeriodFrom).add(1, 'year').format('YYYY-MM-DD');
 
@@ -194,6 +195,20 @@ export class PersonalComponent implements OnInit {
             this.chooseOccupationalClass();
           }
         });
+
+      // this.caller.getLOV(
+      //   "G2990006",
+      //   "1",
+      //   "COD_RAMO~" + this.affinity.lineId + "|COD_CAMPO~COD_OCCUPATIONAL_CLASS|FEC_VALIDEZ~01012020|COD_MODALIDAD~99999|COD_CIA~1").subscribe(
+      //   result => {
+      //     this.affinity.lov.accidentCoverageLimitLOV = result;
+      //   });
+
+      this.affinity.lov.accidentCoverageLimitLOV = [
+        {COD_VALOR: 1000000},
+        {COD_VALOR: 500000},
+        {COD_VALOR: 250000},
+      ];
     }
   }
 

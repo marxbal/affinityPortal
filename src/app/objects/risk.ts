@@ -50,6 +50,7 @@ export class Risk {
   preExistingIllness: string;
   occupationalClass: string;
   occupation: string;
+  accidentCoverageLimit: string;
   healthDeclaration: boolean;
   underTaking: boolean;
   correspondentAddress: AddressDetails = new AddressDetails();

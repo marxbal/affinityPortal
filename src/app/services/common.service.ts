@@ -604,37 +604,61 @@ export class CommonService {
 
     const line = this.getLinebySubline(affinity.lineId);
     if (line == ACCIDENT) {
-      vars = [
-        // [1001,100000], //COMP. THIRD PAR. LIAB.
-        [341, 1000000], //Accidental Death Benefit
-        [345, 1000000], // strikes and riots
-        [343, 1000000], //UNNAMED PASS. P.A.
-        [344, 50000], // AoN
-        [342, 100000], //Property Damage
-        [376, 30000], // strikes and riots
-        [602, 30000], // strikes and riots
-        [603, 30000] // strikes and riots
-      ];
-    }
+      const limit = parseInt(affinity.riskDetails.accidentCoverageLimit);
 
-    if (affinity.lineId == "251") {
-      vars = [
-        [7373, affinity.propertyDetails.EVImprovements],
-        [7386, affinity.propertyDetails.EVFurnishing],
-        [7326, 0],
-        [7513, 0],
-        [7219, affinity.propertyDetails.EVImprovements],
-        [7514, 120000]
-      ];
+      let val_342 = 100000;
+      let val_344 = 50000;
+      let val_346 = 30000;
+      let val_400 = 50000;
+      let val_604 = 50000;
 
-      if (affinity.propertyDetails.workOfArtsAmount) {
-        let kogg = [7104, parseFloat(affinity.propertyDetails.workOfArtsAmount)];
-        vars.push(kogg);
-
-        let kog = [7105, parseFloat(affinity.propertyDetails.workOfArtsAmount)];
-        vars.push(kog);
+      if (limit == 500000) {
+        val_342 = 50000;
+        // val_344 = 50000;
+        val_346 = 22500;
+        val_400 = 20000;
+        val_604 = 25000;
+      } else if (limit == 250000) {
+        val_342 = 25000;
+        val_344 = 25000;
+        val_346 = 15000;
+        val_400 = 10000;
+        val_604 = 10000;
       }
+
+      vars = [
+        [340, 0],
+        [341, limit], //Accidental Death Benefit
+        [342, val_342], //Property Damage
+        [343, limit], //UNNAMED PASS. P.A.
+        [344, val_344], // AoN
+        [345, limit], // strikes and riots
+        [346, val_346],
+        [374, 5000],
+        [375, 5000],
+        [400, val_400],
+        [604, val_604]
+      ];
     }
+
+    // if (affinity.lineId == "251") {
+    //   vars = [
+    //     [7373, affinity.propertyDetails.EVImprovements],
+    //     [7386, affinity.propertyDetails.EVFurnishing],
+    //     [7326, 0],
+    //     [7513, 0],
+    //     [7219, affinity.propertyDetails.EVImprovements],
+    //     [7514, 120000]
+    //   ];
+
+    //   if (affinity.propertyDetails.workOfArtsAmount) {
+    //     let kogg = [7104, parseFloat(affinity.propertyDetails.workOfArtsAmount)];
+    //     vars.push(kogg);
+
+    //     let kog = [7105, parseFloat(affinity.propertyDetails.workOfArtsAmount)];
+    //     vars.push(kog);
+    //   }
+    // }
 
     for (let i = 0; i < vars.length; i++) {
       let p40temp = new P2000040();
