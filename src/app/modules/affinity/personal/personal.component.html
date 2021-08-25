@@ -305,6 +305,7 @@
             </div> -->
     </div>
   </div>
+  
   <div *ngIf="line == type.accident">
     <h5>Employment Details</h5>
     <div class="row">
@@ -335,21 +336,6 @@
               <option value="0" disabled="disabled">Please choose Occupation</option>
               <option *ngFor="let ol of this.affinity.lov.occupationLOV" value="{{ol.COD_VALOR}}:=:{{ol.NOM_VALOR}}">
                 {{ol.NOM_VALOR}}</option>
-            </select>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="form-group row">
-          <div class="col-md-12">
-            <label for="occupation" class="affinity-label">COVERAGE LIMIT <span
-                class="text-mapfre text-heavy">*</span></label>
-            <select class="form-control required motor-personal pa-personal" id="coverageLimit" name="coverageLimit"
-              [(ngModel)]="this.affinity.riskDetails.accidentCoverageLimit">
-              <option selected disabled hidden></option>
-              <option value="0" disabled="disabled">Please choose Coverage Limit</option>
-              <option *ngFor="let acl of this.affinity.lov.accidentCoverageLimitLOV" value="{{acl.COD_VALOR}}">
-                {{acl.NOM_VALOR}}</option>
             </select>
           </div>
         </div>
@@ -391,9 +377,9 @@
           </div>
         </div>
       </div>
-
     </div>
   </div>
+
   <h5 *ngIf="line == type.accident">Policy Period</h5>
   <div class="row" *ngIf="line == type.accident">
     <div class="col-md-4">
@@ -415,6 +401,27 @@
           <input type="date" readonly="readonly" id="policyPeriodTo"
             class="form-control required pa-personal motor-quote" name="Expiry Date"
             [(ngModel)]="this.affinity.motorDetails.policyPeriodTo">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="line == type.accident">
+    <h5>Policy Details</h5>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="form-group row">
+          <div class="col-md-12">
+            <label for="occupation" class="affinity-label">COVERAGE LIMIT <span
+                class="text-mapfre text-heavy">*</span></label>
+            <select class="form-control required motor-personal pa-personal" id="coverageLimit" name="coverageLimit"
+              [(ngModel)]="this.affinity.riskDetails.accidentCoverageLimit">
+              <option selected disabled hidden></option>
+              <option value="0" disabled="disabled">Please choose Coverage Limit</option>
+              <option *ngFor="let acl of this.affinity.lov.accidentCoverageLimitLOV" value="{{acl.COD_VALOR}}">
+                {{acl.NOM_VALOR}}</option>
+            </select>
+          </div>
         </div>
       </div>
     </div>
