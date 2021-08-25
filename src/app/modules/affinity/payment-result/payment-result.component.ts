@@ -66,6 +66,8 @@ export class PaymentResultComponent implements OnInit {
   title: string = "";
   address: string = "";
   interestInsured: string = "";
+  emailSend: string = "";
+  
   type = {
     car: CAR,
     accident: ACCIDENT
@@ -201,6 +203,14 @@ export class PaymentResultComponent implements OnInit {
         }
       }
     )
+  }
+
+  sendEmail() {
+    this.emailSend = this.affinity.riskDetails.emailAddress.toLowerCase();
+  }
+
+  submitSendEmail() {
+    this.common.emailPolicy(this.emailSend, this.affinity.policyNumber, "P");
   }
 
   printPolicy(){

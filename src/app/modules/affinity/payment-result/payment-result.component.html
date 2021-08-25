@@ -56,6 +56,10 @@
                   <b>Print my Policy</b>
                 </button>
               </div>
+              <div *ngIf="paymentStatus" class="col-md-12">
+                <button class="btn btn-mapfre btn-block mt-3 mb-3" data-toggle="modal" data-target="#emailModal"
+                  (click)="sendEmail()"><b>Email Policy</b></button>
+              </div>
               <div *ngIf="!paymentStatus" class="col-md-12">
                 <button class="btn btn-mapfre btn-block mt-3 mb-3" (click)="retryPayment()">
                   <b>Pay via Credit Card/Debit Card</b>
@@ -277,3 +281,37 @@
   </div>
 </div>
 <app-footer class="footer"></app-footer>
+
+<div class="modal fade" id="emailModal" tabindex="-1" role="dialog" aria-labelledby="emailModal" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Send Email</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group row">
+              <div class="col-md-12">
+                <label for="modelId" class="col-form-label affinity-label">Email Address <span
+                    class="text-mapfre text-heavy">*</span></label>
+                <input type="text" id="emailAddress" name="Email Address" class="form-control" placeholder="Email"
+                  [(ngModel)]="this.emailSend">
+                <small><i>Separate multiple email addresses with a semi-colon (e.g. jose@mail.com;
+                    pilar@company.com)</i></small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-mapfre" id="emailModalClose" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-mapfre" (click)="submitSendEmail()">Send Email</button>
+      </div>
+    </div>
+  </div>
+</div>

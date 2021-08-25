@@ -1305,7 +1305,7 @@ export class CommonService {
     payment.cancelUrl = baseUrl + environment.cancelUrl + payment.policyNo;
     payment.mtacUrl = baseUrl + environment.tacUrl;
     payment.responseUrl = baseUrl + environment.responseUrl + payment.policyNo;
-    payment.appNotifUrl = apiUrl + environment.appNotifUrl;
+    // payment.appNotifUrl = apiUrl + environment.appNotifUrl;
 
     this.spinner.show();
     this.paymentService.request(payment).subscribe(
