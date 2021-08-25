@@ -92,6 +92,11 @@ export class LandingpageComponent implements OnInit {
 
   viewPreviousPolicy() {
     this.viewPolicies = !this.viewPolicies;
+
+    if (this.viewPolicies) {
+      this.common.scrollToElement("collapseQuotations", 100);
+    }
+
     this.previousPolicies = [];
     if (this.affinity.previousIssuances) {
       for (let i = 0; i < this.affinity.previousIssuances.length; i++) {
@@ -107,6 +112,11 @@ export class LandingpageComponent implements OnInit {
 
   viewPreviousQuotation() {
     this.viewQuotations = !this.viewQuotations;
+
+    if (this.viewPolicies) {
+      this.common.scrollToElement("collapsePolicies", 100);
+    }
+
     this.previousQuotations = [];
     if (this.affinity.previousIssuances) {
       for (let i = 0; i < this.affinity.previousIssuances.length; i++) {
