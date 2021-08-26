@@ -198,8 +198,9 @@ export class RiskAccidentComponent implements OnInit {
       (navigator.userAgent.includes("Mac") && "ontouchend" in document)
   }
 
-  blacklist() {
-    const retVal = this.common.blacklist(this.affinity.riskDetails.nationality);
+  blacklist(evt: any) {
+    var target = evt.target;
+    const retVal = this.common.blacklist(target);
     this.affinity.riskDetails.nationality = retVal;
   }
 

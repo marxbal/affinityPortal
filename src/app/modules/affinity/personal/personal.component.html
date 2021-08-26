@@ -146,7 +146,7 @@
                 class="text-mapfre text-heavy">*</span></label>
             <select class="form-control" name="Nationality" id="nationality"
               [(ngModel)]="this.affinity.riskDetails.nationality"
-              (change)="blacklist()">
+              (change)="blacklist($event)">
               <option value="0" disabled="disabled">Please choose Nationality</option>
               <option *ngFor="let nat of this.affinity.lov.nationalityLOV" value="{{nat.COD_PAIS}}">{{nat.NOM_PAIS}}
               </option>

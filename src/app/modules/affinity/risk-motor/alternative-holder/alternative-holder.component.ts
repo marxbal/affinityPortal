@@ -96,8 +96,9 @@ export class AlternativeHolderComponent implements OnInit {
       });
   }
 
-  blacklist() {
-    const retVal = this.common.blacklist(this.affinityAlternative.riskDetails.nationality);
+  blacklist(evt: any) {
+    var target = evt.target;
+    const retVal = this.common.blacklist(target);
     this.affinityAlternative.riskDetails.nationality = retVal;
   }
 
