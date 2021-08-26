@@ -150,9 +150,11 @@ export class RiskMotorComponent implements OnInit {
       });
   }
 
-  blacklist() {
-    const retVal = this.common.blacklist(this.affinity.riskDetails.nationality);
+  blacklist(evt) {
+    var target = evt.target;
+    const retVal = this.common.blacklist(target);
     this.affinity.riskDetails.nationality = retVal;
+    target.value = retVal;
   }
 
   addAlternativeHolderModal() {
