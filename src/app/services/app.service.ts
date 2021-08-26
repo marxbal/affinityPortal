@@ -41,7 +41,7 @@ export class AppService {
         }
       })).pipe(catchError((err: any) => {
         console.log(err);
-        this.alertErr(err.message, err.statusText);
+        this.alertErr(err.message);
         this.spinner.hide();
         return throwError(err.error);
       }));
@@ -55,7 +55,7 @@ export class AppService {
           return res;
         }
       })).pipe(catchError((err: any) => {
-        this.alertErr(err.message, err.statusText);
+        this.alertErr(err.message);
         this.spinner.hide();
         return throwError(err.error);
       }));
@@ -73,11 +73,11 @@ export class AppService {
     };
   }
 
-  alertErr(err: string, statusText: string) {
+  alertErr(err: string) {
     Swal.fire({
       type: 'error',
-      title: 'Error! ' + statusText,
-      text: 'Error! Problem encountered and unable to process request at this time due to ' + err + '.'
+      title: 'Ooops! Something went wrong.',
+      text: 'Error! We are unable to process your request at the moment due to ' + err + '.'
     });
   }
 }

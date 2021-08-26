@@ -90,7 +90,7 @@ export class AuthService {
           return res;
         }
       })).pipe(catchError((err: any) => {
-        this.app.alertErr(err.message, err.statusText);
+        this.app.alertErr(err.message);
         this.spinner.hide();
         return throwError(err.error);
       }));
@@ -109,7 +109,7 @@ export class AuthService {
           return res;
         }
       })).pipe(catchError((err: any) => {
-        this.app.alertErr(err.message, err.statusText);
+        this.app.alertErr(err.message);
         this.spinner.hide();
         return err.error;
       }));
@@ -130,7 +130,7 @@ export class AuthService {
           return res;
         }
       })).pipe(catchError((err: any) => {
-        this.app.alertErr(err.message, err.statusText);
+        this.app.alertErr(err.message);
         this.spinner.hide();
         return err.error;
       }));
@@ -153,7 +153,7 @@ export class AuthService {
 
         }
       })).pipe(catchError((err: any) => {
-        this.app.alertErr(err.message, err.statusText);
+        this.app.alertErr(err.message);
         this.spinner.hide();
         return throwError(err.error);
       }));
@@ -179,7 +179,7 @@ export class AuthService {
           return res;
         }
       })).pipe(catchError((err: any) => {
-        this.app.alertErr(err.message, err.statusText);
+        this.app.alertErr(err.message);
         this.spinner.hide();
         return err.error;
       }));
@@ -200,7 +200,7 @@ export class AuthService {
           return res;
         }
       })).pipe(catchError((err: any) => {
-        this.app.alertErr(err.message, err.statusText);
+        this.app.alertErr(err.message);
         this.spinner.hide();
         return throwError(err.error);
       }));
@@ -222,7 +222,7 @@ export class AuthService {
           return res;
         }
       })).pipe(catchError((err: any) => {
-        this.app.alertErr(err.message, err.statusText);
+        this.app.alertErr(err.message);
         this.spinner.hide();
         return throwError(err.error);
       }));
@@ -252,7 +252,7 @@ export class AuthService {
 
         }
       })).pipe(catchError((err: any) => {
-        this.app.alertErr(err.message, err.statusText);
+        this.app.alertErr(err.message);
         this.spinner.hide();
         return throwError(err.error);
       }));
@@ -272,7 +272,7 @@ export class AuthService {
           return res;
         }
       })).pipe(catchError((err: any) => {
-        this.app.alertErr(err.message, err.statusText);
+        this.app.alertErr(err.message);
         this.spinner.hide();
         return throwError(err.error);
       }));
@@ -287,7 +287,7 @@ export class AuthService {
 
         }
       })).pipe(catchError((err: any) => {
-        this.app.alertErr(err.message, err.statusText);
+        this.app.alertErr(err.message);
         this.spinner.hide();
         return throwError(err.error);
       }));
@@ -319,7 +319,7 @@ export class AuthService {
           // link.click();
         }
       })).pipe(catchError((err: any) => {
-        this.app.alertErr(err.message, err.statusText);
+        this.app.alertErr(err.message);
         this.spinner.hide();
         return throwError(err.error);
       }));
@@ -342,7 +342,7 @@ export class AuthService {
           link.click();
         }
       })).pipe(catchError((err: any) => {
-        this.app.alertErr(err.message, err.statusText);
+        this.app.alertErr(err.message);
         this.spinner.hide();
         return throwError(err.error);
       }));
@@ -370,7 +370,7 @@ export class AuthService {
           link.click();
         }
       })).pipe(catchError((err: any) => {
-        this.app.alertErr(err.message, err.statusText);
+        this.app.alertErr(err.message);
         this.spinner.hide();
         return throwError(err.error);
       }));
@@ -393,7 +393,7 @@ export class AuthService {
           link.click();
         }
       })).pipe(catchError((err: any) => {
-        this.app.alertErr(err.message, err.statusText);
+        this.app.alertErr(err.message);
         this.spinner.hide();
         return throwError(err.error);
       }));

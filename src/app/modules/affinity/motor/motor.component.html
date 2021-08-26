@@ -233,7 +233,7 @@
 		            <div class="col-md-12">
 		                <label for="accessoryId" class="affinity-label">ACCESSORY</label>
 		                <select class="form-control" id="accessoryId" [(ngModel)]="this.accessory.accessoryIdHolder"     (change)="chooseAccessory()">
-			                <option value="0" disabled="disabled">Please choose Type of Use</option>
+			                <option></option>
 			                <option *ngFor="let accesory of this.affinity.lov.accessoryLOV" value="{{accesory.COD_ACCESORIO}}-{{accesory.NOM_ACCESORIO}} ({{accesory.ABR_AGRUP_ACCESORIO}})-{{accesory.IMP_ACCESORIO}}">{{accesory.NOM_ACCESORIO}} ({{accesory.ABR_AGRUP_ACCESORIO}})</option>
 			            </select>
 		            </div>
