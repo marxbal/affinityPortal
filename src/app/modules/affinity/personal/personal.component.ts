@@ -628,6 +628,18 @@ export class PersonalComponent implements OnInit {
     });
   }
 
+  blacklist() {
+    const nationality = this.affinity.riskDetails.nationality;
+    if (nationality == 'IRN') {
+      Swal.fire({
+        type: 'warning',
+        title: 'Unable to Proceed',
+        text: "FATF Blacklist"
+      });
+      this.affinity.riskDetails.nationality = 'PHL';
+    }
+  }
+
   chooseEffectivityDate() {
     this.spinner.show();
     this.affinity.motorDetails.policyPeriodTo = m(this.affinity.motorDetails.policyPeriodFrom).add(1, 'year').format('YYYY-MM-DD');
