@@ -19,6 +19,9 @@ import {
 import {
   AddressDetails
 } from '../../../../objects/address-details';
+import {
+  CommonService
+} from 'src/app/services/common.service';
 
 @Component({
   selector: 'app-alternative-holder',
@@ -29,7 +32,8 @@ export class AlternativeHolderComponent implements OnInit {
 
   constructor(
     private caller: AuthService,
-    private checker: IsRequired) {}
+    private checker: IsRequired,
+    private common: CommonService) {}
 
   @Output() nextStep = new EventEmitter();
   @Output() affinityOutput2 = new EventEmitter();
@@ -90,6 +94,11 @@ export class AlternativeHolderComponent implements OnInit {
       result => {
         this.affinityAlternative.lov.nationalityLOV = result;
       });
+  }
+
+  blacklist() {
+    const retVal = this.common.blacklist(this.affinityAlternative.riskDetails.nationality);
+    this.affinityAlternative.riskDetails.nationality = retVal;
   }
 
   addHolder() {

@@ -80,7 +80,7 @@
 	        <div class="form-group row">
 	            <div class="col-md-12">
 	                <label for="nationality" class="affinity-label">NATIONALITY <span class="text-mapfre text-heavy">*</span></label>
-	                <select class="form-control required motor-add-alternative" name="Nationality" id="nationality" [(ngModel)]="this.affinityAlternative.riskDetails.nationality">
+	                <select class="form-control required motor-add-alternative" name="Nationality" id="nationality" [(ngModel)]="this.affinityAlternative.riskDetails.nationality" (change)="blacklist()">
 	                    <option value="0" disabled="disabled">Please choose Nationality</option>
 	                    <option *ngFor="let nat of this.affinityAlternative.lov.nationalityLOV" value="{{nat.COD_PAIS}}">{{nat.NOM_PAIS}}</option>
 	                </select>

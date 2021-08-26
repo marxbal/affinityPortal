@@ -1457,4 +1457,17 @@ export class CommonService {
     });
   }
 
+  blacklist(val: any) {
+    let nationality = val;
+    if (val == 'IRN') {
+      Swal.fire({
+        type: 'warning',
+        title: 'Unable to Proceed',
+        text: "FATF Blacklist"
+      });
+      nationality = 'PHL';
+    }
+    return nationality;
+  }
+
 }

@@ -629,15 +629,8 @@ export class PersonalComponent implements OnInit {
   }
 
   blacklist() {
-    const nationality = this.affinity.riskDetails.nationality;
-    if (nationality == 'IRN') {
-      Swal.fire({
-        type: 'warning',
-        title: 'Unable to Proceed',
-        text: "FATF Blacklist"
-      });
-      this.affinity.riskDetails.nationality = 'PHL';
-    }
+    const retVal = this.common.blacklist(this.affinity.riskDetails.nationality);
+    this.affinity.riskDetails.nationality = retVal;
   }
 
   chooseEffectivityDate() {

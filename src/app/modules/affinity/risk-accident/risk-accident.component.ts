@@ -198,6 +198,11 @@ export class RiskAccidentComponent implements OnInit {
       (navigator.userAgent.includes("Mac") && "ontouchend" in document)
   }
 
+  blacklist() {
+    const retVal = this.common.blacklist(this.affinity.riskDetails.nationality);
+    this.affinity.riskDetails.nationality = retVal;
+  }
+
   chooseEffectivityDate() {
     this.spinner.show();
     this.affinity.motorDetails.policyPeriodTo = m(this.affinity.motorDetails.policyPeriodFrom).add(1, 'year').format('YYYY-MM-DD');
