@@ -40,7 +40,8 @@ export class AppService {
           return res;
         }
       })).pipe(catchError((err: any) => {
-        this.alertErr(err.message);
+        console.log(err);
+        this.alertErr(err.message, err.statusText);
         this.spinner.hide();
         return throwError(err.error);
       }));
@@ -54,7 +55,7 @@ export class AppService {
           return res;
         }
       })).pipe(catchError((err: any) => {
-        this.alertErr(err.message);
+        this.alertErr(err.message, err.statusText);
         this.spinner.hide();
         return throwError(err.error);
       }));
@@ -72,10 +73,10 @@ export class AppService {
     };
   }
 
-  alertErr(err: string) {
+  alertErr(err: string, statusText: string) {
     Swal.fire({
       type: 'error',
-      title: 'Unable to proceed',
+      title: 'Error! ' + statusText,
       text: 'Error! Problem encountered and unable to process request at this time due to ' + err + '.'
     });
   }

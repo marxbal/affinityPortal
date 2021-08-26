@@ -174,7 +174,6 @@ export class PersonalComponent implements OnInit {
     }
 
     this.line = this.common.getLinebySubline(this.affinity.lineId);
-    // if (this.affinity.lineId == "337" || this.affinity.lineId == "251") {
     if (this.line == ACCIDENT) {
       this.affinity.motorDetails.isCorporate = "1";
       this.affinity.riskDetails.civilStatus = "";

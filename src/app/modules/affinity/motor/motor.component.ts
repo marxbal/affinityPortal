@@ -319,7 +319,6 @@ export class MotorComponent implements OnInit {
   chooseModelYear() {
     $("#vehiclePhotosContainer").addClass("hidden");
     if ((m().year() - parseInt(this.affinity.motorDetails.modelYear)) > 8) {
-
       Swal.fire({
         type: 'warning',
         title: 'Policy Issuance',

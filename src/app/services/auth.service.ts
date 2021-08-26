@@ -15,7 +15,6 @@ import {
   map,
   catchError
 } from 'rxjs/operators';
-import Swal from 'sweetalert2';
 import {
   NgxSpinnerService
 } from 'ngx-spinner';
@@ -25,6 +24,9 @@ import {
 import {
   TOKEN
 } from '../constants/local.storage';
+import {
+  AppService
+} from './app.service';
 
 export const InterceptorSkipHeader = 'X-Skip-Interceptor';
 
@@ -39,7 +41,8 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
-    private spinner: NgxSpinnerService) {}
+    private spinner: NgxSpinnerService,
+    private app: AppService) {}
 
   refreshToken() {
     const as = this;
@@ -87,12 +90,7 @@ export class AuthService {
           return res;
         }
       })).pipe(catchError((err: any) => {
-        Swal.fire({
-          type: 'error',
-          title: 'Unable to proceed.',
-          text: "We are unable to process your request."
-        });
-
+        this.app.alertErr(err.message, err.statusText);
         this.spinner.hide();
         return throwError(err.error);
       }));
@@ -111,12 +109,7 @@ export class AuthService {
           return res;
         }
       })).pipe(catchError((err: any) => {
-        Swal.fire({
-          type: 'error',
-          title: 'Unable to proceed.',
-          text: "We are unable to process your request."
-        });
-
+        this.app.alertErr(err.message, err.statusText);
         this.spinner.hide();
         return err.error;
       }));
@@ -137,12 +130,7 @@ export class AuthService {
           return res;
         }
       })).pipe(catchError((err: any) => {
-        Swal.fire({
-          type: 'error',
-          title: 'Unable to proceed.',
-          text: "We are unable to process your request."
-        });
-
+        this.app.alertErr(err.message, err.statusText);
         this.spinner.hide();
         return err.error;
       }));
@@ -165,12 +153,7 @@ export class AuthService {
 
         }
       })).pipe(catchError((err: any) => {
-        Swal.fire({
-          type: 'error',
-          title: 'Unable to proceed.',
-          text: "We are unable to process your request."
-        });
-
+        this.app.alertErr(err.message, err.statusText);
         this.spinner.hide();
         return throwError(err.error);
       }));
@@ -196,12 +179,7 @@ export class AuthService {
           return res;
         }
       })).pipe(catchError((err: any) => {
-        Swal.fire({
-          type: 'error',
-          title: 'Unable to proceed.',
-          text: "We are unable to process your request."
-        });
-
+        this.app.alertErr(err.message, err.statusText);
         this.spinner.hide();
         return err.error;
       }));
@@ -222,16 +200,10 @@ export class AuthService {
           return res;
         }
       })).pipe(catchError((err: any) => {
-        Swal.fire({
-          type: 'error',
-          title: 'Unable to proceed.',
-          text: "We are unable to process your request."
-        });
-
+        this.app.alertErr(err.message, err.statusText);
         this.spinner.hide();
         return throwError(err.error);
       }));
-
   }
 
   doCallServiceGet(action: string, param: any): Observable < any > {
@@ -250,13 +222,7 @@ export class AuthService {
           return res;
         }
       })).pipe(catchError((err: any) => {
-        // return err.error;
-        Swal.fire({
-          type: 'error',
-          title: 'Unable to proceed.',
-          text: "We are unable to process your request."
-        });
-
+        this.app.alertErr(err.message, err.statusText);
         this.spinner.hide();
         return throwError(err.error);
       }));
@@ -286,13 +252,7 @@ export class AuthService {
 
         }
       })).pipe(catchError((err: any) => {
-        // return err.error;
-        Swal.fire({
-          type: 'error',
-          title: 'Unable to proceed.',
-          text: "We are unable to process your request."
-        });
-
+        this.app.alertErr(err.message, err.statusText);
         this.spinner.hide();
         return throwError(err.error);
       }));
@@ -312,13 +272,7 @@ export class AuthService {
           return res;
         }
       })).pipe(catchError((err: any) => {
-        // return err.error;
-        Swal.fire({
-          type: 'error',
-          title: 'Unable to proceed.',
-          text: "We are unable to process your request."
-        });
-
+        this.app.alertErr(err.message, err.statusText);
         this.spinner.hide();
         return throwError(err.error);
       }));
@@ -333,13 +287,7 @@ export class AuthService {
 
         }
       })).pipe(catchError((err: any) => {
-        // return err.error;
-        Swal.fire({
-          type: 'error',
-          title: 'Unable to proceed.',
-          text: "We are unable to process your request."
-        });
-
+        this.app.alertErr(err.message, err.statusText);
         this.spinner.hide();
         return throwError(err.error);
       }));
@@ -371,12 +319,7 @@ export class AuthService {
           // link.click();
         }
       })).pipe(catchError((err: any) => {
-        Swal.fire({
-          type: 'error',
-          title: 'Unable to proceed.',
-          text: "We are unable to process your request."
-        });
-
+        this.app.alertErr(err.message, err.statusText);
         this.spinner.hide();
         return throwError(err.error);
       }));
@@ -399,12 +342,7 @@ export class AuthService {
           link.click();
         }
       })).pipe(catchError((err: any) => {
-        Swal.fire({
-          type: 'error',
-          title: 'Unable to proceed.',
-          text: "We are unable to process your request."
-        });
-
+        this.app.alertErr(err.message, err.statusText);
         this.spinner.hide();
         return throwError(err.error);
       }));
@@ -432,12 +370,7 @@ export class AuthService {
           link.click();
         }
       })).pipe(catchError((err: any) => {
-        Swal.fire({
-          type: 'error',
-          title: 'Unable to proceed.',
-          text: "We are unable to process your request."
-        });
-
+        this.app.alertErr(err.message, err.statusText);
         this.spinner.hide();
         return throwError(err.error);
       }));
@@ -460,12 +393,7 @@ export class AuthService {
           link.click();
         }
       })).pipe(catchError((err: any) => {
-        Swal.fire({
-          type: 'error',
-          title: 'Unable to proceed.',
-          text: "We are unable to process your request."
-        });
-
+        this.app.alertErr(err.message, err.statusText);
         this.spinner.hide();
         return throwError(err.error);
       }));
