@@ -214,7 +214,7 @@ export class MotorComponent implements OnInit {
     Swal.fire({
       type: 'warning',
       title: 'Policy Issuance',
-      text: "Submission of current pictures of all sides of the motor vehicle is required for evaluation of acceptance of MAPFRE Insurance  prior to the issuance of the Policy."
+      text: "Submission of current pictures of all sides of the motor vehicle is required for evaluation of acceptance of MAPFRE Insurance prior to the issuance of the Policy."
     });
 
     if (isBelowSix) {
