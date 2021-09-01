@@ -225,7 +225,7 @@ export class LandingpageComponent implements OnInit {
     const p3 = new ProductList;
     p3.description = 'personalAccident';
     p3.productId = "32301";
-    p3.name = 'Individual Personal';
+    p3.name = 'Individual Personal Accident';
     const hasIndividual = _.indexOf(this.availableProducts, "32301") != -1;
     if (hasIndividual) {
       l2.products.push(p3);
@@ -234,7 +234,7 @@ export class LandingpageComponent implements OnInit {
     const p4 = new ProductList;
     p4.description = 'personalFamilyAccident';
     p4.productId = "32401";
-    p4.name = 'Personal Family';
+    p4.name = 'Family Personal Accident';
     const hasFamily = _.indexOf(this.availableProducts, "32401") != -1;
     if (hasFamily) {
       l2.products.push(p4);
