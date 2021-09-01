@@ -965,9 +965,18 @@ export class CommonService {
 
     const line = this.getLinebySubline(affinity.lineId);
     if (line == ACCIDENT) {
+      const limit = affinity.riskDetails.accidentCoverageLimit;
+      let plan = "250K";
+      if (limit == "500000") {
+        plan = "500K";
+      } else if (limit == "1000000") {
+        plan = "1M";
+      }
+
       vars = [
         ['COD_MODALIDAD', affinity.productId],
-        ['NUM_INSURED', '1']
+        ['NUM_INSURED', '1'],
+        ['VAL_TIP_PLAN', plan]
       ];
     }
 
