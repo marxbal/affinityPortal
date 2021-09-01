@@ -430,6 +430,10 @@ a.article:hover {
   height: calc(1.5em + .75rem + 8px) !important;
 }
 
+.fa-chev-lp {
+  color: #d31d29;
+}
+
 .accordion-header {
   background-color: white;
   border-bottom: 0;
@@ -600,6 +604,10 @@ form .form-group.input-error .multiselect-dropdown {
   color: #d5d5d5 !important;
 }
 
+.fa-chev-lp {
+  color: #243472 !important;
+}
+
 /* ---------------------------------------------------
     PARTNER THEME - BLUE
 ----------------------------------------------------- */
@@ -641,6 +649,10 @@ form .form-group.input-error .multiselect-dropdown {
 
 .theme-blue .btn-outline-primary:hover {
   color: #d5d5d5 !important;
+}
+
+.fa-chev-lp {
+  color: #3085d6 !important;
 }
 
 /* ---------------------------------------------------
@@ -686,6 +698,10 @@ form .form-group.input-error .multiselect-dropdown {
   color: #d5d5d5 !important;
 }
 
+.fa-chev-lp {
+  color: #1e2023 !important;
+}
+
 /* ---------------------------------------------------
     PARTNER THEME - GREEN
 ----------------------------------------------------- */
@@ -727,6 +743,10 @@ form .form-group.input-error .multiselect-dropdown {
 
 .theme-green .btn-outline-primary:hover {
   color: #d5d5d5 !important;
+}
+
+.fa-chev-lp {
+  color: #469c47 !important;
 }
 
 /* ---------------------------------------------------
@@ -773,8 +793,12 @@ form .form-group.input-error .multiselect-dropdown {
 }
 
 .theme-yellow .btn-primary,
-.theme-yellow ul.footer-links li a  {
+.theme-yellow ul.footer-links li a {
   color: rgb(37, 33, 33) !important;
+}
+
+.fa-chev-lp {
+  color: #dcdc3f !important;
 }
 
 /* ---------------------------------------------------
@@ -821,8 +845,12 @@ form .form-group.input-error .multiselect-dropdown {
 }
 
 .theme-yellowgreen .btn-primary,
-.theme-yellowgreen ul.footer-links li a  {
+.theme-yellowgreen ul.footer-links li a {
   color: rgb(37, 33, 33) !important;
+}
+
+.fa-chev-lp {
+  color: #b0dc3f !important;
 }
 
 /* ---------------------------------------------------
@@ -868,6 +896,10 @@ form .form-group.input-error .multiselect-dropdown {
   color: #d5d5d5 !important;
 }
 
+.fa-chev-lp {
+  color: #dc883f !important;
+}
+
 /* ---------------------------------------------------
     PARTNER THEME - GRAY
 ----------------------------------------------------- */
@@ -909,6 +941,10 @@ form .form-group.input-error .multiselect-dropdown {
 
 .theme-gray .btn-outline-primary:hover {
   color: #d5d5d5 !important;
+}
+
+.fa-chev-lp {
+  color: #7d7772 !important;
 }
 
 /* ---------------------------------------------------
@@ -954,6 +990,10 @@ form .form-group.input-error .multiselect-dropdown {
   color: #d5d5d5 !important;
 }
 
+.fa-chev-lp {
+  color: #f991eb !important;
+}
+
 /* ---------------------------------------------------
     PARTNER THEME - BROWN
 ----------------------------------------------------- */
@@ -995,6 +1035,10 @@ form .form-group.input-error .multiselect-dropdown {
 
 .theme-brown .btn-outline-primary:hover {
   color: #d5d5d5 !important;
+}
+
+.fa-chev-lp {
+  color: #60462f !important;
 }
 
 /* ---------------------------------------------------
