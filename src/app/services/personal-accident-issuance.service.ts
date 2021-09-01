@@ -186,11 +186,8 @@ export class PersonalAccidentIssuanceService {
   }
 
   mapP2025Primary(p2025) {
-
     for (let i = 0; i < p2025.length; i++) {
-
       if (p2025[i].numRiesgo == "1") {
-
         switch (p2025[i].codCampo) {
           case "COD_OCCUPATIONAL_CLASS":
             this.paAff.riskDetails.occupationalClass = p2025[i].valCampo + ":=:" + p2025[i].txtCampo;
@@ -206,15 +203,9 @@ export class PersonalAccidentIssuanceService {
             }
             this.paAff.riskDetails.healthDeclaration = healthDec;
             break;
-          case "NOM_RELIGION":
-            this.paAff.riskDetails.religion = p2025[i].valCampo;
-            break;
         }
-
       }
-
     }
-
   }
 
   mapP2025Insured(p2025, p2040) {
@@ -258,9 +249,6 @@ export class PersonalAccidentIssuanceService {
             case "BIRTHDATE":
               riskTemp.birthDate = p2025[i].valCampo;
               break;
-            case "NOM_RELIGION":
-              riskTemp.religion = p2025[i].valCampo;
-              break;
             case "MCA_SEXO_ASEG":
               let sex = "1";
               if (p2025[i].valCampo == "F") {
@@ -272,9 +260,7 @@ export class PersonalAccidentIssuanceService {
               riskTemp.relationship = p2025[i].valCampo + ":=:" + p2025[i].txtCampo;
               break;
           }
-
         }
-
       }
 
       for (let c = 0; c < p2040.length; c++) {

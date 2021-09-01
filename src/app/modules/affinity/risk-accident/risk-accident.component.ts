@@ -584,9 +584,6 @@ export class RiskAccidentComponent implements OnInit {
             case "BIRTHDATE":
               riskTemp.birthDate = p2025[i].valCampo;
               break;
-            case "NOM_RELIGION":
-              riskTemp.religion = p2025[i].valCampo;
-              break;
             case "MCA_SEXO_ASEG":
               let sex = "1";
               if (p2025[i].valCampo == "F") {

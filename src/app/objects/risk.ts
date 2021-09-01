@@ -26,7 +26,6 @@ export class Risk {
   SSS: string;
   validID: string;
   validIDValue: string;
-  religion: string;
   fatherName: string;
   fatherBirthday: string;
   motherName: string;

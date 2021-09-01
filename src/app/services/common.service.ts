@@ -379,8 +379,7 @@ export class CommonService {
         ['COD_OCCUPATIONAL_CLASS', affinity.riskDetails.occupationalClass.split(':=:')[0], '1', affinity.riskDetails.occupationalClass.split(':=:')[1], 'N', 'S', 'S'],
         ['TXT_OCCUPATION', affinity.riskDetails.occupation.split(':=:')[0], '1', affinity.riskDetails.occupation.split(':=:')[1], 'N', 'S', 'S'],
         ['TXT_HEALTH_DECLARA', healthDeclaration.charAt(0), '1', healthDeclaration, 'N', 'S', 'S'],
-        ['TXT_HEALTH_DECLARA_EXIST', ((affinity.riskDetails.preExistingIllness) ? affinity.riskDetails.preExistingIllness.toUpperCase() : ""), '1', null, 'N', 'S', 'S'],
-        ['NOM_RELIGION', ((affinity.riskDetails.religion) ? affinity.riskDetails.religion.toUpperCase() : ""), '1', null, 'N', 'S', 'S']
+        ['TXT_HEALTH_DECLARA_EXIST', ((affinity.riskDetails.preExistingIllness) ? affinity.riskDetails.preExistingIllness.toUpperCase() : ""), '1', null, 'N', 'S', 'S']
       ];
 
       for (let x = 0; x < vars1.length; x++) {
@@ -423,8 +422,7 @@ export class CommonService {
           ['COD_OCCUPATIONAL_CLASS', (insured.occupationalClass ? insured.occupationalClass.split(':=:')[0] : ""), '1', (insured.occupationalClass ? insured.occupationalClass.split(':=:')[1] : ""), 'N', 'S', 'S'],
           ['TXT_OCCUPATION', (insured.occupation ? insured.occupation.split(':=:')[0] : ""), '1', (insured.occupation ? insured.occupation.split(':=:')[1] : ""), 'N', 'S', 'S'],
           ['TXT_HEALTH_DECLARA', healthDeclaration.charAt(0), '1', healthDeclaration, 'N', 'S', 'S'],
-          ['TXT_HEALTH_DECLARA_EXIST', ((insured.preExistingIllness) ? insured.preExistingIllness.toUpperCase() : ""), '1', null, 'N', 'S', 'S'],
-          ['NOM_RELIGION', ((insured.religion) ? insured.religion.toUpperCase() : ""), '1', null, 'N', 'S', 'S']
+          ['TXT_HEALTH_DECLARA_EXIST', ((insured.preExistingIllness) ? insured.preExistingIllness.toUpperCase() : ""), '1', null, 'N', 'S', 'S']
         ];
 
         for (let i = 0; i < vars.length; i++) {
