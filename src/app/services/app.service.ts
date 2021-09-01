@@ -21,6 +21,7 @@ import {
   Observable,
   throwError
 } from 'rxjs';
+import * as _ from 'lodash';
 
 export const InterceptorSkipHeader = 'X-Skip-Interceptor';
 
@@ -75,10 +76,17 @@ export class AppService {
 
   alertErr(err: any) {
     const error = err.error;
+    let title = "Ooops! Something went wrong.";
+    let message = "Error! We are unable to process your request. Request response is emtpy. Please try again later.";
+    if (_.isEmpty()) {
+      title = 'Ooops! ' + error.error;
+      message = 'Error! We are unable to process your request at the moment. ' + error.message + '. Path: ' + error.path;
+    }
+
     Swal.fire({
       type: 'error',
-      title: 'Ooops! ' + error.error,
-      text: 'Error! We are unable to process your request at the moment. ' + error.message + '. Path: ' + error.path
+      title: title,
+      text: message
     });
   }
 }
