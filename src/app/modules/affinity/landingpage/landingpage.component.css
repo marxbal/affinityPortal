@@ -44,7 +44,7 @@
   color: #fff;
 }
 
-.landing-container p{
+.landing-container p {
   color: #fff !important;
 }
 
@@ -114,6 +114,10 @@
   background-color: #fff;
 }
 
+ul.product-list {
+  padding-left: 5px;
+}
+
 /* .footer-text {
   font-family: calibri;
 }
@@ -152,12 +156,14 @@
     width: 100%;
     color: #fff;
   }
-  
+
   .height-860 {
     height: 380px;
   }
 
-  h1, h2, h3 {
+  h1,
+  h2,
+  h3 {
     font-size: 25px;
   }
 }
