@@ -74,11 +74,11 @@ export class AppService {
   }
 
   alertErr(err: any) {
-    console.log(err);
+    const error = err.error;
     Swal.fire({
       type: 'error',
-      title: 'Ooops! Something went wrong.',
-      text: 'Error! We are unable to process your request at the moment due to ' + err.message + '.'
+      title: 'Ooops! ' + error.error,
+      text: 'Error! We are unable to process your request at the moment. ' + error.message + '. Path: ' + error.path
     });
   }
 }
