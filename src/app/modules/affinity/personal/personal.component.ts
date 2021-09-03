@@ -106,7 +106,7 @@ export class PersonalComponent implements OnInit {
   showAddButton: String = "1";
   showAll: String = "0";
 
-  minDate = m.now();
+  minDate = m().format('YYYY-MM-DD');
 
   formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -119,7 +119,6 @@ export class PersonalComponent implements OnInit {
   }
 
   ngOnInit() {
-    alert(m().format('YYYY-MM-DD'));
     console.log(this.affinity);
     this.selectProduct(this.product, this.description);
 
