@@ -1125,7 +1125,8 @@ export class CommonService {
       p2031.numSpto = p2030.numSpto;
       p2031.numApli = p2030.numApli;
       p2031.numSptoApli = p2030.numSptoApli;
-      p2031.numRiesgo = (i + 1).toString();
+      // p2031.numRiesgo = (i + 1).toString();
+      p2031.numRiesgo = "1";
       p2031.tipSpto = "XX";
       p2031.codModalidad = affinity.productId;
       p2031.nomRiesgo = "XX";
