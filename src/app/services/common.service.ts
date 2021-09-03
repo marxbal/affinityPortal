@@ -973,9 +973,12 @@ export class CommonService {
         plan = "1M";
       }
 
+      const p2000030 = this.assignP2000030(affinity);
+      const p2000031List = this.assignP2000031PA(affinity, p2000030).length.toString();
+
       vars = [
         ['COD_MODALIDAD', affinity.productId],
-        ['NUM_INSURED', '1'],
+        ['NUM_INSURED', p2000031List],
         ['VAL_TIP_PLAN', plan]
       ];
     }
