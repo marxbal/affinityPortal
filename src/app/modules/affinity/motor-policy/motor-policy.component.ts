@@ -165,7 +165,7 @@ export class MotorPolicyComponent implements OnInit {
   }
 
   validatePlateNumber() {
-    if (this.affinity.productId == "10002") {
+    if (this.affinity.productId == "10002" || this.affinity.lineId == '120') {
       return true;
     }
     const userKeyRegExpPlate = /^[A-Z]{3}[0-9]{4}?$/;
@@ -187,6 +187,10 @@ export class MotorPolicyComponent implements OnInit {
   }
 
   validateConduction() {
+    if (this.affinity.lineId == '120') {
+      return true;
+    }
+
     const userKeyRegExpConduction = /^[A-Z]{2}[0-9]{4}?$/;
 
     this.affinity.motorDetails.conductionNumber = this.affinity.motorDetails.conductionNumber.toUpperCase();
