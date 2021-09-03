@@ -531,7 +531,7 @@ export class MotorComponent implements OnInit {
   }
 
   validatePlateNumber() {
-    if (this.affinity.productId == "10002" || this.affinity.lineId == '120') {
+    if (this.affinity.productId == "10002" || this.affinity.motorDetails.motorTypeId == '120') {
       return true;
     }
 
@@ -592,7 +592,7 @@ export class MotorComponent implements OnInit {
   }
 
   validateConduction() {
-    if (this.affinity.lineId != '120') {
+    if (this.affinity.motorDetails.motorTypeId == '120') {
       return true;
     }
 
