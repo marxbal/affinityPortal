@@ -119,7 +119,7 @@ export class PersonalComponent implements OnInit {
   }
 
   ngOnInit() {
-    alert(m);
+    alert(this.minDate);
     console.log(this.affinity);
     this.selectProduct(this.product, this.description);
 
