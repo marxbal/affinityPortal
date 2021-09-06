@@ -397,6 +397,7 @@ export class CommonService {
       }
 
       // let riesgo = 2;
+      let occurence = 2;
       affinity.paDetails.familyMembers.forEach(function (insured) {
 
         let gender = "MALE";
@@ -429,7 +430,8 @@ export class CommonService {
           let tempP25 = new P2000025();
           tempP25.codCampo = vars[i][0];
           tempP25.valCampo = vars[i][1];
-          tempP25.numOcurrencia = vars[i][2];
+          // tempP25.numOcurrencia = vars[i][2];
+          tempP25.numOcurrencia = occurence.toString();
           tempP25.txtCampo = vars[i][3];
           tempP25.mcaBajaRiesgo = vars[i][4];
           tempP25.mcaVigente = vars[i][5];
@@ -439,7 +441,7 @@ export class CommonService {
           tempP25.numRiesgo = '1';
           p2025.push(tempP25);
         }
-
+        occurence++;
         // riesgo++;
 
       });
@@ -1412,7 +1414,6 @@ export class CommonService {
   }
 
   emailPolicy(emailSend: string, policyNumber: string, type: string) {
-    this.spinner.show();
     let emailTemp = emailSend.split(";");
     let emailFinal = "";
 
@@ -1446,6 +1447,7 @@ export class CommonService {
       confirmButtonText: 'Send Email'
     }).then((result) => {
       if (result.value) {
+        this.spinner.show();
         this.caller.doCallService("/afnty/sendEmail?email=" + emailFinal.slice(0, -1) + "&numPoliza=" +
           policyNumber + "&subject=" + subject + "&type=" + type, null).subscribe(
           resulta => {
