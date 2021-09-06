@@ -396,7 +396,7 @@ export class CommonService {
         p2025.push(tempP25a);
       }
 
-      let riesgo = 2;
+      // let riesgo = 2;
       let occurence = 2;
       affinity.paDetails.familyMembers.forEach(function (insured) {
 
@@ -437,12 +437,12 @@ export class CommonService {
           tempP25.mcaVigente = vars[i][5];
           tempP25.mcaVigenteApli = vars[i][6];
           tempP25.numSecu = (i + 1).toString();
-          tempP25.numRiesgo = riesgo.toString();
-          // tempP25.numRiesgo = '1';
+          // tempP25.numRiesgo = riesgo.toString();
+          tempP25.numRiesgo = '1';
           p2025.push(tempP25);
         }
         occurence++;
-        riesgo++;
+        // riesgo++;
 
       });
     }
