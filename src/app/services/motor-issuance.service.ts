@@ -237,7 +237,9 @@ export class MotorIssuanceService {
 
     this.motorAff.address1 = result.address1;
     this.motorAff.municipality = result.municipality;
+    this.motorAff.municipalityName = result.municipalityName;
     this.motorAff.province = result.province;
+    this.motorAff.provinceName = result.provinceName;
     this.motorAff.zipCode = result.zipCode;
 
     let fisico = "1";

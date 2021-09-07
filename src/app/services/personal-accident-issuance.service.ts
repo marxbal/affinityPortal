@@ -181,7 +181,9 @@ export class PersonalAccidentIssuanceService {
 
     this.paAff.address1 = result.address1;
     this.paAff.municipality = result.municipality;
+    this.paAff.municipalityName = result.municipalityName;
     this.paAff.province = result.province;
+    this.paAff.provinceName = result.provinceName;
     this.paAff.zipCode = result.zipCode;
   }
 
