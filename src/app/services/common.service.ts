@@ -982,6 +982,7 @@ export class CommonService {
       vars = [
         ['COD_MODALIDAD', affinity.productId],
         ['NUM_INSURED', p2000031List],
+        ['NUM_DAYS_LIMIT_0346', '10'],
         ['VAL_TIP_PLAN', plan]
       ];
     }
