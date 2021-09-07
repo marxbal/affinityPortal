@@ -1486,9 +1486,24 @@ export class CommonService {
   }
 
   getProvinceName(codeId: String) {
+
+    // let ret: any = new BehaviorSubject < any > ([]);
+    // const payment = new PaymentPaynamics();
+    // payment.requestId = requestId;
+    // this.app.post(payment, this.map + 'getResponseCode')
+    //   .pipe(first())
+    //   .subscribe((res => {
+    //     this.spinner.hide();
+    //     ret.next(res);
+    //   }));
+
+    // return ret.asObservable();
+
     let ret: any = new BehaviorSubject < any > ([]);
     this.spinner.show();
-    this.caller.doCallService('/afnty/getProvinceName?codeId=' + codeId, null).subscribe(
+    this.caller.doCallService('/afnty/getProvinceName?codeId=' + codeId, null)
+      .pipe(first())
+      .subscribe(
       result => {
         ret.next(result);
         this.spinner.hide();
