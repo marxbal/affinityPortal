@@ -1,8 +1,7 @@
 <div class="row">
   <div class="col-md-12">
     <h1 data-toggle="tooltip" data-placement="top" title="Tooltip on top" id="test">
-      <span *ngIf="this.affinity.techControlLevel == '3'">The information provided requires underwriting approval. We
-        will get back to you in 3 working days.</span>
+      <span *ngIf="this.affinity.techControlLevel == '3'">We will get back to you in 48 hours (excluding weekends and holidays).</span>
       <span *ngIf="this.affinity.techControlLevel == '2' && this.affinity.quotationNumber">We are unable to prepare a
         quotation for your insurance requirement.</span>
       <span *ngIf="this.affinity.techControlLevel == '2' && this.affinity.policyNumber">We are unable to issue a policy
