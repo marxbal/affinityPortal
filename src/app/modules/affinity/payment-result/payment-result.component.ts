@@ -176,7 +176,17 @@ export class PaymentResultComponent implements OnInit {
   }
 
   buildAddress(affinity: Affinity) {
-    return this.addComma(affinity.address1) + this.addComma(affinity.municipality) + this.addComma(affinity.province) + affinity.zipCode;
+    let province = "";
+    this.common.getProvinceName(affinity.province).subscribe(res => {
+      province = res;
+    })
+
+    let municipality = "";
+    this.common.getMunicipalityName(affinity.municipality).subscribe(res => {
+      municipality = res;
+    })
+
+    return this.addComma(affinity.address1) + this.addComma(municipality) + this.addComma(province) + affinity.zipCode;
   }
 
   addComma(val: string) {

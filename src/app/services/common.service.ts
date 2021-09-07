@@ -1279,26 +1279,26 @@ export class CommonService {
     return contract;
   }
 
-  getProductDescription(productId: string) {
-    let productName = "";
+  // getProductDescription(productId: string) {
+  //   let productName = "";
 
-    switch (productId) {
-      case "10001":
-        productName = "COMPREHENSIVE 10001";
-        break;
-      case "10002":
-        productName = "CTPL 10002";
-        break;
-      case "32301":
-        productName = "INDIVIDUAL PERSONAL 32301";
-        break;
-      case "32401":
-        productName = "PERSONAL FAMILY 32401";
-        break;
-    }
+  //   switch (productId) {
+  //     case "10001":
+  //       productName = "COMPREHENSIVE 10001";
+  //       break;
+  //     case "10002":
+  //       productName = "CTPL 10002";
+  //       break;
+  //     case "32301":
+  //       productName = "INDIVIDUAL PERSONAL 32301";
+  //       break;
+  //     case "32401":
+  //       productName = "PERSONAL FAMILY 32401";
+  //       break;
+  //   }
 
-    return productName;
-  }
+  //   return productName;
+  // }
 
   getItemName(affinity: Affinity, productId: string) {
     let itemName = "";
@@ -1342,7 +1342,7 @@ export class CommonService {
     const apiUrl = environment.apiUrl;
 
     payment.policyNo = affinity.policyNumber;
-    payment.descriptorNote = this.getProductDescription(productId);
+    // payment.descriptorNote = this.getProductDescription(productId);
     payment.itemName = this.getItemName(affinity, productId);
     payment.cancelUrl = baseUrl + environment.cancelUrl + payment.policyNo;
     payment.mtacUrl = baseUrl + environment.tacUrl;
@@ -1483,6 +1483,30 @@ export class CommonService {
       nationality = 'PHL';
     }
     return nationality;
+  }
+
+  getProvinceName(codeId: String) {
+    let ret: any = new BehaviorSubject < any > ([]);
+    this.spinner.show();
+    this.caller.doCallService('/afnty/getProvinceName?codeId=' + codeId, null).subscribe(
+      result => {
+        ret.next(result);
+        this.spinner.hide();
+      });
+
+    return ret.asObservable();
+  }
+
+  getMunicipalityName(codeId: String) {
+    let ret: any = new BehaviorSubject < any > ([]);
+    this.spinner.show();
+    this.caller.doCallService('/afnty/getMunicipalityName?codeId=' + codeId, null).subscribe(
+      result => {
+        ret.next(result);
+        this.spinner.hide();
+      });
+
+    return ret.asObservable();
   }
 
 }

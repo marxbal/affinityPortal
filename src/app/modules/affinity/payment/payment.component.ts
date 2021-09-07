@@ -112,62 +112,6 @@ export class PaymentComponent implements OnInit {
       });
   }
 
-  getProductDescription(productId: string) {
-    let productName = "";
-
-    switch (productId) {
-      case "10001":
-        productName = "COMPREHENSIVE 10001";
-        break;
-      case "10002":
-        productName = "CTPL 10002";
-        break;
-      case "32301":
-        productName = "INDIVIDUAL PERSONAL 32301";
-        break;
-      case "32401":
-        productName = "PERSONAL FAMILY 32401";
-        break;
-    }
-
-    return productName;
-  }
-
-  getItemName(productId: string) {
-    let itemName = "";
-
-    switch (productId) {
-      case "10001":
-        itemName = "COMPREHENSIVE: " + this.buildItemName();
-        break;
-      case "10002":
-        itemName = "CTPL: " + this.buildItemName();
-        break;
-      case "32301":
-        itemName = "INDIVIDUAL PERSONAL: " + this.affinity.riskDetails.fullName;
-        break;
-      case "32401":
-        itemName = "PERSONAL FAMILY: " + this.affinity.riskDetails.fullName;
-        break;
-    }
-
-    return itemName;
-  }
-
-  buildItemName() {
-    let item = '';
-    const motor = this.affinity.motorDetails;
-
-    const modelYear = motor.modelYear + " ";
-    const manufacturer = motor.manufacturer + " ";
-    const model = motor.model + " ";
-    const subModel = motor.subModel + " ";
-
-    item = modelYear + manufacturer + model + subModel + motor.vehicleType;
-
-    return item;
-  }
-
   requestPayment() {
     this.common.payment(this.affinity);
   }
