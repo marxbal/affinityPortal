@@ -62,7 +62,7 @@ export class PaymentComponent implements OnInit {
 
   ngOnInit() {
     const premium = parseFloat(this.affinity.premiumBreakdown.grossPrem);
-    this.total =  this.decimalPipe.transform(premium, '1.2-2');
+    this.total = this.decimalPipe.transform(premium, '1.2-2');
     this.lineId = this.common.getLinebyProduct(this.affinity.productId);
 
     this.affinity.premiumBreakdown.grossPrem = this.formatter.format(parseFloat(this.affinity.premiumBreakdown.grossPrem));
@@ -114,10 +114,6 @@ export class PaymentComponent implements OnInit {
 
   requestPayment() {
     this.common.payment(this.affinity);
-  }
-
-  sleep(time) {
-    return new Promise((resolve) => setTimeout(resolve, time));
   }
 
   nextStepAction(nextStep) {

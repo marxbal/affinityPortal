@@ -57,7 +57,9 @@ export class Affinity {
   techControl: string[] = []; //list of technical controls
   address1: string;
   municipality: string;
+  municipalityName: string;
   province: string;
+  provinceName: string;
   zipCode: string;
 
 }
