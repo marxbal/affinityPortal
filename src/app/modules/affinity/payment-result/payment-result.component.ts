@@ -67,9 +67,6 @@ export class PaymentResultComponent implements OnInit {
   address: string = "";
   interestInsured: string = "";
   emailSend: string = "";
-
-  province: string = "";
-  municipality: string = "";
   
   type = {
     car: CAR,
@@ -149,14 +146,6 @@ export class PaymentResultComponent implements OnInit {
   }
 
   getMoreDetails() {
-    this.common.getProvinceName(this.affinity.province).subscribe((res: Return)  => {
-      this.province = res.obj.toString();
-    })
-
-    this.common.getMunicipalityName(this.affinity.municipality).subscribe((res: Return) => {
-      this.municipality = res.obj.toString();
-    })
-
     this.total = parseFloat(this.affinity.premiumBreakdown.grossPrem);
     this.address = this.buildAddress(this.affinity);
     console.log(this.affinity);
@@ -187,7 +176,7 @@ export class PaymentResultComponent implements OnInit {
   }
 
   buildAddress(affinity: Affinity) {
-    return this.addComma(affinity.address1) + this.addComma(this.municipality) + this.addComma(this.province) + affinity.zipCode;
+    return this.addComma(affinity.address1) + this.addComma(this.affinity.municipalityName) + this.addComma(this.affinity.provinceName) + affinity.zipCode;
   }
 
   addComma(val: string) {
