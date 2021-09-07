@@ -1515,7 +1515,9 @@ export class CommonService {
   getMunicipalityName(codeId: String) {
     let ret: any = new BehaviorSubject < any > ([]);
     this.spinner.show();
-    this.caller.doCallService('/afnty/getMunicipalityName?codeId=' + codeId, null).subscribe(
+    this.caller.doCallService('/afnty/getMunicipalityName?codeId=' + codeId, null)
+    . pipe(first())
+      .subscribe(
       result => {
         ret.next(result);
         this.spinner.hide();
