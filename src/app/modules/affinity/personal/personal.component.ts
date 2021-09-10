@@ -852,7 +852,7 @@ export class PersonalComponent implements OnInit {
         const line = this.common.getLinebySubline(affinity.lineId);
         if (line == ACCIDENT) {
           for (let i = 0; i < result.length; i++) {
-            if (result[i].numRiesgo == "1") {
+            if (result[i].numOcurrencia == "1") {
               // result[i].sumaAseg = this.formatter.format(parseFloat(result[i].sumaAseg));
               result[i].totalPremium = ((result[i].totalPremium) ? this.formatter.format(parseFloat(result[i].totalPremium)) : "INCL");
               result[i].numSecu = parseInt(result[i].numSecu) + 0;
@@ -912,10 +912,10 @@ export class PersonalComponent implements OnInit {
 
   mapP2025Insured(p2025, p2040) {
     let temp = [];
-    for (let x = 1; x < (_.maxBy(p2025, 'numRiesgo')).numRiesgo; x++) {
+    for (let x = 1; x < (_.maxBy(p2025, 'numOcurrencia')).numOcurrencia; x++) {
       let riskTemp: Risk = new Risk();
       for (let i = 0; i < p2025.length; i++) {
-        if (p2025[i].numRiesgo == (x + 1)) {
+        if (p2025[i].numOcurrencia == (x + 1)) {
           switch (p2025[i].codCampo) {
             case "COD_OCCUPATIONAL_CLASS":
               riskTemp.occupationalClass = "";
@@ -963,7 +963,7 @@ export class PersonalComponent implements OnInit {
       }
 
       for (let c = 0; c < p2040.length; c++) {
-        if (p2040[c].numRiesgo == (x + 1)) {
+        if (p2040[c].numOcurrencia == (x + 1)) {
           // p2040[c].sumaAseg = this.formatter.format(parseFloat(p2040[c].sumaAseg));
           // p2040[c].totalPremium = this.formatter.format(parseFloat((p2040[c].totalPremium) ? p2040[c].totalPremium : "0"));
           p2040[c].totalPremium = "INCL";

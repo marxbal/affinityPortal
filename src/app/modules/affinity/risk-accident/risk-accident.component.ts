@@ -528,7 +528,7 @@ export class RiskAccidentComponent implements OnInit {
       (resulta) => {
         this.mapP2025Insured(this.p2000025, resulta);
         for (let i = 0; i < resulta.length; i++) {
-          if (resulta[i].numRiesgo == "1") {
+          if (resulta[i].numOcurrencia == "1") {
             resulta[i].numSecu = parseInt(resulta[i].numSecu) + 0;
             resulta[i].totalPremium = ((resulta[i].totalPremium) ? this.formatter.format(parseFloat(resulta[i].totalPremium)) : "INCL");
             affinity.coveragesValue.push(resulta[i]);
@@ -545,13 +545,13 @@ export class RiskAccidentComponent implements OnInit {
 
   mapP2025Insured(p2025, p2040) {
     this.affinity.paDetails.familyMembers = [];
-    for (let x = 1; x < (_.maxBy(p2025, 'numRiesgo')).numRiesgo; x++) {
+    for (let x = 1; x < (_.maxBy(p2025, 'numOcurrencia')).numOcurrencia; x++) {
 
       let riskTemp: Risk = new Risk();
 
       for (let i = 0; i < p2025.length; i++) {
 
-        if (p2025[i].numRiesgo == (x + 1)) {
+        if (p2025[i].numOcurrencia == (x + 1)) {
           switch (p2025[i].codCampo) {
             case "COD_OCCUPATIONAL_CLASS":
               riskTemp.occupationalClass = "";
@@ -599,7 +599,7 @@ export class RiskAccidentComponent implements OnInit {
       }
 
       for (let c = 0; c < p2040.length; c++) {
-        if (p2040[c].numRiesgo == (x + 1)) {
+        if (p2040[c].numOcurrencia == (x + 1)) {
           p2040[c].totalPremium = "INCL";
           riskTemp.coveragesValue.push(p2040[c]);
         }

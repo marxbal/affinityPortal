@@ -68,7 +68,7 @@ export class PersonalAccidentIssuanceService {
 
         for (let i = 0; i < resulta.length; i++) {
 
-          if (resulta[i].numRiesgo == "1") {
+          if (resulta[i].numOcurrencia == "1") {
             // resulta[i].sumaAseg = this.formatter.format(parseFloat(resulta[i].sumaAseg));
             resulta[i].numSecu = parseInt(resulta[i].numSecu) + 0;
             resulta[i].totalPremium = ((resulta[i].totalPremium) ? this.formatter.format(parseFloat(resulta[i].totalPremium)) : "INCL");
@@ -126,7 +126,7 @@ export class PersonalAccidentIssuanceService {
         this.mapP2025Insured(result.a2000025List, resulta);
 
         for (let i = 0; i < resulta.length; i++) {
-          if (resulta[i].numRiesgo == "1") {
+          if (resulta[i].numOcurrencia == "1") {
             // resulta[i].sumaAseg = this.formatter.format(parseFloat(resulta[i].sumaAseg));
             resulta[i].numSecu = parseInt(resulta[i].numSecu) + 0;
             resulta[i].totalPremium = ((resulta[i].totalPremium) ? this.formatter.format(parseFloat(resulta[i].totalPremium)) : "INCL");
@@ -189,7 +189,7 @@ export class PersonalAccidentIssuanceService {
 
   mapP2025Primary(p2025) {
     for (let i = 0; i < p2025.length; i++) {
-      if (p2025[i].numRiesgo == "1") {
+      if (p2025[i].numOcurrencia == "1") {
         switch (p2025[i].codCampo) {
           case "COD_OCCUPATIONAL_CLASS":
             this.paAff.riskDetails.occupationalClass = p2025[i].valCampo + ":=:" + p2025[i].txtCampo;
@@ -212,13 +212,13 @@ export class PersonalAccidentIssuanceService {
 
   mapP2025Insured(p2025, p2040) {
     this.paAff.paDetails.familyMembers = [];
-    for (let x = 1; x < (_.maxBy(p2025, 'numRiesgo')).numRiesgo; x++) {
+    for (let x = 1; x < (_.maxBy(p2025, 'numOcurrencia')).numOcurrencia; x++) {
 
       let riskTemp: Risk = new Risk();
 
       for (let i = 0; i < p2025.length; i++) {
 
-        if (p2025[i].numRiesgo == (x + 1)) {
+        if (p2025[i].numOcurrencia == (x + 1)) {
           switch (p2025[i].codCampo) {
             case "COD_OCCUPATIONAL_CLASS":
               riskTemp.occupationalClass = "";
@@ -266,7 +266,7 @@ export class PersonalAccidentIssuanceService {
       }
 
       for (let c = 0; c < p2040.length; c++) {
-        if (p2040[c].numRiesgo == (x + 1)) {
+        if (p2040[c].numOcurrencia == (x + 1)) {
           // p2040[c].sumaAseg = this.formatter.format(parseFloat(p2040[c].sumaAseg));
           // p2040[c].totalPremium = this.formatter.format(parseFloat((p2040[c].totalPremium) ? p2040[c].totalPremium : "0"));
           p2040[c].totalPremium = "INCL";
