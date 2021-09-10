@@ -232,7 +232,7 @@
 		        <div class="form-group row">
 		            <div class="col-md-12">
 		                <label for="accessoryId" class="affinity-label">ACCESSORY</label>
-		                <select class="form-control" id="accessoryId" [(ngModel)]="this.accessory.accessoryIdHolder"     (change)="chooseAccessory()">
+		                <select class="form-control" id="accessoryId" [(ngModel)]="this.accessory.accessoryIdHolder" (change)="chooseAccessory()">
 			                <option></option>
 			                <option *ngFor="let accesory of this.affinity.lov.accessoryLOV" value="{{accesory.COD_ACCESORIO}}-{{accesory.NOM_ACCESORIO}} ({{accesory.ABR_AGRUP_ACCESORIO}})-{{accesory.IMP_ACCESORIO}}">{{accesory.NOM_ACCESORIO}} ({{accesory.ABR_AGRUP_ACCESORIO}})</option>
 			            </select>
