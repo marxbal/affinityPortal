@@ -1435,7 +1435,7 @@ export class CommonService {
 
     const textTitle = type == "P" ? "policy" : "proposal";
     const text = "Your insurance " + textTitle + " was sent to " + emailFinal.slice(0, -1) + 
-      ". Please ensure that fopmsecure@mapfreinsurance.com.ph is NOT on your spam/blocked email list. " + 
+      ". Please ensure that online@mapfreinsurance.com.ph is NOT on your spam/blocked email list. " + 
       "Do check your spam/junk folder in case you have not received any email confirmation and updates from us.";
 
     Swal.fire({
