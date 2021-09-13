@@ -814,9 +814,20 @@ export class PersonalComponent implements OnInit {
   getCoverages(numPoliza, affinity: Affinity, nextStep) {
     this.common.getCoverageByPolicy("P", numPoliza, affinity.lineId).subscribe(
       (result) => {
-        if (affinity.productId == "10002" || affinity.productId == "10001") {
-          let totalLossDamagePrem = 0;
+        const line = this.common.getLinebySubline(affinity.lineId);
+        if (line == CAR) {
+          if (this.affinity.motorDetails.vehiclePhotos.length > 0) {
+            let formData = this.common.assignFormDataUpload(this.affinity);
+            formData.append('numPoliza', this.affinity.quotationNumber);
+            formData.append('fullName', this.affinity.riskDetails.firstName + " " + (this.affinity.riskDetails.firstName) ? this.affinity.riskDetails.firstName : "");
+            this.caller.doCallService("/afnty/uploadFile", formData).subscribe(
+              uResult => {
+                console.log("upload result:");
+                console.log(uResult);
+              });
+          }
 
+          let totalLossDamagePrem = 0;
           for (let c = 0; c < result.length; c++) {
             if (result[c].codCob == "1003" || result[c].codCob == "1002") {
               totalLossDamagePrem = totalLossDamagePrem + parseFloat(result[c].totalPremium);
@@ -848,8 +859,7 @@ export class PersonalComponent implements OnInit {
             }
           }
         }
-
-        const line = this.common.getLinebySubline(affinity.lineId);
+        
         if (line == ACCIDENT) {
           for (let i = 0; i < result.length; i++) {
             if (result[i].numOcurrencia == "1") {
@@ -862,46 +872,46 @@ export class PersonalComponent implements OnInit {
           affinity.paDetails.familyMembers = this.mapP2025Insured(this.p2000025, result);
         }
 
-        if (affinity.lineId == '251') {
-          let total7105 = 0;
-          let total7373 = 0;
-          let total7386 = 0;
+        // if (affinity.lineId == '251') {
+        //   let total7105 = 0;
+        //   let total7373 = 0;
+        //   let total7386 = 0;
 
-          for (let i = 0; i < result.length; i++) {
-            switch (result[i].codCobRelacionada) {
-              case "7105":
-                total7105 = total7105 + parseFloat((result[i].totalPremium ? result[i].totalPremium : 0));
-                break;
-              case "7373":
-                total7373 = total7373 + parseFloat((result[i].totalPremium ? result[i].totalPremium : 0));
-                break;
-              case "7386":
-                total7386 = total7386 + parseFloat((result[i].totalPremium ? result[i].totalPremium : 0));
-                break;
-            }
-          }
+        //   for (let i = 0; i < result.length; i++) {
+        //     switch (result[i].codCobRelacionada) {
+        //       case "7105":
+        //         total7105 = total7105 + parseFloat((result[i].totalPremium ? result[i].totalPremium : 0));
+        //         break;
+        //       case "7373":
+        //         total7373 = total7373 + parseFloat((result[i].totalPremium ? result[i].totalPremium : 0));
+        //         break;
+        //       case "7386":
+        //         total7386 = total7386 + parseFloat((result[i].totalPremium ? result[i].totalPremium : 0));
+        //         break;
+        //     }
+        //   }
 
-          for (let i = 0; i < result.length; i++) {
-            result[i].numSecu = parseInt(result[i].numSecu) + 0;
-            switch (result[i].codCob) {
-              case "7105":
-                result[i].totalPremium = total7105;
-                result[i].nomCob = "WORKS OF ART";
-                affinity.coveragesValue.push(result[i]);
-                break;
-              case "7373":
-                result[i].totalPremium = total7373;
-                affinity.coveragesValue.push(result[i]);
-                break;
-              case "7386":
-                result[i].totalPremium = total7386;
-                affinity.coveragesValue.push(result[i]);
-                break;
-            }
+        //   for (let i = 0; i < result.length; i++) {
+        //     result[i].numSecu = parseInt(result[i].numSecu) + 0;
+        //     switch (result[i].codCob) {
+        //       case "7105":
+        //         result[i].totalPremium = total7105;
+        //         result[i].nomCob = "WORKS OF ART";
+        //         affinity.coveragesValue.push(result[i]);
+        //         break;
+        //       case "7373":
+        //         result[i].totalPremium = total7373;
+        //         affinity.coveragesValue.push(result[i]);
+        //         break;
+        //       case "7386":
+        //         result[i].totalPremium = total7386;
+        //         affinity.coveragesValue.push(result[i]);
+        //         break;
+        //     }
 
-            result[i].totalPremium = ((result[i].totalPremium == "") ? "" : this.formatter.format(parseFloat((result[i].totalPremium) ? result[i].totalPremium : "0")));
-          }
-        }
+        //     result[i].totalPremium = ((result[i].totalPremium == "") ? "" : this.formatter.format(parseFloat((result[i].totalPremium) ? result[i].totalPremium : "0")));
+        //   }
+        // }
 
         affinity.coveragesValue = _.orderBy(affinity.coveragesValue, 'numSecu', 'asc');
         this.nextStep.emit(nextStep);

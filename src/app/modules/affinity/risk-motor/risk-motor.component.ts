@@ -438,15 +438,6 @@ export class RiskMotorComponent implements OnInit {
                     this.getCoverages(result.message, this.affinity, "techControl");
                   });
               }
-              if (this.affinity.motorDetails.vehiclePhotos.length > 0) {
-                let formData = this.common.assignFormDataUpload(this.affinity);
-                formData.append('numPoliza', this.affinity.policyNumber);
-                formData.append('fullName', this.affinity.riskDetails.firstName + " " + (this.affinity.riskDetails.firstName) ? this.affinity.riskDetails.firstName : "");
-                this.caller.doCallService("/afnty/uploadFile", formData).subscribe(
-                  result => {
-
-                  });
-              }
               break;
             default:
               Swal.fire({
@@ -464,6 +455,17 @@ export class RiskMotorComponent implements OnInit {
   getCoverages(numPoliza, affinity: Affinity, nextStep) {
     this.common.getCoverageByPolicy("A", numPoliza, affinity.motorDetails.subline).subscribe(
       (result) => {
+        if (this.affinity.motorDetails.vehiclePhotos.length > 0) {
+          let formData = this.common.assignFormDataUpload(this.affinity);
+          formData.append('numPoliza', this.affinity.policyNumber);
+          formData.append('fullName', this.affinity.riskDetails.firstName + " " + (this.affinity.riskDetails.firstName) ? this.affinity.riskDetails.firstName : "");
+          this.caller.doCallService("/afnty/uploadFile", formData).subscribe(
+            uResult => {
+              console.log("upload result:");
+              console.log(uResult);
+            });
+        }
+
         affinity.coveragesValue = [];
         let totalLossDamagePrem = 0;
 
