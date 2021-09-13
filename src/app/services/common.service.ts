@@ -393,7 +393,10 @@ export class CommonService {
         tempP25a.mcaVigenteApli = vars1[x][6];
         tempP25a.numSecu = (x + 1).toString();
         tempP25a.numRiesgo = '1';
-        p2025.push(tempP25a);
+        if (!_.isEmpty(tempP25a.valCampo)) {
+          p2025.push(tempP25a);
+        }
+        // p2025.push(tempP25a);
       }
 
       // let riesgo = 2;
@@ -439,7 +442,10 @@ export class CommonService {
           tempP25.numSecu = (i + 1).toString();
           // tempP25.numRiesgo = riesgo.toString();
           tempP25.numRiesgo = '1';
-          p2025.push(tempP25);
+          if (!_.isEmpty(tempP25.valCampo)) {
+            p2025.push(tempP25);
+          }
+          // p2025.push(tempP25);
         }
         occurence++;
         // riesgo++;
