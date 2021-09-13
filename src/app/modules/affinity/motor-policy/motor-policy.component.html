@@ -150,7 +150,7 @@
 		<div class="form-group row">
             <div class="col-md-12">
                 <label for="MVFileNumber" class="affinity-label">MV FILE NUMBER <span class="text-mapfre text-heavy">*</span></label>
-                <input type="text" id="MVFileNumber" class="form-control required motor-policy-issuance to-uppercase" name="MV File Number" placeholder="MV File Number" [(ngModel)]="this.affinity.motorDetails.MVFileNumber">
+                <input type="text" id="MVFileNumber" maxlength="17" class="form-control required motor-policy-issuance to-uppercase" name="MV File Number" placeholder="MV File Number" [(ngModel)]="this.affinity.motorDetails.MVFileNumber">
             </div>
         </div>
 	</div>
@@ -247,8 +247,7 @@
 		<div class="form-group row">
             <div class="col-md-12">
                 <label for="vehicleUsedId" class="affinity-label">&nbsp;</label>
-				<button  *ngIf="this.accessory.accessoryValue" class="btn btn-mapfre btn-block" (click)="addAccessory()"><b>Add Accessory</b></button>
-                
+				<button *ngIf="this.accessory.accessoryDescription" class="btn btn-mapfre btn-block" (click)="addAccessory()"><b>Add Accessory</b></button>
             </div>
         </div>
 	</div>
@@ -320,7 +319,7 @@
         </div>
     </div>
 </div>
-<div id="vehiclePhotosContainer" class="hidden">
+<div id="vehiclePhotosContainer">
 	<h5>Vehicle Photos</h5>
 	<button type="button"  class="btn btn-mapfre mb-5 mt-3" data-toggle="modal" data-target="#addAlternativeId">
 	  View Guidelines

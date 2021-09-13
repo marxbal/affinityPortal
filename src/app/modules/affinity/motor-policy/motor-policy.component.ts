@@ -258,13 +258,13 @@ export class MotorPolicyComponent implements OnInit {
     let isRetro = m().isAfter(this.affinity.motorDetails.policyPeriodFrom, 'day');
     let isBelowSix = m(this.affinity.motorDetails.policyPeriodFrom).isBefore(m().subtract(6, 'month'));
 
-    $("#vehiclePhotosContainer").addClass("hidden");
+    // $("#vehiclePhotosContainer").addClass("hidden");
 
     if (!isRetro) {
       return null;
     }
 
-    $("#vehiclePhotosContainer").removeClass("hidden");
+    // $("#vehiclePhotosContainer").removeClass("hidden");
 
     Swal.fire({
       type: 'warning',
@@ -319,9 +319,9 @@ export class MotorPolicyComponent implements OnInit {
   }
 
   chooseModelYear() {
-    $("#vehiclePhotosContainer").addClass("hidden");
+    // $("#vehiclePhotosContainer").addClass("hidden");
     if ((m().year() - parseInt(this.affinity.motorDetails.modelYear)) > 8) {
-      $("#vehiclePhotosContainer").removeClass("hidden");
+      // $("#vehiclePhotosContainer").removeClass("hidden");
 
       Swal.fire({
         type: 'warning',
@@ -439,7 +439,7 @@ export class MotorPolicyComponent implements OnInit {
         text: "Vehicle more than eight (8) years old is subject to approval. Submission of current pictures of all sides of the risk is required for evaluation of acceptance of MAPFRE Insurance prior issuance of policy."
       });
 
-      $("#vehiclePhotosContainer").removeClass("hidden");
+      // $("#vehiclePhotosContainer").removeClass("hidden");
       return null;
 
     }
