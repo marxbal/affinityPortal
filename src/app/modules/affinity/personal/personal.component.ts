@@ -862,7 +862,7 @@ export class PersonalComponent implements OnInit {
         
         if (line == ACCIDENT) {
           for (let i = 0; i < result.length; i++) {
-            if (result[i].numOcurrencia == "1") {
+            if (result[i].numRiesgo == "1") {
               // result[i].sumaAseg = this.formatter.format(parseFloat(result[i].sumaAseg));
               result[i].totalPremium = ((result[i].totalPremium) ? this.formatter.format(parseFloat(result[i].totalPremium)) : "INCL");
               result[i].numSecu = parseInt(result[i].numSecu) + 0;
