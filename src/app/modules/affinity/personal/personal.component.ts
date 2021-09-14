@@ -638,8 +638,12 @@ export class PersonalComponent implements OnInit {
 
   verifyBday(evt: any) {
     var target = evt.target;
-    alert(target.value);
-    const retVal = this.common.blacklist(target);
+
+    var a = m();
+    var b = m(target.value);
+    const diff = a.diff(b, 'days');
+
+    alert(diff);
   }
 
   chooseEffectivityDate() {
