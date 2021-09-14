@@ -194,10 +194,13 @@ export class InsuredDetailsComponent implements OnInit {
       return null;
     }
 
-    if (this.insuredAffinity.riskDetails.relationship.split(":=:")[0] == "C") {
-      if (!this.chooseBirthday()) {
-        return null;
-      }
+    // if (this.insuredAffinity.riskDetails.relationship.split(":=:")[0] == "C") {
+    //   if (!this.chooseBirthday()) {
+    //     return null;
+    //   }
+    // }
+    if (!this.chooseBirthday()) {
+      return null;
     }
 
     this.insuredAffinity.riskDetails.firstName = this.insuredAffinity.riskDetails.firstName.toUpperCase();
