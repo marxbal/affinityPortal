@@ -643,7 +643,14 @@ export class PersonalComponent implements OnInit {
     var b = m(target.value);
     const diff = a.diff(b, 'years');
 
-    alert(diff);
+    if (diff > 65 || diff < 18) {
+      this.affinity.riskDetails.birthDate = '';
+      Swal.fire({
+        type: 'warning',
+        title: 'Invalid Age',
+        text: "Age of primary shoudld be between 65 to 18 years old"
+      });
+    }
   }
 
   chooseEffectivityDate() {
