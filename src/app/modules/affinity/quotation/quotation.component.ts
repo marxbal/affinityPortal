@@ -135,7 +135,7 @@ export class QuotationComponent implements OnInit {
           }
         });
     } else if (this.line == "personalInformation") {
-      this.title = "Personal Accident";
+      this.title = this.affinity.productId == '32301' ? "Individual Personal Accident" : 'Family Personal Accident';
       this.buyNowStep = "riskInformation";
     }
 
