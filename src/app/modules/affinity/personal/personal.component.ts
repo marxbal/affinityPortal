@@ -636,6 +636,12 @@ export class PersonalComponent implements OnInit {
     this.affinity.riskDetails.nationality = retVal;
   }
 
+  verifyBday(evt: any) {
+    var target = evt.target;
+    alert(target.value);
+    const retVal = this.common.blacklist(target);
+  }
+
   chooseEffectivityDate() {
     this.spinner.show();
     this.affinity.motorDetails.policyPeriodTo = m(this.affinity.motorDetails.policyPeriodFrom).add(1, 'year').format('YYYY-MM-DD');
