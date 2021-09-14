@@ -641,7 +641,7 @@ export class PersonalComponent implements OnInit {
 
     var a = m();
     var b = m(target.value);
-    const diff = a.diff(b, 'days');
+    const diff = a.diff(b, 'years');
 
     alert(diff);
   }
