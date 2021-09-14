@@ -49,6 +49,7 @@ export class PersonalAccidentIssuanceService {
     this.generalMapping(result);
 
     this.paAff.productId = this.commonService.getP20Value(result.p2000020List, 'COD_MODALIDAD');
+    
 
     let fisico = "1";
 
@@ -185,6 +186,8 @@ export class PersonalAccidentIssuanceService {
     this.paAff.province = result.province;
     this.paAff.provinceName = result.provinceName;
     this.paAff.zipCode = result.zipCode;
+
+    this.getAccidentCoverageLimit(result.p2000020List);
   }
 
   mapP2025Primary(p2025) {
@@ -282,6 +285,27 @@ export class PersonalAccidentIssuanceService {
 
     }
 
+  }
+
+  getAccidentCoverageLimit(p2000020List) {
+    if (p2000020List.length) {
+      for (let i = 0; i < p2000020List.length; i++) {
+        const varData = p2000020List[i];
+        if (varData.codCampo == 'VAL_TIP_PLAN') {
+          switch (varData.valCampo) {
+            case "500K":
+              this.paAff.riskDetails.accidentCoverageLimit = '500000';
+              break;
+            case "1M":
+              this.paAff.riskDetails.accidentCoverageLimit = '1000000';
+              break;
+            default:
+              this.paAff.riskDetails.accidentCoverageLimit = '250000';
+              break;
+          }
+        }
+      }
+    }
   }
 
   chooseOccupationalClass(occClass) {
