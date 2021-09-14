@@ -62,6 +62,8 @@ export class MotorPolicyComponent implements OnInit {
 
     this.accessory = new MotorAccessories();
 
+    this.fmv = parseFloat(this.affinity.motorDetails.FMV);
+
     // this.chooseModelYear();
 
     this.caller.getLOV("A2100800", "1", '').subscribe(
