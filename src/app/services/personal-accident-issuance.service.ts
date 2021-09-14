@@ -128,7 +128,7 @@ export class PersonalAccidentIssuanceService {
         this.mapP2025Insured(result.a2000025List, resulta);
 
         for (let i = 0; i < resulta.length; i++) {
-          if (resulta[i].numOcurrencia == "1") {
+          if (resulta[i].numRiesgo == "1") {
             // resulta[i].sumaAseg = this.formatter.format(parseFloat(resulta[i].sumaAseg));
             resulta[i].numSecu = parseInt(resulta[i].numSecu) + 0;
             resulta[i].totalPremium = ((resulta[i].totalPremium) ? this.formatter.format(parseFloat(resulta[i].totalPremium)) : "INCL");
