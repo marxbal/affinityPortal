@@ -129,6 +129,8 @@ export class InsuredDetailsComponent implements OnInit {
   }
 
   chooseBirthday() {
+    const isChild = this.insuredAffinity.riskDetails.relationship.split(":=:")[0] == "C";
+
     let ret = true;
     // let currentYearDiff = (m().year() - parseInt(this.affinity.riskDetails.birthDate));
     // let currentYearDiff = (m(this.effectivity,'YYYY-MM-DD').diff(m(this.insuredAffinity.riskDetails.birthDate,'YYYY-MM-DD'), 'months', true)) / 12;
@@ -137,15 +139,25 @@ export class InsuredDetailsComponent implements OnInit {
     let dt2 = new Date(this.insuredAffinity.riskDetails.birthDate.replace(/-/g, '/'));
     let currentYearDiff = this.monthDiff(dt2, dt1) / 12;
 
-    if (currentYearDiff > 21) {
-      Swal.fire({
-        type: 'error',
-        title: 'Quotation Issuance',
-        text: "Age of Child must be up to 21 years old."
-      });
-      ret = false;
+    if (isChild) {
+      if (currentYearDiff > 21) {
+        Swal.fire({
+          type: 'error',
+          title: 'Quotation Issuance',
+          text: "Age of Child must be up to 21 years old."
+        });
+        ret = false;
+      }
+    } else {
+      if (currentYearDiff => 18 || currentYearDiff <= 64) {
+        Swal.fire({
+          type: 'error',
+          title: 'Quotation Issuance',
+          text: "Age should be between 18 to 64 years old."
+        });
+        ret = false;
+      }
     }
-
     return ret;
   }
 

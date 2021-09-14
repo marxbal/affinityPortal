@@ -637,19 +637,22 @@ export class PersonalComponent implements OnInit {
   }
 
   verifyBday(evt: any) {
-    var target = evt.target;
+    var line = this.common.getLinebySubline(this.affinity.lineId);
+    if (line == ACCIDENT) {
+      var target = evt.target;
 
-    var a = m();
-    var b = m(target.value);
-    const diff = a.diff(b, 'years');
-
-    if (diff > 65 || diff < 18) {
-      this.affinity.riskDetails.birthDate = '';
-      Swal.fire({
-        type: 'warning',
-        title: 'Invalid Age',
-        text: "Age of primary shoudld be between 65 to 18 years old"
-      });
+      var a = m();
+      var b = m(target.value);
+      const diff = a.diff(b, 'years');
+  
+      if (diff > 64 || diff < 18) {
+        this.affinity.riskDetails.birthDate = '';
+        Swal.fire({
+          type: 'warning',
+          title: 'Invalid Age',
+          text: "Age should be between 18 to 64 years old"
+        });
+      }
     }
   }
 

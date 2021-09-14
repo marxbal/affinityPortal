@@ -249,17 +249,37 @@ export class RiskAccidentComponent implements OnInit {
       });
   }
 
+  verifyBday(evt: any) {
+    var line = this.common.getLinebySubline(this.affinity.lineId);
+    if (line == ACCIDENT) {
+      var target = evt.target;
+
+      var a = m();
+      var b = m(target.value);
+      const diff = a.diff(b, 'years');
+  
+      if (diff > 64 || diff < 18) {
+        this.affinity.riskDetails.birthDate = '';
+        Swal.fire({
+          type: 'warning',
+          title: 'Invalid Age',
+          text: "Age should be between 18 to 64 years old"
+        });
+      }
+    }
+  }
+
   chooseBirthday() {
     let ret = true;
     const line = this.common.getLinebySubline(this.affinity.lineId);
     if (line == ACCIDENT) {
       let currentYearDiff = (m(new Date(this.affinity.motorDetails.policyPeriodFrom)).diff(new Date(this.affinity.riskDetails.birthDate), 'months', true)) / 12;
 
-      if (currentYearDiff < 18 || currentYearDiff > 70) {
+      if (currentYearDiff < 18 || currentYearDiff > 64) {
         Swal.fire({
           type: 'error',
           title: 'Quotation Issuance',
-          text: "Age of Principal Insured must be between Eighteen (18) and Seventy (70) Years Old."
+          text: "Age of Principal Insured must be between Eighteen (18) and Seventy (64) Years Old."
         });
         ret = false;
       }
