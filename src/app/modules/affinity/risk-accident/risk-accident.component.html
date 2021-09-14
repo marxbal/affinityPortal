@@ -221,7 +221,8 @@
   </div>
 </div>
 <br />
-<div *ngIf="this.affinity.riskDetails.civilStatus !== '' && this.affinity.riskDetails.civilStatus !== 'S'">
+<!-- <div *ngIf="this.affinity.riskDetails.civilStatus !== '' && this.affinity.riskDetails.civilStatus !== 'S'"> -->
+<div *ngIf="this.affinity.productId == '32401'">
   <h5>Family Members</h5>
   <small>You may also provide your family members protection against bodily injury, death, or disablement arising from
     accidental or external causes.
