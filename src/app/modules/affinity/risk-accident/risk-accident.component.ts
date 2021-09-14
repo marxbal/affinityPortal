@@ -165,6 +165,8 @@ export class RiskAccidentComponent implements OnInit {
       result => {
         this.affinity.lov.occupationalClassLOV = result;
         this.affinity.lov.occupationalClassLOV.splice(this.affinity.lov.occupationalClassLOV.length - 1, 1);
+
+        this.chooseOccupationalClass();
       });
 
     let childCount = 0;
