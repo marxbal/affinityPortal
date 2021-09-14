@@ -60,6 +60,8 @@ export class MotorComponent implements OnInit {
   coverage: Coverages = new Coverages();
   title: String = "";
 
+  fmv: number = 0;
+
   formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'PHP',
@@ -357,6 +359,7 @@ export class MotorComponent implements OnInit {
       this.affinity.motorDetails.modelYear
     ).subscribe(
       (result) => {
+        this.fmv = parseFloat(result);
         this.affinity.motorDetails.FMV = result
       });
   }
@@ -616,6 +619,34 @@ export class MotorComponent implements OnInit {
     }
 
     return validCond;
+  }
+
+  limitFMV(evt: any) {
+    var target = evt.target;
+
+    try  {
+      const val = parseFloat(target);
+
+      const percentage = this.fmv * .10;
+      const maxFMV = this.fmv + percentage;
+      const minFMV = this.fmv - percentage;
+
+      if (val > maxFMV || val < minFMV) {
+        this.affinity.motorDetails.FMV = this.fmv.toString();
+        Swal.fire({
+          type: 'error',
+          title: 'Invalid FMV value',
+          text: "Invalid FMV value, value should be 10% higher or 10% lower of " + this.fmv
+        });
+      }
+    } catch (err) {
+      this.affinity.motorDetails.FMV = this.fmv.toString();
+      Swal.fire({
+        type: 'error',
+        title: 'Invalid FMV value',
+        text: "Invalid FMV format, please enter numbers only"
+      });
+    }
   }
 
   backButtonAction() {
