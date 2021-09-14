@@ -149,7 +149,7 @@ export class InsuredDetailsComponent implements OnInit {
         ret = false;
       }
     } else {
-      if (currentYearDiff => 18 || currentYearDiff <= 64) {
+      if (currentYearDiff < 18 || currentYearDiff > 64) {
         Swal.fire({
           type: 'error',
           title: 'Quotation Issuance',
