@@ -973,10 +973,7 @@ export class PersonalComponent implements OnInit {
       }
 
       for (let c = 0; c < p2040.length; c++) {
-        if (p2040[c].numOcurrencia == (x + 1)) {
-          // p2040[c].sumaAseg = this.formatter.format(parseFloat(p2040[c].sumaAseg));
-          // p2040[c].totalPremium = this.formatter.format(parseFloat((p2040[c].totalPremium) ? p2040[c].totalPremium : "0"));
-          p2040[c].totalPremium = "INCL";
+        if (p2040[c].numRiesgo == 1) {
           riskTemp.coveragesValue.push(p2040[c]);
         }
       }

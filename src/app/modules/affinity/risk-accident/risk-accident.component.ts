@@ -613,8 +613,7 @@ export class RiskAccidentComponent implements OnInit {
       }
 
       for (let c = 0; c < p2040.length; c++) {
-        if (p2040[c].numOcurrencia == (x + 1)) {
-          p2040[c].totalPremium = "INCL";
+        if (p2040[c].numRiesgo == 1) {
           riskTemp.coveragesValue.push(p2040[c]);
         }
       }
