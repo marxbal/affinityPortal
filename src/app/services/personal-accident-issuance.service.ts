@@ -272,7 +272,11 @@ export class PersonalAccidentIssuanceService {
         if (p2040[c].numRiesgo == 1) {
           // p2040[c].sumaAseg = this.formatter.format(parseFloat(p2040[c].sumaAseg));
           // p2040[c].totalPremium = this.formatter.format(parseFloat((p2040[c].totalPremium) ? p2040[c].totalPremium : "0"));
-          p2040[c].totalPremium = "INCL";
+          if (p2040[c].totalPremium == '') {
+            p2040[c].totalPremium = "INCL";
+          } else {
+            this.formatter.format(parseFloat((p2040[c].totalPremium)));
+          }
           riskTemp.coveragesValue.push(p2040[c]);
         }
       }
