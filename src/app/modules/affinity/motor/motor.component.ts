@@ -625,7 +625,7 @@ export class MotorComponent implements OnInit {
     var target = evt.target;
 
     try  {
-      const val = parseFloat(target);
+      const val = parseFloat(target.value);
 
       const percentage = this.fmv * .10;
       const maxFMV = this.fmv + percentage;
