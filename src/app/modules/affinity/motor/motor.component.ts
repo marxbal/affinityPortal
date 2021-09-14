@@ -636,7 +636,7 @@ export class MotorComponent implements OnInit {
         Swal.fire({
           type: 'error',
           title: 'Invalid FMV value',
-          text: "Invalid FMV value, value should be 10% higher or 10% lower of " + this.fmv
+          text: "Invalid FMV value, value should be higher than " + minFMV + " or lower than " + maxFMV
         });
       }
     } catch (err) {

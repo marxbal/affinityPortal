@@ -45,6 +45,7 @@ export class MotorPolicyComponent implements OnInit {
   @Output() affinityOutput = new EventEmitter();
 
   accessory: MotorAccessories;
+  fmv: number = 0;
 
   formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -209,6 +210,34 @@ export class MotorPolicyComponent implements OnInit {
     return validCond;
   }
 
+  limitFMV(evt: any) {
+    var target = evt.target;
+
+    try  {
+      const val = parseFloat(target.value);
+
+      const percentage = this.fmv * .10;
+      const maxFMV = this.fmv + percentage;
+      const minFMV = this.fmv - percentage;
+
+      if (val > maxFMV || val < minFMV) {
+        this.affinity.motorDetails.FMV = this.fmv.toString();
+        Swal.fire({
+          type: 'error',
+          title: 'Invalid FMV value',
+          text: "Invalid FMV value, value should be higher than " + minFMV + " or lower than " + maxFMV
+        });
+      }
+    } catch (err) {
+      this.affinity.motorDetails.FMV = this.fmv.toString();
+      Swal.fire({
+        type: 'error',
+        title: 'Invalid FMV value',
+        text: "Invalid FMV format, please enter numbers only"
+      });
+    }
+  }
+
   chooseVTPL() {
     this.affinity.motorDetails.propertyDamageLimit = this.affinity.motorDetails.bodilyInjuryLimit;
   }
@@ -358,6 +387,7 @@ export class MotorPolicyComponent implements OnInit {
           this.affinity.motorDetails.subModelId + '&anioSubModelo=' +
           this.affinity.motorDetails.modelYear, null).subscribe(
           resulta => {
+            this.fmv = parseFloat(resulta);
             this.affinity.motorDetails.FMV = resulta;
           });
 
