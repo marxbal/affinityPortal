@@ -542,7 +542,7 @@ export class RiskAccidentComponent implements OnInit {
       (resulta) => {
         this.mapP2025Insured(this.p2000025, resulta);
         for (let i = 0; i < resulta.length; i++) {
-          if (resulta[i].numOcurrencia == "1") {
+          if (resulta[i].numRiesgo == "1") {
             resulta[i].numSecu = parseInt(resulta[i].numSecu) + 0;
             resulta[i].totalPremium = ((resulta[i].totalPremium) ? this.formatter.format(parseFloat(resulta[i].totalPremium)) : "INCL");
             affinity.coveragesValue.push(resulta[i]);
