@@ -176,12 +176,24 @@ export class RiskAccidentComponent implements OnInit {
         childCount = childCount + 1;
       }
     }
+
     if (this.affinity.riskDetails.civilStatus != "C") {
       haveSpouse = "1";
     }
+
     if (haveSpouse == "1" && childCount == 3) {
       this.showAddButton = "0";
     }
+
+    this.affinity.lov.accidentCoverageLimitLOV = [
+      {COD_VALOR: 1000000},
+      {COD_VALOR: 500000},
+      {COD_VALOR: 250000},
+    ];
+
+    this.affinity.lov.accidentCoverageLimitLOV.forEach((acl)=> {
+      acl.NOM_VALOR = this.formatter.format(acl.COD_VALOR);
+    });
   }
 
   iOS() {

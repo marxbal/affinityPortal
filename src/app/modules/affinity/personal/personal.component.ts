@@ -213,7 +213,7 @@ export class PersonalComponent implements OnInit {
 
       this.affinity.lov.accidentCoverageLimitLOV.forEach((acl)=> {
         acl.NOM_VALOR = this.formatter.format(acl.COD_VALOR);
-      })
+      });
     }
   }
 
