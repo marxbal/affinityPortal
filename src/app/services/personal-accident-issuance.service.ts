@@ -47,9 +47,9 @@ export class PersonalAccidentIssuanceService {
 
     this.paAff.quotationNumber = result.p2000030.numPoliza;
     this.generalMapping(result);
+    this.getAccidentCoverageLimit(result.p2000020List);
 
     this.paAff.productId = this.commonService.getP20Value(result.p2000020List, 'COD_MODALIDAD');
-    
 
     let fisico = "1";
 
@@ -109,6 +109,7 @@ export class PersonalAccidentIssuanceService {
 
     this.paAff.policyNumber = result.p2000030.numPoliza;
     this.generalMapping(result);
+    this.getAccidentCoverageLimit(result.a2000020List);
 
     this.paAff.productId = this.commonService.getP20Value(result.a2000020List, 'COD_MODALIDAD');
 
@@ -186,8 +187,6 @@ export class PersonalAccidentIssuanceService {
     this.paAff.province = result.province;
     this.paAff.provinceName = result.provinceName;
     this.paAff.zipCode = result.zipCode;
-
-    this.getAccidentCoverageLimit(result.p2000020List);
   }
 
   mapP2025Primary(p2025) {
