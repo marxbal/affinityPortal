@@ -243,7 +243,7 @@
                 *ngIf="line != type.accident && this.affinity.lineId != '251'"
                 class="text-mapfre text-heavy">*</span></label>
             <input type="text" id="validIDValue" class="form-control required motor-personal to-uppercase"
-              name="ID Number" placeholder="ID Number" [(ngModel)]="this.affinity.riskDetails.validIDValue">
+              name="ID Number" maxlength="20" placeholder="ID Number" [(ngModel)]="this.affinity.riskDetails.validIDValue">
           </div>
         </div>
       </div>
