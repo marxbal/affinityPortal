@@ -21,6 +21,7 @@ import Swal from 'sweetalert2';
 import {
   NgxSpinnerService
 } from 'ngx-spinner';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-insured-details',
@@ -142,7 +143,7 @@ export class InsuredDetailsComponent implements OnInit {
     if (isChild) {
       if (currentYearDiff > 21) {
         Swal.fire({
-          type: 'error',
+          type: 'warning',
           title: 'Quotation Issuance',
           text: "Age of Child must be up to 21 years old."
         });
@@ -151,7 +152,7 @@ export class InsuredDetailsComponent implements OnInit {
     } else {
       if (currentYearDiff < 18 || currentYearDiff > 64) {
         Swal.fire({
-          type: 'error',
+          type: 'warning',
           title: 'Quotation Issuance',
           text: "Age should be between 18 to 64 years old."
         });
@@ -184,6 +185,24 @@ export class InsuredDetailsComponent implements OnInit {
       });
   }
 
+  chooseOccupation() {
+    const occupation = this.insuredAffinity.riskDetails.occupation;
+
+    let ret = false;
+
+    if (!_.isEmpty(occupation)) {
+      ret = true
+    } else {
+      Swal.fire({
+        type: 'warning',
+        title: 'Quotation Issuance',
+        text: "Please select occupation."
+      });
+    }
+
+    return ret;
+  }
+
   backButtonAction() {
     this.insuredAffinity.isBack = true;
     this.newInsured.emit(this.insuredAffinity);
@@ -200,6 +219,8 @@ export class InsuredDetailsComponent implements OnInit {
     //   }
     // }
     if (!this.chooseBirthday()) {
+      return null;
+    } else if (!this.chooseOccupation()) {
       return null;
     }
 
