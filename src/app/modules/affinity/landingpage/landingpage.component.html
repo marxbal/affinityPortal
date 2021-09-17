@@ -145,7 +145,7 @@
                     </div>
                     <div class="col-md-8">
                       <h5 class="card-title mt-3"><b>Private Vehicle</b></h5>
-                      <p>{{issue.quotationNumber}}</p>
+                      <p>{{issue.numPresupuesto}}</p>
                     </div>
                   </div>
   
@@ -159,7 +159,7 @@
                     </div>
                     <div class="col-md-8">
                       <h5 class="card-title mt-3"><b>Motor Cycle</b></h5>
-                      <p>{{issue.quotationNumber}}</p>
+                      <p>{{issue.numPresupuesto}}</p>
                     </div>
                   </div>
   
@@ -172,7 +172,7 @@
                     </div>
                     <div class="col-md-8">
                       <h5 class="card-title mt-3"><b>Individual Personal</b></h5>
-                      <p>{{issue.quotationNumber}}</p>
+                      <p>{{issue.numPresupuesto}}</p>
                     </div>
                   </div>
   
@@ -185,13 +185,13 @@
                     </div>
                     <div class="col-md-8">
                       <h5 class="card-title mt-3"><b>Family Personal</b></h5>
-                      <p>{{issue.quotationNumber}}</p>
+                      <p>{{issue.numPresupuesto}}</p>
                     </div>
                   </div>
   
                   <button class="btn btn-mapfre btn-block" type="button"
                     (click)="loadPolicy(issue,'73015b3208cdee70a4497235463b63d7',issue.quotationNumber)">
-                    Load Quotation
+                    {{issue.codProcess == 1 && issue.tipStatus == 2 ? 'Quotation with TC' : 'Load Quotation'}}
                   </button>
                 </div>
               </div>
@@ -231,7 +231,7 @@
                     </div>
                     <div class="col-md-8">
                       <h5 class="card-title mt-3"><b>Private Vehicle</b></h5>
-                      <p>{{issue.policyNumber}}</p>
+                      <p>{{issue.numPoliza}}</p>
                     </div>
                   </div>
   
@@ -244,7 +244,7 @@
                     </div>
                     <div class="col-md-8">
                       <h5 class="card-title mt-3"><b>Motor Cycle</b></h5>
-                      <p>{{issue.policyNumber}}</p>
+                      <p>{{issue.numPoliza}}</p>
                     </div>
                   </div>
   
@@ -257,7 +257,7 @@
                     </div>
                     <div class="col-md-8">
                       <h5 class="card-title mt-3"><b>Individual Personal</b></h5>
-                      <p>{{issue.policyNumber}}</p>
+                      <p>{{issue.numPoliza}}</p>
                     </div>
                   </div>
   
@@ -270,13 +270,13 @@
                     </div>
                     <div class="col-md-8">
                       <h5 class="card-title mt-3"><b>Family Personal</b></h5>
-                      <p>{{issue.policyNumber}}</p>
+                      <p>{{issue.numPoliza}}</p>
                     </div>
                   </div>
   
-                  <button class="btn {{issue.process == 3 && issue.status == 1 ? 'btn-success' : 'btn-mapfre'}}  btn-block" type="button"
+                  <button class="btn {{issue.codProcess == 3 && issue.tipStatus == 1 ? 'btn-success' : 'btn-mapfre'}}  btn-block" type="button"
                     (click)="loadPolicy(issue, '51359e8b51c63b87d50cb1bab73380e2', issue.policyNumber)">
-                    {{issue.process == 3 && issue.status == 1 ? 'Paid' : 'Load'}} Policy 
+                    {{issue.codProcess == 3 && issue.tipStatus == 1 ? 'Paid Policy' : (issue.codProcess == 2 && issue.tipStatus == 2) ? 'Policy with TC' 'Load Policy'}} 
                   </button>
   
                 </div>
