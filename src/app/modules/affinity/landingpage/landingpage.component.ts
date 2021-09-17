@@ -279,7 +279,7 @@ export class LandingpageComponent implements OnInit {
   loadPolicy(issue, type, numPoliza) {
     type = "";
 
-    switch (issue.process) {
+    switch (issue.codProcess) {
       case '1':
         type = "73015b3208cdee70a4497235463b63d7";
         break;
