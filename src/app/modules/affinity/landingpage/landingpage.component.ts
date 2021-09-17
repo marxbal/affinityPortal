@@ -280,16 +280,16 @@ export class LandingpageComponent implements OnInit {
     type = "";
 
     switch (issue.codProcess) {
-      case '1':
+      case 1:
         type = "73015b3208cdee70a4497235463b63d7";
         break;
-      case '2':
+      case 2:
         type = "51359e8b51c63b87d50cb1bab73380e2";
         break;
-      case '3':
+      case 3:
         type = "51359e8b51c63b87d50cb1bab73380e2";
         break;
-      case '4':
+      case 4:
         type = "73015b3208cdee70a4497235463b63d7";
         break;
       default:
