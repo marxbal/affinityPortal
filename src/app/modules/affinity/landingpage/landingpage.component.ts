@@ -155,7 +155,7 @@ export class LandingpageComponent implements OnInit {
     if (this.affinity.previousIssuances) {
       for (let i = 0; i < this.affinity.previousIssuances.length; i++) {
         if (this.affinity.previousIssuances[i].codProcess == "1") {
-          this.previousPolicies.push(this.affinity.previousIssuances[i]);
+          this.previousQuotations.push(this.affinity.previousIssuances[i]);
         }
       }
     }
