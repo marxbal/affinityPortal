@@ -190,7 +190,7 @@
                   </div>
   
                   <button class="btn btn-mapfre btn-block" type="button"
-                    (click)="loadPolicy(issue,'73015b3208cdee70a4497235463b63d7',issue.quotationNumber)">
+                    (click)="loadPolicy(issue,'73015b3208cdee70a4497235463b63d7',issue.numPresupuesto)">
                     {{issue.codProcess == 1 && issue.tipStatus == 2 ? 'Quotation with TC' : 'Load Quotation'}}
                   </button>
                 </div>
@@ -275,7 +275,7 @@
                   </div>
   
                   <button class="btn {{issue.codProcess == 3 && issue.tipStatus == 1 ? 'btn-success' : 'btn-mapfre'}}  btn-block" type="button"
-                    (click)="loadPolicy(issue, '51359e8b51c63b87d50cb1bab73380e2', issue.policyNumber)">
+                    (click)="loadPolicy(issue, '51359e8b51c63b87d50cb1bab73380e2', issue.numPoliza)">
                     {{issue.codProcess == 3 && issue.tipStatus == 1 ? 'Paid Policy' : (issue.codProcess == 2 && issue.tipStatus == 2) ? 'Policy with TC' : 'Load Policy'}} 
                   </button>
   
