@@ -49,6 +49,7 @@ import {
 export class LandingpageComponent implements OnInit {
 
   constructor(
+    private caller: AuthService,
     private authenticate: AuthenticationService,
     private auth: AuthService,
     private router: Router,
@@ -90,6 +91,41 @@ export class LandingpageComponent implements OnInit {
     this.getPartnerProducts();
   }
 
+  retrieveTransactions() {
+    this.spinner.show();
+    this.caller.doCallService('/afnty/retrieveTransactions', this.affinity.clientId).subscribe(
+      result => {
+        this.spinner.hide();
+        let newResult = _.orderBy(result, ['transactionNumber'], ['desc']);
+
+        this.affinity.previousIssuances = newResult;
+
+        // for (let i = 0; i < this.affinity.previousIssuances.length; i++) {
+        //   if (this.affinity.previousIssuances[i].policyNumber) {
+        //     for (let x = 0; x < this.affinity.previousIssuances[i].iDTO.a2000020List.length; x++) {
+        //       switch (this.affinity.previousIssuances[i].iDTO.a2000020List[x].codCampo) {
+        //         case "COD_MODALIDAD":
+        //           this.affinity.previousIssuances[i].productId = this.affinity.previousIssuances[i].iDTO.a2000020List[x].valCampo;
+        //           break;
+        //         default:
+        //           break;
+        //       }
+        //     }
+        //   } else {
+        //     for (let x = 0; x < this.affinity.previousIssuances[i].iDTO.p2000020List.length; x++) {
+        //       switch (this.affinity.previousIssuances[i].iDTO.p2000020List[x].codCampo) {
+        //         case "COD_MODALIDAD":
+        //           this.affinity.previousIssuances[i].productId = this.affinity.previousIssuances[i].iDTO.p2000020List[x].valCampo;
+        //           break;
+        //         default:
+        //           break;
+        //       }
+        //     }
+        //   }
+        // }
+      });
+  }
+
   viewPreviousPolicy() {
     this.viewPolicies = !this.viewPolicies;
 
@@ -100,11 +136,8 @@ export class LandingpageComponent implements OnInit {
     this.previousPolicies = [];
     if (this.affinity.previousIssuances) {
       for (let i = 0; i < this.affinity.previousIssuances.length; i++) {
-        if (this.affinity.previousIssuances[i].policyNumber) { 
-          const include = _.indexOf(this.availableProducts, this.affinity.previousIssuances[i].productId) != -1;
-          if (include) {
-            this.previousPolicies.push(this.affinity.previousIssuances[i]);
-          }
+        if (this.affinity.previousIssuances[i].codProcess != "1") {
+          this.previousPolicies.push(this.affinity.previousIssuances[i]);
         }
       }
     }
@@ -120,11 +153,8 @@ export class LandingpageComponent implements OnInit {
     this.previousQuotations = [];
     if (this.affinity.previousIssuances) {
       for (let i = 0; i < this.affinity.previousIssuances.length; i++) {
-        if (this.affinity.previousIssuances[i].quotationNumber) { 
-          const include = _.indexOf(this.availableProducts, this.affinity.previousIssuances[i].productId) != -1;
-          if (include) {
-            this.previousQuotations.push(this.affinity.previousIssuances[i]);
-          }
+        if (this.affinity.previousIssuances[i].codProcess == "1") {
+          this.previousPolicies.push(this.affinity.previousIssuances[i]);
         }
       }
     }

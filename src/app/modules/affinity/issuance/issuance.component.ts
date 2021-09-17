@@ -88,42 +88,6 @@ export class IssuanceComponent implements OnInit {
       let numPoliza = this.route.snapshot.paramMap.get("numPoliza");
       let type = this.route.snapshot.paramMap.get("type");
 
-      this.line = "";
-      this.templateRouter = "initialize";
-
-      this.spinner.show();
-      this.caller.doCallService('/afnty/retrieveTransactions', this.affinity.clientId).subscribe(
-        result => {
-          this.spinner.hide();
-          let newResult = _.orderBy(result, ['transactionNumber'], ['desc']);
-
-          this.affinity.previousIssuances = newResult;
-
-          for (let i = 0; i < this.affinity.previousIssuances.length; i++) {
-            if (this.affinity.previousIssuances[i].policyNumber) {
-              for (let x = 0; x < this.affinity.previousIssuances[i].iDTO.a2000020List.length; x++) {
-                switch (this.affinity.previousIssuances[i].iDTO.a2000020List[x].codCampo) {
-                  case "COD_MODALIDAD":
-                    this.affinity.previousIssuances[i].productId = this.affinity.previousIssuances[i].iDTO.a2000020List[x].valCampo;
-                    break;
-                  default:
-                    break;
-                }
-              }
-            } else {
-              for (let x = 0; x < this.affinity.previousIssuances[i].iDTO.p2000020List.length; x++) {
-                switch (this.affinity.previousIssuances[i].iDTO.p2000020List[x].codCampo) {
-                  case "COD_MODALIDAD":
-                    this.affinity.previousIssuances[i].productId = this.affinity.previousIssuances[i].iDTO.p2000020List[x].valCampo;
-                    break;
-                  default:
-                    break;
-                }
-              }
-            }
-          }
-        });
-
       if (numPoliza) {
         switch (type) {
           case "988fd738de9c6d177440c5dcf69e73ce":
@@ -148,6 +112,9 @@ export class IssuanceComponent implements OnInit {
             break;
         }
       }
+
+      this.line = "";
+      this.templateRouter = "initialize";
     }
   }
 
