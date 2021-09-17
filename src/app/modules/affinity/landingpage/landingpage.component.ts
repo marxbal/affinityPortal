@@ -89,6 +89,7 @@ export class LandingpageComponent implements OnInit {
     }
 
     this.getPartnerProducts();
+    this.retrieveTransactions();
   }
 
   retrieveTransactions() {
