@@ -206,7 +206,7 @@ export class MotorComponent implements OnInit {
     let isRetro = m().isAfter(this.affinity.motorDetails.policyPeriodFrom, 'day');
     let isBelowSix = m(this.affinity.motorDetails.policyPeriodFrom).isBefore(m().subtract(6, 'month'));
 
-    // $("#vehiclePhotosContainer").addClass("hidden");
+    $("#vehiclePhotosContainer").addClass("hidden");
     this.spinner.hide();
 
     if (!isRetro) {
@@ -319,7 +319,7 @@ export class MotorComponent implements OnInit {
   }
 
   chooseModelYear() {
-    // $("#vehiclePhotosContainer").addClass("hidden");
+    $("#vehiclePhotosContainer").addClass("hidden");
     if ((m().year() - parseInt(this.affinity.motorDetails.modelYear)) > 8) {
       Swal.fire({
         type: 'warning',

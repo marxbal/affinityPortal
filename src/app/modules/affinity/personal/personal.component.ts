@@ -666,7 +666,8 @@ export class PersonalComponent implements OnInit {
     if (!isRetro) {
       return null;
     }
-    // $("#vehiclePhotosContainer").removeClass("hidden");
+    
+    $("#vehiclePhotosContainer").removeClass("hidden");
     Swal.fire({
       type: 'warning',
       title: 'Quotation Issuance',
