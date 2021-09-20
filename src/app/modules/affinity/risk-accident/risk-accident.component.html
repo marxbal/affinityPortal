@@ -63,7 +63,7 @@
           <label for="birthDate" class="affinity-label">DATE OF BIRTH <span
               class="text-mapfre text-heavy">*</span></label>
           <input type="date" id="birthDate" [(ngModel)]="this.affinity.riskDetails.birthDate"
-            class="form-control required pa-personal" name="Birthdate" (change)="verifyBday($event)">
+            class="form-control required pa-personal" name="Birthdate" (focusout)="verifyBday($event)">
         </div>
       </div>
     </div>

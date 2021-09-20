@@ -160,7 +160,7 @@
             <label for="birthDate" class="affinity-label">DATE OF BIRTH <span *ngIf="this.affinity.lineId != '251'"
                 class="text-mapfre text-heavy">*</span></label>
             <input type="date" id="birthDate" [(ngModel)]="this.affinity.riskDetails.birthDate"
-              class="form-control required motor-personal birthday pa-personal" name="Date of Birth" (change)="verifyBday($event)">
+              class="form-control required motor-personal birthday pa-personal" name="Date of Birth" (focusout)="verifyBday($event)">
           </div>
         </div>
       </div>
