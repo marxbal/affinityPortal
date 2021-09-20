@@ -80,7 +80,7 @@
 	            </div>
 	            <div class="col-md-12" *ngIf="this.insuredAffinity.riskDetails.healthDeclaration == true">
 	                <label for="preExistingIllness" class="affinity-label">DECLARE PRE-EXISTING ILLNESS <span class="text-mapfre text-heavy">*</span></label>
-	               <input type="text" id="preExistingIllness" [(ngModel)]="this.insuredAffinity.riskDetails.preExistingIllness" class="form-control required pa-personal-insured to-uppercase" placeholder="Pre Existing Illness" name="Pre Existing Illness">
+	                <input type="text" id="preExistingIllness" [(ngModel)]="this.insuredAffinity.riskDetails.preExistingIllness" class="form-control required pa-personal-insured to-uppercase" placeholder="Pre Existing Illness" name="Pre Existing Illness">
 	            </div>
 	        </div>
 		</div> 
@@ -94,7 +94,7 @@
         <div class="col-md-4">
             <div class="form-group row">
                 <div class="col-md-12">
-                    <label for="occupationalClass" class="affinity-label">OCCUPATIONAL CLASS</label>
+                    <label for="occupationalClass" class="affinity-label">OCCUPATIONAL CLASS <span class="text-mapfre text-heavy">*</span></label>
                     <select class="form-control  pa-personal-insured" id="occupationalClass" name="Occupational Class" [(ngModel)]="this.insuredAffinity.riskDetails.occupationalClass" (change)="chooseOccupationalClass()">
                         <option selected disabled hidden></option>
                         <option value="0" disabled="disabled">Please choose Occupational Class</option>
@@ -106,7 +106,7 @@
         <div class="col-md-4">
             <div class="form-group row">
                 <div class="col-md-12">
-                    <label for="occupation" class="affinity-label">OCCUPATION</label>
+                    <label for="occupation" class="affinity-label">OCCUPATION <span class="text-mapfre text-heavy">*</span></label>
                     <select class="form-control  pa-personal-insured" id="occupation" name="Occupation" [(ngModel)]="this.insuredAffinity.riskDetails.occupation">
                         <option selected disabled hidden></option>
                         <option value="0" disabled="disabled">Please choose Occupation</option>
