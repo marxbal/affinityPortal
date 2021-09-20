@@ -383,7 +383,7 @@
                 class="text-mapfre text-heavy">*</span></label>
             <input type="date" id="policyPeriodFrom" min="{{minDate}}"
               class="form-control pa-personal required motor-quote" name="Effectivity Date"
-              [(ngModel)]="this.affinity.motorDetails.policyPeriodFrom" (change)="chooseEffectivityDate()">
+              [(ngModel)]="this.affinity.motorDetails.policyPeriodFrom" (focusout)="chooseEffectivityDate()">
           </div>
         </div>
       </div>
