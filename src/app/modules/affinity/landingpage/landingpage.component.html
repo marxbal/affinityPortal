@@ -135,45 +135,6 @@
               <div class="card card-previous">
                 <div class="card-body text-center">
   
-                  <!-- <div class="row" *ngIf="issue.codRamo == '100'">
-                    <div class="col-md-4">
-                      <span class="fa-stack fa-2x">
-                        <i class="fa fa-circle fa-stack-2x"></i>
-                        <i class="fa fa-car fa-stack-1x fa-inverse"></i>
-                      </span>
-                    </div>
-                    <div class="col-md-8">
-                      <h5 class="card-title mt-3"><b>Private Vehicle</b></h5>
-                      <p>{{issue.numPresupuesto}}</p>
-                    </div>
-                  </div>
-  
-                  <div class="row" *ngIf="issue.codRamo == '120'">
-                    <div class="col-md-4">
-                      <span class="fa-stack fa-2x">
-                        <i class="fa fa-circle fa-stack-2x"></i>
-                        <i class="fa fa-car fa-stack-1x fa-inverse"></i>
-                      </span>
-                    </div>
-                    <div class="col-md-8">
-                      <h5 class="card-title mt-3"><b>Motor Cycle</b></h5>
-                      <p>{{issue.numPresupuesto}}</p>
-                    </div>
-                  </div>
-  
-                  <div class="row" *ngIf="issue.codRamo == '323'">
-                    <div class="col-md-4">
-                      <span class="fa-stack fa-2x">
-                        <i class="fa fa-circle fa-stack-2x"></i>
-                        <i class="fa fa-shield fa-stack-1x fa-inverse"></i>
-                      </span>
-                    </div>
-                    <div class="col-md-8">
-                      <h5 class="card-title mt-3"><b>Individual Personal</b></h5>
-                      <p>{{issue.numPresupuesto}}</p>
-                    </div>
-                  </div> -->
-  
                   <div class="row">
                     <div class="col-md-4">
                       <span class="fa-stack fa-2x">
@@ -187,14 +148,14 @@
                     </div>
                   </div>
 
-                  <button *ngIf="issue.isRetro" class="btn btn-default btn-block" type="button"
+                  <button *ngIf="issue.isRetro" class="btn btn-secondary btn-block" type="button"
                     (click)="openRetroInfo()">
-                    Load Quotation
+                    {{issue.buttonTitle}}
                   </button>
   
                   <button *ngIf="!issue.isRetro" class="btn btn-mapfre btn-block" type="button"
                     (click)="loadPolicy(issue,'73015b3208cdee70a4497235463b63d7',issue.numPresupuesto)">
-                    {{issue.codProcess == 1 && issue.tipStatus == 2 ? 'Quotation with TC' : 'Load Quotation'}}
+                    {{issue.buttonTitle}}
                   </button>
                 </div>
               </div>
@@ -225,45 +186,6 @@
               <div class="card card-previous">
                 <div class="card-body text-center">
   
-                  <!-- <div class="row" *ngIf="issue.codRamo == '100'">
-                    <div class="col-md-4">
-                      <span class="fa-stack fa-2x">
-                        <i class="fa fa-circle fa-stack-2x"></i>
-                        <i class="fa fa-car fa-stack-1x fa-inverse"></i>
-                      </span>
-                    </div>
-                    <div class="col-md-8">
-                      <h5 class="card-title mt-3"><b>Private Vehicle</b></h5>
-                      <p>{{issue.numPoliza}}</p>
-                    </div>
-                  </div>
-  
-                  <div class="row" *ngIf="issue.codRamo == '102'">
-                    <div class="col-md-4">
-                      <span class="fa-stack fa-2x">
-                        <i class="fa fa-circle fa-stack-2x"></i>
-                        <i class="fa fa-car fa-stack-1x fa-inverse"></i>
-                      </span>
-                    </div>
-                    <div class="col-md-8">
-                      <h5 class="card-title mt-3"><b>Motor Cycle</b></h5>
-                      <p>{{issue.numPoliza}}</p>
-                    </div>
-                  </div>
-  
-                  <div class="row" *ngIf="issue.codRamo == '323'">
-                    <div class="col-md-4">
-                      <span class="fa-stack fa-2x">
-                        <i class="fa fa-circle fa-stack-2x"></i>
-                        <i class="fa fa-shield fa-stack-1x fa-inverse"></i>
-                      </span>
-                    </div>
-                    <div class="col-md-8">
-                      <h5 class="card-title mt-3"><b>Individual Personal</b></h5>
-                      <p>{{issue.numPoliza}}</p>
-                    </div>
-                  </div> -->
-  
                   <div class="row">
                     <div class="col-md-4">
                       <span class="fa-stack fa-2x">
@@ -279,7 +201,7 @@
   
                   <button class="btn {{issue.codProcess == 3 && issue.tipStatus == 1 ? 'btn-success' : 'btn-mapfre'}}  btn-block" type="button"
                     (click)="loadPolicy(issue, '51359e8b51c63b87d50cb1bab73380e2', issue.numPoliza)">
-                    {{issue.codProcess == 3 && issue.tipStatus == 1 ? 'Paid Policy' : (issue.codProcess == 2 && issue.tipStatus == 2) ? 'Policy with TC' : 'Load Policy'}} 
+                    {{issue.buttonTitle}}
                   </button>
   
                 </div>

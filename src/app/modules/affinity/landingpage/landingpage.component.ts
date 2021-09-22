@@ -109,29 +109,42 @@ export class LandingpageComponent implements OnInit {
           // const issuedDate = m(details.fecValidez);
           // var iscurrentDate = issuedDate.isSame(new Date(), "day");
 
-          let title = 'Private Vehicle';
-          let icon = 'fa-car';
-          let isRetro = true;
+          details.isRetro = false;
           switch (subline) {
             case 120:
-              title = 'Motorcycle Vehicle';
+              details.title = 'Motorcycle Vehicle';
+              details.icon = 'fa-car';
               break;
             case 323:
-              title = 'Individual Personal';
-              icon = 'fa-shield';
+              details.title = 'Individual Personal';
+              details.icon = 'fa-shield';
               // isRetro = !iscurrentDate;
             case 324:
-              title = 'Family Personal';
-              icon = 'fa-shield';
+              details.title = 'Family Personal';
+              details.icon = 'fa-shield';
               // isRetro = !iscurrentDate;
               break;
             default:
+              details.title = 'Private Vehicle';
+              details.icon = 'fa-car';
               break;
           }
 
-          details.title = title;
-          details.icon = icon;
-          details.isRetro = isRetro;
+          const process = details.codProcess;
+          const status = details.tipStatus;
+
+          let buttonTitle = 'Load Quotation';
+          if (process == 1) {
+            details.buttonTitle = status == 2 ? 'Quotation with TC' : 'Load Quotation';
+          } else {
+            if (process == 2) {
+              details.buttonTitle = status == 2 ? 'Policy with TC' : 'Load Policy';
+            } else if (process == 3) {
+              details.buttonTitle = status == 2 ? 'Payment Failed' : 'Paid';
+            } else if (process == 4) {
+              details.buttonTitle = status == 2 ? 'COC Verified' : 'Verication Failed';
+            }
+          }
         }
       });
   }
