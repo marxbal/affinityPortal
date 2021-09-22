@@ -1493,19 +1493,6 @@ export class CommonService {
   }
 
   getProvinceName(codeId: String) {
-
-    // let ret: any = new BehaviorSubject < any > ([]);
-    // const payment = new PaymentPaynamics();
-    // payment.requestId = requestId;
-    // this.app.post(payment, this.map + 'getResponseCode')
-    //   .pipe(first())
-    //   .subscribe((res => {
-    //     this.spinner.hide();
-    //     ret.next(res);
-    //   }));
-
-    // return ret.asObservable();
-
     let ret: any = new BehaviorSubject < any > ([]);
     this.spinner.show();
     this.caller.doCallService('/afnty/getProvinceName?codeId=' + codeId, null)
@@ -1523,7 +1510,7 @@ export class CommonService {
     let ret: any = new BehaviorSubject < any > ([]);
     this.spinner.show();
     this.caller.doCallService('/afnty/getMunicipalityName?codeId=' + codeId, null)
-    . pipe(first())
+      .pipe(first())
       .subscribe(
       result => {
         ret.next(result);
@@ -1555,7 +1542,7 @@ export class CommonService {
       Swal.fire({
         type: 'error',
         title: 'Policy Issuance',
-        text: "Invalid Plate Number format, please make sure you follow the format ABC123/ABC1234."
+        text: "Invalid Plate Number format, please make sure you follow the format ( ABC123 / ABC1234 )"
       });
     }
 
