@@ -106,8 +106,10 @@ export class LandingpageComponent implements OnInit {
         for (let i = 0; i < this.affinity.previousIssuances.length; i++) {
           const details = this.affinity.previousIssuances[i];
           const subline = details.codRamo;
+
           // const issuedDate = m(details.fecEffec);
-          // var iscurrentDate = issuedDate.isSame(new Date(), "day");
+          const issuedDate = m("09/20/2021");
+          var iscurrentDate = issuedDate.isSame(new Date(), "day");
 
           details.isRetro = false;
           switch (subline) {
@@ -118,11 +120,11 @@ export class LandingpageComponent implements OnInit {
             case 323:
               details.title = 'Individual Personal';
               details.icon = 'fa-shield';
-              // isRetro = !iscurrentDate;
+              details.isRetro = !iscurrentDate;
             case 324:
               details.title = 'Family Personal';
               details.icon = 'fa-shield';
-              // isRetro = !iscurrentDate;
+              details.isRetro = !iscurrentDate;
               break;
             default:
               details.title = 'Private Vehicle';
