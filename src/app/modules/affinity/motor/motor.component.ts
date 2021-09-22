@@ -534,26 +534,13 @@ export class MotorComponent implements OnInit {
   }
 
   validatePlateNumber() {
-    if (this.affinity.productId == "10002" || this.affinity.motorDetails.motorTypeId == '120') {
-      return true;
-    }
+    const isValid = this.commonService.validatePlateNumber(this.affinity);
+    return isValid;
+  }
 
-    const userKeyRegExpPlate = /^[A-Z]{3}[0-9]{4}?$/;
-
-    this.affinity.motorDetails.plateNumber = this.affinity.motorDetails.plateNumber.toUpperCase();
-
-    let valid = userKeyRegExpPlate.test(this.affinity.motorDetails.plateNumber);
-
-    if (!valid) {
-      Swal.fire({
-        type: 'error',
-        title: 'Policy Issuance',
-        text: "Invalid Plate Number format, please make sure you follow the format ABC1234."
-      });
-
-    }
-
-    return valid;
+  validateConduction() {
+    const isValid = this.commonService.validateConduction(this.affinity);
+    return isValid;
   }
 
   validateEngine() {
@@ -592,33 +579,6 @@ export class MotorComponent implements OnInit {
     }
 
     return true;
-  }
-
-  validateConduction() {
-    if (this.affinity.motorDetails.motorTypeId == '120') {
-      return true;
-    }
-
-    this.affinity.motorDetails.conductionNumber = this.affinity.motorDetails.conductionNumber.toUpperCase();
-
-    const userKeyRegExpConduction = /^[A-Z]{2}[0-9]{4}?$/;
-
-    let validCond = userKeyRegExpConduction.test(this.affinity.motorDetails.conductionNumber);
-    if (!validCond) {
-      //new conduction number format
-      const userKeyRegExpConduction2 = /^[A-Z]{1}[0-9]{1}[A-Z]{1}[0-9]{3}?$/;
-      validCond = userKeyRegExpConduction2.test(this.affinity.motorDetails.conductionNumber);
-
-      if (!validCond) {
-        Swal.fire({
-          type: 'error',
-          title: 'Policy Issuance',
-          text: "Invalid Conduction Number format, please make sure you follow the format ( AB1234 / A1B234 )"
-        });
-      }
-    }
-
-    return validCond;
   }
 
   limitFMV(evt: any) {

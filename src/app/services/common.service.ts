@@ -1533,4 +1533,51 @@ export class CommonService {
     return ret.asObservable();
   }
 
+  validatePlateNumber(affinity: Affinity) {
+    if (affinity.productId == "10002" || affinity.motorDetails.motorTypeId == '120') {
+      return true;
+    }
+    
+    const userKeyRegExpPlate = /^[A-Z]{3}[0-9]{4}?$/;
+    const userKeyRegExpPlate2 = /^[A-Z]{3}[0-9]{3}?$/;
+
+    affinity.motorDetails.plateNumber = affinity.motorDetails.plateNumber.toUpperCase();
+
+    const valid = userKeyRegExpPlate.test(affinity.motorDetails.plateNumber) &&
+                  userKeyRegExpPlate2.test(affinity.motorDetails.plateNumber);
+
+    if (!valid) {
+      Swal.fire({
+        type: 'error',
+        title: 'Policy Issuance',
+        text: "Invalid Plate Number format, please make sure you follow the format ABC123/ABC1234."
+      });
+    }
+
+    return valid;
+  }
+
+  validateConduction(affinity: Affinity) {
+    if (affinity.productId == "10002" || affinity.motorDetails.motorTypeId == '120') {
+      return true;
+    }
+
+    affinity.motorDetails.conductionNumber = affinity.motorDetails.conductionNumber.toUpperCase();
+
+    const userKeyRegExpConduction = /^[A-Z]{2}[0-9]{4}?$/;
+    const userKeyRegExpConduction2 = /^[A-Z]{1}[0-9]{1}[A-Z]{1}[0-9]{3}?$/;
+
+    let validCond = userKeyRegExpConduction.test(affinity.motorDetails.conductionNumber) && 
+                    userKeyRegExpConduction2.test(affinity.motorDetails.conductionNumber);
+    if (!validCond) {
+      Swal.fire({
+        type: 'error',
+        title: 'Policy Issuance',
+        text: "Invalid Conduction Number format, please make sure you follow the format ( AB1234 / A1B234 )"
+      });
+    }
+
+    return validCond;
+  }
+
 }

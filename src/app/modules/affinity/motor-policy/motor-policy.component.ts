@@ -168,48 +168,13 @@ export class MotorPolicyComponent implements OnInit {
   }
 
   validatePlateNumber() {
-    if (this.affinity.productId == "10002" || this.affinity.motorDetails.motorTypeId == '120') {
-      return true;
-    }
-    const userKeyRegExpPlate = /^[A-Z]{3}[0-9]{4}?$/;
-
-    this.affinity.motorDetails.plateNumber = this.affinity.motorDetails.plateNumber.toUpperCase();
-
-    let valid = userKeyRegExpPlate.test(this.affinity.motorDetails.plateNumber);
-
-    if (!valid) {
-      Swal.fire({
-        type: 'error',
-        title: 'Policy Issuance',
-        text: "Invalid Plate Number format, please make sure you follow the format ABC1234."
-      });
-
-    }
-
-    return valid;
+    const isValid = this.commonService.validatePlateNumber(this.affinity);
+    return isValid;
   }
 
   validateConduction() {
-    if (this.affinity.motorDetails.motorTypeId == '120') {
-      return true;
-    }
-
-    const userKeyRegExpConduction = /^[A-Z]{2}[0-9]{4}?$/;
-
-    this.affinity.motorDetails.conductionNumber = this.affinity.motorDetails.conductionNumber.toUpperCase();
-
-    let validCond = userKeyRegExpConduction.test(this.affinity.motorDetails.conductionNumber);
-
-    if (!validCond) {
-      Swal.fire({
-        type: 'error',
-        title: 'Policy Issuance',
-        text: "Invalid Conduction Number format, please make sure you follow the format AB1234."
-      });
-
-    }
-
-    return validCond;
+    const isValid = this.commonService.validateConduction(this.affinity);
+    return isValid;
   }
 
   limitFMV(evt: any) {
