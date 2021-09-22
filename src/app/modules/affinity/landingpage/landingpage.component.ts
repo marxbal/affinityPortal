@@ -40,6 +40,9 @@ import {
 import {
   NgxSpinnerService
 } from 'ngx-spinner';
+import * as m from 'moment';
+import { ACCIDENT } from 'src/app/objects/line';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-landingpage',
@@ -100,30 +103,36 @@ export class LandingpageComponent implements OnInit {
         let newResult = _.orderBy(result, ['transactionNumber'], ['desc']);
 
         this.affinity.previousIssuances = newResult;
+        for (let i = 0; i < this.affinity.previousIssuances.length; i++) {
+          const details = this.affinity.previousIssuances[i];
+          const subline = details.codRamo;
+          // const issuedDate = m(details.fecValidez);
+          // var iscurrentDate = issuedDate.isSame(new Date(), "day");
 
-        // for (let i = 0; i < this.affinity.previousIssuances.length; i++) {
-        //   if (this.affinity.previousIssuances[i].policyNumber) {
-        //     for (let x = 0; x < this.affinity.previousIssuances[i].iDTO.a2000020List.length; x++) {
-        //       switch (this.affinity.previousIssuances[i].iDTO.a2000020List[x].codCampo) {
-        //         case "COD_MODALIDAD":
-        //           this.affinity.previousIssuances[i].productId = this.affinity.previousIssuances[i].iDTO.a2000020List[x].valCampo;
-        //           break;
-        //         default:
-        //           break;
-        //       }
-        //     }
-        //   } else {
-        //     for (let x = 0; x < this.affinity.previousIssuances[i].iDTO.p2000020List.length; x++) {
-        //       switch (this.affinity.previousIssuances[i].iDTO.p2000020List[x].codCampo) {
-        //         case "COD_MODALIDAD":
-        //           this.affinity.previousIssuances[i].productId = this.affinity.previousIssuances[i].iDTO.p2000020List[x].valCampo;
-        //           break;
-        //         default:
-        //           break;
-        //       }
-        //     }
-        //   }
-        // }
+          let title = 'Private Vehicle';
+          let icon = 'fa-car';
+          // let isRetro = false;
+          switch (subline) {
+            case 120:
+              title = 'Motorcycle Vehicle';
+              break;
+            case 323:
+              title = 'Individual Personal';
+              icon = 'fa-shield';
+              // isRetro = !iscurrentDate;
+            case 324:
+              title = 'Family Personal';
+              icon = 'fa-shield';
+              // isRetro = !iscurrentDate;
+              break;
+            default:
+              break;
+          }
+
+          details.title = title;
+          details.icon = icon;
+          // details.isRetro = isRetro;
+        }
       });
   }
 
@@ -301,6 +310,14 @@ export class LandingpageComponent implements OnInit {
     setTimeout(function () {
       window.location.reload();
     }, 10);
+  }
+
+  openRetroInfo() {
+    Swal.fire({
+      type: 'warning',
+      title: 'Unable to Load Quotation',
+      text: "Your quotation is subject for retroactive, please create a new quotation."
+    });
   }
 
   issuance(product: string, description: String) {
