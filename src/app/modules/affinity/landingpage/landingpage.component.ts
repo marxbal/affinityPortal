@@ -106,7 +106,7 @@ export class LandingpageComponent implements OnInit {
         for (let i = 0; i < this.affinity.previousIssuances.length; i++) {
           const details = this.affinity.previousIssuances[i];
           const subline = details.codRamo;
-          // const issuedDate = m(details.fecValidez);
+          // const issuedDate = m(details.fecEffec);
           // var iscurrentDate = issuedDate.isSame(new Date(), "day");
 
           details.isRetro = false;
@@ -133,7 +133,6 @@ export class LandingpageComponent implements OnInit {
           const process = details.codProcess;
           const status = details.tipStatus;
 
-          let buttonTitle = 'Load Quotation';
           if (process == 1) {
             details.buttonTitle = status == 2 ? 'Quotation with TC' : 'Load Quotation';
           } else {
@@ -329,7 +328,7 @@ export class LandingpageComponent implements OnInit {
     Swal.fire({
       type: 'warning',
       title: 'Unable to Load Quotation',
-      text: "Your quotation is subject for retroactive, please create a new quotation."
+      text: "Your quotation's effectivity date is not earlier than today, please create a new quotation."
     });
   }
 
