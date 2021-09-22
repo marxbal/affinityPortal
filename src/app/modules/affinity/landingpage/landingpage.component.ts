@@ -111,7 +111,7 @@ export class LandingpageComponent implements OnInit {
 
           let title = 'Private Vehicle';
           let icon = 'fa-car';
-          // let isRetro = false;
+          let isRetro = true;
           switch (subline) {
             case 120:
               title = 'Motorcycle Vehicle';
@@ -131,7 +131,7 @@ export class LandingpageComponent implements OnInit {
 
           details.title = title;
           details.icon = icon;
-          // details.isRetro = isRetro;
+          details.isRetro = isRetro;
         }
       });
   }
