@@ -1534,6 +1534,13 @@ export class CommonService {
   }
 
   validatePlateNumber(affinity: Affinity) {
+    let plateNumber = affinity.motorDetails.plateNumber;
+    if (_.isEmpty(plateNumber)) {
+      return true;
+    } else {
+      plateNumber = plateNumber.toUpperCase();
+    }
+
     if (affinity.productId == "10002" || affinity.motorDetails.motorTypeId == '120') {
       return true;
     }
@@ -1541,10 +1548,8 @@ export class CommonService {
     const userKeyRegExpPlate = /^[A-Z]{3}[0-9]{4}?$/;
     const userKeyRegExpPlate2 = /^[A-Z]{3}[0-9]{3}?$/;
 
-    affinity.motorDetails.plateNumber = affinity.motorDetails.plateNumber.toUpperCase();
-
-    const valid = userKeyRegExpPlate.test(affinity.motorDetails.plateNumber) ||
-                  userKeyRegExpPlate2.test(affinity.motorDetails.plateNumber);
+    const valid = userKeyRegExpPlate.test(plateNumber) ||
+                  userKeyRegExpPlate2.test(plateNumber);
 
     if (!valid) {
       Swal.fire({
@@ -1558,18 +1563,23 @@ export class CommonService {
   }
 
   validateConduction(affinity: Affinity) {
+    let conductionNumber = affinity.motorDetails.conductionNumber;
+    if (_.isEmpty(conductionNumber)) {
+      return true;
+    } else {
+      conductionNumber = conductionNumber.toUpperCase();
+    }
+
     if (affinity.productId == "10002" || affinity.motorDetails.motorTypeId == '120') {
       return true;
     }
 
-    affinity.motorDetails.conductionNumber = affinity.motorDetails.conductionNumber.toUpperCase();
-
     const userKeyRegExpConduction = /^[A-Z]{2}[0-9]{4}?$/;
     const userKeyRegExpConduction2 = /^[A-Z]{1}[0-9]{1}[A-Z]{1}[0-9]{3}?$/;
 
-    let validCond = userKeyRegExpConduction.test(affinity.motorDetails.conductionNumber) || 
-                    userKeyRegExpConduction2.test(affinity.motorDetails.conductionNumber);
-    if (!validCond) {
+    let valid = userKeyRegExpConduction.test(conductionNumber) || 
+                    userKeyRegExpConduction2.test(conductionNumber);
+    if (!valid) {
       Swal.fire({
         type: 'error',
         title: 'Policy Issuance',
@@ -1577,7 +1587,7 @@ export class CommonService {
       });
     }
 
-    return validCond;
+    return valid;
   }
 
 }
