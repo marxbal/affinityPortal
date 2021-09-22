@@ -41,7 +41,6 @@ import {
   NgxSpinnerService
 } from 'ngx-spinner';
 import * as m from 'moment';
-import { ACCIDENT } from 'src/app/objects/line';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -123,7 +122,7 @@ export class LandingpageComponent implements OnInit {
           }
 
           const subline = details.codRamo;
-          const issuedDate = m(details.fecEffec);
+          const issuedDate = m(details.fecActu);
           // const issuedDate = m("09/20/2021");
           var iscurrentDate = issuedDate.isSame(new Date(), "day");
 
@@ -156,14 +155,6 @@ export class LandingpageComponent implements OnInit {
     if (this.viewPolicies) {
       this.common.scrollToElement("quotation-wrapper", 100);
     }
-    // this.previousPolicies = [];
-    // if (this.affinity.previousIssuances) {
-    //   for (let i = 0; i < this.affinity.previousIssuances.length; i++) {
-    //     if (this.affinity.previousIssuances[i].codProcess != "1") {
-    //       this.previousPolicies.push(this.affinity.previousIssuances[i]);
-    //     }
-    //   }
-    // }
   }
 
   viewPreviousQuotation() {
@@ -171,14 +162,6 @@ export class LandingpageComponent implements OnInit {
     if (this.viewPolicies) {
       this.common.scrollToElement("policy-wrapper", 100);
     }
-    // this.previousQuotations = [];
-    // if (this.affinity.previousIssuances) {
-    //   for (let i = 0; i < this.affinity.previousIssuances.length; i++) {
-    //     if (this.affinity.previousIssuances[i].codProcess == "1") {
-    //       this.previousQuotations.push(this.affinity.previousIssuances[i]);
-    //     }
-    //   }
-    // }
   }
 
   //smooth scroll to preferred html element
