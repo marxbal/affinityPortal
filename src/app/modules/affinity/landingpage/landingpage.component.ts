@@ -100,15 +100,31 @@ export class LandingpageComponent implements OnInit {
     this.caller.doCallService('/afnty/retrieveTransactions', this.affinity.clientId).subscribe(
       result => {
         this.spinner.hide();
-        let newResult = _.orderBy(result, ['transactionNumber'], ['desc']);
+        let newResult = _.orderBy(result, ['numTransaction'], ['desc']);
 
         this.affinity.previousIssuances = newResult;
         for (let i = 0; i < this.affinity.previousIssuances.length; i++) {
           const details = this.affinity.previousIssuances[i];
-          const subline = details.codRamo;
+          const process = details.codProcess;
 
-          // const issuedDate = m(details.fecEffec);
-          const issuedDate = m("09/20/2021");
+          const status = details.tipStatus;
+          if (process == 1) {
+            this.previousQuotations.push(details);
+            details.buttonTitle = status == 2 ? 'Quotation with TC' : 'Load Quotation';
+          } else {
+            this.previousPolicies.push(details);
+            if (process == 2) {
+              details.buttonTitle = status == 2 ? 'Policy with TC' : 'Load Policy';
+            } else if (process == 3) {
+              details.buttonTitle = status == 2 ? 'Payment Failed' : 'Paid';
+            } else if (process == 4) {
+              details.buttonTitle = status == 2 ? 'COC Verified' : 'Verication Failed';
+            }
+          }
+
+          const subline = details.codRamo;
+          const issuedDate = m(details.fecEffec);
+          // const issuedDate = m("09/20/2021");
           var iscurrentDate = issuedDate.isSame(new Date(), "day");
 
           details.isRetro = false;
@@ -131,57 +147,38 @@ export class LandingpageComponent implements OnInit {
               details.icon = 'fa-car';
               break;
           }
-
-          const process = details.codProcess;
-          const status = details.tipStatus;
-
-          if (process == 1) {
-            details.buttonTitle = status == 2 ? 'Quotation with TC' : 'Load Quotation';
-          } else {
-            if (process == 2) {
-              details.buttonTitle = status == 2 ? 'Policy with TC' : 'Load Policy';
-            } else if (process == 3) {
-              details.buttonTitle = status == 2 ? 'Payment Failed' : 'Paid';
-            } else if (process == 4) {
-              details.buttonTitle = status == 2 ? 'COC Verified' : 'Verication Failed';
-            }
-          }
         }
       });
   }
 
   viewPreviousPolicy() {
     this.viewPolicies = !this.viewPolicies;
-
     if (this.viewPolicies) {
       this.common.scrollToElement("quotation-wrapper", 100);
     }
-
-    this.previousPolicies = [];
-    if (this.affinity.previousIssuances) {
-      for (let i = 0; i < this.affinity.previousIssuances.length; i++) {
-        if (this.affinity.previousIssuances[i].codProcess != "1") {
-          this.previousPolicies.push(this.affinity.previousIssuances[i]);
-        }
-      }
-    }
+    // this.previousPolicies = [];
+    // if (this.affinity.previousIssuances) {
+    //   for (let i = 0; i < this.affinity.previousIssuances.length; i++) {
+    //     if (this.affinity.previousIssuances[i].codProcess != "1") {
+    //       this.previousPolicies.push(this.affinity.previousIssuances[i]);
+    //     }
+    //   }
+    // }
   }
 
   viewPreviousQuotation() {
     this.viewQuotations = !this.viewQuotations;
-
     if (this.viewPolicies) {
       this.common.scrollToElement("policy-wrapper", 100);
     }
-
-    this.previousQuotations = [];
-    if (this.affinity.previousIssuances) {
-      for (let i = 0; i < this.affinity.previousIssuances.length; i++) {
-        if (this.affinity.previousIssuances[i].codProcess == "1") {
-          this.previousQuotations.push(this.affinity.previousIssuances[i]);
-        }
-      }
-    }
+    // this.previousQuotations = [];
+    // if (this.affinity.previousIssuances) {
+    //   for (let i = 0; i < this.affinity.previousIssuances.length; i++) {
+    //     if (this.affinity.previousIssuances[i].codProcess == "1") {
+    //       this.previousQuotations.push(this.affinity.previousIssuances[i]);
+    //     }
+    //   }
+    // }
   }
 
   //smooth scroll to preferred html element
