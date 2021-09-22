@@ -1543,7 +1543,7 @@ export class CommonService {
 
     affinity.motorDetails.plateNumber = affinity.motorDetails.plateNumber.toUpperCase();
 
-    const valid = userKeyRegExpPlate.test(affinity.motorDetails.plateNumber) &&
+    const valid = userKeyRegExpPlate.test(affinity.motorDetails.plateNumber) ||
                   userKeyRegExpPlate2.test(affinity.motorDetails.plateNumber);
 
     if (!valid) {
@@ -1567,7 +1567,7 @@ export class CommonService {
     const userKeyRegExpConduction = /^[A-Z]{2}[0-9]{4}?$/;
     const userKeyRegExpConduction2 = /^[A-Z]{1}[0-9]{1}[A-Z]{1}[0-9]{3}?$/;
 
-    let validCond = userKeyRegExpConduction.test(affinity.motorDetails.conductionNumber) && 
+    let validCond = userKeyRegExpConduction.test(affinity.motorDetails.conductionNumber) || 
                     userKeyRegExpConduction2.test(affinity.motorDetails.conductionNumber);
     if (!validCond) {
       Swal.fire({
