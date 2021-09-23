@@ -123,7 +123,6 @@ export class LandingpageComponent implements OnInit {
 
           const subline = details.codRamo;
           const issuedDate = m(details.fecActu);
-          // const issuedDate = m("09/20/2021");
           var iscurrentDate = issuedDate.isSame(new Date(), "day");
 
           details.isRetro = false;
@@ -310,7 +309,7 @@ export class LandingpageComponent implements OnInit {
     Swal.fire({
       type: 'warning',
       title: 'Unable to Load Quotation',
-      text: "Your quotation's effectivity date is not earlier than today, please create a new quotation."
+      text: "Your quotation's effectivity date is earlier than today, please create a new quotation."
     });
   }
 
