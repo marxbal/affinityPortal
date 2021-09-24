@@ -30,6 +30,9 @@ import {
   LOGGED_IN,
   LOGIN_MSG
 } from 'src/app/constants/local.storage';
+import {
+  environment
+} from 'src/environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -54,6 +57,8 @@ export class LoginComponent implements OnInit {
   isAdmin: boolean = false;
 
   version: string = c.VER;
+
+  isProduction: boolean = environment.production;
 
   constructor(
     private route: ActivatedRoute,

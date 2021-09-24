@@ -19,6 +19,7 @@
 
               <div class="col-md-12">
                 
+                <p *ngIf="!isProduction" class="version">This is not a production site.</p>
                 <p *ngIf="isAdmin" class="version">* You are logging in as an Admin.</p>
                 <p *ngIf="!isAdmin" class="version">{{version}}</p>
 
