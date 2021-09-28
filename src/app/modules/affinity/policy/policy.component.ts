@@ -15,6 +15,18 @@ import {
   ACCIDENT,
   CAR
 } from 'src/app/objects/line';
+import {
+  AuthService
+} from 'src/app/services/auth.service';
+import {
+  NgxSpinnerService
+} from 'ngx-spinner';
+import {
+  Router
+} from '@angular/router';
+import {
+  AuthenticationService
+} from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-policy',
@@ -24,7 +36,11 @@ import {
 export class PolicyComponent implements OnInit {
 
   constructor(
-    private common: CommonService) {}
+    private common: CommonService,
+    private caller: AuthService,
+    private spinner: NgxSpinnerService,
+    private router: Router,
+    private auth: AuthenticationService) {}
 
   @Input() line: String;
   @Input() affinity: Affinity;
@@ -44,6 +60,36 @@ export class PolicyComponent implements OnInit {
   });
 
   ngOnInit() {
+    this.retrieveTransactions();
+  }
+
+  retrieveTransactions() {
+    this.spinner.show();
+    this.caller.doCallService('/afnty/retrieveTransactions', this.affinity.clientId).subscribe(
+      result => {
+        let load: boolean = false;
+        this.spinner.hide();
+
+        this.affinity.previousIssuances = result;
+        for (let i = 0; i < this.affinity.previousIssuances.length; i++) {
+          const details = this.affinity.previousIssuances[i];
+          const process = details.codProcess;
+          const isMatched = details.numPresupuesto == this.affinity.quotationNumber;
+          load = process != 1 && isMatched;
+        }
+
+        if (load) {
+          this.loadPolicy();
+        } else {
+          this.router.navigate([this.auth.getLandingPage()]);
+          setTimeout(function () {
+            window.location.reload();
+          }, 10);
+        }
+      });
+  }
+
+  loadPolicy() {
     this.affinity.premiumBreakdown.grossPrem = this.formatter.format(parseFloat(this.affinity.premiumBreakdown.grossPrem));
     this.affinity.premiumBreakdown.netPrem = this.formatter.format(parseFloat(this.affinity.premiumBreakdown.netPrem));
     this.affinity.premiumBreakdown.docStamp = this.formatter.format(parseFloat(this.affinity.premiumBreakdown.docStamp));
