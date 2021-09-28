@@ -75,7 +75,9 @@ export class PolicyComponent implements OnInit {
           const details = this.affinity.previousIssuances[i];
           const process = details.codProcess;
           const isMatched = details.numPoliza == this.affinity.policyNumber;
-          load = process != 1 && isMatched;
+          if (process != 1 && isMatched) {
+            load = true;
+          }
         }
 
         if (load) {
