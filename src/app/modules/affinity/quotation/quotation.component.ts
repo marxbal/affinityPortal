@@ -138,8 +138,6 @@ export class QuotationComponent implements OnInit {
                 load = true;
                 break;
             }
-
-            load = true;
           }
         }
 
