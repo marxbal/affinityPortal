@@ -52,6 +52,9 @@ import {
   ACCIDENT,
   CAR
 } from 'src/app/objects/line';
+import {
+  AuthenticationService
+} from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-quotation',
@@ -64,7 +67,8 @@ export class QuotationComponent implements OnInit {
     private caller: AuthService,
     private common: CommonService,
     private spinner: NgxSpinnerService,
-    private router: Router) {}
+    private router: Router,
+    private auth: AuthenticationService) {}
 
   @Input() affinity: Affinity;
   @Input() line: String;
@@ -85,6 +89,8 @@ export class QuotationComponent implements OnInit {
   emailSend: string;
   coverageList = [];
 
+  homePageUrl = '';
+
   lineId: number = 1;
   type = {
     car: CAR,
@@ -97,6 +103,58 @@ export class QuotationComponent implements OnInit {
   });
 
   ngOnInit() {
+    this.retrieveTransactions();
+  }
+
+  retrieveTransactions() {
+    this.spinner.show();
+    this.caller.doCallService('/afnty/retrieveTransactions', this.affinity.clientId).subscribe(
+      result => {
+        let load: boolean = false;
+        this.spinner.hide();
+        let newResult = _.orderBy(result, ['numTransaction'], ['desc']);
+
+        this.affinity.previousIssuances = newResult;
+        for (let i = 0; i < this.affinity.previousIssuances.length; i++) {
+          const details = this.affinity.previousIssuances[i];
+          const process = details.codProcess;
+          const isMatched = details.numPresupuesto == this.affinity.quotationNumber;
+          
+          if (process == 1 && isMatched) {
+            const subline = details.codRamo;
+            const issuedDate = m(details.fecActu);
+            var iscurrentDate = issuedDate.isSame(new Date(), "day");
+  
+            switch (subline) {
+              case 120:
+                load = true;
+                break;
+              case 323:
+                load = iscurrentDate;
+              case 324:
+                load = iscurrentDate;
+                break;
+              default:
+                load = true;
+                break;
+            }
+
+            load = true;
+          }
+        }
+
+        if (load) {
+          this.loadQuotation();
+        } else {
+          this.router.navigate([this.auth.getLandingPage()]);
+          setTimeout(function () {
+            window.location.reload();
+          }, 10);
+        }
+      });
+  }
+
+  loadQuotation() {
     this.lineId = this.common.getLinebyProduct(this.affinity.productId);
 
     this.title = "Household";
