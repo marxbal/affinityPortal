@@ -166,7 +166,9 @@ export class QuotationComponent implements OnInit {
           this.spinner.hide();
           this.affinity.lov.bodilyInjuryLOV = [];
           result.forEach(lov => {
-            if (lov.impLimite == 250000 || lov.impLimite == 500000 || lov.impLimite == 1000000) {
+            if (this.affinity.lineId == '120' && lov.impLimite == 250000) {
+              this.affinity.lov.bodilyInjuryLOV.push(lov);
+            } else if (this.affinity.lineId != '120' && (lov.impLimite == 250000 || lov.impLimite == 500000 || lov.impLimite == 1000000)) {
               this.affinity.lov.bodilyInjuryLOV.push(lov);
             }
           });
@@ -181,7 +183,12 @@ export class QuotationComponent implements OnInit {
           this.spinner.hide();
           this.affinity.lov.propertyDamageLOV = [];
           result.forEach(lov => {
-            if (lov.impLimite == 250000 || lov.impLimite == 500000 || lov.impLimite == 1000000) {
+            // if (lov.impLimite == 250000 || lov.impLimite == 500000 || lov.impLimite == 1000000) {
+            //   this.affinity.lov.propertyDamageLOV.push(lov);
+            // }
+            if (this.affinity.lineId == '120' && lov.impLimite == 250000) {
+              this.affinity.lov.propertyDamageLOV.push(lov);
+            } else if (this.affinity.lineId != '120' && (lov.impLimite == 250000 || lov.impLimite == 500000 || lov.impLimite == 1000000)) {
               this.affinity.lov.propertyDamageLOV.push(lov);
             }
           });
