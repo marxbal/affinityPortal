@@ -30,8 +30,9 @@ export class AutoLoginComponent implements OnInit {
       text: "Please standby. You are being redirected to " + user,
     });
     
+    const _this = this;
     setTimeout(function(){
-      this.otp.login(user, false);
+      _this.otp.login(user, false);
     }, 3000);
     
   }
