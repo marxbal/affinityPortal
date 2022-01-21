@@ -8,6 +8,7 @@ import {
 import {
   OTPService
 } from 'src/app/services/otp.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-auto-login',
@@ -23,6 +24,12 @@ export class AutoLoginComponent implements OnInit {
 
   ngOnInit() {
     let user = this.route.snapshot.paramMap.get("user");
+    Swal.fire({
+      type: 'success',
+      title: 'Redirecting',
+      text: "Please standby. You are being redirected to " + user,
+    });
+    
     this.otp.login(user, false);
   }
 
