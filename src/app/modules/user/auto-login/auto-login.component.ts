@@ -38,7 +38,7 @@ export class AutoLoginComponent implements OnInit {
     setTimeout(function(){
       const partner = new Partner();
       partner.partnerName = partnerName;
-      _this.pService.getPartnerEmail(this.partner).subscribe(
+      _this.pService.getPartnerEmail(partner).subscribe(
         (result: any) => {
           const ret = result as Return;
           if (ret.status) {
