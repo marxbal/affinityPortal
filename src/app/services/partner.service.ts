@@ -56,6 +56,19 @@ export class PartnerService {
     return ret.asObservable();
   }
 
+  getPartnerEmail(partner: Partner) {
+    let ret: any = new BehaviorSubject < any > ([]);
+
+    this.app.post(partner, this.map + 'getPartnerEmail')
+      .pipe(first())
+      .subscribe((res => {
+        this.spinner.hide();
+        ret.next(res);
+      }));
+
+    return ret.asObservable();
+  }
+
   insertPartner(partner: AddPartner) {
     this.app.post(partner, this.map + 'insertPartner')
       .pipe(first())

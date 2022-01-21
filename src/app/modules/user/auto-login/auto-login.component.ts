@@ -5,9 +5,12 @@ import {
 import {
   ActivatedRoute
 } from '@angular/router';
+import { Partner } from 'src/app/objects/partner';
+import { Return } from 'src/app/objects/return';
 import {
   OTPService
 } from 'src/app/services/otp.service';
+import { PartnerService } from 'src/app/services/partner.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -20,6 +23,7 @@ export class AutoLoginComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private otp: OTPService,
+    private pService: PartnerService,
     ){ }
 
   ngOnInit() {
@@ -32,7 +36,14 @@ export class AutoLoginComponent implements OnInit {
     
     const _this = this;
     setTimeout(function(){
-      _this.otp.login(user, false);
+      _this.pService.getPartnerEmail(this.partner).subscribe(
+        (result: any) => {
+          const ret = result as Return;
+          if (ret.status) {
+            const email = ret.obj.toString();
+            _this.otp.login(email, false);
+          }
+        });
     }, 3000);
     
   }
