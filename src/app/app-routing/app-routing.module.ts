@@ -35,6 +35,9 @@ import {
 import {
   PaymentResultComponent
 } from '../modules/affinity/payment-result/payment-result.component';
+import {
+  AutoLoginComponent
+} from '../modules/user/auto-login/auto-login.component';
 
 const routes: Routes = [{
     path: '',
@@ -47,6 +50,10 @@ const routes: Routes = [{
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'partner/:user',
+    component: AutoLoginComponent
   },
 
   {

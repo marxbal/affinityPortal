@@ -131,6 +131,9 @@ import {
 import {
   PaymentResultComponent
 } from './modules/affinity/payment-result/payment-result.component';
+import {
+  AutoLoginComponent
+} from './modules/user/auto-login/auto-login.component';
 
 @NgModule({
   declarations: [
@@ -164,7 +167,8 @@ import {
     PartnerListComponent,
     ProductComponent,
     PartnerComponent,
-    PaymentResultComponent
+    PaymentResultComponent,
+    AutoLoginComponent
   ],
   imports: [
     FormsModule,
