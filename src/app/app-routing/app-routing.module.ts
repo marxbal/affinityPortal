@@ -52,7 +52,7 @@ const routes: Routes = [{
     component: LoginComponent
   },
   {
-    path: 'partner/:user',
+    path: 'partner/:partner',
     component: AutoLoginComponent
   },
 

@@ -27,15 +27,17 @@ export class AutoLoginComponent implements OnInit {
     ){ }
 
   ngOnInit() {
-    let user = this.route.snapshot.paramMap.get("user");
+    let partnerName = this.route.snapshot.paramMap.get("partner");
     Swal.fire({
       type: 'success',
       title: 'Redirecting',
-      text: "Please standby. You are being redirected to " + user,
+      text: "Please standby. You are being redirected to " + partnerName,
     });
     
     const _this = this;
     setTimeout(function(){
+      const partner = new Partner();
+      partner.partnerName = partnerName;
       _this.pService.getPartnerEmail(this.partner).subscribe(
         (result: any) => {
           const ret = result as Return;
