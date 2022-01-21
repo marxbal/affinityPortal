@@ -55,7 +55,8 @@ export class PartnerComponent implements OnInit {
     "purple",
     "gray",
     "pink",
-    "brown"
+    "brown",
+    "redpink"
   ]
 
   ngOnInit() {

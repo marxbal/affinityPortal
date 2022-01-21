@@ -1042,6 +1042,53 @@ form .form-group.input-error .multiselect-dropdown {
 }
 
 /* ---------------------------------------------------
+    PARTNER THEME - RED PINK
+----------------------------------------------------- */
+.theme-redpink .nav {
+  border-top: 5px solid #d70f64;
+}
+
+.theme-redpink .header-border,
+.theme-redpink .footer-bottom,
+.theme-redpink .btn-outline-primary:hover,
+.theme-redpink .btn-primary,
+.theme-redpink .btn-mapfre {
+  background-color: #d70f64 !important;
+}
+
+.theme-redpink .btn-primary:hover,
+.theme-redpink .btn-mapfre:hover,
+.theme-redpink .card-title {
+  color: #d70f64 !important;
+}
+
+.theme-redpink .btn-primary,
+.theme-redpink .btn-mapfre,
+.theme-redpink .btn-primary:hover,
+.theme-redpink .btn-mapfre:hover,
+.theme-redpink .btn-outline-primary,
+.theme-redpink .btn-outline-primary:hover {
+  border-color: #be0d57 !important;
+}
+
+.theme-redpink .btn-outline-primary {
+  color: #be0d57 !important;
+}
+
+.theme-redpink .btn-primary:hover,
+.theme-redpink .btn-mapfre:hover {
+  background-color: #f6f6f6 !important;
+}
+
+.theme-redpink .btn-outline-primary:hover {
+  color: #d5d5d5 !important;
+}
+
+.theme-redpink .fa-chev-lp {
+  color: #d70f64 !important;
+}
+
+/* ---------------------------------------------------
     MEDIAQUERIES
 ----------------------------------------------------- */
 
