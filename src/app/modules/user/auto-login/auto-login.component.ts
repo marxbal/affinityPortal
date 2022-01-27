@@ -7,6 +7,7 @@ import {
 } from '@angular/router';
 import { Partner } from 'src/app/objects/partner';
 import { Return } from 'src/app/objects/return';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 import {
   OTPService
 } from 'src/app/services/otp.service';
@@ -24,9 +25,11 @@ export class AutoLoginComponent implements OnInit {
     private route: ActivatedRoute,
     private otp: OTPService,
     private pService: PartnerService,
+    public auth: AuthenticationService
     ){ }
 
   ngOnInit() {
+    this.auth.clearAuth();
     let partnerName = this.route.snapshot.paramMap.get("partner");
     Swal.fire({
       type: 'success',

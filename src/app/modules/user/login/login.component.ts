@@ -33,6 +33,10 @@ import {
 import {
   environment
 } from 'src/environments/environment';
+import {
+  AuthenticationService
+} from 'src/app/services/authentication.service';
+import { Partner } from 'src/app/objects/partner';
 
 @Component({
   selector: 'app-login',
@@ -64,7 +68,8 @@ export class LoginComponent implements OnInit {
     private route: ActivatedRoute,
     private fb: FormBuilder,
     private otp: OTPService,
-    private router: Router ) {
+    private router: Router,
+    public auth: AuthenticationService) {
     this.currentUserSubject = new BehaviorSubject < Users > (
       JSON.parse(localStorage.getItem(CURRENT_USER))
     );
@@ -74,7 +79,17 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     const isLoggedIn = localStorage.getItem(LOGGED_IN);
     if (isLoggedIn === 'true') {
-      this.router.navigate(['issuance']);
+      let isAuto = false;
+      const partner = this.auth.getPartner() as Partner;
+      if (!_.isEmpty(partner)) {
+        isAuto = partner.auto;
+      }
+
+      if (isAuto) {
+        this.auth.clearAuth();
+      } else {
+        this.router.navigate(['issuance']);
+      }
     } else {
       this.isAdmin = "/admin" === this.router.url;
 
