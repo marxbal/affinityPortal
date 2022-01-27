@@ -87,7 +87,7 @@ export class LoginComponent implements OnInit {
 
       if (isAuto) {
         this.auth.clearAuth();
-        this.router.navigate(['login']);
+        location.reload();
       } else {
         this.router.navigate(['issuance']);
       }
