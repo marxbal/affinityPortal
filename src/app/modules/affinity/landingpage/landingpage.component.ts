@@ -90,7 +90,7 @@ export class LandingpageComponent implements OnInit {
     this.partner = this.authenticate.getPartner() as Partner;
     if (!_.isEmpty(this.partner)) {
       this.partnerPath = _.toLower(this.partner.partnerName);
-      this.showTransactions = this.partner.auto;
+      this.showTransactions = !this.partner.auto;
     }
 
     this.getPartnerProducts();
