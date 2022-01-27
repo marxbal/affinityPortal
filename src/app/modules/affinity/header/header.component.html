@@ -1,13 +1,13 @@
 <div id="header" class="header-nav">
   <div class="col-md-12 header-border"></div>
   <ul class="nav justify-content-center">
-    <li *ngIf="email != null" class="nav-item d-none d-md-block">
+    <li *ngIf="email != null && !isAuto" class="nav-item d-none d-md-block">
       <a class="nav-link"><i>Hi, {{email}}</i></a>
     </li>
     <li class="nav-item">
       <a class="nav-link link active" href="{{homePageUrl}}"><i class="fa fa-home"></i> Home</a>
     </li>
-    <li class="nav-item">
+    <li *ngIf="!isAuto" class="nav-item">
       <a class="nav-link link" (click)="logout()"><i class="fa fa-sign-out"></i> Logout</a>
     </li>
   </ul>

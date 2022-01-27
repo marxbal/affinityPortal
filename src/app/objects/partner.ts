@@ -6,6 +6,7 @@ export class Partner {
   domain: string;
   themeCode: string;
   products: number[];
+  auto: boolean;
 
   constructor(init ? : Partial < Partner > ) {
     Object.assign(this, init);
