@@ -5,9 +5,9 @@ import {
 import {
   Router
 } from '@angular/router';
-import {
-  environment
-} from 'src/environments/environment';
+// import {
+//   environment
+// } from 'src/environments/environment';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,14 +16,14 @@ import {
 })
 export class DashboardComponent implements OnInit {
 
-  redirectUrl: string = environment.redirectUrl;
+  // redirectUrl: string = environment.redirectUrl;
 
   constructor(private router: Router) {}
 
   ngOnInit() {}
 
   goTo(link: string) {
-    this.router.navigateByUrl(this.redirectUrl + "/" + link);
+    this.router.navigateByUrl(link);
   }
 
 }

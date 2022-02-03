@@ -24,9 +24,9 @@ import {
 import {
   Return
 } from 'src/app/objects/return';
-import {
-  environment
-} from 'src/environments/environment';
+// import {
+//   environment
+// } from 'src/environments/environment';
 
 @Component({
   selector: 'app-partner',
@@ -35,7 +35,7 @@ import {
 })
 export class PartnerComponent implements OnInit {
 
-  redirectUrl: string = environment.redirectUrl;
+  // redirectUrl: string = environment.redirectUrl;
 
   constructor(
     private route: ActivatedRoute,
@@ -104,7 +104,7 @@ export class PartnerComponent implements OnInit {
   }
 
   cancel() {
-    this.router.navigateByUrl(this.redirectUrl + "/partner-list");
+    this.router.navigateByUrl("/partner-list");
   }
 
 }

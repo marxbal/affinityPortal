@@ -22,9 +22,9 @@ import {
 import {
   Router
 } from '@angular/router';
-import {
-  environment
-} from 'src/environments/environment';
+// import {
+//   environment
+// } from 'src/environments/environment';
 
 export interface Partners {
   partnerName: string;
@@ -38,7 +38,7 @@ export interface Partners {
 })
 export class ProductComponent implements OnInit {
 
-  redirectUrl: string = environment.redirectUrl;
+  // redirectUrl: string = environment.redirectUrl;
 
   products = [{
       name: 'Comprehensive',
@@ -109,9 +109,12 @@ export class ProductComponent implements OnInit {
       line: ["", null],
       partnerName: ["", Validators.required],
       domain: ["", Validators.required],
-      groupPolicy: ["", Validators.required],
-      contract: ["", Validators.required],
-      subContract: ["", Validators.required],
+      // groupPolicy: ["", Validators.required],
+      // contract: ["", Validators.required],
+      // subContract: ["", Validators.required],
+      groupPolicy: ["", null],
+      contract: ["", null],
+      subContract: ["", null],
       products: this.fb.array([])
     });
 
@@ -281,7 +284,7 @@ export class ProductComponent implements OnInit {
   }
 
   cancel() {
-    this.router.navigateByUrl(this.redirectUrl + "/product-list");
+    this.router.navigateByUrl("/product-list");
   }
 
 }
