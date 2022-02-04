@@ -1195,7 +1195,8 @@ export class CommonService {
     p2030.numContrato = contract.contract;
     p2030.numSubcontrato = contract.subContract;
 
-    p2030.codNivel3 = 4003;
+    // p2030.codNivel3 = 4003;
+    p2030.codNivel3 = 9201;
     p2030.codCia = 1;
     p2030.codFraccPago = 1;
     p2030.codSector = 1; //TODO
