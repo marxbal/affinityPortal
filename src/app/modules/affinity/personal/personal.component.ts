@@ -337,7 +337,7 @@ export class PersonalComponent implements OnInit {
 
     if (!this.affinity.riskDetails.validIDValue) {
       this.affinity.riskDetails.validID = "DRI";
-      this.affinity.riskDetails.validIDValue = "AFFINITY-" + this.getTempID();
+      this.affinity.riskDetails.validIDValue = "AFTY-" + this.getTempID();
     }
 
     for (let i = 0; i < this.affinity.lov.buildingsLOV.length; i++) {
@@ -386,6 +386,7 @@ export class PersonalComponent implements OnInit {
       this.p2000030 = this.common.assignP2000030(this.affinity);
       this.p2000031 = this.common.assignP2000031(this.affinity, this.p2000030);
       this.p1001331 = this.common.assignP1001331(this.affinity);
+      this.p1001331List = [];
       this.p1001331List.push(this.common.assignP1001331(this.affinity));
       this.p2000020 = this.common.assignP2000020(this.affinity);
       this.p2000040 = this.common.assignP2000040(this.affinity);
@@ -502,7 +503,7 @@ export class PersonalComponent implements OnInit {
 
     if (!this.affinity.riskDetails.validIDValue) {
       this.affinity.riskDetails.validID = "DRI";
-      this.affinity.riskDetails.validIDValue = "AFFINITY-" + this.getTempID();
+      this.affinity.riskDetails.validIDValue = "AFTY-" + this.getTempID();
     }
 
     this.affinity.riskDetails.fullName = this.affinity.riskDetails.lastName
@@ -536,6 +537,7 @@ export class PersonalComponent implements OnInit {
       this.p2000030 = this.common.assignP2000030(this.affinity);
       this.p2000031List = this.common.assignP2000031PA(this.affinity, this.p2000030);
       this.p1001331 = this.common.assignP1001331(this.affinity);
+      this.p1001331List = [];
       this.p1001331List.push(this.common.assignP1001331(this.affinity));
       this.p2000020 = this.common.assignP2000020(this.affinity);
       this.p2000040 = this.common.assignP2000040(this.affinity);
@@ -732,6 +734,7 @@ export class PersonalComponent implements OnInit {
       this.p2000030 = this.common.assignP2000030(this.affinity);
       this.p2000031 = this.common.assignP2000031(this.affinity, this.p2000030);
       this.p1001331 = this.common.assignP1001331(this.affinity);
+      this.p1001331List = [];
       this.p1001331List.push(this.common.assignP1001331(this.affinity));
       this.p2000020 = this.common.assignP2000020(this.affinity);
       this.p2000040 = this.common.assignP2000040(this.affinity);

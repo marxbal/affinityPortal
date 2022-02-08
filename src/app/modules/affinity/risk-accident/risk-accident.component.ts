@@ -137,7 +137,7 @@ export class RiskAccidentComponent implements OnInit {
       result => {
         this.affinity.lov.documentLOV = result;
 
-        if (this.affinity.riskDetails.validID == "DRI" && this.affinity.riskDetails.validIDValue.includes("AFFINITY-")) {
+        if (this.affinity.riskDetails.validID == "DRI" && this.affinity.riskDetails.validIDValue.includes("AFTY-")) {
           this.affinity.riskDetails.validID = "";
           this.affinity.riskDetails.validIDValue = "";
 

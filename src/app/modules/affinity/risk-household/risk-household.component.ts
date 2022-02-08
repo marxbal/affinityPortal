@@ -149,7 +149,7 @@ export class RiskHouseholdComponent implements OnInit {
         this.spinner.hide();
       });
 
-    if (this.affinity.riskDetails.validID == "DRI" && this.affinity.riskDetails.validIDValue.includes("AFFINITY-")) {
+    if (this.affinity.riskDetails.validID == "DRI" && this.affinity.riskDetails.validIDValue.includes("AFTY-")) {
       this.affinity.riskDetails.validID = "";
       this.affinity.riskDetails.validIDValue = "";
     }

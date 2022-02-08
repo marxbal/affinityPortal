@@ -253,6 +253,7 @@ export class QuotationComponent implements OnInit {
       this.p2000030 = this.common.assignP2000030(this.affinity);
       this.p2000031 = this.common.assignP2000031(this.affinity, this.p2000030);
       this.p1001331 = this.common.assignP1001331(this.affinity);
+      this.p1001331List = [];
       this.p1001331List.push(this.common.assignP1001331(this.affinity));
       this.p2000020 = this.common.assignP2000020(this.affinity);
       this.p2000040 = this.common.assignP2000040(this.affinity);
