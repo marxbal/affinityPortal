@@ -60,6 +60,7 @@ import * as _ from 'lodash';
 import {
   Router
 } from '@angular/router';
+import { FileDetails } from 'src/app/objects/file-details';
 
 @Component({
   selector: 'app-risk-motor',
@@ -241,9 +242,35 @@ export class RiskMotorComponent implements OnInit {
     this.affinity.lov.addressLOV.splice(index, 1);
   }
 
+  checkPolicyHolder() {
+    const fileDetails = new FileDetails();
+    fileDetails.documentCode = this.affinity.riskDetails.validID;
+    fileDetails.documentType = this.affinity.riskDetails.validIDValue;
+
+    this.caller.doCallService("/updocs/checkFile", fileDetails).subscribe(
+      result => {
+        console.log("upload result:");
+        console.log(result);
+      });
+
+    // this.ups.check(fileDetails).then((res) => {
+    //   const r = res as ReturnDTO;
+    //   if (r.status) {
+    //     if (r.obj) {
+    //       this.modalRef = Utility.showInfo(this.bms, r.message);
+    //       // this.file = null;
+    //       this.filename = "";
+    //       this.fileChange.emit(null);
+    //     }
+    //     this.showUploadBtn = !r.obj;
+    //   } else {
+    //     this.modalRef = Utility.showError(this.bms, r.message);
+    //   }
+    // });
+  }
+
   onFileChanged(event: any) {
     const file = event.target.files[0];
-    console.log(file);
 
     if (file.size > 1024000) {
       Swal.fire({
@@ -254,6 +281,7 @@ export class RiskMotorComponent implements OnInit {
     } else {
       this.file = file;
       this.filename = file.name;
+      this.checkPolicyHolder();
     }
   }
 
