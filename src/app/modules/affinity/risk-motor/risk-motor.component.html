@@ -201,6 +201,27 @@
       </div>
     </div>
   </div>
+
+  <div *ngIf="!showUploadBtn" class="col-xl-12">
+    <div class="alert alert-info note">
+      <p><strong>Important Reminder:</strong> Policy holder already have an existing Identification Card uploaded to system.</p>
+    </div>
+    <!-- .note -->
+  </div>
+  <div *ngIf="showUploadBtn" class="col-xl-12">
+    <div class="alert alert-info note">
+      <p><strong>Important Reminder:</strong> Please be reminded that we are now requiring clients to upload their Identification Card.</p>
+    </div>
+    <!-- .note -->
+  </div>
+  <div *ngIf="showUploadBtn" class="col-md-12">
+    <div class="form-group">
+      <input type="file" accept="image/*" style="display: none" class="form-control required" data-max-size="1024"
+        (change)="onFileChanged($event)" #fileInput>
+      <button (click)="fileInput.click()" class="btn btn-primary" >Select ID File Image: {{filename}}</button>
+    </div>
+  </div>
+  
 </div>
 <h5>Contact Details</h5>
 <div class="row">

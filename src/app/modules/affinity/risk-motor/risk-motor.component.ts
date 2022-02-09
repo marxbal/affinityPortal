@@ -87,6 +87,9 @@ export class RiskMotorComponent implements OnInit {
   pbAddressTitle: String = "Principal Business Address";
   tempAddresses: AddressDetails[] = [];
 
+  filename: String = "";
+  file: File;
+
   p2000030: P2000030 = new P2000030();
   p2000020: P2000020[] = [];
   p2000040: P2000040[] = [];
@@ -235,6 +238,21 @@ export class RiskMotorComponent implements OnInit {
       }
     }
     this.affinity.lov.addressLOV.splice(index, 1);
+  }
+
+  onFileChanged(event: any) {
+    const file = event.target.files[0];
+
+    if (file.size > 1024000) {
+      Swal.fire({
+        type: 'error',
+        title: 'Upload File',
+        text: "File exceeds limit (1mb)"
+      });
+    } else {
+      this.file = file;
+      this.filename = file.name;
+    }
   }
 
   addCompanyDetail(type) {
