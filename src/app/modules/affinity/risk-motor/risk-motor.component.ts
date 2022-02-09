@@ -247,7 +247,7 @@ export class RiskMotorComponent implements OnInit {
     fileDetails.documentCode = this.affinity.riskDetails.validID;
     fileDetails.documentType = this.affinity.riskDetails.validIDValue;
 
-    this.caller.doCallService("/updocs/checkFile", fileDetails).subscribe(
+    this.caller.doCallService("/afty/updocs/check", fileDetails).subscribe(
       result => {
         console.log("upload result:");
         console.log(result);
