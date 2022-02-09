@@ -14,8 +14,11 @@
               </div>
               <!-- .card-header -->
               <form class="card-body row" [formGroup]="partnerForm">
-                <input *ngIf="false" type="text" class="form-control number" formControlName="partnerCode">
-                <h5>Basic Information</h5>
+                <div class="col-md-12">
+                  <input *ngIf="false" type="text" class="form-control number" formControlName="partnerCode">
+                  <h5>Basic Information</h5>
+                </div>
+                
                 <!-- <div class="row"> -->
                   <div class="col-md-4">
                     <div class="form-group row" [ngClass]="{'input-error': partnerForm.controls['partnerName'].invalid 
@@ -88,11 +91,13 @@
 
                 <br />
                 <br />
-
-                <div class="btn-group">
-                  <button *ngIf="!partnerForm.invalid" class="btn btn-success" (click)="save()">SAVE</button>
-                  <button class="btn btn-secondary" (click)="cancel()">CANCEL</button>
+                <div class="col-md-12">
+                  <div class="btn-group">
+                    <button *ngIf="!partnerForm.invalid" class="btn btn-success" (click)="save()">SAVE</button>
+                    <button class="btn btn-secondary" (click)="cancel()">CANCEL</button>
+                  </div>
                 </div>
+                
 
               </form>
               <!-- .card-body -->
