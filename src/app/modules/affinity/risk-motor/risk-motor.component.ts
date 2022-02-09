@@ -61,6 +61,7 @@ import {
   Router
 } from '@angular/router';
 import { FileDetails } from 'src/app/objects/file-details';
+import { Return } from 'src/app/objects/return';
 
 @Component({
   selector: 'app-risk-motor',
@@ -153,6 +154,10 @@ export class RiskMotorComponent implements OnInit {
         this.affinity.lov.addressLOV = result;
         this.spinner.hide();
       });
+
+      if (!_.isEmpty(this.affinity.riskDetails.validIDValue)){
+        this.checkPolicyHolder();
+      }
   }
 
   blacklist(evt: any) {
@@ -249,24 +254,27 @@ export class RiskMotorComponent implements OnInit {
 
     this.caller.doCallService("/afnty/updocs/check", fileDetails).subscribe(
       result => {
-        console.log("upload result:");
-        console.log(result);
+        const r = result as Return;
+        if (r.status) {
+          if (r.obj) {
+              Swal.fire({
+                type: 'info',
+                title: 'File Checking',
+                text: r.message
+              });
+              // this.file = null;
+              this.filename = "";
+              this.file = null;
+          }
+          this.showUploadBtn = !r.obj;
+          } else {
+            Swal.fire({
+              type: 'error',
+              title: 'File Checking',
+              text: r.message
+            });
+          }
       });
-
-    // this.ups.check(fileDetails).then((res) => {
-    //   const r = res as ReturnDTO;
-    //   if (r.status) {
-    //     if (r.obj) {
-    //       this.modalRef = Utility.showInfo(this.bms, r.message);
-    //       // this.file = null;
-    //       this.filename = "";
-    //       this.fileChange.emit(null);
-    //     }
-    //     this.showUploadBtn = !r.obj;
-    //   } else {
-    //     this.modalRef = Utility.showError(this.bms, r.message);
-    //   }
-    // });
   }
 
   onFileChanged(event: any) {
