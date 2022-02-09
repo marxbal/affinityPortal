@@ -87,6 +87,7 @@ export class RiskMotorComponent implements OnInit {
   pbAddressTitle: String = "Principal Business Address";
   tempAddresses: AddressDetails[] = [];
 
+  showUploadBtn: boolean = true;
   filename: String = "";
   file: File;
 
@@ -242,6 +243,7 @@ export class RiskMotorComponent implements OnInit {
 
   onFileChanged(event: any) {
     const file = event.target.files[0];
+    console.log(file);
 
     if (file.size > 1024000) {
       Swal.fire({
