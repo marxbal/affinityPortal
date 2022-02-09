@@ -78,6 +78,7 @@ import {
   CAR,
   ACCIDENT
 } from '../objects/line';
+import { Partner } from '../objects/partner';
 
 @Injectable({
   providedIn: 'root'
@@ -1189,6 +1190,7 @@ export class CommonService {
     // p2030.numSubcontrato = 11900;
 
     const contract = this.getContractByLineId(affinity.lineId);
+    const branchCode = this.getBranchCode();
 
     p2030.codAgt = contract.agentCode;
     p2030.numPolizaGrupo = contract.groupPolicy.toString();
@@ -1196,7 +1198,8 @@ export class CommonService {
     p2030.numSubcontrato = contract.subContract;
 
     // p2030.codNivel3 = 4003;
-    p2030.codNivel3 = 9201;
+    // p2030.codNivel3 = 9201;
+    p2030.codNivel3 = branchCode;
     p2030.codCia = 1;
     p2030.codFraccPago = 1;
     p2030.codSector = 1; //TODO
@@ -1285,6 +1288,11 @@ export class CommonService {
     });
 
     return contract;
+  }
+
+  getBranchCode() {
+    const partner = this.auth.getPartner();
+    return partner.branchCode;
   }
 
   // getProductDescription(productId: string) {
