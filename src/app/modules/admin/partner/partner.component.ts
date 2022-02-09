@@ -95,8 +95,7 @@ export class PartnerComponent implements OnInit {
           this.partnerForm.get("domain").setValue(this.partner.domain);
           this.partnerForm.get("themeCode").setValue(this.partner.themeCode);
 
-          // this.partnerForm.get("auto").setValue(this.partner.auto);
-          this.partnerForm.get("auto").setValue(true);
+          this.partnerForm.get("auto").setValue(this.partner.auto);
           this.partnerForm.get("branchCode").setValue(this.partner.branchCode);
         }
       });
