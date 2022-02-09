@@ -242,7 +242,8 @@
             <label for="validIDValue" class="affinity-label">ID NUMBER <span
                 *ngIf="line != type.accident && this.affinity.lineId != '251'"
                 class="text-mapfre text-heavy">*</span></label>
-            <input type="text" id="validIDValue" class="form-control required motor-personal to-uppercase"
+            <input type="text" id="validIDValue" class="form-control required motor-personal"
+              oninput="this.value = this.value.toUpperCase()"
               name="ID Number" maxlength="20" placeholder="ID Number" [(ngModel)]="this.affinity.riskDetails.validIDValue">
           </div>
         </div>
