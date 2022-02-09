@@ -13,10 +13,10 @@
                 <h1 class="card-title">Partner</h1>
               </div>
               <!-- .card-header -->
-              <form class="card-body" [formGroup]="partnerForm">
+              <form class="card-body row" [formGroup]="partnerForm">
                 <input *ngIf="false" type="text" class="form-control number" formControlName="partnerCode">
                 <h5>Basic Information</h5>
-                <div class="row">
+                <!-- <div class="row"> -->
                   <div class="col-md-4">
                     <div class="form-group row" [ngClass]="{'input-error': partnerForm.controls['partnerName'].invalid 
                         && (partnerForm.controls['partnerName'].dirty 
@@ -83,7 +83,7 @@
                       </div>
                     </div>
                   </div>
-                </div>
+                <!-- </div> -->
                 <!-- .row -->
 
                 <br />
