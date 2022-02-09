@@ -105,8 +105,7 @@ export class PartnerComponent implements OnInit {
 
   save() {
     const partner = this.partnerForm.value as AddPartner;
-    console.log(partner);
-    // this.pService.insertPartner(partner);
+    this.pService.insertPartner(partner);
   }
 
   cancel() {
