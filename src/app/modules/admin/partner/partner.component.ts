@@ -76,7 +76,9 @@ export class PartnerComponent implements OnInit {
       partnerCode: ["", null],
       partnerName: ["", Validators.required],
       domain: ["", Validators.required],
-      themeCode: ["", null]
+      themeCode: ["", null],
+      auto: ["", Validators.required],
+      branchCode: ["", Validators.required]
     });
   }
 
@@ -92,6 +94,9 @@ export class PartnerComponent implements OnInit {
           this.partnerForm.get("partnerName").setValue(this.partner.partnerName);
           this.partnerForm.get("domain").setValue(this.partner.domain);
           this.partnerForm.get("themeCode").setValue(this.partner.themeCode);
+
+          this.partnerForm.get("auto").setValue(this.partner.auto);
+          this.partnerForm.get("branchCode").setValue(this.partner.branchCode);
         }
       });
 

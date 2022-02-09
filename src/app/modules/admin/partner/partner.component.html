@@ -47,12 +47,39 @@
                   <div class="col-md-4">
                     <div class="form-group row">
                       <div class="col-md-12">
-                        <label for="partnerCode">THEME</label>
+                        <label for="themeCode">THEME</label>
                         <select class="form-control required " formControlName="themeCode" id="themeCode">
                           <option></option>
                           <option *ngFor="let theme of themeList" value="{{theme}}">
                             {{theme}}</option>
                         </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <input *ngIf="false" type="text" class="form-control number" formControlName="branchCode">
+                    <div class="form-group row" [ngClass]="{'input-error': partnerForm.controls['branchCode'].invalid 
+                        && (partnerForm.controls['branchCode'].dirty 
+                        || partnerForm.controls['branchCode'].touched)}">
+                      <div class="col-md-12">
+                        <label for="branchCode">BRANCH CODE </label>
+                        <input type="text" class="form-control" formControlName="branchCode"
+                          oninput="this.value = this.value.toUpperCase()">
+                        <p class="form-error" *ngIf="partnerForm.controls['branchCode'].errors?.required">
+                          * branch code is required
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group row">
+                      <div class="col-md-12">
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" value="" id="autoLogin" formControlName="auto">
+                          <label class="form-check-label" for="auto">
+                            AUTO LOGIN
+                          </label>
+                        </div>
                       </div>
                     </div>
                   </div>
