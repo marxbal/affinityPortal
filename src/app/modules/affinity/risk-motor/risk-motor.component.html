@@ -185,7 +185,7 @@
       <div class="col-md-12">
         <label for="validID" class="affinity-label">GOVERNMENT ID <span class="text-mapfre text-heavy">*</span></label>
         <select class="form-control  required motor-policy-details" name="Goverment ID" id="validID"
-          [(ngModel)]="this.affinity.riskDetails.validID">
+          [(ngModel)]="this.affinity.riskDetails.validID" (change)="clearIdNumber()">
           <option value="0" disabled="disabled">Please choose ID</option>
           <option *ngFor="let cod of this.affinity.lov.documentLOV" value="{{cod.TIP_DOCUM}}">{{cod.NOM_DOCUM}}</option>
         </select>

@@ -247,6 +247,10 @@ export class RiskMotorComponent implements OnInit {
     this.affinity.lov.addressLOV.splice(index, 1);
   }
 
+  clearIdNumber() {
+    this.affinity.riskDetails.validIDValue = "";
+  }
+
   checkPolicyHolder() {
     const fileDetails = new FileDetails();
     fileDetails.documentCode = this.affinity.riskDetails.validID;
