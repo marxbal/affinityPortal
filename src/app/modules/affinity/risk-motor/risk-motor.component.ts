@@ -281,38 +281,6 @@ export class RiskMotorComponent implements OnInit {
       });
   }
 
-  testUpload(){
-    const fd = new FormData();
-    if (this.file != null) {
-      fd.append('file', this.file);
-    }
-    fd.append('documentCode', this.affinity.riskDetails.validIDValue);
-    fd.append('documentType', this.affinity.riskDetails.validID);
-
-    this.caller.doCallService("/afnty/updocs/upload", fd).subscribe(
-      result => {
-        const r = result as Return;
-        if (r.status) {
-          if (r.obj["proceed"]) {
-              Swal.fire({
-                type: 'info',
-                title: 'File Uploading',
-                text: r.message
-              });
-              // this.file = null;
-              this.filename = "";
-              this.file = null;
-          }
-        } else {
-          Swal.fire({
-            type: 'error',
-            title: 'File Uploading',
-            text: r.message
-          });
-        }
-      });
-  }
-
   onFileChanged(event: any) {
     const file = event.target.files[0];
 
@@ -501,47 +469,121 @@ export class RiskMotorComponent implements OnInit {
       };
 
       this.spinner.show();
-      this.caller.doCallService('/afnty/issuePolicy', param).subscribe(
-        result => {
-          switch (result.status) {
-            case 1:
-              this.affinity.policyNumber = result.message;
-              const paymentOption = this.affinity.paymentOption;
-              if (paymentOption == "co") {
-                this.router.navigate(['issuance/51359e8b51c63b87d50cb1bab73380e2/' + result.message]);
-                setTimeout(function () {
-                  window.location.reload();
-                }, 10);
-              } else {
-                this.common.payment(this.affinity);
-              }
-              break;
-            case 2:
-              this.affinity.policyNumber = result.message;
-              this.affinity.techControl = result.message2.split("~");
-              this.affinity = this.common.identifyTechControl(this.affinity);
+      this.uploadUpdocs(param);
+      // this.caller.doCallService('/afnty/issuePolicy', param).subscribe(
+      //   result => {
+      //     switch (result.status) {
+      //       case 1:
+      //         this.affinity.policyNumber = result.message;
+      //         const paymentOption = this.affinity.paymentOption;
+      //         if (paymentOption == "co") {
+      //           this.router.navigate(['issuance/51359e8b51c63b87d50cb1bab73380e2/' + result.message]);
+      //           setTimeout(function () {
+      //             window.location.reload();
+      //           }, 10);
+      //         } else {
+      //           this.common.payment(this.affinity);
+      //         }
+      //         break;
+      //       case 2:
+      //         this.affinity.policyNumber = result.message;
+      //         this.affinity.techControl = result.message2.split("~");
+      //         this.affinity = this.common.identifyTechControl(this.affinity);
 
-              if (this.affinity.techControlLevel == "1") {
-                window.open(result.message, "_self");
-              } else {
-                this.caller.doCallService('/afnty/getPaymentBreakdown?numPoliza=' + result.message + '&type=P', null).subscribe(
-                  paymentBreakdown => {
-                    this.affinity.premiumBreakdown = paymentBreakdown;
-                    this.getCoverages(result.message, this.affinity, "techControl");
-                  });
-              }
-              break;
-            default:
-              Swal.fire({
-                type: 'error',
-                title: 'Policy Issuance',
-                text: result.message
-              });
-              this.spinner.hide();
-              break;
-          }
-        });
+      //         if (this.affinity.techControlLevel == "1") {
+      //           window.open(result.message, "_self");
+      //         } else {
+      //           this.caller.doCallService('/afnty/getPaymentBreakdown?numPoliza=' + result.message + '&type=P', null).subscribe(
+      //             paymentBreakdown => {
+      //               this.affinity.premiumBreakdown = paymentBreakdown;
+      //               this.getCoverages(result.message, this.affinity, "techControl");
+      //             });
+      //         }
+      //         break;
+      //       default:
+      //         Swal.fire({
+      //           type: 'error',
+      //           title: 'Policy Issuance',
+      //           text: result.message
+      //         });
+      //         this.spinner.hide();
+      //         break;
+      //     }
+      //   });
     });
+  }
+
+  uploadUpdocs(param: any){
+    const fd = new FormData();
+    if (this.file != null) {
+      fd.append('file', this.file);
+    }
+    fd.append('documentCode', this.affinity.riskDetails.validIDValue);
+    fd.append('documentType', this.affinity.riskDetails.validID);
+
+    this.caller.doCallService("/afnty/updocs/upload", fd).subscribe(
+      result => {
+        this.spinner.hide();
+        const r = result as Return;
+        if (r.status) {
+          if (r.obj["proceed"]) {
+              this.filename = "";
+              this.file = null;
+
+              this.issuePolicy(param);
+          }
+        } else {
+          Swal.fire({
+            type: 'error',
+            title: 'File Uploading',
+            text: r.message
+          });
+        }
+      });
+  }
+
+  issuePolicy(param: any) {
+    this.spinner.show();
+    this.caller.doCallService('/afnty/issuePolicy', param).subscribe(
+      result => {
+        switch (result.status) {
+          case 1:
+            this.affinity.policyNumber = result.message;
+            const paymentOption = this.affinity.paymentOption;
+            if (paymentOption == "co") {
+              this.router.navigate(['issuance/51359e8b51c63b87d50cb1bab73380e2/' + result.message]);
+              setTimeout(function () {
+                window.location.reload();
+              }, 10);
+            } else {
+              this.common.payment(this.affinity);
+            }
+            break;
+          case 2:
+            this.affinity.policyNumber = result.message;
+            this.affinity.techControl = result.message2.split("~");
+            this.affinity = this.common.identifyTechControl(this.affinity);
+
+            if (this.affinity.techControlLevel == "1") {
+              window.open(result.message, "_self");
+            } else {
+              this.caller.doCallService('/afnty/getPaymentBreakdown?numPoliza=' + result.message + '&type=P', null).subscribe(
+                paymentBreakdown => {
+                  this.affinity.premiumBreakdown = paymentBreakdown;
+                  this.getCoverages(result.message, this.affinity, "techControl");
+                });
+            }
+            break;
+          default:
+            Swal.fire({
+              type: 'error',
+              title: 'Policy Issuance',
+              text: result.message
+            });
+            this.spinner.hide();
+            break;
+        }
+      });
   }
 
   getCoverages(numPoliza, affinity: Affinity, nextStep) {
