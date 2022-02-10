@@ -253,8 +253,8 @@ export class RiskMotorComponent implements OnInit {
 
   checkPolicyHolder() {
     const fileDetails = new FileDetails();
-    fileDetails.documentCode = this.affinity.riskDetails.validID;
-    fileDetails.documentType = this.affinity.riskDetails.validIDValue;
+    fileDetails.documentCode = this.affinity.riskDetails.validIDValue;
+    fileDetails.documentType = this.affinity.riskDetails.validID;
 
     this.caller.doCallService("/afnty/updocs/check", fileDetails).subscribe(
       result => {
