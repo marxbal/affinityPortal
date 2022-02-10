@@ -271,13 +271,45 @@ export class RiskMotorComponent implements OnInit {
               this.file = null;
           }
           this.showUploadBtn = !r.obj;
-          } else {
-            Swal.fire({
-              type: 'error',
-              title: 'File Checking',
-              text: r.message
-            });
+        } else {
+          Swal.fire({
+            type: 'error',
+            title: 'File Checking',
+            text: r.message
+          });
+        }
+      });
+  }
+
+  testUpload(){
+    const fd = new FormData();
+    if (this.file != null) {
+      fd.append('file', this.file);
+    }
+    fd.append('documentCode', this.affinity.riskDetails.validID);
+    fd.append('documentType', this.affinity.riskDetails.validIDValue);
+
+    this.caller.doCallService("/afnty/updocs/upload", fd).subscribe(
+      result => {
+        const r = result as Return;
+        if (r.status) {
+          if (r.obj["proceed"]) {
+              Swal.fire({
+                type: 'info',
+                title: 'File Uploading',
+                text: r.message
+              });
+              // this.file = null;
+              this.filename = "";
+              this.file = null;
           }
+        } else {
+          Swal.fire({
+            type: 'error',
+            title: 'File Uploading',
+            text: r.message
+          });
+        }
       });
   }
 
