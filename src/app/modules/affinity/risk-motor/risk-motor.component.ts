@@ -286,8 +286,8 @@ export class RiskMotorComponent implements OnInit {
     if (this.file != null) {
       fd.append('file', this.file);
     }
-    fd.append('documentCode', this.affinity.riskDetails.validID);
-    fd.append('documentType', this.affinity.riskDetails.validIDValue);
+    fd.append('documentCode', this.affinity.riskDetails.validIDValue);
+    fd.append('documentType', this.affinity.riskDetails.validID);
 
     this.caller.doCallService("/afnty/updocs/upload", fd).subscribe(
       result => {
