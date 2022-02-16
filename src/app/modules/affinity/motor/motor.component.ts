@@ -29,6 +29,7 @@ import {
   IsRequired
 } from '../../../guard/is-required';
 import Swal from 'sweetalert2';
+import * as _ from 'lodash';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
@@ -194,7 +195,10 @@ export class MotorComponent implements OnInit {
 
   changePlateNumber() {
     if (this.affinity.productId == "10002") {
-      this.affinity.motorDetails.policyPeriodFrom = m("2020-" + this.getMonthBasedOnPlate(this.affinity.motorDetails.plateNumber) + "-01").format('YYYY-MM-DD');
+      const currentYear = m().get('year') + "-";
+      this.affinity.motorDetails.policyPeriodFrom = m(currentYear + this.getMonthBasedOnPlate(this.affinity.motorDetails.plateNumber) + "-01").format('YYYY-MM-DD');
+      const fromDate = m(this.affinity.motorDetails.policyPeriodFrom );
+      this.effMonth = fromDate.format('MMM');
       this.affinity.motorDetails.policyPeriodTo = m(this.affinity.motorDetails.policyPeriodFrom).add(1, 'year').format('YYYY-MM-DD');
     }
 
@@ -509,7 +513,7 @@ export class MotorComponent implements OnInit {
 
   nextStepAction() {
     if (this.checker.checkIfRequired('motor-quote') == "1") {
-      if (this.affinity.productId == "10002") {
+      if (this.affinity.productId == "10002" && !this.isMotorcycle) {
         let currentYearDiff = (m().year() - parseInt(this.affinity.motorDetails.modelYear));
         let incepExpiryDiff = m(new Date(this.affinity.motorDetails.policyPeriodTo)).diff(new Date(this.affinity.motorDetails.policyPeriodFrom), 'months', true);
 
@@ -534,15 +538,20 @@ export class MotorComponent implements OnInit {
         }
       }
 
-      if (!this.hasPlateNumber) {
-        // this.fTODO
-      }
-
       if (!this.affinity.motorDetails.plateNumber && !this.affinity.motorDetails.conductionNumber) {
         Swal.fire({
           type: 'error',
           title: 'Quotation Issuance',
           text: "Conduction Sticker No. or Plate No. is required"
+        });
+        return null;
+      }
+
+      if (!this.hasPlateNumber && _.isEmpty(this.orCode) ) {
+        Swal.fire({
+          type: 'error',
+          title: 'Quotation Issuance',
+          text: "Field Office Code is required"
         });
         return null;
       }
