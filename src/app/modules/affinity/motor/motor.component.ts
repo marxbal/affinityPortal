@@ -66,7 +66,7 @@ export class MotorComponent implements OnInit {
   isMotorcycle: boolean = false;
   orCode: String = "";
 
-  showEffDate: boolean = true;
+  showEffDate: boolean = false;
   effYearlist: any = [];
   effMonth: String = "";
   effDay: String = "1";

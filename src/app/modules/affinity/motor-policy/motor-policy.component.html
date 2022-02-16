@@ -142,7 +142,7 @@
 		<div class="form-group row">
             <div class="col-md-12">
                 <label for="plateNumber" class="affinity-label">PLATE NUMBER</label>
-                <input type="text" id="plateNumber" class="form-control motor-policy-issuance to-uppercase" name="Plate Number" placeholder="Plate Number" (change)="changePlateNumber()" [(ngModel)]="this.affinity.motorDetails.plateNumber">
+                <input type="text" [disabled]="isCTPL && isMotorcycle" id="plateNumber" class="form-control motor-policy-issuance to-uppercase" name="Plate Number" placeholder="Plate Number" (change)="changePlateNumber()" [(ngModel)]="this.affinity.motorDetails.plateNumber">
             </div>
         </div>
 	</div>
@@ -307,7 +307,7 @@
 		<div class="form-group row">
             <div class="col-md-12">
                 <label for="policyPeriodFrom" class="affinity-label">EFFECTIVITY <span class="text-mapfre text-heavy">*</span></label>
-                <input type="date" id="policyPeriodFrom" min="{{this.minRetro}}" class="form-control" [(ngModel)]="this.affinity.motorDetails.policyPeriodFrom" (change)="chooseEffectivityDate()">
+                <input [disabled]="isCTPL && isMotorcycle" type="date" id="policyPeriodFrom" min="{{this.minRetro}}" class="form-control" [(ngModel)]="this.affinity.motorDetails.policyPeriodFrom" (change)="chooseEffectivityDate()">
             </div>
         </div>
     </div>
@@ -315,7 +315,7 @@
 		<div class="form-group row">
             <div class="col-md-12">
                 <label for="policyPeriodTo" class="affinity-label">EXPIRY <span class="text-mapfre text-heavy">*</span></label>
-                <input type="date" id="policyPeriodTo" class="form-control" [(ngModel)]="this.affinity.motorDetails.policyPeriodTo">
+                <input [disabled]="isCTPL && isMotorcycle" type="date" id="policyPeriodTo" class="form-control" [(ngModel)]="this.affinity.motorDetails.policyPeriodTo">
             </div>
         </div>
     </div>

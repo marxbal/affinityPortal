@@ -48,6 +48,7 @@ export class MotorPolicyComponent implements OnInit {
   fmv: number = 0;
   isCTPL: boolean = false;
   isMotorcycle: boolean = false;
+  showEffDate: boolean = false;
 
   formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -68,8 +69,7 @@ export class MotorPolicyComponent implements OnInit {
 
     this.isCTPL = this.affinity.productId == "10002";
     this.isMotorcycle = this.affinity.lineId == "120";
-
-    console.log(this.affinity);
+    this.showEffDate = this.isCTPL && this.isMotorcycle;
 
     // this.chooseModelYear();
 
