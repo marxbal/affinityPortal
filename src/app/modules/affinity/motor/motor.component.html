@@ -188,7 +188,7 @@
 				<div class="form-group row">
 		            <div class="col-md-12">
 		                <label for="registrationDate" class="affinity-label">REGISTRATION DATE <span class="text-mapfre text-heavy">*</span></label>
-		                <input type="date" id="registrationDate" max="{{this.maxDate}}" class="form-control motor-quote to-uppercase" name="Registration Date"  placeholder="Registration Date" [(ngModel)]="this.registrationDate">
+		                <input type="date" id="registrationDate" max="{{this.maxDate}}" class="form-control motor-quote to-uppercase" name="Registration Date"  placeholder="Registration Date" [(ngModel)]="this.registrationDate" (change)="changeRegistrationDate()">
 		            </div>
 		        </div>
 			</div>
@@ -361,7 +361,7 @@
 		        </div>
 		    </div>
 
-			<div class="col-md-4" *ngIf="isMotorcycle">
+			<div class="col-md-4" *ngIf="!isMotorcycle">
 				<div class="form-group row">
 		            <div class="col-md-12">
 		                <label for="policyPeriodFrom" class="affinity-label">EFFECTIVITY <span class="text-mapfre text-heavy">*</span></label>

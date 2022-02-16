@@ -68,7 +68,7 @@ export class MotorComponent implements OnInit {
   effMonth: String = "";
   effDay: String = "1";
   effYear: String = "";
-  registrationDate: String = m().format('YYYY-MM-DD');
+  registrationDate: string = m().format('YYYY-MM-DD');
 
   fmv: number = 0;
 
@@ -110,7 +110,7 @@ export class MotorComponent implements OnInit {
 
     this.isCTPL = this.affinity.productId == "10002";
 
-    const currentMonth = m().format('MMMM');
+    const currentMonth = m().add(1, 'month').format('MMMM');
     const currentYear = m().get('year');
     const previousYear = m().subtract(1, 'year').get('year');
     const nextYear = m().add(1, 'year').get('year');
@@ -174,7 +174,13 @@ export class MotorComponent implements OnInit {
       return false;
     }
     return true;
+  }
 
+  changeRegistrationDate() {
+    const date = m(this.registrationDate).add(1, 'month');
+    date.set('date', 1);
+    this.affinity.motorDetails.policyPeriodFrom = date.format('YYYY-MM-DD');
+    this.affinity.motorDetails.policyPeriodTo = m(this.affinity.motorDetails.policyPeriodFrom).add(1, 'year').format('YYYY-MM-DD');
   }
 
   changePlateNumber() {
@@ -271,8 +277,12 @@ export class MotorComponent implements OnInit {
     this.isMotorcycle = this.affinity.motorDetails.motorTypeId == "120";
 
     if (this.isMotorcycle) {
-      this.affinity.motorDetails.policyPeriodFrom = m().add(1, 'month').format('YYYY-MM-DD');
-    } 
+      const date = m().add(1, 'month');
+      date.set('date', 1);
+      this.affinity.motorDetails.policyPeriodFrom = date.format('YYYY-MM-DD');
+    } else {
+      this.affinity.motorDetails.policyPeriodFrom = m().format('YYYY-MM-DD');
+    }
     this.affinity.motorDetails.policyPeriodTo = m(this.affinity.motorDetails.policyPeriodFrom).add(1, 'year').format('YYYY-MM-DD');
 
     this.commonService.chooseType(
