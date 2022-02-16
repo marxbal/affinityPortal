@@ -110,7 +110,7 @@ export class MotorComponent implements OnInit {
 
     this.isCTPL = this.affinity.productId == "10002";
 
-    const currentMonth = m().add(1, 'month').format('MMMM');
+    const currentMonth = m().add(1, 'month').format('MMM');
     const currentYear = m().get('year');
     const previousYear = m().subtract(1, 'year').get('year');
     const nextYear = m().add(1, 'year').get('year');
@@ -180,7 +180,7 @@ export class MotorComponent implements OnInit {
     const date = m(this.registrationDate).add(1, 'month');
     date.set('date', 1);
     this.affinity.motorDetails.policyPeriodFrom = date.format('YYYY-MM-DD');
-    this.effMonth = date.format('MMMM');
+    this.effMonth = date.format('MMM');
     this.affinity.motorDetails.policyPeriodTo = m(this.affinity.motorDetails.policyPeriodFrom).add(1, 'year').format('YYYY-MM-DD');
 
     this.createTemporaryPlateNumber();
