@@ -424,6 +424,7 @@ export class MotorComponent implements OnInit {
       (result) => {
         this.affinity.lov.subModelLOV = result;
         this.affinity.motorDetails.FMV = "";
+        this.affinity.motorDetails.subModelId = "";
       });
   }
 
@@ -443,7 +444,7 @@ export class MotorComponent implements OnInit {
             arr.push(r);
           }
         });
-        this.affinity.lov.typeOfUseLOV = arr
+        this.affinity.lov.typeOfUseLOV = arr;
       });
 
     this.commonService.loadFMV(
