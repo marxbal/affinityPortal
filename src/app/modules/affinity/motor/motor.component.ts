@@ -178,7 +178,9 @@ export class MotorComponent implements OnInit {
   }
 
   changeRegistrationDate() {
-    const date = m(this.registrationDate).add(1, 'month');
+    const registrationDate = m(this.registrationDate);
+    const monthNumber = registrationDate.get('month') + 1;
+    const date = monthNumber < 9 ? registrationDate.add(1, 'month') : registrationDate;
     date.set('date', 1);
     this.affinity.motorDetails.policyPeriodFrom = date.format('YYYY-MM-DD');
     this.effMonth = date.format('MMM');
