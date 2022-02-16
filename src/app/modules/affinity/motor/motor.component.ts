@@ -146,6 +146,10 @@ export class MotorComponent implements OnInit {
     });
   }
 
+  showPlateNumber() {
+    console.log(this.hasPlateNumber);
+  }
+
   changePlateNumber() {
     if (this.affinity.productId == "10002") {
       this.affinity.motorDetails.policyPeriodFrom = m("2020-" + this.getMonthBasedOnPlate(this.affinity.motorDetails.plateNumber) + "-01").format('YYYY-MM-DD');
