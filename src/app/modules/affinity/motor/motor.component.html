@@ -167,15 +167,30 @@
 		            </div>
 		        </div>
 			</div>
-			<div class="col-md-12">
+			<div class="col-md-12" *ngIf="isCTPL">
 				<div class="form-check">
 					<input class="form-check-input" type="checkbox" value="" id="hasPlateNumber"
-					[(ngModel)]="hasPlateNumber"
-					(change)="showPlateNumber()">
+					[(ngModel)]="hasPlateNumber">
 					<label class="form-check-label" for="hasPlateNumber">
 					with plate number
 					</label>
 				</div>
+			</div>
+			<div class="col-md-4" *ngIf="!hasPlateNumber">
+				<div class="form-group row">
+		            <div class="col-md-12">
+		                <label for="orCode" class="affinity-label">FIELD OFFICE CODE</label>
+		                <input type="text" id="orCode" class="form-control motor-quote to-uppercase" name="Plate Number" [NumberOnly]="true" placeholder="OR CODE" [(ngModel)]="this.orCode">
+		            </div>
+		        </div>
+			</div>
+			<div class="col-md-4" *ngIf="!hasPlateNumber">
+				<div class="form-group row">
+		            <div class="col-md-12">
+		                <label for="registrationDate" class="affinity-label">REGISTRATION DATE</label>
+		                <input type="date" id="registrationDate" min="{{this.minRetro}}" class="form-control motor-quote to-uppercase" name="Registration Date"  placeholder="Registration Date" (change)="changeRegistrationDate()" [(ngModel)]="this.registrationDate">
+		            </div>
+		        </div>
 			</div>
 			<div class="col-md-4" *ngIf="hasPlateNumber">
 				<div class="form-group row">

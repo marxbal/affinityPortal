@@ -61,6 +61,9 @@ export class MotorComponent implements OnInit {
   title: String = "";
 
   hasPlateNumber: boolean = true;
+  isCTPL: boolean = false;
+  orCode: String = "";
+  registrationDate: String = "";
 
   fmv: number = 0;
 
@@ -98,6 +101,9 @@ export class MotorComponent implements OnInit {
 
     this.affinity.motorDetails.bodilyInjuryLimit = "250000";
     this.affinity.motorDetails.propertyDamageLimit = "250000";
+
+    this.isCTPL = this.affinity.productId == "10002";
+    console.log("isCTPL " + this.isCTPL);
 
     this.affinity.motorDetails.policyPeriodFrom = m().format('YYYY-MM-DD');
     this.affinity.motorDetails.policyPeriodTo = m(this.affinity.motorDetails.policyPeriodFrom).add(1, 'year').format('YYYY-MM-DD');
@@ -144,10 +150,6 @@ export class MotorComponent implements OnInit {
         }
       }
     });
-  }
-
-  showPlateNumber() {
-    console.log(this.hasPlateNumber);
   }
 
   changePlateNumber() {
@@ -466,6 +468,10 @@ export class MotorComponent implements OnInit {
             return null;
           }
         }
+      }
+
+      if (!this.hasPlateNumber) {
+        // this.fTODO
       }
 
       if (!this.affinity.motorDetails.plateNumber && !this.affinity.motorDetails.conductionNumber) {
