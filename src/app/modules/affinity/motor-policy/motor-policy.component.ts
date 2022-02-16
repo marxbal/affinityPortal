@@ -448,7 +448,7 @@ export class MotorPolicyComponent implements OnInit {
 
     }
 
-    if (this.affinity.productId == "10002") {
+    if (this.isCTPL && !this.isMotorcycle) {
       let currentYearDiff = (m().year() - parseInt(this.affinity.motorDetails.modelYear));
       let incepExpiryDiff = m(new Date(this.affinity.motorDetails.policyPeriodTo)).diff(new Date(this.affinity.motorDetails.policyPeriodFrom), 'months', true);
 
