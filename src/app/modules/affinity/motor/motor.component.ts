@@ -194,7 +194,7 @@ export class MotorComponent implements OnInit {
   }
 
   changePlateNumber() {
-    if (this.affinity.productId == "10002") {
+    if (this.isCTPL) {
       const currentYear = m().get('year') + "-";
       this.affinity.motorDetails.policyPeriodFrom = m(currentYear + this.getMonthBasedOnPlate(this.affinity.motorDetails.plateNumber) + "-01").format('YYYY-MM-DD');
       const fromDate = m(this.affinity.motorDetails.policyPeriodFrom );
@@ -513,7 +513,7 @@ export class MotorComponent implements OnInit {
 
   nextStepAction() {
     if (this.checker.checkIfRequired('motor-quote') == "1") {
-      if (this.affinity.productId == "10002" && !this.isMotorcycle) {
+      if (this.isCTPL && !this.isMotorcycle) {
         let currentYearDiff = (m().year() - parseInt(this.affinity.motorDetails.modelYear));
         let incepExpiryDiff = m(new Date(this.affinity.motorDetails.policyPeriodTo)).diff(new Date(this.affinity.motorDetails.policyPeriodFrom), 'months', true);
 
