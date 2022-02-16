@@ -73,6 +73,7 @@ export class MotorComponent implements OnInit {
   });
 
   minRetro: String = m().subtract(6, 'month').format('YYYY-MM-DD');
+  maxDate: String = m().format('YYYY-MM-DD');
 
   ngOnInit() {
     this.selectProduct(this.product, this.description);

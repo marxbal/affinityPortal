@@ -180,7 +180,7 @@
 				<div class="form-group row">
 		            <div class="col-md-12">
 		                <label for="orCode" class="affinity-label">FIELD OFFICE CODE</label>
-		                <input type="text" id="orCode" class="form-control motor-quote to-uppercase" name="Plate Number" (keypress)="numberOnly($event)" placeholder="OR CODE" [(ngModel)]="this.orCode">
+		                <input type="text" id="orCode" class="form-control motor-quote to-uppercase required" name="OR Code" (keypress)="numberOnly($event)" placeholder="OR CODE" [(ngModel)]="this.orCode">
 		            </div>
 		        </div>
 			</div>
@@ -188,7 +188,7 @@
 				<div class="form-group row">
 		            <div class="col-md-12">
 		                <label for="registrationDate" class="affinity-label">REGISTRATION DATE</label>
-		                <input type="date" id="registrationDate" min="{{this.minRetro}}" class="form-control motor-quote to-uppercase" name="Registration Date"  placeholder="Registration Date" (change)="changeRegistrationDate()" [(ngModel)]="this.registrationDate">
+		                <input type="date" id="registrationDate" min="{{this.maxDate}}" class="form-control motor-quote to-uppercase required" name="Registration Date"  placeholder="Registration Date" (change)="changeRegistrationDate()" [(ngModel)]="this.registrationDate">
 		            </div>
 		        </div>
 			</div>
