@@ -64,6 +64,7 @@ export class MotorComponent implements OnInit {
   isCTPL: boolean = false;
   isMotorcycle: boolean = false;
   orCode: String = "";
+  effYearlist: any = [];
   registrationDate: String = m().format('YYYY-MM-DD');
 
   fmv: number = 0;
@@ -106,6 +107,9 @@ export class MotorComponent implements OnInit {
 
     this.isCTPL = this.affinity.productId == "10002";
     console.log("isCTPL " + this.isCTPL);
+
+    const currentYear = m().get('year');
+    console.log(currentYear);
 
     this.affinity.motorDetails.policyPeriodFrom = m().format('YYYY-MM-DD');
     this.affinity.motorDetails.policyPeriodTo = m(this.affinity.motorDetails.policyPeriodFrom).add(1, 'year').format('YYYY-MM-DD');

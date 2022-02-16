@@ -343,6 +343,24 @@
 		<div class="row">
 			<div class="col-md-4">
 				<div class="form-group row">
+		            <div class="col-md-4">
+		                <label for="effMonth" class="affinity-label">MONTH</label>
+		                <input type="text" id="effMonth" class="form-control motor-quote" name="month" [(ngModel)]="this.effMonth">
+		            </div>
+					<div class="col-md-4">
+		                <label for="effDay" class="affinity-label">DAY</label>
+		                <input type="text" id="effDay" class="form-control motor-quote" name="month" [(ngModel)]="this.effDay">
+		            </div>
+					<div class="col-md-4">
+		                <label for="effYear" class="affinity-label">YEAR</label>
+						<select class="form-control" id="effYear" [(ngModel)]="this.effYear">
+			                <option *ngFor="let year of this.effYearlist" value="{{year}}">{{year}}</option>
+			            </select>
+		            </div>
+		        </div>
+		    </div>
+			<div class="col-md-4">
+				<div class="form-group row">
 		            <div class="col-md-12">
 		                <label for="policyPeriodFrom" class="affinity-label">EFFECTIVITY <span class="text-mapfre text-heavy">*</span></label>
 		                <input type="date" id="policyPeriodFrom" min="{{this.minRetro}}" class="form-control  required motor-quote" name="Effectivity Date" [(ngModel)]="this.affinity.motorDetails.policyPeriodFrom" (change)="chooseEffectivityDate()">
