@@ -109,7 +109,7 @@
 
   </div>
 </div>
-<h5>Mailing Address&nbsp;<span class="text-mapfre text-heavy">*</span></h5>
+<h5>Address&nbsp;<span class="text-mapfre text-heavy">*</span></h5>
 <strong>Note: </strong><i>add atleast (1) one address</i>
 
 <div class="row" *ngIf="this.addAddress == '' && this.affinity.lov.addressLOV.length > 0">
@@ -125,7 +125,7 @@
         <tr>
           <td>Type</td>
           <td>Full Address</td>
-          <td>Mailing Address</td>
+          <td>Address</td>
           <td></td>
         </tr>
       </thead>
@@ -138,7 +138,7 @@
             <h3><i class="fa fa-check-circle text-success" *ngIf="address.mailingAddress == '1'"></i></h3>
           </td>
           <td><button type="button" class="btn btn-mapfre mr-3" (click)="setCorrespondent(address)"><i
-                class="fa fa-envelope"></i> Set Mailing Address</button><button type="button" class="btn btn-mapfre"
+                class="fa fa-envelope"></i> Set Address</button><button type="button" class="btn btn-mapfre"
               (click)="removeAddressList(address)"><i class="fa fa-times"></i> Remove</button></td>
         </tr>
       </tbody>

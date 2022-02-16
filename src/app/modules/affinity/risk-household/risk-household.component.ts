@@ -83,7 +83,7 @@ export class RiskHouseholdComponent implements OnInit {
   @Output() affinityOutput2 = new EventEmitter();
 
   billingAddressTitle: String = "Billing Address";
-  mailingAddressTitle: String = "Mailing Address";
+  mailingAddressTitle: String = "Address";
 
   tempAddresses: AddressDetails[] = [];
 
