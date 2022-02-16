@@ -106,10 +106,16 @@ export class MotorComponent implements OnInit {
     this.affinity.motorDetails.propertyDamageLimit = "250000";
 
     this.isCTPL = this.affinity.productId == "10002";
-    console.log("isCTPL " + this.isCTPL);
 
     const currentYear = m().get('year');
-    console.log(currentYear);
+    const previousYear = m().subtract(1, 'year').get('year');
+    const nextYear = m().add(1, 'year').get('year');
+
+    this.effYearlist.push(currentYear);
+    this.effYearlist.push(previousYear);
+    this.effYearlist.push(nextYear);
+
+    console.log(this.effYearlist);
 
     this.affinity.motorDetails.policyPeriodFrom = m().format('YYYY-MM-DD');
     this.affinity.motorDetails.policyPeriodTo = m(this.affinity.motorDetails.policyPeriodFrom).add(1, 'year').format('YYYY-MM-DD');
