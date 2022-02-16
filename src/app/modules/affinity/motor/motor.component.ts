@@ -270,6 +270,11 @@ export class MotorComponent implements OnInit {
 
     this.isMotorcycle = this.affinity.motorDetails.motorTypeId == "120";
 
+    if (this.isMotorcycle) {
+      this.affinity.motorDetails.policyPeriodFrom = m().add(1, 'month').format('YYYY-MM-DD');
+    } 
+    this.affinity.motorDetails.policyPeriodTo = m(this.affinity.motorDetails.policyPeriodFrom).add(1, 'year').format('YYYY-MM-DD');
+
     this.commonService.chooseType(
       this.affinity.motorDetails.motorTypeId
     ).subscribe(

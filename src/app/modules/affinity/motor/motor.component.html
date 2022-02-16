@@ -346,11 +346,11 @@
 				<div class="form-group row">
 		            <div class="col-md-4">
 		                <label for="effMonth" class="affinity-label">MONTH</label>
-		                <input type="text" id="effMonth" class="form-control motor-quote" name="month" [(ngModel)]="this.effMonth">
+		                <input disabled type="text" id="effMonth" class="form-control motor-quote" name="month" [(ngModel)]="this.effMonth">
 		            </div>
 					<div class="col-md-4">
 		                <label for="effDay" class="affinity-label">DAY</label>
-		                <input type="text" id="effDay" class="form-control motor-quote" name="month" [(ngModel)]="this.effDay">
+		                <input disabled type="text" id="effDay" class="form-control motor-quote" name="month" [(ngModel)]="this.effDay">
 		            </div>
 					<div class="col-md-4">
 		                <label for="effYear" class="affinity-label">YEAR</label>
@@ -361,7 +361,7 @@
 		        </div>
 		    </div>
 
-			<div class="col-md-4" *ngIf="!isMotorcycle">
+			<div class="col-md-4" *ngIf="isMotorcycle">
 				<div class="form-group row">
 		            <div class="col-md-12">
 		                <label for="policyPeriodFrom" class="affinity-label">EFFECTIVITY <span class="text-mapfre text-heavy">*</span></label>
