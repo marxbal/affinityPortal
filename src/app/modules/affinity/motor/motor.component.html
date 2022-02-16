@@ -180,7 +180,7 @@
 				<div class="form-group row">
 		            <div class="col-md-12">
 		                <label for="orCode" class="affinity-label">FIELD OFFICE CODE <span class="text-mapfre text-heavy">*</span></label>
-		                <input type="text" id="orCode" class="form-control motor-quote to-uppercase" name="OR Code" (keypress)="numberOnly($event)" placeholder="OR CODE" [(ngModel)]="this.orCode">
+		                <input type="text" id="orCode" class="form-control motor-quote to-uppercase" name="OR Code" (keypress)="numberOnly($event)" placeholder="OR CODE" [(ngModel)]="this.orCode" (change)="createTemporaryPlateNumber()">
 		            </div>
 		        </div>
 			</div>

@@ -182,6 +182,8 @@ export class MotorComponent implements OnInit {
     this.affinity.motorDetails.policyPeriodFrom = date.format('YYYY-MM-DD');
     this.effMonth = date.format('MMMM');
     this.affinity.motorDetails.policyPeriodTo = m(this.affinity.motorDetails.policyPeriodFrom).add(1, 'year').format('YYYY-MM-DD');
+
+    this.createTemporaryPlateNumber();
   }
 
   changePlateNumber() {
@@ -191,6 +193,20 @@ export class MotorComponent implements OnInit {
     }
 
     this.validatePlateNumber();
+  }
+
+  createTemporaryPlateNumber() {
+    let suffix = "";
+    const date = m(this.registrationDate);
+    const month = date.get('month') + 1;
+    if (month < 9) {
+      suffix = "0" + month;
+    } else {
+      suffix = month.toString();
+    }
+
+    this.affinity.motorDetails.plateNumber = this.orCode + suffix;
+    console.log(this.affinity.motorDetails.plateNumber);
   }
 
   getMonthBasedOnPlate(plate: string) {
