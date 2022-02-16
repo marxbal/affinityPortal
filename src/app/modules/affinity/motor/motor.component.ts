@@ -60,6 +60,8 @@ export class MotorComponent implements OnInit {
   coverage: Coverages = new Coverages();
   title: String = "";
 
+  hasPlateNumber: boolean = true;
+
   fmv: number = 0;
 
   formatter = new Intl.NumberFormat('en-US', {

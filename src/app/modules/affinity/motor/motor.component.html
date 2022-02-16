@@ -169,13 +169,22 @@
 			</div>
 			<div class="col-md-12">
 				<div class="form-check">
-				  <input class="form-check-input" type="checkbox" value="" id="hasPlateNumber"
-					[(ngModel)]="hasPlateNumber">
-				  <label class="form-check-label" for="hasPlateNumber">
-					has Plate Number?
-				  </label>
+					<input class="form-check-input" type="checkbox" value="" id="hasPlateNumber"
+					[(ngModel)]="hasPlateNumber"
+					(change)="hasPlateNumber = !hasPlateNumber">
+					<label class="form-check-label" for="hasPlateNumber">
+					with plate number
+					</label>
 				</div>
-			  </div>
+			</div>
+			<div class="col-md-4" *ngIf="hasPlateNumber">
+				<div class="form-group row">
+		            <div class="col-md-12">
+		                <label for="plateNumber" class="affinity-label">PLATE NUMBER</label>
+		                <input type="text" id="plateNumber" class="form-control motor-quote to-uppercase" name="Plate Number"  placeholder="Plate Number" (change)="changePlateNumber()" [(ngModel)]="this.affinity.motorDetails.plateNumber">
+		            </div>
+		        </div>
+			</div>
 			<div class="col-md-4">
 				<div class="form-group row">
 		            <div class="col-md-12">
@@ -184,14 +193,7 @@
 		            </div>
 		        </div>
 			</div>
-			<div class="col-md-4">
-				<div class="form-group row">
-		            <div class="col-md-12">
-		                <label for="plateNumber" class="affinity-label">PLATE NUMBER</label>
-		                <input type="text" id="plateNumber" class="form-control motor-quote to-uppercase" name="Plate Number"  placeholder="Plate Number" (change)="changePlateNumber()" [(ngModel)]="this.affinity.motorDetails.plateNumber">
-		            </div>
-		        </div>
-			</div>
+			
 		</div>
 
 		<br />
