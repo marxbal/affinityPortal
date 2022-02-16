@@ -178,12 +178,17 @@ export class MotorComponent implements OnInit {
   }
 
   changeRegistrationDate() {
-    const registrationDate = m(this.registrationDate);
+    let registrationDate = m(this.registrationDate);
     const monthNumber = registrationDate.get('month') + 1;
-    const date = monthNumber < 9 ? registrationDate.add(1, 'month') : registrationDate;
-    date.set('date', 1);
-    this.affinity.motorDetails.policyPeriodFrom = date.format('YYYY-MM-DD');
-    this.effMonth = date.format('MMM');
+    if (monthNumber < 11) {
+      registrationDate = registrationDate.add(1, 'month')
+    } else {
+      registrationDate = registrationDate.set('month', 10);
+    }
+    registrationDate.set('date', 1);
+    this.effMonth = registrationDate.format('MMM');
+
+    this.affinity.motorDetails.policyPeriodFrom = registrationDate.format('YYYY-MM-DD');
     this.affinity.motorDetails.policyPeriodTo = m(this.affinity.motorDetails.policyPeriodFrom).add(1, 'year').format('YYYY-MM-DD');
 
     this.createTemporaryPlateNumber();
