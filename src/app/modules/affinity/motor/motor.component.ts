@@ -62,8 +62,9 @@ export class MotorComponent implements OnInit {
 
   hasPlateNumber: boolean = true;
   isCTPL: boolean = false;
+  isMotorcycle: boolean = false;
   orCode: String = "";
-  registrationDate: String = "";
+  registrationDate: String = m().format('YYYY-MM-DD');
 
   fmv: number = 0;
 
@@ -252,6 +253,8 @@ export class MotorComponent implements OnInit {
   chooseType() {
     this.affinity.motorDetails.motorTypeId = this.affinity.motorDetails.motorTypeIdHolder.split("-")[0];
     this.affinity.motorDetails.motorType = this.affinity.motorDetails.motorTypeIdHolder.split("-")[1];
+
+    this.isMotorcycle = this.affinity.motorDetails.motorTypeId == "120";
 
     this.commonService.chooseType(
       this.affinity.motorDetails.motorTypeId

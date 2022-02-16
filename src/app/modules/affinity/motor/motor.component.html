@@ -167,7 +167,7 @@
 		            </div>
 		        </div>
 			</div>
-			<div class="col-md-12" *ngIf="isCTPL">
+			<div class="col-md-12" *ngIf="isMotorcycle">
 				<div class="form-check">
 					<input class="form-check-input" type="checkbox" value="" id="hasPlateNumber"
 					[(ngModel)]="hasPlateNumber">
@@ -179,16 +179,16 @@
 			<div class="col-md-4" *ngIf="!hasPlateNumber">
 				<div class="form-group row">
 		            <div class="col-md-12">
-		                <label for="orCode" class="affinity-label">FIELD OFFICE CODE</label>
-		                <input type="text" id="orCode" class="form-control motor-quote to-uppercase required" name="OR Code" (keypress)="numberOnly($event)" placeholder="OR CODE" [(ngModel)]="this.orCode">
+		                <label for="orCode" class="affinity-label">FIELD OFFICE CODE <span class="text-mapfre text-heavy">*</span></label>
+		                <input type="text" id="orCode" class="form-control motor-quote to-uppercase" name="OR Code" (keypress)="numberOnly($event)" placeholder="OR CODE" [(ngModel)]="this.orCode">
 		            </div>
 		        </div>
 			</div>
 			<div class="col-md-4" *ngIf="!hasPlateNumber">
 				<div class="form-group row">
 		            <div class="col-md-12">
-		                <label for="registrationDate" class="affinity-label">REGISTRATION DATE</label>
-		                <input type="date" id="registrationDate" min="{{this.maxDate}}" class="form-control motor-quote to-uppercase required" name="Registration Date"  placeholder="Registration Date" (change)="changeRegistrationDate()" [(ngModel)]="this.registrationDate">
+		                <label for="registrationDate" class="affinity-label">REGISTRATION DATE <span class="text-mapfre text-heavy">*</span></label>
+		                <input type="date" id="registrationDate" max="{{this.maxDate}}" class="form-control motor-quote to-uppercase" name="Registration Date"  placeholder="Registration Date" [(ngModel)]="this.registrationDate">
 		            </div>
 		        </div>
 			</div>
