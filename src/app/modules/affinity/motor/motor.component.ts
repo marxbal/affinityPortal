@@ -180,6 +180,7 @@ export class MotorComponent implements OnInit {
     const date = m(this.registrationDate).add(1, 'month');
     date.set('date', 1);
     this.affinity.motorDetails.policyPeriodFrom = date.format('YYYY-MM-DD');
+    this.effMonth = date.format('MMMM');
     this.affinity.motorDetails.policyPeriodTo = m(this.affinity.motorDetails.policyPeriodFrom).add(1, 'year').format('YYYY-MM-DD');
   }
 
