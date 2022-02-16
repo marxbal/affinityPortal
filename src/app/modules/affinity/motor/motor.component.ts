@@ -65,6 +65,8 @@ export class MotorComponent implements OnInit {
   isCTPL: boolean = false;
   isMotorcycle: boolean = false;
   orCode: String = "";
+
+  showEffDate: boolean = true;
   effYearlist: any = [];
   effMonth: String = "";
   effDay: String = "1";
@@ -308,6 +310,7 @@ export class MotorComponent implements OnInit {
     this.affinity.motorDetails.motorType = this.affinity.motorDetails.motorTypeIdHolder.split("-")[1];
 
     this.isMotorcycle = this.affinity.motorDetails.motorTypeId == "120";
+    this.showEffDate = this.isCTPL && this.isMotorcycle;
 
     if (this.isMotorcycle) {
       const date = m().add(1, 'month');
