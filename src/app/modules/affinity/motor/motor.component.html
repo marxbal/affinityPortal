@@ -354,7 +354,7 @@
 		            </div>
 					<div class="col-md-4">
 		                <label for="effYear" class="affinity-label">YEAR</label>
-						<select class="form-control" id="effYear" [(ngModel)]="this.effYear">
+						<select class="form-control" id="effYear" [(ngModel)]="this.effYear" (change)="chooseEffYear()">
 			                <option *ngFor="let year of this.effYearlist" value="{{year}}">{{year}}</option>
 			            </select>
 		            </div>

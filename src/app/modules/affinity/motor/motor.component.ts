@@ -67,7 +67,7 @@ export class MotorComponent implements OnInit {
   effYearlist: any = [];
   effMonth: String = "";
   effDay: String = "1";
-  effYear: String = "";
+  effYear: number = 0;
   registrationDate: string = m().format('YYYY-MM-DD');
 
   fmv: number = 0;
@@ -118,7 +118,7 @@ export class MotorComponent implements OnInit {
     this.effYearlist.push(previousYear);
     this.effYearlist.push(currentYear);
     this.effYearlist.push(nextYear);
-    this.effYear = currentYear.toString();
+    this.effYear = currentYear;
     this.effMonth = currentMonth;
 
     this.affinity.motorDetails.policyPeriodFrom = m().format('YYYY-MM-DD');
@@ -186,6 +186,15 @@ export class MotorComponent implements OnInit {
     this.createTemporaryPlateNumber();
   }
 
+  chooseEffYear() {
+    const date = m(this.affinity.motorDetails.policyPeriodFrom);
+    this.affinity.motorDetails.policyPeriodFrom = date.set('year', this.effYear).format('YYYY-MM-DD');
+    this.affinity.motorDetails.policyPeriodTo = m(this.affinity.motorDetails.policyPeriodFrom).add(1, 'year').format('YYYY-MM-DD');
+    console.log("year: " + this.effYear);
+    console.log("from year: " + this.affinity.motorDetails.policyPeriodFrom);
+    console.log("to year: " + this.affinity.motorDetails.policyPeriodTo);
+  }
+
   changePlateNumber() {
     if (this.affinity.productId == "10002") {
       this.affinity.motorDetails.policyPeriodFrom = m("2020-" + this.getMonthBasedOnPlate(this.affinity.motorDetails.plateNumber) + "-01").format('YYYY-MM-DD');
@@ -206,7 +215,6 @@ export class MotorComponent implements OnInit {
     }
 
     this.affinity.motorDetails.plateNumber = this.orCode + suffix;
-    console.log(this.affinity.motorDetails.plateNumber);
   }
 
   getMonthBasedOnPlate(plate: string) {
