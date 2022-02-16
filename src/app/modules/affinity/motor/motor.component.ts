@@ -314,6 +314,7 @@ export class MotorComponent implements OnInit {
       date.set('date', 1);
       this.affinity.motorDetails.policyPeriodFrom = date.format('YYYY-MM-DD');
     } else {
+      this.hasPlateNumber = true;
       this.affinity.motorDetails.policyPeriodFrom = m().format('YYYY-MM-DD');
     }
     this.affinity.motorDetails.policyPeriodTo = m(this.affinity.motorDetails.policyPeriodFrom).add(1, 'year').format('YYYY-MM-DD');
