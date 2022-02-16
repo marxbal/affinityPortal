@@ -441,7 +441,11 @@ export class MotorComponent implements OnInit {
         const arr = [];
         result.forEach(r => {
           //add motorcycle only
-          if (this.isMotorcycle && r.COD_USO_VEHI != "10") {
+          if (this.isMotorcycle) {
+            if ( r.COD_USO_VEHI != "10" ) {
+              arr.push(r);
+            }
+          } else {
             arr.push(r);
           }
         });
