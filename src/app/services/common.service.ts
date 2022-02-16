@@ -1355,7 +1355,7 @@ export class CommonService {
     const payment = new PaymentPaynamics();
     const productId = affinity.productId;
     const baseUrl = environment.baseUrl;
-    const apiUrl = environment.apiUrl;
+    // const apiUrl = environment.apiUrl;
 
     payment.policyNo = affinity.policyNumber;
     // payment.descriptorNote = this.getProductDescription(productId);
@@ -1363,6 +1363,7 @@ export class CommonService {
     payment.cancelUrl = baseUrl + environment.cancelUrl + payment.policyNo;
     payment.mtacUrl = baseUrl + environment.tacUrl;
     payment.responseUrl = baseUrl + environment.responseUrl + payment.policyNo;
+    payment.paymentMethod = affinity.paymentOption;
     // payment.appNotifUrl = apiUrl + environment.appNotifUrl;
 
     this.spinner.show();
