@@ -74,7 +74,9 @@ export class AddressComponent implements OnInit {
     }
 
     //address will always be home
-    this.address.addressTypeId = "1"; //home
+    this.address.addressTypeId = "1";
+    this.address.addressType = "HOME";
+    
     this.addressDetailsOutput.emit(this.address);
     this.affinityOutput2.emit(this.affinity);
   }
