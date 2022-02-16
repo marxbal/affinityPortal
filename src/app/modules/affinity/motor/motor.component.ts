@@ -435,8 +435,15 @@ export class MotorComponent implements OnInit {
       $("#vehicleTypeId").val().split("-")[0],
       this.affinity.motorDetails.modelYear
     ).subscribe(
-      (result) => {
-        this.affinity.lov.typeOfUseLOV = result
+      (result: any) => {
+        const arr = [];
+        result.forEach(r => {
+          //add motorcycle only
+          if (r.COD_USO_VEHI == "3") {
+            arr.push(r);
+          }
+        });
+        this.affinity.lov.typeOfUseLOV = arr
       });
 
     this.commonService.loadFMV(
