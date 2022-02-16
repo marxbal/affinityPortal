@@ -162,11 +162,12 @@
 			<div class="col-md-4">
 				<div class="form-group row">
 		            <div class="col-md-12">
-		                <label for="plateNumber" class="affinity-label">PLATE NUMBER</label>
-		                <input type="text" id="plateNumber" class="form-control motor-quote to-uppercase" name="Plate Number"  placeholder="Plate Number" (change)="changePlateNumber()" [(ngModel)]="this.affinity.motorDetails.plateNumber">
+		                <label for="MVFileNumber" class="affinity-label">MV FILE NUMBER <span class="text-mapfre text-heavy">*</span></label>
+		                <input type="text" id="MVFileNumber" maxlength="17" class="form-control required motor-quote to-uppercase" name="MV File Number"  placeholder="MV File Number" [(ngModel)]="this.affinity.motorDetails.MVFileNumber">
 		            </div>
 		        </div>
 			</div>
+			<div class="clearfix"></div>
 			<div class="col-md-4">
 				<div class="form-group row">
 		            <div class="col-md-12">
@@ -175,11 +176,12 @@
 		            </div>
 		        </div>
 			</div>
+			<div class="clearfix"></div>
 			<div class="col-md-4">
 				<div class="form-group row">
 		            <div class="col-md-12">
-		                <label for="MVFileNumber" class="affinity-label">MV FILE NUMBER <span class="text-mapfre text-heavy">*</span></label>
-		                <input type="text" id="MVFileNumber" maxlength="17" class="form-control required motor-quote to-uppercase" name="MV File Number"  placeholder="MV File Number" [(ngModel)]="this.affinity.motorDetails.MVFileNumber">
+		                <label for="plateNumber" class="affinity-label">PLATE NUMBER</label>
+		                <input type="text" id="plateNumber" class="form-control motor-quote to-uppercase" name="Plate Number"  placeholder="Plate Number" (change)="changePlateNumber()" [(ngModel)]="this.affinity.motorDetails.plateNumber">
 		            </div>
 		        </div>
 			</div>
