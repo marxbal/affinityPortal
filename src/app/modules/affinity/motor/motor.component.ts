@@ -190,9 +190,6 @@ export class MotorComponent implements OnInit {
     const date = m(this.affinity.motorDetails.policyPeriodFrom);
     this.affinity.motorDetails.policyPeriodFrom = date.set('year', this.effYear).format('YYYY-MM-DD');
     this.affinity.motorDetails.policyPeriodTo = m(this.affinity.motorDetails.policyPeriodFrom).add(1, 'year').format('YYYY-MM-DD');
-    console.log("year: " + this.effYear);
-    console.log("from year: " + this.affinity.motorDetails.policyPeriodFrom);
-    console.log("to year: " + this.affinity.motorDetails.policyPeriodTo);
   }
 
   changePlateNumber() {
@@ -208,10 +205,10 @@ export class MotorComponent implements OnInit {
     let suffix = "";
     const date = m(this.registrationDate);
     const month = date.get('month') + 1;
-    if (month < 9) {
+    if (month < 10) {
       suffix = "0" + month;
     } else {
-      suffix = month.toString();
+      suffix = "10";
     }
 
     this.affinity.motorDetails.plateNumber = this.orCode + suffix;
