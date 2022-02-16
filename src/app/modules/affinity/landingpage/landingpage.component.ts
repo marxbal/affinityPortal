@@ -62,6 +62,7 @@ export class LandingpageComponent implements OnInit {
   partnerPath: string = "";
   products: ProductLine[] = [];
   availableProducts = [];
+  availableSubline = [];
 
   viewPolicies = false;
   previousPolicies = [];
@@ -192,11 +193,12 @@ export class LandingpageComponent implements OnInit {
         if (result.length) {
           result.forEach((r) => {
             const productId = r.COD_MODALIDAD;
+            const subline = r.COD_RAMO;
 
             const p: Product = new Product();
             p.productId = productId;
             p.agentCode = r.COD_AGT;
-            p.subline = r.COD_RAMO;
+            p.subline = subline;
             p.groupPolicy = r.NUM_POLIZA_GRUPO;
             p.contract = r.NUM_CONTRATO;
             p.subContract = r.NUM_SUBCONTRATO;
@@ -204,6 +206,7 @@ export class LandingpageComponent implements OnInit {
 
             if (active) {
               this.availableProducts.push(productId);
+              this.availableSubline.push(subline);
               productList.push(p);
             }
           });
@@ -217,13 +220,13 @@ export class LandingpageComponent implements OnInit {
 
   displayProducts() {
     const l1 = new ProductLine;
-    l1.name = "Car and Motorcycle";
+    // l1.name = "Car and Motorcycle";
     l1.thumbnail = "car";
     l1.issuanceType = "motorQuotationIssuance";
-    l1.description =
-      "Comprehensive insurance with all your basic coverage needs.<br /> <br /> " +
-      "This policy covers you against loss and accidental damage to the vehicle as well as " +
-      "legal liabilities to third parties in case of bodily injury and physical damage to properties.";
+    // l1.description =
+    //   "Comprehensive insurance with all your basic coverage needs.<br /> <br /> " +
+    //   "This policy covers you against loss and accidental damage to the vehicle as well as " +
+    //   "legal liabilities to third parties in case of bodily injury and physical damage to properties.";
     l1.products = [];
 
     const p1 = new ProductList;
@@ -242,6 +245,34 @@ export class LandingpageComponent implements OnInit {
     const hasCTPL = _.indexOf(this.availableProducts, "10002") != -1;
     if (hasCTPL) {
       l1.products.push(p2);
+    }
+
+    if (hasComprehensive && !hasCTPL) {
+      l1.description =
+      "Comprehensive insurance with all your basic coverage needs.<br /> <br /> " +
+      "This policy covers you against loss and accidental damage to the vehicle as well as " +
+      "legal liabilities to third parties in case of bodily injury and physical damage to properties.";
+    } else if (!hasComprehensive && hasCTPL) {
+      l1.description =
+      "CTPL insurance with all your basic coverage needs.<br /> <br /> " +
+      "This policy covers you against loss and accidental damage to the vehicle as well as " +
+      "legal liabilities to third parties in case of bodily injury and physical damage to properties.";
+    } else {
+      l1.description =
+      "Comprehensive and CTPL insurance with all your basic coverage needs.<br /> <br /> " +
+      "This policy covers you against loss and accidental damage to the vehicle as well as " +
+      "legal liabilities to third parties in case of bodily injury and physical damage to properties.";
+    }
+
+    const hasCar = _.indexOf(this.availableSubline, "100") != -1;
+    const hasMotor = _.indexOf(this.availableSubline, "120") != -1;
+
+    if (hasCar && !hasMotor) {
+      l1.name = "Car";
+    } else if (!hasCar && hasMotor) {
+      l1.name = "Motor"
+    } else {
+      l1.name = "Car and Motorcycle";
     }
 
     if (hasCTPL || hasComprehensive) {
