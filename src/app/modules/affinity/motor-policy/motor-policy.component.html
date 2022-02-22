@@ -68,7 +68,7 @@
 		<div class="form-group row">
             <div class="col-md-12">
                 <label for="motorNumber" class="affinity-label">FAIR MARKET VALUE </label>
-                <input type="number" id="FMV" class="form-control number required motor-quote"  (change)="limitFMV($event)" name="FMV" placeholder="0.00" [(ngModel)]="this.affinity.motorDetails.FMV">
+                <input type="number" [disabled]="isCTPL && isMotorcycle" id="FMV" class="form-control number required motor-quote"  (change)="limitFMV($event)" name="FMV" placeholder="0.00" [(ngModel)]="this.affinity.motorDetails.FMV">
             </div>
         </div>
 	</div>

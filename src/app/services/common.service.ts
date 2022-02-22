@@ -1221,7 +1221,7 @@ export class CommonService {
     p2030.numRenovaciones = 0;
     p2030.tipCoaseguro = 0;
     p2030.tipSpto = ("XX");
-    p2030.txtMotivoSpto = ("");
+    p2030.txtMotivoSpto = _.isEmpty(affinity.motorDetails.txtMotivoSpto) ? "" : affinity.motorDetails.txtMotivoSpto;
 
     // if (affinity.lineId == "251" && affinity.riskDetails.underTaking) {
     //   p2030.txtMotivoSpto = ("WARRANTED NO LOSS");
