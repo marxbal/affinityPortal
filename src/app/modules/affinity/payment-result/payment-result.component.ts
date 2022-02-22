@@ -158,7 +158,7 @@ export class PaymentResultComponent implements OnInit {
         title = "COMPREHENSIVE CAR POLICY";
         break;
       case "10002":
-        title = "CTPL CAR POLICY";
+        title = "CTPL POLICY";
         break;
       case "32301":
         title = "INDIVIDUAL PERSONAL ACCIDENT POLICY";

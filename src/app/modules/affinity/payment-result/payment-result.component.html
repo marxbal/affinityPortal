@@ -65,6 +65,11 @@
                   <b>Pay via Credit Card/Debit Card</b>
                 </button>
               </div>
+              <div *ngIf="!paymentStatus" class="col-md-12">
+                <button class="btn btn-mapfre btn-block mt-3 mb-3" (click)="retryPayment()">
+                  <b>Pay via GCash</b>
+                </button>
+              </div>
               <div class="col-md-12">
                 <button class="btn btn-success btn-block" (click)="returnToHomepage()">
                   <b>Go back to Homepage</b>
@@ -120,7 +125,7 @@
               <div *ngIf="line == type.car" class="col-md-12 bottom-break">
                 <div class="row">
                   <div class="col-md-12">
-                    <label for="interest_insured" class="col-form-label affinity-label">Interest Insured</label>
+                    <label for="interest_insured" class="col-form-label affinity-label">Vehicle Insured</label>
                     <div><strong>{{interestInsured}}</strong></div>
                   </div>
                   <div class="col-md-3">

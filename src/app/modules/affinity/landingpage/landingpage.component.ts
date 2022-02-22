@@ -254,9 +254,7 @@ export class LandingpageComponent implements OnInit {
       "legal liabilities to third parties in case of bodily injury and physical damage to properties.";
     } else if (!hasComprehensive && hasCTPL) {
       l1.description =
-      "CTPL insurance with all your basic coverage needs.<br /> <br /> " +
-      "This policy covers you against loss and accidental damage to the vehicle as well as " +
-      "legal liabilities to third parties in case of bodily injury and physical damage to properties.";
+      "CTPL insurance covers you against accidental damage to third parties in case of bodily injury.";
     } else {
       l1.description =
       "Comprehensive and CTPL insurance with all your basic coverage needs.<br /> <br /> " +
@@ -270,7 +268,7 @@ export class LandingpageComponent implements OnInit {
     if (hasCar && !hasMotor) {
       l1.name = "Car";
     } else if (!hasCar && hasMotor) {
-      l1.name = "Motor"
+      l1.name = "Motorcycle"
     } else {
       l1.name = "Car and Motorcycle";
     }

@@ -215,6 +215,10 @@ export class MotorComponent implements OnInit {
     this.validatePlateNumber();
   }
 
+  clearPlateNumber() {
+    this.affinity.motorDetails.plateNumber = "";
+  }
+
   createTemporaryPlateNumber() {
     let suffix = "";
     const date = m(this.registrationDate);
@@ -408,7 +412,7 @@ export class MotorComponent implements OnInit {
 
   chooseModelYear() {
     $("#vehiclePhotosContainer").addClass("hidden");
-    if ((m().year() - parseInt(this.affinity.motorDetails.modelYear)) > 8) {
+    if ((m().year() - parseInt(this.affinity.motorDetails.modelYear)) > 8 && !this.isMotorcycle) {
       Swal.fire({
         type: 'warning',
         title: 'Policy Issuance',

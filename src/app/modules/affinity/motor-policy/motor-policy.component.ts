@@ -435,8 +435,7 @@ export class MotorPolicyComponent implements OnInit {
       return null;
     }
 
-    if (((m().year() - parseInt(this.affinity.motorDetails.modelYear)) > 8) && this.affinity.motorDetails.vehiclePhotos.length < 1) {
-
+    if (!this.isCTPL && !this.isMotorcycle && ((m().year() - parseInt(this.affinity.motorDetails.modelYear)) > 8) && this.affinity.motorDetails.vehiclePhotos.length < 1) {
       Swal.fire({
         type: 'warning',
         title: 'Policy Issuance',

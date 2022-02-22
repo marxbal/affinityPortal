@@ -5,4 +5,4 @@ export const LOGIN_EMAIL = 'm@rsh';
 export const LOGIN_PWD = 'm@rsh@2020';
 
 //deployment version
-export const VER = 'v1.20220216';
+export const VER = 'v1.20220222';
