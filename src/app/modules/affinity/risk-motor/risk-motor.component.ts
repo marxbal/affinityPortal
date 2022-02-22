@@ -456,6 +456,7 @@ export class RiskMotorComponent implements OnInit {
         "typeOfUse": this.affinity.motorDetails.vehicleUsedId,
         "paymentOption": this.affinity.paymentOption,
         "tipCocafRegistration": "R",
+        "txtMotivoSpto": this.affinity.motorDetails.txtMotivoSpto,
         "codModalidad": this.affinity.productId,
         "clientId": this.affinity.clientId,
         "codRamo": this.affinity.motorDetails.motorTypeId,

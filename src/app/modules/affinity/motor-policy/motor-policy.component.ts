@@ -49,6 +49,8 @@ export class MotorPolicyComponent implements OnInit {
   isCTPL: boolean = false;
   isMotorcycle: boolean = false;
   showEffDate: boolean = false;
+  isRetro: boolean = false;
+  warrantedNoLoss: boolean = false;
 
   formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -70,6 +72,7 @@ export class MotorPolicyComponent implements OnInit {
     this.isCTPL = this.affinity.productId == "10002";
     this.isMotorcycle = this.affinity.lineId == "120";
     this.showEffDate = this.isCTPL && this.isMotorcycle;
+    this.isRetro = m().isAfter(this.affinity.motorDetails.policyPeriodFrom, 'day');
 
     // this.chooseModelYear();
 
@@ -476,13 +479,22 @@ export class MotorPolicyComponent implements OnInit {
 
     let isRetro = m().isAfter(this.affinity.motorDetails.policyPeriodFrom, 'day');
 
-    if (isRetro && this.affinity.motorDetails.vehiclePhotos.length < 1) {
+    if (isRetro && this.affinity.motorDetails.vehiclePhotos.length < 1 && !this.isMotorcycle) {
       Swal.fire({
         type: 'error',
         title: 'Policy Issuance',
         text: "Policy inception should not be prior date today. Submission of current pictures of all sides of the risk is required for evaluation of acceptance of MAPFRE Insurance prior issuance of policy."
       });
       $("#vehiclePhotosContainer").removeClass("hidden");
+      return null;
+    }
+
+    if (isRetro && this.isCTPL && !this.warrantedNoLoss) {
+      Swal.fire({
+        type: 'error',
+        title: 'Policy Issuance',
+        text: "Please certify waranted no loss to proceed."
+      });
       return null;
     }
 
@@ -495,7 +507,6 @@ export class MotorPolicyComponent implements OnInit {
     totalCheck = totalCheck + parseFloat(this.affinity.motorDetails.FMV);
 
     if (totalCheck > 5000000) {
-
       Swal.fire({
         title: 'Policy Issuance',
         text: "Motor vehicle with more than 5 million total sum insured requires underwriting approval.",
@@ -526,6 +537,7 @@ export class MotorPolicyComponent implements OnInit {
         this.affinity.motorDetails.mortgageeId = this.affinity.motorDetails.mortgageeIdHolder.split(":=:")[0];
         this.affinity.motorDetails.mortgagee = this.affinity.motorDetails.mortgageeIdHolder.split(":=:")[1];
       }
+      this.affinity.motorDetails.txtMotivoSpto = this.warrantedNoLoss ? "WARRANTED NO LOSS" : "";
       this.nextStep.emit("riskInformation");
       this.affinityOutput.emit(this.affinity);
     }

@@ -50,6 +50,7 @@ export class Motor {
   motorNumber: string;
   serialNumber: string;
   plateNumber: string;
+  txtMotivoSpto: string;
   conductionNumber: string;
   MVFileNumber: string;
   color: string;
