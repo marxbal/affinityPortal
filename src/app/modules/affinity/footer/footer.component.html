@@ -25,8 +25,8 @@
         <li>
           <a href="//www.mapfre.com.ph/insurance-ph/contact-us/" target="_blank">CONTACT US</a>
         </li>
-        <li>
-          <a href="mailto:marshaffinity@mapfreinsurance.com.ph">LET'S CHAT</a>
+        <li *ngIf="hasPartner">
+          <a href="mailto:{{chatEmail}}">LET'S CHAT</a>
         </li>
       </ul>
     </div>

@@ -80,8 +80,7 @@
                       || partnerForm.controls['chatEmail'].touched)}">
                     <div class="col-md-12">
                       <label for="chatEmail">CHAT EMAIL</label>
-                      <input type="text" class="form-control" formControlName="chatEmail"
-                        oninput="this.value = this.value.toUpperCase()">
+                      <input type="text" class="form-control" formControlName="chatEmail">
                       <p class="form-error" *ngIf="partnerForm.controls['chatEmail'].errors?.required">
                         * chat email is required
                       </p>
