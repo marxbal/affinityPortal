@@ -69,6 +69,7 @@ export class PaymentResultComponent implements OnInit {
   emailSend: string = "";
   showPrint: boolean = true;
   isCTPL: boolean = false;
+  isAuthenticated: boolean = false;
   
   type = {
     car: CAR,
@@ -217,11 +218,10 @@ export class PaymentResultComponent implements OnInit {
     this.paymentService.checkAuthentication(subline, policyNumber).subscribe(
       (res: Return) => {
         if (!_.isEmpty(res)) {
-          this.showImage = true;
           this.spinner.hide();
           if (res.status) {
-            const authenticated = Boolean(res.obj);
-            this.showPrint = authenticated;
+            this.isAuthenticated = Boolean(res.obj);
+            this.showPrint = this.isAuthenticated;
           } else {
             Swal.fire({
               type: 'error',

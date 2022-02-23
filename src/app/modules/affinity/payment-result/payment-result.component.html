@@ -51,7 +51,7 @@
 
           <div class="details-list">
             <div class="row">
-              <div *ngIf="paymentStatus" class="col-md-12">
+              <div *ngIf="paymentStatus && showPrint" class="col-md-12">
                 <button class="btn btn-mapfre btn-block mt-3 mb-3" (click)="printPolicy()">
                   <b>Print my Policy</b>
                 </button>
@@ -81,6 +81,13 @@
           <img class="paynamics-logo" src="assets/images/paynamics-logo.png" />
         </div>
       </div>
+
+      <div *ngIf="isCTPL && !isAuthenticated" class="col-xl-12">
+				<div class="alert alert-error note">
+				  <strong>Error:</strong> COC is not authenticated. Please contact administration for assistance.
+				</div>
+				<!-- .note -->
+			</div>
 
       <div class="col-md-12">
         <div class="card">
