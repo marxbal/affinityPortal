@@ -117,7 +117,7 @@ export class PaymentResultComponent implements OnInit {
         this.spinner.hide();
         this.affinity.paymentReferenceNumber = result.a2990700_mph.numPaymentReference;
         const productId = this.common.getP20Value(result.a2000020List, 'COD_MODALIDAD');
-        const subline = this.common.getP20Value(result.a2000020List, 'COD_RAMO');
+        const subline = result.p2000030.codRamo;
         this.isCTPL = "10002" == productId;
         this.line = this.common.getLinebyProduct(productId);
         this.title = this.getPolicyTitle(productId);
