@@ -56,7 +56,7 @@ export class PaymentService {
 
   checkAuthentication(subline: number, policyNumber: string) {
     let ret: any = new BehaviorSubject < any > ([]);
-    this.app.post({subline, policyNumber}, '/afnty/cocaf/checkAuthentication')
+    this.app.post({subline, policyNumber}, '/afnty/cocaf/checkAuthentication?subline=' + subline + '&' + 'policyNumber=' + policyNumber)
       .pipe(first())
       .subscribe((res => {
         this.spinner.hide();
