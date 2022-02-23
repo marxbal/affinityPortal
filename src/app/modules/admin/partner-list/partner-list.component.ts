@@ -42,7 +42,10 @@ export class PartnerListComponent implements OnInit {
             partnerCode: r.COD_PARTNER,
             partnerName: r.TXT_PARTNER,
             domain: r.TXT_DOMAIN,
-            themeCode: r.COD_THEME
+            themeCode: r.COD_THEME,
+            auto: false,
+            branchCode: 0,
+            chatEmail: ""
           };
 
           this.partners.push(details);
