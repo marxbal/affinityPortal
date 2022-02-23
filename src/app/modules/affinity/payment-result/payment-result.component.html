@@ -82,11 +82,8 @@
         </div>
       </div>
 
-      {{isCTPL}}
-      {{!isAuthenticated}}
-
-      <div class="col-xl-12">
-				<div class="alert alert-error note">
+      <div *ngIf="isCTPL && !isAuthenticated" class="col-xl-12">
+				<div class="alert alert-danger note">
 				  <strong>Error:</strong> COC is not authenticated. Please contact administration for assistance.
 				</div>
 				<!-- .note -->
