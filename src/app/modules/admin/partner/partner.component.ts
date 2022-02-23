@@ -79,7 +79,7 @@ export class PartnerComponent implements OnInit {
       themeCode: ["", null],
       auto: ["", null],
       branchCode: ["", Validators.required],
-      chatEmail: ["", Validators.required]
+      chatEmail: ["", [Validators.required, Validators.email]]
     });
   }
 

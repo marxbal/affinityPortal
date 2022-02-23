@@ -85,6 +85,9 @@
                       <p class="form-error" *ngIf="partnerForm.controls['chatEmail'].errors?.required">
                         * chat email is required
                       </p>
+                      <p class="form-error" *ngIf="partnerForm.controls['chatEmail'].errors?.email">
+                        * email is invalid
+                      </p>
                     </div>
                   </div>
                 </div>
