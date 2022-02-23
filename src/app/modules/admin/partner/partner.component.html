@@ -74,6 +74,21 @@
                   </div>
                 </div>
                 <div class="col-md-4">
+                  <input *ngIf="false" type="text" class="form-control" formControlName="chatEmail">
+                  <div class="form-group row" [ngClass]="{'input-error': partnerForm.controls['chatEmail'].invalid 
+                      && (partnerForm.controls['chatEmail'].dirty 
+                      || partnerForm.controls['chatEmail'].touched)}">
+                    <div class="col-md-12">
+                      <label for="chatEmail">CHAT EMAIL</label>
+                      <input type="text" class="form-control" formControlName="chatEmail"
+                        oninput="this.value = this.value.toUpperCase()">
+                      <p class="form-error" *ngIf="partnerForm.controls['chatEmail'].errors?.required">
+                        * chat email is required
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
                   <div class="form-group row">
                     <div class="col-md-12">
                       <label for="autoLogin">AUTO LOGIN</label>

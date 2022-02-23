@@ -8,6 +8,7 @@ export class Partner {
   products: number[];
   auto: boolean;
   branchCode: number;
+  chatEmail: string;
 
   constructor(init ? : Partial < Partner > ) {
     Object.assign(this, init);

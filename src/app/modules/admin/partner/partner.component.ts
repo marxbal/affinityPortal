@@ -78,7 +78,8 @@ export class PartnerComponent implements OnInit {
       domain: ["", Validators.required],
       themeCode: ["", null],
       auto: ["", null],
-      branchCode: ["", Validators.required]
+      branchCode: ["", Validators.required],
+      chatEmail: ["", Validators.required]
     });
   }
 
@@ -97,6 +98,7 @@ export class PartnerComponent implements OnInit {
 
           this.partnerForm.get("auto").setValue(this.partner.auto);
           this.partnerForm.get("branchCode").setValue(this.partner.branchCode);
+          this.partnerForm.get("chatEmail").setValue(this.partner.chatEmail);
         }
       });
 
