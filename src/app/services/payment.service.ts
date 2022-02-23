@@ -53,4 +53,16 @@ export class PaymentService {
 
     return ret.asObservable();
   }
+
+  checkAuthentication(subline: number, policyNumber: string) {
+    let ret: any = new BehaviorSubject < any > ([]);
+    this.app.post({subline, policyNumber}, '/afnty/cocaf/checkAuthentication')
+      .pipe(first())
+      .subscribe((res => {
+        this.spinner.hide();
+        ret.next(res);
+      }));
+
+    return ret.asObservable();
+  }
 }

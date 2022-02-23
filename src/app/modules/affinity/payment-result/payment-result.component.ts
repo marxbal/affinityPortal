@@ -67,6 +67,8 @@ export class PaymentResultComponent implements OnInit {
   address: string = "";
   interestInsured: string = "";
   emailSend: string = "";
+  showPrint: boolean = true;
+  isCTPL: boolean = false;
   
   type = {
     car: CAR,
@@ -115,9 +117,14 @@ export class PaymentResultComponent implements OnInit {
         this.spinner.hide();
         this.affinity.paymentReferenceNumber = result.a2990700_mph.numPaymentReference;
         const productId = this.common.getP20Value(result.a2000020List, 'COD_MODALIDAD');
-
+        const subline = this.common.getP20Value(result.a2000020List, 'COD_RAMO');
+        this.isCTPL = "10002" == productId;
         this.line = this.common.getLinebyProduct(productId);
         this.title = this.getPolicyTitle(productId);
+
+        if (this.isCTPL) {
+          this.checkAuthentication(subline, policyNumber);
+        }
 
         switch (this.line) {
           case ACCIDENT:
@@ -197,6 +204,28 @@ export class PaymentResultComponent implements OnInit {
             Swal.fire({
               type: 'error',
               title: 'Payment Transaction',
+              text: res.message
+            });
+          }
+        }
+      }
+    )
+  }
+
+  checkAuthentication(subline: number, policyNumber: string) {
+    this.spinner.show();
+    this.paymentService.checkAuthentication(subline, policyNumber).subscribe(
+      (res: Return) => {
+        if (!_.isEmpty(res)) {
+          this.showImage = true;
+          this.spinner.hide();
+          if (res.status) {
+            const authenticated = Boolean(res.obj);
+            this.showPrint = authenticated;
+          } else {
+            Swal.fire({
+              type: 'error',
+              title: 'COCAF Check Authentication',
               text: res.message
             });
           }
