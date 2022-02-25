@@ -80,7 +80,12 @@ export class AddressComponent implements OnInit {
 
     const a = this.address;
 
-    if (a.provinceDetailId == "0" || a.municipalityDetailId == "0" || a.addressTypeId == "0" || a.addressDetails == "") {
+    if (a.provinceDetailId == "0" 
+      || a.municipalityDetailId == "0"
+      || a.addressTypeId == "0"
+      || a.addressTypeId == "1"
+      || a.addressDetails == ""
+      || a.addressDetails == undefined) {
       Swal.fire({
         type: 'error',
         title: 'Address',

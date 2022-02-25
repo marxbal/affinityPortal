@@ -38,8 +38,7 @@
             <div class="col-md-12">
                 <label for="zipCode" class="affinity-label">ZIP CODE <span class="text-mapfre text-heavy">*</span></label>
                 <select class="form-control" id="zipCode" [(ngModel)]="this.address.zipCode">
-                    <option selected disabled hidden></option>
-                    <option value="0" disabled="disabled">Please choose ZIP</option>
+                    <option selected value="0">Please choose ZIP</option>
                     <option *ngFor="let zip of this.affinity2.lov.zipLOV" value="{{zip.COD_POSTAL}}">{{zip.COD_POSTAL}}</option>
                 </select>
             </div>
