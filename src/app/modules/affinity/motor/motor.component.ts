@@ -92,6 +92,8 @@ export class MotorComponent implements OnInit {
     this.selectProduct(this.product, this.description);
     this.getCarType();
 
+    this.homePageUrl = environment.baseUrl + this.auth.getLandingPage();
+
     if (!this.affinity) {
       this.affinity = new Affinity();
     }
@@ -751,6 +753,6 @@ export class MotorComponent implements OnInit {
   // }
 
   returnToHomepage() {
-    this.homePageUrl = environment.baseUrl + this.auth.getLandingPage();
+    window.location.href = environment.baseUrl + this.auth.getLandingPage();
   }
 }
