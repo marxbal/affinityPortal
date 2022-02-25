@@ -171,8 +171,19 @@
             <div class="col-md-12">
                 <label for="vehicleUsedId" class="affinity-label">USE OF THE INSURED VEHICLE <span class="text-mapfre text-heavy">*</span></label>
                 <select class="form-control required motor-policy-issuance" id="vehicleUsedId" name="Use of the Insured Vehicle" [(ngModel)]="this.affinity.motorDetails.vehicleUsedIdHolder">
-	                <option value="0" disabled="disabled">Please choose Type of Use</option>
+	                <option selected>Please choose Type of Use</option>
 	                <option *ngFor="let typeOfUse of this.affinity.lov.typeOfUseLOV" value="{{typeOfUse.COD_USO_VEHI}}-{{typeOfUse.NOM_USO_VEHI}}">{{typeOfUse.NOM_USO_VEHI}}</option>
+	            </select>
+            </div>
+        </div>
+	</div>
+	<div class="col-md-4">
+		<div class="form-group row">
+            <div class="col-md-12">
+                <label for="color" class="affinity-label">COLOR <span class="text-mapfre text-heavy">*</span></label>
+                <select class="form-control required motor-policy-issuance" name="Color" id="colorId" [(ngModel)]="this.affinity.motorDetails.colorIdHolder">
+	                <option selected>Please choose Type of Use</option>
+	                <option *ngFor="let color of this.affinity.lov.colorLOV" value="{{color.COD_COLOR}}-{{color.NOM_COLOR}}">{{color.NOM_COLOR}}</option>
 	            </select>
             </div>
         </div>
@@ -182,7 +193,7 @@
             <div class="col-md-12">
                 <label for="usageAreaId" class="affinity-label">AREA OF USAGE <span class="text-mapfre text-heavy">*</span></label>
                 <select class="form-control required motor-policy-issuance" name="Area of Usage" id="usageAreaId" [(ngModel)]="this.affinity.motorDetails.usageAreaIdHolder">
-	                <option value="0" disabled="disabled">Please choose Area of Usage</option>
+	                <option selected>Please choose Area of Usage</option>
 	                <option value="1-LUZON">LUZON</option>
 	                <option value="2-VIZMIN">VIZMIN</option>
 	                <option value="3-NATIONWIDE">NATIONWIDE</option>
@@ -190,17 +201,6 @@
             </div>
         </div>
     </div>
-	<div class="col-md-4">
-		<div class="form-group row">
-            <div class="col-md-12">
-                <label for="color" class="affinity-label">COLOR <span class="text-mapfre text-heavy">*</span></label>
-                <select class="form-control required motor-policy-issuance" name="Color" id="colorId" [(ngModel)]="this.affinity.motorDetails.colorIdHolder">
-	                <option value="0" disabled="disabled">Please choose Type of Use</option>
-	                <option *ngFor="let color of this.affinity.lov.colorLOV" value="{{color.COD_COLOR}}-{{color.NOM_COLOR}}">{{color.NOM_COLOR}}</option>
-	            </select>
-            </div>
-        </div>
-	</div>
 	<div class="col-md-4" *ngIf="!isCTPL">
         <div class="form-group row">
             <div class="col-md-12">

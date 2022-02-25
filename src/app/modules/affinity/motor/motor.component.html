@@ -226,7 +226,7 @@
 		            <div class="col-md-12">
 		                <label for="vehicleUsedId" class="affinity-label">USE OF THE INSURED VEHICLE <span class="text-mapfre text-heavy">*</span></label>
 		                <select class="form-control required motor-quote" name="Vehicle Use"  id="vehicleUsedId" [(ngModel)]="this.affinity.motorDetails.vehicleUsedIdHolder">
-			                <option value="0" disabled="disabled">Please choose Type of Use</option>
+			                <option selected>Please choose Type of Use</option>
 			                <option *ngFor="let typeOfUse of this.affinity.lov.typeOfUseLOV" value="{{typeOfUse.COD_USO_VEHI}}-{{typeOfUse.NOM_USO_VEHI}}">{{typeOfUse.NOM_USO_VEHI}}</option>
 			            </select>
 		            </div>
@@ -237,7 +237,7 @@
 		            <div class="col-md-12">
 		                <label for="colorId" class="affinity-label">COLOR <span class="text-mapfre text-heavy">*</span></label>
 		                <select class="form-control required motor-quote" name="Color"  id="colorId" [(ngModel)]="this.affinity.motorDetails.colorIdHolder">
-			                <option value="0" disabled="disabled">Please choose Type of Use</option>
+			                <option selected>Please choose Type of Use</option>
 			                <option *ngFor="let color of this.affinity.lov.colorLOV" value="{{color.COD_COLOR}}-{{color.NOM_COLOR}}">{{color.NOM_COLOR}}</option>
 			            </select>
 		            </div>
@@ -248,7 +248,7 @@
 		            <div class="col-md-12">
 		                <label for="usageAreaId" class="affinity-label">AREA OF USAGE <span class="text-mapfre text-heavy">*</span></label>
 		                <select class="form-control required motor-quote" name="Usage Area"  id="usageAreaId" [(ngModel)]="this.affinity.motorDetails.usageAreaIdHolder">
-			                <option value="0" disabled="disabled">Please choose Area of Usage</option>
+			                <option selected>Please choose Area of Usage</option>
 			                <option value="1-LUZON">LUZON</option>
 			                <option value="2-VIZMIN">VIZMIN</option>
 			                <option value="3-NATIONWIDE">NATIONWIDE</option>
