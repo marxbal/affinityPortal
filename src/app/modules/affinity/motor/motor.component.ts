@@ -109,6 +109,11 @@ export class MotorComponent implements OnInit {
     if (!_.isEmpty(this.affinity.motorDetails.motorTypeId)) {
       this.isMotorcycle = this.affinity.motorDetails.motorTypeId == "120";
       this.showEffDate = this.isCTPL && this.isMotorcycle;
+    } else {
+      if (!this.isCTPL) {
+        this.affinity.motorDetails.policyPeriodFrom = m().format('YYYY-MM-DD');
+        this.affinity.motorDetails.policyPeriodTo = m(this.affinity.motorDetails.policyPeriodFrom).add(1, 'year').format('YYYY-MM-DD');
+      }
     }
 
     const currentMonth = m().add(1, 'month').format('MMM');
