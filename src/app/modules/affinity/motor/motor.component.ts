@@ -31,6 +31,7 @@ import {
 import Swal from 'sweetalert2';
 import * as _ from 'lodash';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-motor',
@@ -44,6 +45,7 @@ export class MotorComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private commonService: CommonService,
     private checker: IsRequired,
+    public router: Router,
     private auth: AuthenticationService) {}
 
   @Input() affinity: Affinity;
@@ -100,18 +102,14 @@ export class MotorComponent implements OnInit {
         this.affinity.lov.colorLOV = result;
       });
 
-    // this.caller.getLOV("A1000101", "1", "").subscribe(
-    //   result => {
-    //   });
-
-    // this.caller.getOptionList('EN', 'COD_NACIONALIDAD', '999').subscribe(
-    //   result => {
-    //   });
-
     this.affinity.motorDetails.bodilyInjuryLimit = "250000";
     this.affinity.motorDetails.propertyDamageLimit = "250000";
 
     this.isCTPL = this.affinity.productId == "10002";
+    if (!_.isEmpty(this.affinity.motorDetails.motorTypeId)) {
+      this.isMotorcycle = this.affinity.motorDetails.motorTypeId == "120";
+      this.showEffDate = this.isCTPL && this.isMotorcycle;
+    }
 
     const currentMonth = m().add(1, 'month').format('MMM');
     const currentYear = m().get('year');
@@ -124,8 +122,10 @@ export class MotorComponent implements OnInit {
     this.effYear = currentYear;
     this.effMonth = currentMonth;
 
-    this.affinity.motorDetails.policyPeriodFrom = m().format('YYYY-MM-DD');
-    this.affinity.motorDetails.policyPeriodTo = m(this.affinity.motorDetails.policyPeriodFrom).add(1, 'year').format('YYYY-MM-DD');
+    if (!this.isCTPL) {
+      this.affinity.motorDetails.policyPeriodFrom = m().format('YYYY-MM-DD');
+      this.affinity.motorDetails.policyPeriodTo = m(this.affinity.motorDetails.policyPeriodFrom).add(1, 'year').format('YYYY-MM-DD');
+    }
 
     this.caller.doCallService("/afnty/getCoverageLimits?codRamo=100&codCob=1004", null).subscribe(
       result => {
@@ -736,9 +736,14 @@ export class MotorComponent implements OnInit {
     }
   }
 
-  backButtonAction() {
-    this.nextStep.emit("initialize");
-    this.backButton.emit("");
-    this.affinityOutput.emit(this.affinity);
+  // backButtonAction() {
+  //   this.nextStep.emit("initialize");
+  //   this.backButton.emit("");
+  //   this.affinityOutput.emit(this.affinity);
+  // }
+
+  returnToHomepage() {
+    const landingPage  =this.auth.getLandingPage();
+    this.router.navigate([landingPage]);
   }
 }
