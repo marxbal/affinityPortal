@@ -32,6 +32,7 @@ import Swal from 'sweetalert2';
 import * as _ from 'lodash';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-motor',
@@ -62,6 +63,8 @@ export class MotorComponent implements OnInit {
   coverageList: Coverages[] = [];
   coverage: Coverages = new Coverages();
   title: String = "";
+
+  homePageUrl: string = "";
 
   hasPlateNumber: boolean = true;
   isCTPL: boolean = false;
@@ -748,7 +751,6 @@ export class MotorComponent implements OnInit {
   // }
 
   returnToHomepage() {
-    const landingPage  =this.auth.getLandingPage();
-    this.router.navigate([landingPage]);
+    this.homePageUrl = environment.baseUrl + this.auth.getLandingPage();
   }
 }
