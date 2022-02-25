@@ -14,6 +14,7 @@ import {
 import {
   AddressDetails
 } from '../../../objects/address-details';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-address',
@@ -76,9 +77,19 @@ export class AddressComponent implements OnInit {
     //address will always be home
     this.address.addressTypeId = "1";
     this.address.addressType = "HOME";
-    
-    this.addressDetailsOutput.emit(this.address);
-    this.affinityOutput2.emit(this.affinity);
+
+    const a = this.address;
+
+    if (a.provinceDetailId == "0" || a.municipalityDetailId == "0" || a.addressTypeId == "0" || a.addressDetails == "") {
+      Swal.fire({
+        type: 'error',
+        title: 'Address',
+        text: "Please fill out your address"
+      });
+    } else {
+      this.addressDetailsOutput.emit(this.address);
+      this.affinityOutput2.emit(this.affinity);
+    }
   }
 
 }
