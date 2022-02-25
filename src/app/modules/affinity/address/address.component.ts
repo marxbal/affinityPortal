@@ -82,8 +82,7 @@ export class AddressComponent implements OnInit {
 
     if (a.provinceDetailId == "0" 
       || a.municipalityDetailId == "0"
-      || a.addressTypeId == "0"
-      || a.addressTypeId == "1"
+      || a.zipCode == "0"
       || a.addressDetails == ""
       || a.addressDetails == undefined) {
       Swal.fire({
