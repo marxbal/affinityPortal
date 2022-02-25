@@ -111,6 +111,14 @@
 </div>
 <h5>Address&nbsp;<span class="text-mapfre text-heavy">*</span></h5>
 <strong>Note: </strong><i>add atleast (1) one address</i>
+<div class="row">
+  <div class="col-xl-12">
+		<div class="alert alert-info note">
+		  <strong>Note:</strong> Please add atleast (1) one address and encode home address based from ORCR.
+		</div>
+		<!-- .note -->
+	</div>
+</div>
 
 <div class="row" *ngIf="this.addAddress == '' && this.affinity.lov.addressLOV.length > 0">
   <div class="col-md-4"><button type="button" class="btn btn-mapfre" (click)="openAddress()">Add Address</button></div>

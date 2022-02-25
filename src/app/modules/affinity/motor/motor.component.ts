@@ -607,6 +607,11 @@ export class MotorComponent implements OnInit {
       if (!this.validateChassis()) {
         return null;
       }
+
+      if (!this.validateMV()) {
+        return null;
+      }
+
       let totalCheck = 0;
       if (this.affinity.motorDetails.accessories.length > 0) {
         for (let i = 0; i < this.affinity.motorDetails.accessories.length; i++) {
@@ -657,31 +662,40 @@ export class MotorComponent implements OnInit {
   }
 
   validateEngine() {
-    let valid = this.validateEngineChassis(this.affinity.motorDetails.motorNumber);
-    if (!valid) {
-      Swal.fire({
-        type: 'error',
-        title: 'Policy Issuance',
-        text: "Invalid Engine Number format, please make sure Engine Number includes number and alphabet characters."
-      });
+    return this.validateSpecialCharacter(this.affinity.motorDetails.motorNumber, "Engine");
+    // let valid = this.restrictSpecialCharacter(this.affinity.motorDetails.motorNumber);
+    // if (!valid) {
+    //   Swal.fire({
+    //     type: 'error',
+    //     title: 'Policy Issuance',
+    //     text: "Invalid Engine Number format, please make sure Engine Number includes number and alphabet characters."
+    //   });
 
-    }
-    return valid;
+    // }
+    // return valid;
   }
 
   validateChassis() {
-    let valid = this.validateEngineChassis(this.affinity.motorDetails.serialNumber);
+    return this.validateSpecialCharacter(this.affinity.motorDetails.serialNumber, "Chassis");
+  }
+
+  validateMV() {
+    return this.validateSpecialCharacter(this.affinity.motorDetails.MVFileNumber, "MV File");
+  }
+
+  validateSpecialCharacter(number: string, label: string) {
+    let valid = this.restrictSpecialCharacter(number);
     if (!valid) {
       Swal.fire({
         type: 'error',
         title: 'Policy Issuance',
-        text: "Invalid Chassis Number format, please make sure Chassis Number includes number and alphabet characters."
+        text: "Invalid " + label + " Number format, please make sure " + label + " Number includes number and alphabet characters."
       });
     }
     return valid;
   }
 
-  validateEngineChassis(numb) {
+  restrictSpecialCharacter(numb) {
     const alphaNumeric = /^(?=.*[a-zA-Z])(?=.*[0-9])[A-Za-z0-9]+$/;
 
     if (numb.length < 5) {

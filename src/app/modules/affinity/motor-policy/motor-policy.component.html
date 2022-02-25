@@ -13,7 +13,8 @@
             <div class="col-md-12">
                 <label for="manufacturerId" class="col-form-label affinity-label">MAKE/MANUFACTURER <span class="text-mapfre text-heavy">*</span></label>
                 <select class="form-control required motor-policy-issuance" id="manufacturerId" [(ngModel)]="this.affinity.motorDetails.manufacturerIdHolder" name="Make/Manufacturer" (change)="chooseMake()">
-                    <option value="0" disabled="disabled">Please choose Manufacturer</option>
+                    <!-- <option value="0" disabled="disabled">Please choose Manufacturer</option> -->
+					<option selected>Please choose Manufacturer</option>
                     <option *ngFor="let make of this.affinity.lov.makeLOV" value="{{make.COD_MARCA}}-{{make.NOM_MARCA}}">{{make.NOM_MARCA}}</option>
                 </select>
             </div>
@@ -24,7 +25,7 @@
             <div class="col-md-12">
                 <label for="modelId" class="col-form-label affinity-label">MODEL <span class="text-mapfre text-heavy">*</span></label>
                 <select class="form-control required motor-policy-issuance" id="modelId" [(ngModel)]="this.affinity.motorDetails.modelIdHolder" name="Model" (change)="chooseModel()">
-                    <option value="0" disabled="disabled">Please choose Model</option>
+                    <option selected>Please choose Model</option>
                     <option *ngFor="let model of this.affinity.lov.modelLOV" value="{{model.COD_MODELO}}-{{model.NOM_MODELO}}">{{model.NOM_MODELO}}</option>
                 </select>
             </div>
@@ -35,7 +36,7 @@
             <div class="col-md-12">
                 <label for="vehicleTypeId" class="affinity-label">VEHICLE TYPE <span class="text-mapfre text-heavy">*</span></label>
                 <select class="form-control required motor-policy-issuance" name="Vehicle Type" id="vehicleTypeId" [(ngModel)]="this.affinity.motorDetails.vehicleTypeIdHolder" (change)="chooseVariant()">
-                    <option value="0" disabled="disabled">Please choose Vehicle Type</option>
+                    <option selected>Please choose Vehicle Type</option>
                     <option *ngFor="let variant of this.affinity.lov.variantLOV" value="{{variant.COD_TIP_VEHI}}-{{variant.NOM_TIP_VEHI}}">{{variant.NOM_TIP_VEHI}}</option>
                 </select>
             </div>
@@ -46,7 +47,7 @@
             <div class="col-md-12">
                 <label for="modelYear" class="affinity-label">MODEL YEAR <span class="text-mapfre text-heavy">*</span></label>
                 <select class="form-control required motor-policy-issuance" name="Model Year" id="modelYear" [(ngModel)]="this.affinity.motorDetails.modelYear" (change)="chooseModelYear()">
-                    <option value="0" disabled="disabled">Please choose Model Year</option>
+                    <option selected>Please choose Model Year</option>
                     <option *ngFor="let year of this.affinity.lov.yearList" value="{{year.ANIO_SUB_MODELO}}">{{year.ANIO_SUB_MODELO}}</option>
                 </select>
             </div>
@@ -58,7 +59,7 @@
             <div class="col-md-12">
                 <label for="subModelId" class="col-form-label affinity-label">SUB-MODEL <span class="text-mapfre text-heavy">*</span></label>
                 <select class="form-control required motor-policy-issuance" name="Sub-Model" id="subModelId" [(ngModel)]="this.affinity.motorDetails.subModelIdHolder" (change)="chooseSubModel()">
-                    <option value="0" disabled="disabled">Please choose Sub-Model</option>
+                    <option selected>Please choose Sub-Model</option>
                     <option *ngFor="let subModel of this.affinity.lov.subModelLOV" value="{{subModel.COD_SUB_MODELO}}-{{subModel.NOM_SUB_MODELO}}">{{subModel.NOM_SUB_MODELO}}</option>
                 </select>
             </div>
@@ -114,6 +115,12 @@
 <br />
 <h5>Vehicle Identification</h5>
 <div class="row">
+	<div class="col-xl-12">
+		<div class="alert alert-info note">
+		  <strong>Note:</strong> Please encode straight forward details under Engine number, Chassis number and MV File number.
+		</div>
+		<!-- .note -->
+	</div>
 	<div class="col-md-4">
 		<div class="form-group row">
             <div class="col-md-12">
@@ -134,7 +141,7 @@
 		<div class="form-group row">
             <div class="col-md-12">
                 <label for="MVFileNumber" class="affinity-label">MV FILE NUMBER <span class="text-mapfre text-heavy">*</span></label>
-                <input type="text" id="MVFileNumber" maxlength="17" class="form-control required motor-policy-issuance to-uppercase" name="MV File Number" placeholder="MV File Number" [(ngModel)]="this.affinity.motorDetails.MVFileNumber">
+                <input type="text" id="MVFileNumber" maxlength="17" class="form-control required motor-policy-issuance to-uppercase" name="MV File Number" placeholder="MV File Number" (change)="validateMV()" [(ngModel)]="this.affinity.motorDetails.MVFileNumber">
             </div>
         </div>
 	</div>

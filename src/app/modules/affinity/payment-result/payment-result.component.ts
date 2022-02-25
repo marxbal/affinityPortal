@@ -45,6 +45,7 @@ import {
   ACCIDENT,
   CAR
 } from 'src/app/objects/line';
+import { Partner } from 'src/app/objects/partner';
 
 @Component({
   selector: 'app-payment-result',
@@ -70,6 +71,7 @@ export class PaymentResultComponent implements OnInit {
   showPrint: boolean = true;
   isCTPL: boolean = false;
   isAuthenticated: boolean = false;
+  chatEmail: string = "";
   
   type = {
     car: CAR,
@@ -96,6 +98,11 @@ export class PaymentResultComponent implements OnInit {
   ngOnInit() {
     this.affinity = new Affinity();
     this.affinity.clientId = localStorage.getItem(EMAIL);
+
+    const partner = this.auth.getPartner() as Partner;
+    if (!_.isEmpty(partner)) {
+      this.chatEmail = partner.chatEmail;
+    }
 
     if (this.affinity.clientId === null) {
       this.router.navigate(['login']);

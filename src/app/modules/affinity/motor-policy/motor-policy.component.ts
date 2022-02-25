@@ -89,31 +89,30 @@ export class MotorPolicyComponent implements OnInit {
   }
 
   validateEngine() {
-    let valid = this.validateEngineChassis(this.affinity.motorDetails.motorNumber);
-    if (!valid) {
-      Swal.fire({
-        type: 'error',
-        title: 'Policy Issuance',
-        text: "Invalid Engine Number format, please make sure Engine Number includes number and alphabet characters."
-      });
-
-    }
-    return valid;
+    return this.validateSpecialCharacter(this.affinity.motorDetails.motorNumber, "Engine");
   }
 
   validateChassis() {
-    let valid = this.validateEngineChassis(this.affinity.motorDetails.serialNumber);
+    return this.validateSpecialCharacter(this.affinity.motorDetails.serialNumber, "Chassis");
+  }
+
+  validateMV() {
+    return this.validateSpecialCharacter(this.affinity.motorDetails.MVFileNumber, "MV File");
+  }
+
+  validateSpecialCharacter(number: string, label: string) {
+    let valid = this.restrictSpecialCharacter(number);
     if (!valid) {
       Swal.fire({
         type: 'error',
         title: 'Policy Issuance',
-        text: "Invalid Chassis Number format, please make sure Chassis Number includes number and alphabet characters."
+        text: "Invalid " + label + " Number format, please make sure " + label + " Number includes number and alphabet characters."
       });
     }
     return valid;
   }
 
-  validateEngineChassis(numb) {
+  restrictSpecialCharacter(numb) {
     const alphaNumeric = /^(?=.*[a-zA-Z])(?=.*[0-9])[A-Za-z0-9]+$/;
 
     if (numb.length < 5) {
@@ -334,7 +333,6 @@ export class MotorPolicyComponent implements OnInit {
         title: 'Policy Issuance',
         text: "Vehicle more than eight (8) years old is subject to approval. Submission of current pictures of all sides of the risk is required for evaluation of acceptance of MAPFRE Insurance prior issuance of policy."
       });
-
     }
 
     this.caller.getLOV('A2100420', '4', 'NUM_COTIZACION~1|COD_MARCA~' +
@@ -344,6 +342,7 @@ export class MotorPolicyComponent implements OnInit {
       result => {
         this.affinity.lov.subModelLOV = result;
         this.affinity.motorDetails.subModelIdHolder = "";
+        this.affinity.motorDetails.subModelId = "";
         this.affinity.motorDetails.FMV = "";
       });
   }
@@ -435,6 +434,10 @@ export class MotorPolicyComponent implements OnInit {
     }
 
     if (!this.validateChassis()) {
+      return null;
+    }
+
+    if (!this.validateMV()) {
       return null;
     }
 
