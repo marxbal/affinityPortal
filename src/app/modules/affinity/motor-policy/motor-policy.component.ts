@@ -101,18 +101,25 @@ export class MotorPolicyComponent implements OnInit {
   }
 
   validateSpecialCharacter(number: string, label: string) {
-    let valid = this.restrictSpecialCharacter(number);
+    let valid = false;
+    let message = "Invalid " + label + " Number format, please make sure " + label + " Number includes number and alphabet characters."
+    if (label == "MV File") {
+      valid = this.restrictSpecialCharacters(number);
+      message = "Invalid " + label + " Number format, please make sure " + label + " Number excludes special characters."
+    } else {
+      valid = this.allowAlphaNumericOnly(number);
+    }
     if (!valid) {
       Swal.fire({
         type: 'error',
         title: 'Policy Issuance',
-        text: "Invalid " + label + " Number format, please make sure " + label + " Number includes number and alphabet characters."
+        text: message
       });
     }
     return valid;
   }
 
-  restrictSpecialCharacter(numb) {
+  allowAlphaNumericOnly(numb: string) {
     const alphaNumeric = /^(?=.*[a-zA-Z])(?=.*[0-9])[A-Za-z0-9]+$/;
 
     if (numb.length < 5) {
@@ -125,9 +132,21 @@ export class MotorPolicyComponent implements OnInit {
     return true;
   }
 
+  restrictSpecialCharacters(input: string) {
+    const regexp = /^[a-zA-Z0-9]+$/;
+    
+    if (!regexp.test(input)) {
+      return false;
+    }
+
+    return true;
+  }
+
   changePlateNumber() {
-    if (this.affinity.productId == "10002") {
-      this.affinity.motorDetails.policyPeriodFrom = m("2020-" + this.getMonthBasedOnPlate(this.affinity.motorDetails.plateNumber) + "-01").format('YYYY-MM-DD');
+    if (this.isCTPL) {
+      const currentYear = m().get('year') + "-";
+      this.affinity.motorDetails.policyPeriodFrom = m(currentYear + this.getMonthBasedOnPlate(this.affinity.motorDetails.plateNumber) + "-01").format('YYYY-MM-DD');
+      const fromDate = m(this.affinity.motorDetails.policyPeriodFrom);
       this.affinity.motorDetails.policyPeriodTo = m(this.affinity.motorDetails.policyPeriodFrom).add(1, 'year').format('YYYY-MM-DD');
     }
 
