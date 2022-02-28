@@ -119,7 +119,6 @@ export class PersonalComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.affinity);
     this.selectProduct(this.product, this.description);
 
     this.affinity.motorDetails.reCompute = "0";
@@ -846,8 +845,8 @@ export class PersonalComponent implements OnInit {
             formData.append('fullName', this.affinity.riskDetails.firstName + " " + (this.affinity.riskDetails.firstName) ? this.affinity.riskDetails.firstName : "");
             this.caller.doCallService("/afnty/uploadFile", formData).subscribe(
               uResult => {
-                console.log("upload result:");
-                console.log(uResult);
+                // console.log("upload result:");
+                // console.log(uResult);
               });
           }
 

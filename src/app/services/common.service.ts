@@ -1421,7 +1421,7 @@ export class CommonService {
     this.caller.generatePDFTW("/afnty/printPolicy?numPoliza=" + number + "&printType=" + type, null).subscribe(
       result => {
         this.spinner.hide();
-        console.log(result);
+        // console.log(result);
       });
   }
 

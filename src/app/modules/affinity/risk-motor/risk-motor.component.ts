@@ -599,8 +599,8 @@ export class RiskMotorComponent implements OnInit {
           formData.append('fullName', this.affinity.riskDetails.firstName + " " + (this.affinity.riskDetails.firstName) ? this.affinity.riskDetails.firstName : "");
           this.caller.doCallService("/afnty/uploadFile", formData).subscribe(
             uResult => {
-              console.log("upload result:");
-              console.log(uResult);
+              // console.log("upload result:");
+              // console.log(uResult);
             });
         }
 

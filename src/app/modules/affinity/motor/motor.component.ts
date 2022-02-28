@@ -212,7 +212,6 @@ export class MotorComponent implements OnInit {
   chooseEffYear() {
     const date = m(this.affinity.motorDetails.policyPeriodFrom);
     this.affinity.motorDetails.policyPeriodFrom = date.set('year', this.effYear).format('YYYY-MM-DD');
-    console.log("policyPeriodFrom: " + this.affinity.motorDetails.policyPeriodFrom);
     this.affinity.motorDetails.policyPeriodTo = m(this.affinity.motorDetails.policyPeriodFrom).add(1, 'year').format('YYYY-MM-DD');
   }
 
