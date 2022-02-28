@@ -114,6 +114,8 @@ export class MotorComponent implements OnInit {
     if (!_.isEmpty(this.affinity.motorDetails.motorTypeId)) {
       this.isMotorcycle = this.affinity.motorDetails.motorTypeId == "120";
       this.showEffDate = this.isCTPL && this.isMotorcycle;
+      this.effYear = m(this.affinity.motorDetails.policyPeriodFrom).get('year');
+      this.changePlateNumber();
     } else {
       if (!this.isCTPL) {
         this.affinity.motorDetails.policyPeriodFrom = m().format('YYYY-MM-DD');
