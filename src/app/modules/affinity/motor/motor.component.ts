@@ -694,24 +694,41 @@ export class MotorComponent implements OnInit {
   }
 
   validateSpecialCharacter(number: string, label: string) {
-    let valid = this.restrictSpecialCharacter(number);
+    let valid = false;
+    let message = "Invalid " + label + " Number format, please make sure " + label + " Number includes number and alphabet characters."
+    if (label == "MV File") {
+      valid = this.restrictSpecialCharacters(number);
+      message = "Invalid " + label + " Number format, please make sure " + label + " Number excludes special characters."
+    } else {
+      valid = this.allowAlphaNumericOnly(number);
+    }
     if (!valid) {
       Swal.fire({
         type: 'error',
         title: 'Policy Issuance',
-        text: "Invalid " + label + " Number format, please make sure " + label + " Number includes number and alphabet characters."
+        text: message
       });
     }
     return valid;
   }
 
-  restrictSpecialCharacter(numb) {
+  allowAlphaNumericOnly(numb: string) {
     const alphaNumeric = /^(?=.*[a-zA-Z])(?=.*[0-9])[A-Za-z0-9]+$/;
 
     if (numb.length < 5) {
       return false;
     }
     if (!alphaNumeric.test(numb)) {
+      return false;
+    }
+
+    return true;
+  }
+
+  restrictSpecialCharacters(input: string) {
+    const regexp = /^[a-zA-Z0-9]+$/;
+    
+    if (!regexp.test(input)) {
       return false;
     }
 
@@ -744,7 +761,7 @@ export class MotorComponent implements OnInit {
         text: "Invalid FMV format, please enter numbers only"
       });
     }
-  }
+  } 
 
   // backButtonAction() {
   //   this.nextStep.emit("initialize");
