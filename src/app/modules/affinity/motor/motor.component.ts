@@ -675,16 +675,6 @@ export class MotorComponent implements OnInit {
 
   validateEngine() {
     return this.validateSpecialCharacter(this.affinity.motorDetails.motorNumber, "Engine");
-    // let valid = this.restrictSpecialCharacter(this.affinity.motorDetails.motorNumber);
-    // if (!valid) {
-    //   Swal.fire({
-    //     type: 'error',
-    //     title: 'Policy Issuance',
-    //     text: "Invalid Engine Number format, please make sure Engine Number includes number and alphabet characters."
-    //   });
-
-    // }
-    // return valid;
   }
 
   validateChassis() {
