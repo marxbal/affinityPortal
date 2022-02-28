@@ -111,17 +111,6 @@ export class MotorComponent implements OnInit {
     this.affinity.motorDetails.propertyDamageLimit = "250000";
 
     this.isCTPL = this.affinity.productId == "10002";
-    if (!_.isEmpty(this.affinity.motorDetails.motorTypeId)) {
-      this.isMotorcycle = this.affinity.motorDetails.motorTypeId == "120";
-      this.showEffDate = this.isCTPL && this.isMotorcycle;
-      this.effYear = m(this.affinity.motorDetails.policyPeriodFrom).get('year');
-      this.changePlateNumber();
-    } else {
-      if (!this.isCTPL) {
-        this.affinity.motorDetails.policyPeriodFrom = m().format('YYYY-MM-DD');
-        this.affinity.motorDetails.policyPeriodTo = m(this.affinity.motorDetails.policyPeriodFrom).add(1, 'year').format('YYYY-MM-DD');
-      }
-    }
 
     const currentMonth = m().add(1, 'month').format('MMM');
     const currentYear = m().get('year');
@@ -134,9 +123,21 @@ export class MotorComponent implements OnInit {
     this.effYear = currentYear;
     this.effMonth = currentMonth;
 
-    if (!this.isCTPL) {
-      this.affinity.motorDetails.policyPeriodFrom = m().format('YYYY-MM-DD');
-      this.affinity.motorDetails.policyPeriodTo = m(this.affinity.motorDetails.policyPeriodFrom).add(1, 'year').format('YYYY-MM-DD');
+    // if (!this.isCTPL) {
+    //   this.affinity.motorDetails.policyPeriodFrom = m().format('YYYY-MM-DD');
+    //   this.affinity.motorDetails.policyPeriodTo = m(this.affinity.motorDetails.policyPeriodFrom).add(1, 'year').format('YYYY-MM-DD');
+    // }
+    if (!_.isEmpty(this.affinity.motorDetails.motorTypeId)) {
+      this.isMotorcycle = this.affinity.motorDetails.motorTypeId == "120";
+      this.showEffDate = this.isCTPL && this.isMotorcycle;
+      this.effYear = m(this.affinity.motorDetails.policyPeriodFrom).get('year');
+      const fromDate = m(this.affinity.motorDetails.policyPeriodFrom);
+      this.effMonth = fromDate.format('MMM');
+    } else {
+      if (!this.isCTPL) {
+        this.affinity.motorDetails.policyPeriodFrom = m().format('YYYY-MM-DD');
+        this.affinity.motorDetails.policyPeriodTo = m(this.affinity.motorDetails.policyPeriodFrom).add(1, 'year').format('YYYY-MM-DD');
+      }
     }
 
     this.caller.doCallService("/afnty/getCoverageLimits?codRamo=100&codCob=1004", null).subscribe(
@@ -219,7 +220,7 @@ export class MotorComponent implements OnInit {
     if (this.isCTPL) {
       const currentYear = m().get('year') + "-";
       this.affinity.motorDetails.policyPeriodFrom = m(currentYear + this.getMonthBasedOnPlate(this.affinity.motorDetails.plateNumber) + "-01").format('YYYY-MM-DD');
-      const fromDate = m(this.affinity.motorDetails.policyPeriodFrom );
+      const fromDate = m(this.affinity.motorDetails.policyPeriodFrom);
       this.effMonth = fromDate.format('MMM');
       this.affinity.motorDetails.policyPeriodTo = m(this.affinity.motorDetails.policyPeriodFrom).add(1, 'year').format('YYYY-MM-DD');
     }
