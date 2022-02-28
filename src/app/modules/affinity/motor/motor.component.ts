@@ -229,6 +229,7 @@ export class MotorComponent implements OnInit {
 
   clearPlateNumber() {
     this.affinity.motorDetails.plateNumber = "";
+    this.orCode = "";
   }
 
   createTemporaryPlateNumber() {
