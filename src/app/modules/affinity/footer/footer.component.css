@@ -93,3 +93,9 @@
   color: white;
   font-size: 14px !important;
 }
+
+@media (max-width: 768px) {
+  .logo-collection-mapfre {
+    width: 200px;
+  }
+}

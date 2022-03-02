@@ -17,3 +17,9 @@ img.payment-img {
 .no-margin-top {
   margin-top: 0px !important;
 }
+
+@media (max-width: 768px) {
+  .text-align-right {
+    text-align: left !important;
+  }
+}
