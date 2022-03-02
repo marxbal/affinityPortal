@@ -683,7 +683,9 @@ export class MotorComponent implements OnInit {
   }
 
   validateMV() {
-    return this.validateSpecialCharacter(this.affinity.motorDetails.MVFileNumber, "MV File");
+    const mvFile = this.affinity.motorDetails.MVFileNumber;
+    this.orCode = mvFile.slice(0, 4);
+    return this.validateSpecialCharacter(mvFile, "MV File");
   }
 
   validateSpecialCharacter(number: string, label: string) {
