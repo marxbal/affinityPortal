@@ -59,7 +59,7 @@ input:focus {
 }
 
 .login-card-body {
-  flex: 0;
+  /* flex: 0; */
   border-radius: 2px;
   padding: 40px;
 }

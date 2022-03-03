@@ -129,7 +129,7 @@ export class LoginComponent implements OnInit {
       this.createForm();
 
       var body = document.querySelector("body");
-      body.setAttribute("style", "background-image: url('./assets/images/bg.jpg'); background-size: cover; background-repeat: no-repeat; background-position: fixed;");
+      body.setAttribute("style", "background: #cb0a24; background-image: url('./assets/images/bg.jpg'); background-size: cover; background-repeat: no-repeat; background-position: fixed;");
     }
   }
 
