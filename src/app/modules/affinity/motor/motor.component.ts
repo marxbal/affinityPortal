@@ -115,11 +115,11 @@ export class MotorComponent implements OnInit {
     const currentMonth = m().add(1, 'month').format('MMM');
     const currentYear = m().get('year');
     const previousYear = m().subtract(1, 'year').get('year');
-    const nextYear = m().add(1, 'year').get('year');
+    // const nextYear = m().add(1, 'year').get('year');
 
     this.effYearlist.push(previousYear);
     this.effYearlist.push(currentYear);
-    this.effYearlist.push(nextYear);
+    // this.effYearlist.push(nextYear);
     this.effYear = currentYear;
     this.effMonth = currentMonth;
 
