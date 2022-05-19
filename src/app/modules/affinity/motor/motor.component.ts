@@ -246,7 +246,8 @@ export class MotorComponent implements OnInit {
   }
 
   getMonthBasedOnPlate(plate: string) {
-    var lastDigitPlate = plate.charAt(plate.length - 1);
+    var digitsOnly = plate.replace(/\D/g, '');
+    var lastDigitPlate = digitsOnly.charAt(digitsOnly.length - 1);
     let monthValue = "";
     switch (lastDigitPlate) {
       case "1":
