@@ -71,7 +71,7 @@
 	                <label for="suffix" class="affinity-label">SUFFIX</label>
 	                <select class="form-control" id="suffix" [(ngModel)]="this.affinityAlternative.riskDetails.suffix" name="Suffix">
 	                    <option></option>
-	                    <option *ngFor="let suffix of this.affinityAlternative.lov.suffixLOV" value="{{suffix.NOM_VALOR}}">{{suffix.NOM_VALOR}}</option>
+	                    <option *ngFor="let suffix of this.affinityAlternative.lov.suffixLOV" value="{{suffix.TIPO_SUFIJO_NOMBRE}}">{{suffix.NOM_VALOR}}</option>
 	                </select>
 	            </div>
 	        </div>
