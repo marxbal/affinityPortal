@@ -371,11 +371,12 @@ export class CommonService {
         healthDeclaration = "NO";
       }
 
+      const suffix = this.getSuffixValue(affinity.riskDetails.suffix);
       let vars1 = [
         ['TXT_LAST_NAME', affinity.riskDetails.lastName.toUpperCase(), '1', null, 'N', 'S', 'S'],
         ['TXT_FIRST_NAME', ((affinity.riskDetails.firstName) ? affinity.riskDetails.firstName.toUpperCase() : ""), '1', null, 'N', 'S', 'S'],
         ['TXT_MIDDLE_INITIAL', ((affinity.riskDetails.middleName) ? affinity.riskDetails.middleName.toUpperCase() : ""), '1', null, 'N', 'S', 'S'],
-        ['TXT_SUFFIX', affinity.riskDetails.suffix, '1', null, 'N', 'S', 'S'],
+        ['TXT_SUFFIX', suffix, '1', null, 'N', 'S', 'S'],
         ['MCA_SEXO_ASEG', gender.charAt(0), '1', gender, 'N', 'S', 'S'],
         ['RELATIONSHIP', 'P', '1', 'PRIMARY', 'N', 'S', 'S'],
         ['BIRTHDATE', m(affinity.riskDetails.birthDate).format('DDMMYYYY'), '1', null, 'N', 'S', 'S'],
@@ -418,11 +419,12 @@ export class CommonService {
           healthDeclaration = "NO";
         }
 
+        const suffix = this.getSuffixValue(insured.suffix);
         let vars = [
           ['TXT_LAST_NAME', insured.lastName.toUpperCase(), '1', null, 'N', 'S', 'S'],
           ['TXT_FIRST_NAME', insured.firstName.toUpperCase(), '1', null, 'N', 'S', 'S'],
           ['TXT_MIDDLE_INITIAL', ((insured.middleName) ? insured.middleName.toUpperCase() : ""), '1', null, 'N', 'S', 'S'],
-          ['TXT_SUFFIX', insured.suffix, '1', null, 'N', 'S', 'S'],
+          ['TXT_SUFFIX', suffix, '1', null, 'N', 'S', 'S'],
           ['MCA_SEXO_ASEG', gender.charAt(0), '1', gender, 'N', 'S', 'S'],
           ['RELATIONSHIP', insured.relationship.split(':=:')[0], '1', insured.relationship.split(':=:')[1], 'N', 'S', 'S'],
           ['BIRTHDATE', (insured.birthDate.match(/[\-]/) ? m(insured.birthDate).format('DDMMYYYY') : insured.birthDate), '1', null, 'N', 'S', 'S'],
