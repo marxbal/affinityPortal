@@ -1627,7 +1627,7 @@ export class CommonService {
     const fullName = lastName
       + ", "+ firstName
       + (middleName ? " " + middleName : "")
-      + (suffix ? ", " + suffix : "");
+      + suffix;
 
       return fullName;
   }
