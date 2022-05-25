@@ -39,6 +39,7 @@ export class TechnicalControlComponent implements OnInit {
   buyNowStep: String;
   technicalControl: String[] = [];
   lineId: number = 1;
+  fullName: string;
 
   type = {
     car: CAR,
@@ -61,6 +62,13 @@ export class TechnicalControlComponent implements OnInit {
     this.affinity.premiumBreakdown.premiumTax = this.formatter.format(parseFloat(this.affinity.premiumBreakdown.premiumTax));
     // this.affinity.premiumBreakdown.others = this.formatter.format(parseFloat(this.affinity.premiumBreakdown.others));
     this.affinity.premiumBreakdown.fireTax = this.formatter.format(parseFloat(this.affinity.premiumBreakdown.fireTax));
+
+    this.fullName = this.common.getFullName(
+      this.affinity.riskDetails.firstName,
+      this.affinity.riskDetails.middleName,
+      this.affinity.riskDetails.lastName,
+      this.affinity.riskDetails.suffix
+    )
 
     this.title = "Household";
     this.buyNowStep = "riskInformation";

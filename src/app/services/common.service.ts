@@ -79,6 +79,8 @@ import {
   ACCIDENT
 } from '../objects/line';
 import { Partner } from '../objects/partner';
+import { SUFFIX_LIST } from '../constants/local.storage';
+import { jsonpCallbackContext } from '@angular/common/http/src/module';
 
 @Injectable({
   providedIn: 'root'
@@ -498,10 +500,16 @@ export class CommonService {
     if (affinity.alternativeHolders.length > 0) {
       affinity.alternativeHolders.forEach(function (alt) {
 
-        let fullName = alt.firstName + " " +
-          ((alt.middleName) ? alt.middleName : null) + " " +
-          ((alt.lastName) ? alt.lastName : null) + 
-          (alt.suffix ? ", " + alt.suffix : "");
+        // let fullName = alt.firstName + " " +
+        //   ((alt.middleName) ? alt.middleName : null) + " " +
+        //   ((alt.lastName) ? alt.lastName : null) + 
+        //   (alt.suffix ? ", " + alt.suffix : "");
+
+        let fullName = this.common.getFullName(
+          alt.firstName,
+          alt.middleName,
+          alt.lastName,
+          alt.suffix);
 
         let vars = [
           ['NOM_ASEG_ALT', fullName, '1', null, 'N', 'S', 'S'],
@@ -1588,4 +1596,38 @@ export class CommonService {
     return valid;
   }
 
+  storeSuffixList() {
+    const list = localStorage.getItem(SUFFIX_LIST);
+    if (_.isEmpty(list)) {
+      this.caller.getOptionList('EN', 'TIPO_SUFIJO_NOMBRE', '999').subscribe(
+        result => {
+          const sList = JSON.stringify(result);
+          localStorage.setItem(SUFFIX_LIST, sList);
+        });
+    }
+  }
+
+  getSuffixValue(suffixVal: string) {
+    const list = localStorage.getItem(SUFFIX_LIST);
+    if (!_.isEmpty(list) && !_.isEmpty(suffixVal)) {
+      const sList = JSON.parse(list);
+      sList.forEach(sl => {
+        if (sl.TIPO_SUFIJO_NOMBRE == suffixVal) {
+          return ", " + sl.NOM_VALOR;
+        }
+      });
+    }
+
+    return "";
+  }
+
+  getFullName(firstName: string, middleName: string, lastName: string, suffixVal: string) {
+    const suffix = this.getSuffixValue(suffixVal);
+    const fullName = lastName
+      + ", "+ firstName
+      + (middleName ? " " + middleName : "")
+      + (suffix ? ", " + suffix : "");
+
+      return fullName;
+  }
 }

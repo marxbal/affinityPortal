@@ -43,6 +43,7 @@ export class PaymentComponent implements OnInit {
   @Output() nextStep = new EventEmitter();
   @Output() affinityOutput = new EventEmitter();
 
+  fullName: string;
   total: string;
   retStatus = "";
 
@@ -73,6 +74,13 @@ export class PaymentComponent implements OnInit {
     this.affinity.premiumBreakdown.premiumTax = this.formatter.format(parseFloat(this.affinity.premiumBreakdown.premiumTax));
     // this.affinity.premiumBreakdown.others = this.formatter.format(parseFloat(this.affinity.premiumBreakdown.others));
     this.affinity.premiumBreakdown.fireTax = this.formatter.format(parseFloat(this.affinity.premiumBreakdown.fireTax));
+
+    this.fullName = this.common.getFullName(
+      this.affinity.riskDetails.firstName,
+      this.affinity.riskDetails.middleName,
+      this.affinity.riskDetails.lastName,
+      this.affinity.riskDetails.suffix
+    )
 
     document.body.scrollTop = 0; // For Safari
     document.documentElement.scrollTop = 0;

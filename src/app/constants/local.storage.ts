@@ -8,4 +8,5 @@ export const PRODUCTS = "AFF_products";
 export const LOGGED_IN = "AFF_loggedIn";
 export const USER = "AFF_user";
 export const LANDING_PAGE = "AFF_landingPage";
+export const SUFFIX_LIST = "AFF_suffixList";
 

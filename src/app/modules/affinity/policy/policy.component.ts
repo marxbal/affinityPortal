@@ -47,6 +47,7 @@ export class PolicyComponent implements OnInit {
   @Output() nextStep = new EventEmitter();
   @Output() affinityOutput = new EventEmitter();
 
+  fullName: string;
   emailSend: string = "";
   lineId: number = 1;
   type = {
@@ -100,6 +101,12 @@ export class PolicyComponent implements OnInit {
     this.affinity.premiumBreakdown.premiumTax = this.formatter.format(parseFloat(this.affinity.premiumBreakdown.premiumTax));
     // this.affinity.premiumBreakdown.others = this.formatter.format(parseFloat(this.affinity.premiumBreakdown.others));
     this.affinity.premiumBreakdown.fireTax = this.formatter.format(parseFloat(this.affinity.premiumBreakdown.fireTax));
+    this.fullName = this.common.getFullName(
+      this.affinity.riskDetails.firstName,
+      this.affinity.riskDetails.middleName,
+      this.affinity.riskDetails.lastName,
+      this.affinity.riskDetails.suffix
+    )
 
     this.lineId = this.common.getLinebyProduct(this.affinity.productId);
 

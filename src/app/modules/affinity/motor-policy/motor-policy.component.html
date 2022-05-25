@@ -314,7 +314,7 @@
 		<div class="form-group row">
             <div class="col-md-12">
                 <label for="policyPeriodFrom" class="affinity-label">EFFECTIVITY <span class="text-mapfre text-heavy">*</span></label>
-                <input [disabled]="isCTPL && isMotorcycle" type="date" id="policyPeriodFrom" min="{{this.minRetro}}" class="form-control" [(ngModel)]="this.affinity.motorDetails.policyPeriodFrom" (change)="chooseEffectivityDate()">
+                <input [disabled]="isCTPL" type="date" id="policyPeriodFrom" min="{{this.minRetro}}" class="form-control" [(ngModel)]="this.affinity.motorDetails.policyPeriodFrom" (change)="chooseEffectivityDate()">
             </div>
         </div>
     </div>
@@ -322,7 +322,7 @@
 		<div class="form-group row">
             <div class="col-md-12">
                 <label for="policyPeriodTo" class="affinity-label">EXPIRY <span class="text-mapfre text-heavy">*</span></label>
-                <input [disabled]="isCTPL && isMotorcycle" type="date" id="policyPeriodTo" class="form-control" [(ngModel)]="this.affinity.motorDetails.policyPeriodTo">
+                <input [disabled]="isCTPL" type="date" id="policyPeriodTo" class="form-control" [(ngModel)]="this.affinity.motorDetails.policyPeriodTo">
             </div>
         </div>
     </div>

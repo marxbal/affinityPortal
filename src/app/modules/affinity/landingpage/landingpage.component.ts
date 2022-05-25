@@ -94,6 +94,7 @@ export class LandingpageComponent implements OnInit {
       this.showTransactions = !this.partner.auto;
     }
 
+    this.common.storeSuffixList();
     this.getPartnerProducts();
     this.retrieveTransactions();
   }

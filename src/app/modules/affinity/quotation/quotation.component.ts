@@ -88,6 +88,7 @@ export class QuotationComponent implements OnInit {
   buyNowStep: String;
   emailSend: string;
   coverageList = [];
+  fullName: string;
 
   homePageUrl = '';
 
@@ -205,6 +206,13 @@ export class QuotationComponent implements OnInit {
     this.getCoverageDescription(this.affinity.productId);
 
     this.formatAmount();
+
+    this.fullName = this.common.getFullName(
+      this.affinity.riskDetails.firstName,
+      this.affinity.riskDetails.middleName,
+      this.affinity.riskDetails.lastName,
+      this.affinity.riskDetails.suffix
+    )
 
     document.body.scrollTop = 0; // For Safari
     document.documentElement.scrollTop = 0;

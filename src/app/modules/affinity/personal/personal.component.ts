@@ -505,10 +505,12 @@ export class PersonalComponent implements OnInit {
       this.affinity.riskDetails.validIDValue = "AFTY-" + this.getTempID();
     }
 
-    this.affinity.riskDetails.fullName = this.affinity.riskDetails.lastName
-      + ", "+ this.affinity.riskDetails.firstName
-      + (this.affinity.riskDetails.middleName ? " " + this.affinity.riskDetails.middleName : "")
-      + (this.affinity.riskDetails.suffix ? ", " + this.affinity.riskDetails.suffix : "");
+    this.affinity.riskDetails.fullName = 
+      this.common.getFullName(
+        this.affinity.riskDetails.firstName,
+        this.affinity.riskDetails.middleName,
+        this.affinity.riskDetails.lastName,
+        this.affinity.riskDetails.suffix);
 
     if (this.affinity.riskDetails.emailAddress) {
       if (!this.validateEmail(this.affinity.riskDetails.emailAddress)) {
@@ -1003,7 +1005,13 @@ export class PersonalComponent implements OnInit {
       }
 
       riskTemp.coveragesValue = _.orderBy(riskTemp.coveragesValue, 'codCob', 'desc');
-      riskTemp.fullName = riskTemp.lastName + ", " + riskTemp.firstName + " " + (riskTemp.middleName ? riskTemp.middleName : "" + (riskTemp.suffix ? ", " + riskTemp.suffix : ""));
+      // riskTemp.fullName = riskTemp.lastName + ", " + riskTemp.firstName + " " + (riskTemp.middleName ? riskTemp.middleName : "" + (riskTemp.suffix ? ", " + riskTemp.suffix : ""));
+      riskTemp.fullName = this.common.getFullName(
+        riskTemp.firstName,
+        riskTemp.middleName,
+        riskTemp.lastName,
+        riskTemp.suffix);
+      
       temp.push(riskTemp);
     }
 
@@ -1043,7 +1051,13 @@ export class PersonalComponent implements OnInit {
       this.removeFamilyMember(this.familyMember);
     }
 
-    familyMember.fullName = familyMember.lastName + ", " + familyMember.firstName + " " + ((familyMember.middleName) ? familyMember.middleName : "") + (familyMember.suffix ? ", " + familyMember.suffix : "");
+    // familyMember.fullName = familyMember.lastName + ", " + familyMember.firstName + " " + ((familyMember.middleName) ? familyMember.middleName : "") + (familyMember.suffix ? ", " + familyMember.suffix : "");
+    familyMember.fullName = this.common.getFullName(
+      familyMember.firstName,
+      familyMember.middleName,
+      familyMember.lastName,
+      familyMember.suffix);
+    
     this.affinity.paDetails.familyMembers.push(familyMember);
 
     let childCount = 0;
