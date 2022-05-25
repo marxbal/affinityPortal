@@ -71,7 +71,8 @@ export class MotorPolicyComponent implements OnInit {
 
     this.isCTPL = this.affinity.productId == "10002";
     this.isMotorcycle = this.affinity.lineId == "120";
-    this.showEffDate = this.isCTPL && this.isMotorcycle;
+    // this.showEffDate = this.isCTPL && this.isMotorcycle;
+    this.showEffDate = this.isCTPL;
     this.isRetro = m().isAfter(this.affinity.motorDetails.policyPeriodFrom, 'day');
 
     // this.chooseModelYear();
