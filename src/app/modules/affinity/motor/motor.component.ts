@@ -127,17 +127,29 @@ export class MotorComponent implements OnInit {
     //   this.affinity.motorDetails.policyPeriodFrom = m().format('YYYY-MM-DD');
     //   this.affinity.motorDetails.policyPeriodTo = m(this.affinity.motorDetails.policyPeriodFrom).add(1, 'year').format('YYYY-MM-DD');
     // }
-    if (!_.isEmpty(this.affinity.motorDetails.motorTypeId)) {
+    // if (!_.isEmpty(this.affinity.motorDetails.motorTypeId)) {
+    //   this.isMotorcycle = this.affinity.motorDetails.motorTypeId == "120";
+    //   this.showEffDate = this.isCTPL && this.isMotorcycle;
+    //   this.effYear = m(this.affinity.motorDetails.policyPeriodFrom).get('year');
+    //   const fromDate = m(this.affinity.motorDetails.policyPeriodFrom);
+    //   this.effMonth = fromDate.format('MMM');
+    // } else {
+    //   if (!this.isCTPL) {
+    //     this.affinity.motorDetails.policyPeriodFrom = m().format('YYYY-MM-DD');
+    //     this.affinity.motorDetails.policyPeriodTo = m(this.affinity.motorDetails.policyPeriodFrom).add(1, 'year').format('YYYY-MM-DD');
+    //   }
+    // }
+
+    if (!this.isCTPL) {
+      this.affinity.motorDetails.policyPeriodFrom = m().format('YYYY-MM-DD');
+      this.affinity.motorDetails.policyPeriodTo = m(this.affinity.motorDetails.policyPeriodFrom).add(1, 'year').format('YYYY-MM-DD');
+    } else {
+      this.showEffDate = true;
       this.isMotorcycle = this.affinity.motorDetails.motorTypeId == "120";
-      this.showEffDate = this.isCTPL && this.isMotorcycle;
+      // this.showEffDate = this.isCTPL && this.isMotorcycle;
       this.effYear = m(this.affinity.motorDetails.policyPeriodFrom).get('year');
       const fromDate = m(this.affinity.motorDetails.policyPeriodFrom);
       this.effMonth = fromDate.format('MMM');
-    } else {
-      if (!this.isCTPL) {
-        this.affinity.motorDetails.policyPeriodFrom = m().format('YYYY-MM-DD');
-        this.affinity.motorDetails.policyPeriodTo = m(this.affinity.motorDetails.policyPeriodFrom).add(1, 'year').format('YYYY-MM-DD');
-      }
     }
 
     this.caller.doCallService("/afnty/getCoverageLimits?codRamo=100&codCob=1004", null).subscribe(
