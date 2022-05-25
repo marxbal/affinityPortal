@@ -173,7 +173,7 @@ export class PersonalAccidentIssuanceService {
       this.paAff.riskDetails.firstName,
       this.paAff.riskDetails.middleName,
       this.paAff.riskDetails.lastName,
-      this.paAff.riskDetails.suffix);
+      result.suffix);
 
     this.paAff.riskDetails.validIDValue = result.codDoc;
     this.paAff.riskDetails.validID = result.tipDoc;

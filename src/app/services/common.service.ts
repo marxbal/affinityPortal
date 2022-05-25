@@ -371,7 +371,7 @@ export class CommonService {
         healthDeclaration = "NO";
       }
 
-      const suffix = this.getSuffixValue(affinity.riskDetails.suffix);
+      const suffix = this.getSuffixValue(affinity.riskDetails.suffix, false);
       let vars1 = [
         ['TXT_LAST_NAME', affinity.riskDetails.lastName.toUpperCase(), '1', null, 'N', 'S', 'S'],
         ['TXT_FIRST_NAME', ((affinity.riskDetails.firstName) ? affinity.riskDetails.firstName.toUpperCase() : ""), '1', null, 'N', 'S', 'S'],
@@ -419,7 +419,7 @@ export class CommonService {
           healthDeclaration = "NO";
         }
 
-        const suffix = this.getSuffixValue(insured.suffix);
+        const suffix = this.getSuffixValue(insured.suffix, false);
         let vars = [
           ['TXT_LAST_NAME', insured.lastName.toUpperCase(), '1', null, 'N', 'S', 'S'],
           ['TXT_FIRST_NAME', insured.firstName.toUpperCase(), '1', null, 'N', 'S', 'S'],
@@ -1609,14 +1609,14 @@ export class CommonService {
     }
   }
 
-  getSuffixValue(suffixVal: string) {
+  getSuffixValue(suffixVal: string, comma: boolean) {
     let suffix = "";
     const list = localStorage.getItem(SUFFIX_LIST);
     if (!_.isEmpty(list) && !_.isEmpty(suffixVal)) {
       const sList = JSON.parse(list);
       sList.forEach(sl => {
         if (sl.TIPO_SUFIJO_NOMBRE == suffixVal) {
-          suffix = ", " + sl.NOM_VALOR;
+          suffix = (comma ? ", " : "") + sl.NOM_VALOR;
         }
       });
     }
@@ -1625,7 +1625,7 @@ export class CommonService {
   }
 
   getFullName(firstName: string, middleName: string, lastName: string, suffixVal: string) {
-    const suffix = this.getSuffixValue(suffixVal);
+    const suffix = this.getSuffixValue(suffixVal, true);
     const fullName = lastName
       + ", "+ firstName
       + (middleName ? " " + middleName : "")

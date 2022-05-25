@@ -163,6 +163,11 @@ export class PaymentResultComponent implements OnInit {
   getMoreDetails() {
     this.total = parseFloat(this.affinity.premiumBreakdown.grossPrem);
     this.address = this.buildAddress(this.affinity);
+    this.affinity.riskDetails.fullName = this.common.getFullName(
+      this.affinity.riskDetails.firstName,
+      this.affinity.riskDetails.middleName,
+      this.affinity.riskDetails.lastName,
+      this.affinity.riskDetails.suffix)
   }
 
   getPolicyTitle(productId: string) {

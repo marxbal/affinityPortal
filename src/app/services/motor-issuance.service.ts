@@ -61,7 +61,7 @@ export class MotorIssuanceService {
       this.motorAff.riskDetails.firstName,
       this.motorAff.riskDetails.middleName,
       this.motorAff.riskDetails.lastName,
-      this.motorAff.riskDetails.suffix);
+      result.suffix);
 
     this.motorAff.riskDetails.validIDValue = result.codDoc;
     this.motorAff.riskDetails.validID = result.tipDoc;

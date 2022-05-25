@@ -49,7 +49,7 @@ export class PropertyIssuanceService {
     this.propertyAff.riskDetails.firstName,
     this.propertyAff.riskDetails.middleName,
     this.propertyAff.riskDetails.lastName,
-    this.propertyAff.riskDetails.suffix);
+    result.suffix);
 
 
 	this.propertyAff.riskDetails.validIDValue= result.codDoc;
@@ -197,7 +197,7 @@ export class PropertyIssuanceService {
 	this.propertyAff.riskDetails.firstName= result.fName;
   this.propertyAff.riskDetails.middleName= result.mName;
   this.propertyAff.riskDetails.lastName= result.lName;
-  
+
   this.propertyAff.riskDetails.fullName = this.commonService.getFullName(
     this.propertyAff.riskDetails.firstName,
     this.propertyAff.riskDetails.middleName,
