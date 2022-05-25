@@ -640,7 +640,7 @@ export class RiskAccidentComponent implements OnInit {
 
       riskTemp.coveragesValue = _.orderBy(riskTemp.coveragesValue, 'codCob', 'desc');
 
-      riskTemp.fullName = riskTemp.lastName + ", " + riskTemp.firstName + " " + (riskTemp.middleName ? riskTemp.middleName : "");
+      riskTemp.fullName = riskTemp.lastName + ", " + riskTemp.firstName + " " + (riskTemp.middleName ? riskTemp.middleName : "") + (riskTemp.suffix ? ", " + riskTemp.suffix : "");
 
       this.affinity.paDetails.familyMembers.push(riskTemp);
     }

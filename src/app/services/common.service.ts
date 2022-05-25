@@ -500,7 +500,8 @@ export class CommonService {
 
         let fullName = alt.firstName + " " +
           ((alt.middleName) ? alt.middleName : null) + " " +
-          ((alt.lastName) ? alt.lastName : null);
+          ((alt.lastName) ? alt.lastName : null) + 
+          (alt.suffix ? ", " + alt.suffix : "");
 
         let vars = [
           ['NOM_ASEG_ALT', fullName, '1', null, 'N', 'S', 'S'],

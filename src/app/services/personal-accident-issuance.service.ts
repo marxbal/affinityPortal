@@ -166,7 +166,8 @@ export class PersonalAccidentIssuanceService {
 
     this.paAff.riskDetails.fullName = this.paAff.riskDetails.lastName
       + ", " + this.paAff.riskDetails.firstName
-      + (this.paAff.riskDetails.middleName ? " " + this.paAff.riskDetails.middleName : "") ;
+      + (this.paAff.riskDetails.middleName ? " " + this.paAff.riskDetails.middleName : "")
+      + (this.paAff.riskDetails.suffix ? ", " + this.paAff.riskDetails.suffix : "");
 
     this.paAff.riskDetails.validIDValue = result.codDoc;
     this.paAff.riskDetails.validID = result.tipDoc;
@@ -284,7 +285,7 @@ export class PersonalAccidentIssuanceService {
 
       riskTemp.coveragesValue = _.orderBy(riskTemp.coveragesValue, 'codCob', 'desc');
 
-      riskTemp.fullName = riskTemp.lastName + ", " + riskTemp.firstName + " " + (riskTemp.middleName ? riskTemp.middleName : "");
+      riskTemp.fullName = riskTemp.lastName + ", " + riskTemp.firstName + " " + (riskTemp.middleName ? riskTemp.middleName : "") + (riskTemp.suffix ? ", " + riskTemp.suffix : "");;
 
       this.paAff.paDetails.familyMembers.push(riskTemp);
 
