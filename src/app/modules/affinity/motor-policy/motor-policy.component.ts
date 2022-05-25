@@ -344,7 +344,7 @@ export class MotorPolicyComponent implements OnInit {
 
   chooseModelYear() {
     $("#vehiclePhotosContainer").addClass("hidden");
-    if ((m().year() - parseInt(this.affinity.motorDetails.modelYear)) > 8) {
+    if (!this.isCTPL && (m().year() - parseInt(this.affinity.motorDetails.modelYear)) > 8) {
       $("#vehiclePhotosContainer").removeClass("hidden");
 
       Swal.fire({
@@ -460,7 +460,7 @@ export class MotorPolicyComponent implements OnInit {
       return null;
     }
 
-    if (!this.isCTPL && !this.isMotorcycle && ((m().year() - parseInt(this.affinity.motorDetails.modelYear)) > 8) && this.affinity.motorDetails.vehiclePhotos.length < 1) {
+    if (!this.isCTPL && ((m().year() - parseInt(this.affinity.motorDetails.modelYear)) > 8) && this.affinity.motorDetails.vehiclePhotos.length < 1) {
       Swal.fire({
         type: 'warning',
         title: 'Policy Issuance',
