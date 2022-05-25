@@ -1608,17 +1608,18 @@ export class CommonService {
   }
 
   getSuffixValue(suffixVal: string) {
+    let suffix = "";
     const list = localStorage.getItem(SUFFIX_LIST);
     if (!_.isEmpty(list) && !_.isEmpty(suffixVal)) {
       const sList = JSON.parse(list);
       sList.forEach(sl => {
         if (sl.TIPO_SUFIJO_NOMBRE == suffixVal) {
-          return ", " + sl.NOM_VALOR;
+          suffix = ", " + sl.NOM_VALOR;
         }
       });
     }
 
-    return "";
+    return suffix;
   }
 
   getFullName(firstName: string, middleName: string, lastName: string, suffixVal: string) {
