@@ -1211,6 +1211,7 @@ export class CommonService {
     // p2030.codNivel3 = 4003;
     // p2030.codNivel3 = 9201;
     p2030.codNivel3 = branchCode;
+    p2030.codNivel3Captura = branchCode;
     p2030.codCia = 1;
     p2030.codFraccPago = 1;
     p2030.codSector = 1; //TODO
@@ -1259,7 +1260,7 @@ export class CommonService {
     p2030.mcaImpresion = ("N");
     p2030.mcaExclusivo = ("N");
     p2030.codUsr = 'TPL01101';
-    p2030.codNivel3Captura = 9201;
+    // p2030.codNivel3Captura = 9201;
     p2030.fecActu = m().format('M/D/YYYY');
     p2030.mcaReaseguroMarco = ("N");
     p2030.tipPolizaTr = ("N");
