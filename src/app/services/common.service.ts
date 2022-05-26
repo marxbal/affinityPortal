@@ -405,7 +405,7 @@ export class CommonService {
 
       // let riesgo = 2;
       let occurence = 2;
-      affinity.paDetails.familyMembers.forEach(function (insured) {
+      affinity.paDetails.familyMembers.forEach((insured) => {
 
         let gender = "MALE";
 
