@@ -5,13 +5,11 @@
       *ngIf="this.affinity.paymentConfirmed == 'Approved'">Payment confirmed, official receipt will be sent to your
       email upon bank confirmation.</h3>
   </div>
-  <div class="col-md-12">
-    <div *ngIf="isCTPL && !isAuthenticated" class="col-xl-12">
-      <div class="alert alert-danger note">
-        <strong>Error:</strong> COC is not yet authenticated. Please contact {{chatEmail}} for assistance.
-      </div>
-      <!-- .note -->
+  <div *ngIf="isCTPL && !isAuthenticated" class="col-md-12">
+    <div class="alert alert-danger note">
+      <strong>Error:</strong> COC is not yet authenticated. Please contact {{chatEmail}} for assistance.
     </div>
+    <!-- .note -->
   </div>
 </div>
 <br />
