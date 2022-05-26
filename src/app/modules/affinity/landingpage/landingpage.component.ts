@@ -140,6 +140,7 @@ export class LandingpageComponent implements OnInit {
               details.title = 'Individual Personal';
               details.icon = 'fa-shield';
               details.isRetro = !iscurrentDate;
+              break;
             case 324:
               details.title = 'Family Personal';
               details.icon = 'fa-shield';

@@ -13,9 +13,11 @@
           <div class="form-group row bottom-break">
             <div class="col-md-12">
               <label for="first_name" class="col-form-label affinity-label">Client Name</label>
-              <div><strong>{{this.affinity.riskDetails.firstName}}<span
-                    *ngIf="this.affinity.motorDetails.isCorporate == '1'">
-                    {{this.affinity.riskDetails.middleName}} {{this.affinity.riskDetails.lastName}}</span></strong>
+              <div *ngIf="this.affinity.motorDetails.isCorporate != '1'">
+                <strong>{{this.affinity.riskDetails.firstName}}</strong>
+              </div>
+              <div *ngIf="this.affinity.motorDetails.isCorporate == '1'">
+                <strong>{{fullName}}</span></strong>
               </div>
             </div>
           </div>
