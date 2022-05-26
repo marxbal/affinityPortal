@@ -122,7 +122,7 @@ export class LandingpageComponent implements OnInit {
             } else if (process == 3) {
               details.buttonTitle = status == 2 ? 'Payment Failed' : 'Paid';
             } else if (process == 4) {
-              details.buttonTitle = status == 2 ? 'COC Verified' : 'Verication Failed';
+              details.buttonTitle = status == 2 ? 'Verication Failed' : 'COC Verified';
             }
           }
 
@@ -326,7 +326,8 @@ export class LandingpageComponent implements OnInit {
         type = "51359e8b51c63b87d50cb1bab73380e2";
         break;
       case 4:
-        type = "73015b3208cdee70a4497235463b63d7";
+        // type = "73015b3208cdee70a4497235463b63d7";
+        type = "51359e8b51c63b87d50cb1bab73380e2";
         break;
       default:
         type = "c453a4b8e8d98e82f35b67f433e3b4da";
