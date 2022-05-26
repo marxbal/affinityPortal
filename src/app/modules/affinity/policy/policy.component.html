@@ -5,6 +5,14 @@
       *ngIf="this.affinity.paymentConfirmed == 'Approved'">Payment confirmed, official receipt will be sent to your
       email upon bank confirmation.</h3>
   </div>
+  <div class="col-md-12">
+    <div *ngIf="isCTPL && !isAuthenticated" class="col-xl-12">
+      <div class="alert alert-danger note">
+        <strong>Error:</strong> COC is not yet authenticated. Please contact {{chatEmail}} for assistance.
+      </div>
+      <!-- .note -->
+    </div>
+  </div>
 </div>
 <br />
 <div class="row">
@@ -15,9 +23,11 @@
           <div class="form-group row bottom-break">
             <div class="col-md-12">
               <label for="first_name" class="col-form-label affinity-label">Client Name</label>
-              <div><strong>{{this.affinity.riskDetails.firstName}}<span
-                    *ngIf="this.affinity.motorDetails.isCorporate == '1'">
-                    {{this.affinity.riskDetails.middleName}} {{this.affinity.riskDetails.lastName}}</span></strong>
+              <div *ngIf="this.affinity.motorDetails.isCorporate != '1'">
+                <strong>{{this.affinity.riskDetails.firstName}}</strong>
+              </div>
+              <div *ngIf="this.affinity.motorDetails.isCorporate == '1'">
+                <strong>{{fullName}}</strong>
               </div>
             </div>
           </div>
@@ -256,9 +266,8 @@
   <div class="col-md-4">
     <div class="card">
       <div class="card-body">
-        <button class="btn btn-mapfre btn-block mt-3 mb-3" (click)="printPolicy()"><b>Print Policy</b></button>
-        <button class="btn btn-mapfre btn-block mt-3 mb-3" data-toggle="modal" data-target="#emailModal"
-              (click)="sendEmail()"><b>Email Policy</b></button>
+        <button *ngIf="showPolicy" class="btn btn-mapfre btn-block mt-3 mb-3" (click)="printPolicy()"><b>Print Policy</b></button>
+        <button *ngIf="showPolicy" class="btn btn-mapfre btn-block mt-3 mb-3" data-toggle="modal" data-target="#emailModal" (click)="sendEmail()"><b>Email Policy</b></button>
 
         <div class="text-center">
           <label for="first_name" class="col-form-label affinity-label">Policy Number</label>
