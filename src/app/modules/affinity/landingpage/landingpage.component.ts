@@ -312,7 +312,8 @@ export class LandingpageComponent implements OnInit {
     }
   }
 
-  loadPolicy(issue, type, numPoliza) {
+  loadPolicy(issue: any, type: string, numPoliza: string) {
+    this.spinner.show();
     type = "";
 
     switch (issue.codProcess) {
