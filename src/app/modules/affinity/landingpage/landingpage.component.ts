@@ -334,11 +334,9 @@ export class LandingpageComponent implements OnInit {
         break;
     }
 
-    this.router.navigateByUrl('issuance/' + type + '/' + numPoliza);
-
-    // this.router.navigate(['issuance/' + type + '/' + numPoliza]).then(() => {
-    //   window.location.reload();
-    // });
+    this.router.navigate(['issuance/' + type + '/' + numPoliza]).then(() => {
+      window.location.reload();
+    });
     // setTimeout(function () {
     //   window.location.reload();
     // }, 10);
