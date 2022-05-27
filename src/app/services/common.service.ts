@@ -401,7 +401,7 @@ export class CommonService {
         ['TXT_OCCUPATION', affinity.riskDetails.occupation.split(':=:')[0], '1', affinity.riskDetails.occupation.split(':=:')[1], 'N', 'S', 'S'],
         ['TXT_HEALTH_DECLARA', healthDeclaration.charAt(0), '1', healthDeclaration, 'N', 'S', 'S'],
         ['TXT_HEALTH_DECLARA_EXIST', ((affinity.riskDetails.preExistingIllness) ? affinity.riskDetails.preExistingIllness.toUpperCase() : ""), '1', null, 'N', 'S', 'S'],
-        ['COD_EST_CIVIL', affinity.riskDetails.civilStatus, '1', txtCvlStatus, 'N', 'S', 'S'],
+        // ['COD_EST_CIVIL', affinity.riskDetails.civilStatus, '1', txtCvlStatus, 'N', 'S', 'S'],
       ];
 
       for (let x = 0; x < vars1.length; x++) {
