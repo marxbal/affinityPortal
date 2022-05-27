@@ -372,6 +372,23 @@ export class CommonService {
       }
 
       const suffix = this.getSuffixValue(affinity.riskDetails.suffix, false);
+      const civilStatus = affinity.riskDetails.civilStatus;
+      let txtCvlStatus = "SINGLE";
+      switch (civilStatus) {
+        case "C":
+          txtCvlStatus = "MARRIED";
+          break;
+        case "V":
+          txtCvlStatus = "WIDOWED";
+          break;
+        case "D":
+          txtCvlStatus = "DIVORCED";
+          break;
+        case "P":
+          txtCvlStatus = "SINGLE PARENT";
+          break;
+      }
+
       let vars1 = [
         ['TXT_LAST_NAME', affinity.riskDetails.lastName.toUpperCase(), '1', null, 'N', 'S', 'S'],
         ['TXT_FIRST_NAME', ((affinity.riskDetails.firstName) ? affinity.riskDetails.firstName.toUpperCase() : ""), '1', null, 'N', 'S', 'S'],
@@ -383,7 +400,8 @@ export class CommonService {
         ['COD_OCCUPATIONAL_CLASS', affinity.riskDetails.occupationalClass.split(':=:')[0], '1', affinity.riskDetails.occupationalClass.split(':=:')[1], 'N', 'S', 'S'],
         ['TXT_OCCUPATION', affinity.riskDetails.occupation.split(':=:')[0], '1', affinity.riskDetails.occupation.split(':=:')[1], 'N', 'S', 'S'],
         ['TXT_HEALTH_DECLARA', healthDeclaration.charAt(0), '1', healthDeclaration, 'N', 'S', 'S'],
-        ['TXT_HEALTH_DECLARA_EXIST', ((affinity.riskDetails.preExistingIllness) ? affinity.riskDetails.preExistingIllness.toUpperCase() : ""), '1', null, 'N', 'S', 'S']
+        ['TXT_HEALTH_DECLARA_EXIST', ((affinity.riskDetails.preExistingIllness) ? affinity.riskDetails.preExistingIllness.toUpperCase() : ""), '1', null, 'N', 'S', 'S'],
+        ['COD_EST_CIVIL', affinity.riskDetails.civilStatus, '1', txtCvlStatus, 'N', 'S', 'S'],
       ];
 
       for (let x = 0; x < vars1.length; x++) {
