@@ -313,7 +313,6 @@ export class LandingpageComponent implements OnInit {
   }
 
   loadPolicy(issue: any, type: string, numPoliza: string) {
-    this.spinner.show();
     type = "";
 
     switch (issue.codProcess) {
@@ -335,10 +334,12 @@ export class LandingpageComponent implements OnInit {
         break;
     }
 
-    this.router.navigate(['issuance/' + type + '/' + numPoliza]);
-    setTimeout(function () {
+    this.router.navigate(['issuance/' + type + '/' + numPoliza]).then(() => {
       window.location.reload();
-    }, 10);
+    });
+    // setTimeout(function () {
+    //   window.location.reload();
+    // }, 10);
   }
 
   openRetroInfo() {
