@@ -61,6 +61,7 @@ import {
   ACCIDENT,
   CAR
 } from 'src/app/objects/line';
+import { removeSummaryDuplicates } from '@angular/compiler';
 
 @Component({
   selector: 'app-personal',
@@ -147,7 +148,12 @@ export class PersonalComponent implements OnInit {
         "1",
         "COD_RAMO~324|COD_CAMPO~COD_EST_CIVIL|FEC_VALIDEZ~01012016|COD_MODALIDAD~99999|COD_CIA~1").subscribe(
         result => {
-          this.affinity.lov.civilStatusLOV = result;
+          const arr = [];
+          result.forEach(w => {
+            let dd = {'COD_VALOR' : w.COD_EST_CIVIL, 'NOM_VALOR' : w.NOM_VALOR};
+            arr.push(dd);
+          });
+          this.affinity.lov.civilStatusLOV = arr;
           this.spinner.hide();
         });
     } else {

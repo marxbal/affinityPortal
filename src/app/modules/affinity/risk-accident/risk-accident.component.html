@@ -39,7 +39,7 @@
           <select class="form-control required pa-personal" name="Civil Status" id="civilStatus"
             [(ngModel)]="this.affinity.riskDetails.civilStatus">
             <option value="0" disabled="disabled">Please choose Civil Status</option>
-            <option *ngFor="let civil of this.affinity.lov.civilStatusLOV" value="{{civil.COD_EST_CIVIL}}">
+            <option *ngFor="let civil of this.affinity.lov.civilStatusLOV" value="{{civil.NOM_VALOR}}">
               {{civil.NOM_VALOR}}</option>
           </select>
         </div>
