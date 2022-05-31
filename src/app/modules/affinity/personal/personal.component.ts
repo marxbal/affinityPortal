@@ -143,23 +143,23 @@ export class PersonalComponent implements OnInit {
 
 
     if (this.line == ACCIDENT) {
-      this.caller.getLOV(
-        "G2990006",
-        "1",
-        "COD_RAMO~324|COD_CAMPO~COD_EST_CIVIL|FEC_VALIDEZ~01012016|COD_MODALIDAD~99999|COD_CIA~1").subscribe(
-        result => {
-          const arr = [];
-          result.forEach(w => {
-            let dd = {'COD_EST_CIVIL' : w.COD_VALOR, 'NOM_VALOR' : w.NOM_VALOR};
-            arr.push(dd);
+      // this.caller.getLOV(
+      //   "G2990006",
+      //   "1",
+      //   "COD_RAMO~324|COD_CAMPO~COD_EST_CIVIL|FEC_VALIDEZ~01012016|COD_MODALIDAD~99999|COD_CIA~1").subscribe(
+      //   result => {
+      //     const arr = [];
+      //     result.forEach(w => {
+      //       let dd = {'COD_EST_CIVIL' : w.COD_VALOR, 'NOM_VALOR' : w.NOM_VALOR};
+      //       arr.push(dd);
+      //     });
+      //     this.affinity.lov.civilStatusLOV = arr;
+      //     this.spinner.hide();
+      //   });
+        this.caller.getOptionList('EN', 'COD_EST_CIVIL', '999').subscribe(
+          result => {
+            this.affinity.lov.civilStatusLOV = result;
           });
-          this.affinity.lov.civilStatusLOV = arr;
-          this.spinner.hide();
-        });
-        // this.caller.getOptionList('EN', 'COD_EST_CIVIL', '999').subscribe(
-        //   result => {
-        //     this.affinity.lov.civilStatusLOV = result;
-        //   });
     } else {
       this.caller.getOptionList('EN', 'COD_EST_CIVIL', '999').subscribe(
         result => {

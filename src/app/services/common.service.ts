@@ -393,22 +393,22 @@ export class CommonService {
         //   status = "SWC";
         //   break;
 
-          case "M":
-          txtCvlStatus = "MARRIED";
-          status = "M";
-          break;
-        case "W":
-          txtCvlStatus = "WIDOW / WIDOWER";
-          status = "W";
-          break;
-        case "D":
-          txtCvlStatus = "DIVORCED";
-          status = "D";
-          break;
-        case "SWC":
-          txtCvlStatus = "SINGLE WITH CHILD / CHILDREN";
-          status = "SWC";
-          break;
+        //   case "M":
+        //   txtCvlStatus = "MARRIED";
+        //   status = "M";
+        //   break;
+        // case "W":
+        //   txtCvlStatus = "WIDOW / WIDOWER";
+        //   status = "W";
+        //   break;
+        // case "D":
+        //   txtCvlStatus = "DIVORCED";
+        //   status = "D";
+        //   break;
+        // case "SWC":
+        //   txtCvlStatus = "SINGLE WITH CHILD / CHILDREN";
+        //   status = "SWC";
+        //   break;
       }
 
       let vars1 = [
@@ -421,7 +421,7 @@ export class CommonService {
         ['BIRTHDATE', m(affinity.riskDetails.birthDate).format('DDMMYYYY'), '1', null, 'N', 'S', 'S'],
         ['COD_OCCUPATIONAL_CLASS', affinity.riskDetails.occupationalClass.split(':=:')[0], '1', affinity.riskDetails.occupationalClass.split(':=:')[1], 'N', 'S', 'S'],
         ['TXT_OCCUPATION', affinity.riskDetails.occupation.split(':=:')[0], '1', affinity.riskDetails.occupation.split(':=:')[1], 'N', 'S', 'S'],
-        ['COD_EST_CIVIL', status, '1', txtCvlStatus, 'N', 'S', 'S'],
+        // ['COD_EST_CIVIL', status, '1', txtCvlStatus, 'N', 'S', 'S'],
         ['TXT_HEALTH_DECLARA', healthDeclaration.charAt(0), '1', healthDeclaration, 'N', 'S', 'S'],
         ['TXT_HEALTH_DECLARA_EXIST', ((affinity.riskDetails.preExistingIllness) ? affinity.riskDetails.preExistingIllness.toUpperCase() : ""), '1', null, 'N', 'S', 'S']
       ];
