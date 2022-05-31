@@ -142,7 +142,10 @@ export class PersonalComponent implements OnInit {
 
 
     if (this.line == ACCIDENT) {
-      this.caller.getLOV("g2990006", "1", "COD_CIA~1|COD_RAMO~324|COD_MODALIDAD~99999|COD_CAMPO~COD_EST_CIVIL|FEC_VALIDEZ~01012016").subscribe(
+      this.caller.getLOV(
+        "G2990006",
+        "1",
+        "COD_RAMO~324|COD_CAMPO~COD_OCCUPATIONAL_CLASS|FEC_VALIDEZ~01012016|COD_MODALIDAD~99999|COD_CIA~1").subscribe(
         result => {
           this.affinity.lov.nationalityLOV = result;
           this.spinner.hide();
