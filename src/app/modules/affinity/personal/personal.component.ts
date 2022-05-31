@@ -140,10 +140,19 @@ export class PersonalComponent implements OnInit {
         this.affinity.lov.documentLOV = result;
       });
 
-    this.caller.getOptionList('EN', 'COD_EST_CIVIL', '999').subscribe(
-      result => {
-        this.affinity.lov.civilStatusLOV = result;
-      });
+
+    if (this.line != ACCIDENT) {
+      this.caller.getLOV("g2990006", "1", "COD_CIA~1|COD_RAMO~324|COD_MODALIDAD~99999|COD_CAMPO~COD_EST_CIVIL|FEC_VALIDEZ~01012016").subscribe(
+        result => {
+          this.affinity.lov.nationalityLOV = result;
+          this.spinner.hide();
+        });
+    } else {
+      this.caller.getOptionList('EN', 'COD_EST_CIVIL', '999').subscribe(
+        result => {
+          this.affinity.lov.civilStatusLOV = result;
+        });
+    }
 
     this.caller.getLOV("A1000101", "1", "").subscribe(
       result => {
