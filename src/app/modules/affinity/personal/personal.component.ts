@@ -147,7 +147,7 @@ export class PersonalComponent implements OnInit {
         "1",
         "COD_RAMO~324|COD_CAMPO~COD_EST_CIVIL|FEC_VALIDEZ~01012016|COD_MODALIDAD~99999|COD_CIA~1").subscribe(
         result => {
-          this.affinity.lov.nationalityLOV = result;
+          this.affinity.lov.civilStatusLOV = result;
           this.spinner.hide();
         });
     } else {
