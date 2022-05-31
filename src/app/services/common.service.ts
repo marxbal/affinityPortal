@@ -376,11 +376,28 @@ export class CommonService {
       let status = "S";
       let txtCvlStatus = "SINGLE";
       switch (civilStatus) {
-        case "C":
+        // case "C":
+        //   txtCvlStatus = "MARRIED";
+        //   status = "M";
+        //   break;
+        // case "V":
+        //   txtCvlStatus = "WIDOW / WIDOWER";
+        //   status = "W";
+        //   break;
+        // case "D":
+        //   txtCvlStatus = "DIVORCED";
+        //   status = "D";
+        //   break;
+        // case "P":
+        //   txtCvlStatus = "SINGLE WITH CHILD / CHILDREN";
+        //   status = "SWC";
+        //   break;
+
+          case "M":
           txtCvlStatus = "MARRIED";
           status = "M";
           break;
-        case "V":
+        case "W":
           txtCvlStatus = "WIDOW / WIDOWER";
           status = "W";
           break;
@@ -388,7 +405,7 @@ export class CommonService {
           txtCvlStatus = "DIVORCED";
           status = "D";
           break;
-        case "P":
+        case "SWC":
           txtCvlStatus = "SINGLE WITH CHILD / CHILDREN";
           status = "SWC";
           break;
