@@ -373,19 +373,24 @@ export class CommonService {
 
       const suffix = this.getSuffixValue(affinity.riskDetails.suffix, false);
       const civilStatus = affinity.riskDetails.civilStatus;
+      let status = "S";
       let txtCvlStatus = "SINGLE";
       switch (civilStatus) {
         case "C":
           txtCvlStatus = "MARRIED";
+          status = "M";
           break;
         case "V":
-          txtCvlStatus = "WIDOWED";
+          txtCvlStatus = "WIDOW / WIDOWER";
+          status = "W";
           break;
         case "D":
           txtCvlStatus = "DIVORCED";
+          status = "D";
           break;
         case "P":
-          txtCvlStatus = "SINGLE PARENT";
+          txtCvlStatus = "SINGLE WITH CHILD / CHILDREN";
+          status = "SWC";
           break;
       }
 
@@ -401,7 +406,7 @@ export class CommonService {
         ['TXT_OCCUPATION', affinity.riskDetails.occupation.split(':=:')[0], '1', affinity.riskDetails.occupation.split(':=:')[1], 'N', 'S', 'S'],
         ['TXT_HEALTH_DECLARA', healthDeclaration.charAt(0), '1', healthDeclaration, 'N', 'S', 'S'],
         ['TXT_HEALTH_DECLARA_EXIST', ((affinity.riskDetails.preExistingIllness) ? affinity.riskDetails.preExistingIllness.toUpperCase() : ""), '1', null, 'N', 'S', 'S'],
-        ['COD_EST_CIVIL', 'M', '1', txtCvlStatus, 'N', 'S', 'S'],
+        ['COD_EST_CIVIL', status, '1', txtCvlStatus, 'N', 'S', 'S'],
       ];
 
       for (let x = 0; x < vars1.length; x++) {
