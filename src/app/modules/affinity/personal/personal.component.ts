@@ -150,7 +150,7 @@ export class PersonalComponent implements OnInit {
         result => {
           const arr = [];
           result.forEach(w => {
-            let dd = {'COD_VALOR' : w.COD_EST_CIVIL, 'NOM_VALOR' : w.NOM_VALOR};
+            let dd = {'COD_EST_CIVIL' : w.COD_VALOR, 'NOM_VALOR' : w.NOM_VALOR};
             arr.push(dd);
           });
           this.affinity.lov.civilStatusLOV = arr;
